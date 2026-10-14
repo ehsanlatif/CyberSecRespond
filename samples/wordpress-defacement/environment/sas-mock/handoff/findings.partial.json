@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+      "attck": "T1190",
+      "confidence": "high",
+      "evidence": "`/var/www/html/wp-content/plugins/contact/inc.php`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

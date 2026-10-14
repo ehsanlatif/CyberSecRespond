@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/log4shell-webshell"
+    },
+    "trial_name": "log4shell-webshell__dTdhgKc",
+    "trials_dir": "jobs/2026-08-16__09-25-17",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "b3f4fa18-a5e0-4eeb-a7ac-5713052acd82"
+}

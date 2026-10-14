@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/tmp/.X11-unix/.xorg",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/tmp/.X11-unix/.xorg`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

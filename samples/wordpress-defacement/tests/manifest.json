@@ -1,0 +1,183 @@
+{
+  "range_id": "wordpress-defacement",
+  "difficulty": 2,
+  "alert_coverage": 0.6,
+  "platform": {
+    "os": "ubuntu",
+    "version": "20.04"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1190",
+      "desc": "WordPress plugin RCE (CVE-2022-1609)"
+    },
+    {
+      "step": 2,
+      "attck": "T1505.003",
+      "desc": "PHP webshell planted",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1491.001",
+      "desc": "site defacement",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1053.003",
+      "desc": "cron persistence",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1505.003",
+      "desc": ".htaccess redirect",
+      "depends_on": [
+        2
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+      "kind": "php-webshell",
+      "capability": "VUL-01",
+      "alerted": true,
+      "weight": 1.0,
+      "cve": "CVE-2022-1609",
+      "attck": "T1190",
+      "match": [
+        "eval",
+        "base64_decode"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/var/www/html/index.html",
+      "kind": "defaced-page",
+      "capability": "ENT-F01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1491.001",
+      "match": [
+        "hacked",
+        "defaced"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/var/spool/cron/crontabs/www-data",
+      "kind": "cron",
+      "capability": "PER-S01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1053.003",
+      "match": [
+        "wget",
+        "php"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/var/www/html/.htaccess",
+      "kind": "htaccess-redirect",
+      "capability": "PER-W01",
+      "alerted": false,
+      "weight": 1.5,
+      "attck": "T1505.003",
+      "match": [
+        "RewriteRule",
+        "redirect"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/var/www/html/wp-config.php",
+      "kind": "wordpress-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "DB_PASSWORD",
+        "weak"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "block the attacker IP inbound and take the site into maintenance",
+      "verify": "attacker IP is blocked at the web edge",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine the PHP webshell in the contact plugin",
+      "verify": "! test -f /var/www/html/wp-content/plugins/contact/inc.php",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "restore the legitimate index page from backup",
+      "verify": "index page no longer contains defacement markers",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "remove the www-data cron entry",
+      "verify": "! test -f /var/spool/cron/crontabs/www-data",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "remove the malicious .htaccess redirect",
+      "verify": "! grep -q RewriteRule /var/www/html/.htaccess",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-01b",
+      "action": "update the vulnerable plugin past the CVE-2022-1609 fix",
+      "verify": "plugin version is patched",
+      "phase": "harden",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "rotate the WordPress DB and admin credentials",
+      "verify": "credential rotation timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restart the web stack and confirm the site serves the real homepage",
+      "verify": "systemctl is-active apache2 and HTTP 200 on /",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": false,
+  "decoys": [],
+  "signature": "1b88b8daaa21"
+}

@@ -1,0 +1,1873 @@
+[?2004hroot@ca5d1b5317d6:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@ca5d1b5317d6:/app# clear
+[?2004l[H[J[3J[?2004hroot@ca5d1b5317d6:/app# ls -la /sas /sas/handoff /sas/cti /app
+[?2004l/app:
+total 8
+drwxr-xr-x 2 root root 4096 Aug 16 14:39 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 14:52 [01;34m..[0m
+
+/sas:
+total 28
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 14:52 [01;34m..[0m
+-r--r--r-- 1 root root  905 Aug 16 14:03 alerts.json
+-r--r--r-- 1 root root  140 Aug 16 14:03 baseline.json
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34mcti[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34mhandoff[0m
+-r--r--r-- 1 root root  102 Aug 16 14:03 vulns.json
+
+/sas/cti:
+total 32
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1 root root  166 Aug 16 14:28 SOURCES.txt
+-r--r--r-- 1 root root 5830 Aug 16 14:28 [01;35madvisory-page-01.png[0m
+-r--r--r-- 1 root root 3109 Aug 16 14:28 advisory.pdf
+-r--r--r-- 1 root root 2164 Aug 16 14:28 advisory.txt
+-r--r--r-- 1 root root 2296 Aug 16 14:28 [01;35mcampaign-timeline.png[0m
+
+/sas/handoff:
+total 24
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1 root root 1227 Aug 16 14:28 change-ticket.md
+-r--r--r-- 1 root root  336 Aug 16 14:28 findings.partial.json
+-r--r--r-- 1 root root  592 Aug 16 14:28 findings.schema.json
+-r--r--r-- 1 root root 1014 Aug 16 14:28 intake.pdf
+[?2004hroot@ca5d1b5317d6:/app# ls -la /disk
+[?2004ltotal 24
+dr-xr-xr-x 6 root root  4096 Aug 16 14:39 [0m[01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 16 14:52 [01;34m..[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mProgramData[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mUsers[0m
+dr-xr-xr-x 4  502 staff 4096 Aug 16 14:28 [01;34mWindows[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34minetpub[0m
+[?2004hroot@ca5d1b5317d6:/app# cat /sas/alerts.json /sas/baseline.json /sas/vulns.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "exploit-implant",
+    "path": "/Windows/Temp/mssecsvc.exe",
+    "capability": "VUL-01",
+    "summary": "exploit-implant observed at /Windows/Temp/mssecsvc.exe"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "credential-dump",
+    "path": "/Windows/Temp/lsass.dmp",
+    "capability": "ENT-F01",
+    "summary": "credential-dump observed at /Windows/Temp/lsass.dmp"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-03",
+    "kind": "ransomware-binary",
+    "path": "/Users/Public/enc.exe",
+    "capability": "ENT-F02",
+    "summary": "ransomware-binary observed at /Users/Public/enc.exe"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-07",
+    "kind": "smbv1-baseline",
+    "path": "/Windows/System32/drivers/srv.sys",
+    "capability": "BAS-01",
+    "summary": "smbv1-baseline observed at /Windows/System32/drivers/srv.sys"
+  }
+]
+[
+  {
+    "chk": "CHK-07",
+    "path": "/Windows/System32/drivers/srv.sys",
+    "check": "smbv1-baseline",
+    "capability": "BAS-01"
+  }
+]
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2017-0144",
+    "path": "/Windows/Temp/mssecsvc.exe"
+  }
+]
+[?2004hroot@ca5d1b5317d6:/app# cat /sas/cti/advisory.txt /sas/cti/SOURCES.txt
+[?2004lTHREAT INTELLIGENCE ADVISORY — Smb Eternalblue campaign
+=======================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: smb-prod-01   Suspected origin IP: 198.51.100.218
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1210      Exploitation of Remote Services            [lateral-movement]  step 1: SMBv1 exploitation (CVE-2017-0144)
+   T1059.001  PowerShell                                 [execution]  step 2: PowerShell execution
+   T1003.001  LSASS Memory                               [credential-access]  step 3: LSASS credential dump
+   T1486      Data Encrypted for Impact                  [impact]  step 4: ransomware encryption
+   T1546.003  Windows Management Instrumentation Event Subscription [privilege-escalation]  step 5: WMI event subscription
+   T1574.001  DLL                                        [stealth]  step 6: DLL search-order hijack
+   T1070.001  Clear Windows Event Logs                   [defense-evasion]  step 7: System event log clear
+
+3. RELEVANT VULNERABILITIES (source: NVD, US-Gov public domain)
+   CVE-2017-0144  CVSS 8.8 (HIGH) v3.1  CWE=-
+      The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1; Windows 7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10 Gold, 1511, and 1607; and Windows Server 2016 allows remote att
+      ref: http://packetstormsecurity.com/files/154690/DOUBLEPULSAR-Payload-Execution-Neutralization.html
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.218
+   c2     update-smb[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+   wallet 4A000000000000000000c814c46d6253
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+MITRE ATT&CK(R): (C) The MITRE Corporation, CC BY 4.0 (attack.mitre.org).
+CVE/CVSS: U.S. National Vulnerability Database, nvd.nist.gov (public-domain U.S.-Gov work).
+[?2004hroot@ca5d1b5317d6:/app# cat /sas/handoff/change-ticket.md /sas/handoff/findings.schema.json /sas/handoff/findings.partial.json
+[?2004l# CHANGE TICKET  CHG-1677  (DRAFT — reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host — verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence — re-check |
+| 4 | (add) silent persistence you discover | /Windows/System32/wbem/Repository/OBJECTS.DATA | TODO | ticket omits everything not alerted — add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/Windows/Temp/mssecsvc.exe",
+      "attck": "T1210",
+      "confidence": "high",
+      "evidence": "`/Windows/Temp/mssecsvc.exe`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}
+[?2004hroot@ca5d1b5317d6:/app# pdftotext /sas/handoff/intake.pdf - && pdftotext /sas/cti/advisory.pdf -
+[?2004lSOC INCIDENT INTAKE ? smb-eternalblue
+=====================================
+Reported by: monitoring (EDR high-severity alert cluster)
+Opened: 2026-08-11 03:20 UTC Priority: P1
+Initial alerts: see /sas/alerts.json (partial coverage).
+Handoff: alerts undercount persistence and anti-forensics; investigate the whole host and
+reconcile the attached change ticket.
+
+THREAT INTELLIGENCE ADVISORY ? Smb Eternalblue campaign
+=======================================================
+Distribution: TLP:AMBER Analyst handoff Confidence: HIGH (IOCs are defanged)
+Affected host: smb-prod-01 Suspected origin IP: 198.51.100.218
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered
+only part of it; several persistence and anti-forensic actions were silent. Map every on-disk
+finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+T1210
+Exploitation of Remote Services
+[lateral-movement] step 1: SMBv1
+exploitation (CVE-2017-0144)
+T1059.001 PowerShell
+[execution] step 2: PowerShell
+execution
+T1003.001 LSASS Memory
+[credential-access] step 3: LSASS
+credential dump
+T1486
+Data Encrypted for Impact
+[impact] step 4: ransomware
+encryption
+T1546.003 Windows Management Instrumentation Event Subscription [privilege-escalation]
+step 5: WMI event subscription
+T1574.001 DLL
+[stealth] step 6: DLL search-order
+hijack
+T1070.001 Clear Windows Event Logs
+[defense-evasion] step 7: System
+event log clear
+3. RELEVANT VULNERABILITIES (source: NVD, US-Gov public domain)
+CVE-2017-0144 CVSS 8.8 (HIGH) v3.1 CWE=The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1;
+Windows 7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10
+Gold, 1511, and 1607; and Windows Server 2016 allows remote att
+ref: http://packetstormsecurity.com/files/154690/DOUBLEPULSAR-Payload-Execution-Neutraliz
+ation.html
+4. INDICATORS OF COMPROMISE (defanged)
+ip 198.51.100.218
+c2 update-smb[.]example[.]cn
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.
+National Vulnerability Database (public domain).
+
+[?2004hroot@ca5d1b5317d6:/app# find /disk -maxdepth 4
+[?2004l/disk
+/disk/Users
+/disk/Users/Public
+/disk/Users/Public/enc.exe
+/disk/Windows
+/disk/Windows/Temp
+/disk/Windows/Temp/lsass.dmp
+/disk/Windows/Temp/mssecsvc.exe
+/disk/Windows/System32
+/disk/Windows/System32/config
+/disk/Windows/System32/config/RegBack
+/disk/Windows/System32/drivers
+/disk/Windows/System32/drivers/etc
+/disk/Windows/System32/drivers/srv.sys
+/disk/Windows/System32/wbem
+/disk/Windows/System32/wbem/Repository
+/disk/Windows/System32/wbem/wbemcomn.dll
+/disk/Windows/System32/winevt
+/disk/Windows/System32/winevt/Logs
+/disk/inetpub
+/disk/inetpub/logs
+/disk/inetpub/logs/LogFiles
+/disk/inetpub/logs/LogFiles/W3SVC1
+/disk/ProgramData
+/disk/ProgramData/Package Cache
+/disk/ProgramData/Package Cache/inventory.csv
+[?2004hroot@ca5d1b5317d6:/app# find /disk -name "*mssecsvc*" -o -name "*lsass*" -o -name "*enc*" -o -name "*.evtx" -o -name "OBJECTS.DATA" -o -name "*ps1*" -o -name "*PowerShell*"
+[?2004l/disk/Users/Public/enc.exe
+/disk/Windows/Temp/lsass.dmp
+/disk/Windows/Temp/mssecsvc.exe
+/disk/Windows/System32/wbem/Repository/OBJECTS.DATA
+/disk/Windows/System32/winevt/Logs/System.evtx
+[?2004hroot@ca5d1b5317d6:/app# find /disk -type f
+[?2004l/disk/Users/Public/enc.exe
+/disk/Windows/Temp/lsass.dmp
+/disk/Windows/Temp/mssecsvc.exe
+/disk/Windows/System32/config/RegBack/SECURITY.bak
+/disk/Windows/System32/config/RegBack/README.txt
+/disk/Windows/System32/drivers/etc/hosts
+/disk/Windows/System32/drivers/srv.sys
+/disk/Windows/System32/wbem/Repository/OBJECTS.DATA
+/disk/Windows/System32/wbem/wbemcomn.dll
+/disk/Windows/System32/winevt/Logs/System.evtx
+/disk/Windows/System32/winevt/Logs/Security-events.csv
+/disk/inetpub/logs/LogFiles/W3SVC1/u_ex.log
+/disk/ProgramData/Package Cache/inventory.csv
+[?2004hroot@ca5d1b5317d6:/app# ls -la /disk/Users/Public/enc.exe /disk/Windows/Temp/lsass.dmp /disk/Windows/Temp/mssecsvc.exe /disk/Windows/System32/config/RegBack/SECURITY.bak /disk/Windows/System32/config/RegBack/README.txt /disk/Windows/System32/drivers/etc/hosts /disk/Windows/System32/drivers/srv.sys /disk/Windows/System32/wbem/Repository/OBJECTS.DATA /disk/Windows/System32/wbem/wbemcomn.dll /disk/Windows/System32/winevt/Logs/System.evtx /disk/Windows/System32/winevt/Logs/Security-events.csv /disk/inetpub/logs/LogFiles/W3SVC1/u_ex.log "/disk/ProgramData/Package Cache/inventory.csv"
+[?2004l-r--r--r-- 1 502 staff  1396 Aug 16 14:28 '/disk/ProgramData/Package Cache/inventory.csv'
+-r--r--r-- 1 502 staff  2246 Aug 16 14:28  /disk/Users/Public/enc.exe
+-r--r--r-- 1 502 staff    31 Aug 16 14:28  /disk/Windows/System32/config/RegBack/README.txt
+-r--r--r-- 1 502 staff   411 Aug 16 14:28  [0m[00;90m/disk/Windows/System32/config/RegBack/SECURITY.bak[0m
+-r--r--r-- 1 502 staff    20 Aug 16 14:28  /disk/Windows/System32/drivers/etc/hosts
+-r--r--r-- 1 502 staff  2207 Aug 16 14:28  /disk/Windows/System32/drivers/srv.sys
+-r--r--r-- 1 502 staff  2252 Aug 16 14:28  /disk/Windows/System32/wbem/Repository/OBJECTS.DATA
+-r--r--r-- 1 502 staff  2245 Aug 16 14:28  /disk/Windows/System32/wbem/wbemcomn.dll
+-r--r--r-- 1 502 staff 29336 Aug 16 14:28  /disk/Windows/System32/winevt/Logs/Security-events.csv
+-r--r--r-- 1 502 staff  4096 Aug 16 14:28  /disk/Windows/System32/winevt/Logs/System.evtx
+-r--r--r-- 1 502 staff  2251 Aug 16 14:28  /disk/Windows/Temp/lsass.dmp
+-r--r--r-- 1 502 staff  2235 Aug 16 14:28  /disk/Windows/Temp/mssecsvc.exe
+-r--r--r-- 1 502 staff 15450 Aug 16 14:28  /disk/inetpub/logs/LogFiles/W3SVC1/u_ex.log
+[?2004hroot@ca5d1b5317d6:/app# cat /disk/Windows/System32/config/RegBack/README.txt /disk/Windows/System32/drivers/etc/hosts /disk/inetpub/logs/LogFiles/W3SVC1/u_ex.log "/disk/ProgramData/Package Cache/inventory.csv"
+[?2004lRegistry backup hive location.
+127.0.0.1 localhost
+#Fields: date time c-ip cs-method cs-uri-stem sc-status
+2026-08-11 19:01:02 10.10.113.62 GET /images/logo.png 200
+2026-08-11 12:29:49 10.10.113.123 GET /api/health 200
+2026-08-11 14:05:57 10.10.113.34 GET /api/health 200
+2026-08-11 01:38:00 10.10.113.154 GET / 200
+2026-08-11 01:47:16 10.10.113.233 GET /api/health 200
+2026-08-11 13:34:18 10.10.113.212 GET /api/health 200
+2026-08-11 17:27:24 10.10.113.143 GET /images/logo.png 200
+2026-08-11 23:32:24 10.10.113.181 GET /images/logo.png 200
+2026-08-11 20:33:55 10.10.113.46 GET / 200
+2026-08-11 01:31:58 10.10.113.211 GET /api/health 200
+2026-08-11 11:26:25 10.10.113.30 GET /images/logo.png 200
+2026-08-11 13:15:50 10.10.113.133 GET / 200
+2026-08-11 22:02:44 10.10.113.213 GET / 200
+2026-08-11 07:14:45 10.10.113.228 GET / 200
+2026-08-11 20:00:07 10.10.113.79 GET /app 200
+2026-08-11 12:07:06 10.10.113.160 GET /api/health 200
+2026-08-11 12:54:35 10.10.113.84 GET /app 200
+2026-08-11 00:31:15 10.10.113.244 GET /api/health 200
+2026-08-11 21:25:07 10.10.113.20 GET /images/logo.png 200
+2026-08-11 23:36:13 10.10.113.29 GET /api/health 200
+2026-08-11 20:13:11 10.10.113.113 GET /images/logo.png 200
+2026-08-11 14:53:26 10.10.113.22 GET /api/health 200
+2026-08-11 14:49:29 10.10.113.105 GET /app 200
+2026-08-11 20:21:15 10.10.113.196 GET /app 200
+2026-08-11 16:09:07 10.10.113.74 GET /app 200
+2026-08-11 19:05:18 10.10.113.24 GET /app 200
+2026-08-11 10:35:09 10.10.113.40 GET /app 200
+2026-08-11 23:24:58 10.10.113.114 GET /app 200
+2026-08-11 00:05:11 10.10.113.152 GET /images/logo.png 200
+2026-08-11 22:08:43 10.10.113.93 GET / 200
+2026-08-11 05:26:10 10.10.113.41 GET / 200
+2026-08-11 16:10:56 10.10.113.233 GET /images/logo.png 200
+2026-08-11 12:25:45 10.10.113.169 GET /images/logo.png 200
+2026-08-11 18:08:29 10.10.113.182 GET /app 200
+2026-08-11 22:31:42 10.10.113.26 GET / 200
+2026-08-11 16:13:20 10.10.113.16 GET /app 200
+2026-08-11 21:48:59 10.10.113.196 GET /api/health 200
+2026-08-11 14:29:41 10.10.113.227 GET /api/health 200
+2026-08-11 12:16:39 10.10.113.193 GET /images/logo.png 200
+2026-08-11 22:07:16 10.10.113.61 GET / 200
+2026-08-11 20:32:23 10.10.113.187 GET /api/health 200
+2026-08-11 23:12:09 10.10.113.243 GET /api/health 200
+2026-08-11 15:22:29 10.10.113.137 GET /api/health 200
+2026-08-11 09:08:37 10.10.113.132 GET /api/health 200
+2026-08-11 09:36:39 10.10.113.81 GET /api/health 200
+2026-08-11 15:05:43 10.10.113.159 GET /images/logo.png 200
+2026-08-11 13:48:08 10.10.113.76 GET /images/logo.png 200
+2026-08-11 19:15:47 10.10.113.208 GET / 200
+2026-08-11 02:25:45 10.10.113.45 GET /images/logo.png 200
+2026-08-11 15:03:39 10.10.113.3 GET /api/health 200
+2026-08-11 08:08:04 10.10.113.3 GET / 200
+2026-08-11 13:57:21 10.10.113.182 GET /images/logo.png 200
+2026-08-11 23:21:56 10.10.113.105 GET / 200
+2026-08-11 20:44:25 10.10.113.213 GET /images/logo.png 200
+2026-08-11 14:48:12 10.10.113.17 GET /images/logo.png 200
+2026-08-11 07:53:11 10.10.113.232 GET /images/logo.png 200
+2026-08-11 10:48:18 10.10.113.235 GET /app 200
+2026-08-11 13:47:44 10.10.113.79 GET /api/health 200
+2026-08-11 16:42:56 10.10.113.36 GET /api/health 200
+2026-08-11 10:17:58 10.10.113.25 GET / 200
+2026-08-11 18:22:29 10.10.113.216 GET /images/logo.png 200
+2026-08-11 08:36:22 10.10.113.209 GET /api/health 200
+2026-08-11 16:10:54 10.10.113.182 GET /api/health 200
+2026-08-11 23:35:36 10.10.113.88 GET /api/health 200
+2026-08-11 07:42:38 10.10.113.164 GET /app 200
+2026-08-11 19:01:38 10.10.113.149 GET /images/logo.png 200
+2026-08-11 08:32:19 10.10.113.219 GET /api/health 200
+2026-08-11 05:04:12 10.10.113.216 GET / 200
+2026-08-11 04:43:36 10.10.113.188 GET /images/logo.png 200
+2026-08-11 08:27:27 10.10.113.155 GET /images/logo.png 200
+2026-08-11 13:50:04 10.10.113.86 GET /api/health 200
+2026-08-11 16:10:24 10.10.113.227 GET /images/logo.png 200
+2026-08-11 09:08:50 10.10.113.5 GET /app 200
+2026-08-11 13:59:05 10.10.113.179 GET /images/logo.png 200
+2026-08-11 22:28:24 10.10.113.4 GET /api/health 200
+2026-08-11 00:36:04 10.10.113.205 GET /app 200
+2026-08-11 20:21:20 10.10.113.53 GET /images/logo.png 200
+2026-08-11 20:31:59 10.10.113.17 GET / 200
+2026-08-11 20:10:21 10.10.113.56 GET / 200
+2026-08-11 09:22:21 10.10.113.184 GET /images/logo.png 200
+2026-08-11 08:52:44 10.10.113.191 GET / 200
+2026-08-11 06:04:55 10.10.113.46 GET /app 200
+2026-08-11 21:09:24 10.10.113.210 GET /api/health 200
+2026-08-11 11:24:25 10.10.113.27 GET / 200
+2026-08-11 00:52:10 10.10.113.184 GET / 200
+2026-08-11 00:17:30 10.10.113.72 GET /app 200
+2026-08-11 17:32:57 10.10.113.143 GET /api/health 200
+2026-08-11 10:29:27 10.10.113.67 GET / 200
+2026-08-11 22:18:02 10.10.113.202 GET /api/health 200
+2026-08-11 10:20:39 10.10.113.71 GET /api/health 200
+2026-08-11 15:52:24 10.10.113.83 GET / 200
+2026-08-11 20:33:37 10.10.113.127 GET /api/health 200
+2026-08-11 16:36:26 10.10.113.12 GET /api/health 200
+2026-08-11 11:48:05 10.10.113.87 GET / 200
+2026-08-11 16:42:50 10.10.113.93 GET /images/logo.png 200
+2026-08-11 00:00:35 10.10.113.225 GET /api/health 200
+2026-08-11 20:32:21 10.10.113.73 GET / 200
+2026-08-11 04:29:12 10.10.113.139 GET /images/logo.png 200
+2026-08-11 03:48:00 10.10.113.76 GET /images/logo.png 200
+2026-08-11 01:01:16 10.10.113.43 GET /images/logo.png 200
+2026-08-11 10:30:56 10.10.113.93 GET /images/logo.png 200
+2026-08-11 03:23:29 10.10.113.136 GET /app 200
+2026-08-11 03:23:42 10.10.113.88 GET /images/logo.png 200
+2026-08-11 10:10:57 10.10.113.242 GET /api/health 200
+2026-08-11 05:30:07 10.10.113.231 GET /images/logo.png 200
+2026-08-11 22:51:43 10.10.113.32 GET /api/health 200
+2026-08-11 17:57:04 10.10.113.165 GET /app 200
+2026-08-11 23:56:05 10.10.113.135 GET /api/health 200
+2026-08-11 18:18:00 10.10.113.24 GET /images/logo.png 200
+2026-08-11 06:28:27 10.10.113.163 GET /images/logo.png 200
+2026-08-11 04:58:57 10.10.113.227 GET /api/health 200
+2026-08-11 11:20:29 10.10.113.81 GET /images/logo.png 200
+2026-08-11 15:50:36 10.10.113.181 GET /api/health 200
+2026-08-11 20:45:53 10.10.113.201 GET /app 200
+2026-08-11 23:33:03 10.10.113.52 GET /app 200
+2026-08-11 08:29:52 10.10.113.155 GET /app 200
+2026-08-11 23:04:57 10.10.113.130 GET /app 200
+2026-08-11 13:20:14 10.10.113.9 GET / 200
+2026-08-11 05:54:59 10.10.113.89 GET /app 200
+2026-08-11 16:34:22 10.10.113.174 GET /api/health 200
+2026-08-11 18:42:32 10.10.113.23 GET /app 200
+2026-08-11 10:03:14 10.10.113.27 GET / 200
+2026-08-11 15:11:55 10.10.113.111 GET /images/logo.png 200
+2026-08-11 20:55:48 10.10.113.160 GET /images/logo.png 200
+2026-08-11 10:13:05 10.10.113.158 GET /images/logo.png 200
+2026-08-11 18:15:49 10.10.113.230 GET / 200
+2026-08-11 04:33:39 10.10.113.53 GET /images/logo.png 200
+2026-08-11 21:36:35 10.10.113.223 GET /api/health 200
+2026-08-11 04:25:58 10.10.113.239 GET /app 200
+2026-08-11 16:01:48 10.10.113.227 GET /images/logo.png 200
+2026-08-11 22:08:18 10.10.113.107 GET /app 200
+2026-08-11 08:53:44 10.10.113.199 GET /app 200
+2026-08-11 08:53:59 10.10.113.55 GET /api/health 200
+2026-08-11 18:49:06 10.10.113.9 GET /images/logo.png 200
+2026-08-11 20:06:27 10.10.113.22 GET /api/health 200
+2026-08-11 08:47:45 10.10.113.35 GET /api/health 200
+2026-08-11 06:34:15 10.10.113.9 GET /api/health 200
+2026-08-11 05:45:36 10.10.113.68 GET /api/health 200
+2026-08-11 23:09:13 10.10.113.211 GET /app 200
+2026-08-11 23:18:51 10.10.113.143 GET /images/logo.png 200
+2026-08-11 19:31:01 10.10.113.137 GET /api/health 200
+2026-08-11 05:32:48 10.10.113.82 GET /api/health 200
+2026-08-11 04:34:21 10.10.113.164 GET / 200
+2026-08-11 21:58:55 10.10.113.82 GET /app 200
+2026-08-11 13:48:30 10.10.113.208 GET /images/logo.png 200
+2026-08-11 09:40:00 10.10.113.20 GET /images/logo.png 200
+2026-08-11 23:24:24 10.10.113.2 GET /app 200
+2026-08-11 03:57:26 10.10.113.212 GET /app 200
+2026-08-11 18:41:08 10.10.113.6 GET /api/health 200
+2026-08-11 09:03:08 10.10.113.32 GET / 200
+2026-08-11 00:32:58 10.10.113.158 GET / 200
+2026-08-11 01:14:47 10.10.113.170 GET /api/health 200
+2026-08-11 13:18:24 10.10.113.235 GET / 200
+2026-08-11 16:50:50 10.10.113.102 GET / 200
+2026-08-11 02:05:21 10.10.113.194 GET /app 200
+2026-08-11 03:10:23 10.10.113.196 GET /images/logo.png 200
+2026-08-11 01:53:44 10.10.113.172 GET / 200
+2026-08-11 04:03:10 10.10.113.184 GET /app 200
+2026-08-11 19:03:37 10.10.113.224 GET /api/health 200
+2026-08-11 09:26:43 10.10.113.59 GET /api/health 200
+2026-08-11 14:11:45 10.10.113.51 GET /app 200
+2026-08-11 04:12:19 10.10.113.228 GET /images/logo.png 200
+2026-08-11 11:27:00 10.10.113.199 GET /images/logo.png 200
+2026-08-11 12:11:43 10.10.113.72 GET /images/logo.png 200
+2026-08-11 21:09:23 10.10.113.116 GET / 200
+2026-08-11 13:06:23 10.10.113.15 GET /images/logo.png 200
+2026-08-11 01:18:10 10.10.113.203 GET / 200
+2026-08-11 05:57:28 10.10.113.5 GET /api/health 200
+2026-08-11 16:32:37 10.10.113.199 GET /api/health 200
+2026-08-11 22:40:48 10.10.113.35 GET / 200
+2026-08-11 05:37:12 10.10.113.115 GET /api/health 200
+2026-08-11 15:34:54 10.10.113.79 GET / 200
+2026-08-11 10:34:16 10.10.113.232 GET /app 200
+2026-08-11 22:52:56 10.10.113.203 GET /api/health 200
+2026-08-11 23:01:06 10.10.113.130 GET / 200
+2026-08-11 11:01:16 10.10.113.142 GET /app 200
+2026-08-11 11:15:41 10.10.113.73 GET / 200
+2026-08-11 19:25:44 10.10.113.158 GET /app 200
+2026-08-11 00:05:17 10.10.113.78 GET / 200
+2026-08-11 12:05:23 10.10.113.161 GET /api/health 200
+2026-08-11 04:05:55 10.10.113.143 GET /app 200
+2026-08-11 08:38:43 10.10.113.131 GET /app 200
+2026-08-11 20:42:06 10.10.113.163 GET /api/health 200
+2026-08-11 05:11:46 10.10.113.78 GET /api/health 200
+2026-08-11 01:27:47 10.10.113.93 GET /images/logo.png 200
+2026-08-11 08:35:14 10.10.113.227 GET /images/logo.png 200
+2026-08-11 10:26:08 10.10.113.116 GET /app 200
+2026-08-11 19:00:43 10.10.113.91 GET /images/logo.png 200
+2026-08-11 14:00:59 10.10.113.27 GET /api/health 200
+2026-08-11 12:03:32 10.10.113.227 GET /api/health 200
+2026-08-11 20:02:26 10.10.113.30 GET /api/health 200
+2026-08-11 10:35:28 10.10.113.223 GET /images/logo.png 200
+2026-08-11 02:39:14 10.10.113.64 GET /api/health 200
+2026-08-11 01:04:24 10.10.113.48 GET /images/logo.png 200
+2026-08-11 12:32:27 10.10.113.26 GET /app 200
+2026-08-11 06:41:03 10.10.113.88 GET / 200
+2026-08-11 22:01:23 10.10.113.57 GET /api/health 200
+2026-08-11 10:08:44 10.10.113.107 GET /app 200
+2026-08-11 07:34:33 10.10.113.209 GET /images/logo.png 200
+2026-08-11 05:27:43 10.10.113.105 GET / 200
+2026-08-11 04:59:43 10.10.113.6 GET /app 200
+2026-08-11 14:25:33 10.10.113.229 GET / 200
+2026-08-11 19:53:06 10.10.113.164 GET /images/logo.png 200
+2026-08-11 08:24:50 10.10.113.183 GET /api/health 200
+2026-08-11 09:07:13 10.10.113.120 GET /api/health 200
+2026-08-11 04:02:44 10.10.113.121 GET / 200
+2026-08-11 07:42:02 10.10.113.145 GET /images/logo.png 200
+2026-08-11 18:20:06 10.10.113.41 GET /api/health 200
+2026-08-11 23:25:07 10.10.113.124 GET /images/logo.png 200
+2026-08-11 11:09:50 10.10.113.179 GET /api/health 200
+2026-08-11 23:53:40 10.10.113.110 GET / 200
+2026-08-11 06:48:52 10.10.113.31 GET / 200
+2026-08-11 19:51:13 10.10.113.203 GET /images/logo.png 200
+2026-08-11 20:09:21 10.10.113.20 GET /app 200
+2026-08-11 02:41:42 10.10.113.31 GET /api/health 200
+2026-08-11 01:47:17 10.10.113.68 GET /api/health 200
+2026-08-11 21:42:19 10.10.113.8 GET /app 200
+2026-08-11 20:09:07 10.10.113.17 GET /app 200
+2026-08-11 06:34:26 10.10.113.144 GET /images/logo.png 200
+2026-08-11 09:42:32 10.10.113.192 GET /images/logo.png 200
+2026-08-11 16:59:23 10.10.113.51 GET /api/health 200
+2026-08-11 20:12:17 10.10.113.81 GET /images/logo.png 200
+2026-08-11 05:34:05 10.10.113.38 GET / 200
+2026-08-11 10:34:04 10.10.113.111 GET /api/health 200
+2026-08-11 06:32:06 10.10.113.105 GET / 200
+2026-08-11 16:52:09 10.10.113.101 GET /images/logo.png 200
+2026-08-11 21:57:43 10.10.113.100 GET /images/logo.png 200
+2026-08-11 23:20:15 10.10.113.137 GET /api/health 200
+2026-08-11 07:27:27 10.10.113.206 GET /api/health 200
+2026-08-11 13:16:45 10.10.113.180 GET /api/health 200
+2026-08-11 02:18:22 10.10.113.78 GET /api/health 200
+2026-08-11 06:33:58 10.10.113.24 GET / 200
+2026-08-11 11:02:44 10.10.113.140 GET /api/health 200
+2026-08-11 03:39:36 10.10.113.233 GET /app 200
+2026-08-11 22:29:58 10.10.113.206 GET /app 200
+2026-08-11 19:58:09 10.10.113.173 GET /images/logo.png 200
+2026-08-11 16:38:12 10.10.113.37 GET /app 200
+2026-08-11 10:17:45 10.10.113.204 GET /images/logo.png 200
+2026-08-11 12:29:08 10.10.113.163 GET / 200
+2026-08-11 04:46:13 10.10.113.242 GET / 200
+2026-08-11 01:12:18 10.10.113.129 GET /images/logo.png 200
+2026-08-11 16:00:45 10.10.113.70 GET /images/logo.png 200
+2026-08-11 07:15:28 10.10.113.181 GET / 200
+2026-08-11 09:20:56 10.10.113.122 GET / 200
+2026-08-11 10:56:43 10.10.113.59 GET /api/health 200
+2026-08-11 07:29:50 10.10.113.57 GET /api/health 200
+2026-08-11 09:20:31 10.10.113.138 GET /api/health 200
+2026-08-11 01:28:05 10.10.113.204 GET /images/logo.png 200
+2026-08-11 14:24:46 10.10.113.205 GET /api/health 200
+2026-08-11 06:55:57 10.10.113.26 GET / 200
+2026-08-11 20:02:31 10.10.113.120 GET / 200
+2026-08-11 23:21:37 10.10.113.38 GET / 200
+2026-08-11 00:59:08 10.10.113.105 GET /app 200
+2026-08-11 03:53:26 10.10.113.115 GET /api/health 200
+2026-08-11 17:37:13 10.10.113.250 GET / 200
+2026-08-11 06:23:53 10.10.113.115 GET / 200
+2026-08-11 12:42:33 10.10.113.91 GET /api/health 200
+2026-08-11 08:39:07 10.10.113.139 GET /api/health 200
+2026-08-11 03:20:14 10.10.113.7 GET /images/logo.png 200
+2026-08-11 13:01:25 10.10.113.72 GET /api/health 200
+2026-08-11 19:39:54 10.10.113.81 GET / 200
+2026-08-11 03:30:15 10.10.113.176 GET / 200
+2026-08-11 20:53:04 10.10.113.112 GET /api/health 200
+2026-08-11 05:56:03 10.10.113.145 GET /images/logo.png 200
+2026-08-11 10:31:26 10.10.113.232 GET /images/logo.png 200
+2026-08-11 04:32:05 10.10.113.137 GET /app 200
+2026-08-11 05:22:10 10.10.113.73 GET /api/health 200
+2026-08-11 22:28:49 10.10.113.67 GET /api/health 200
+2026-08-11 07:27:45 10.10.113.30 GET /images/logo.png 200
+2026-08-11 05:04:24 10.10.113.179 GET / 200
+2026-08-11 01:45:49 10.10.113.147 GET /api/health 200
+2026-08-11 06:21:05 10.10.113.200 GET /api/health 200
+2026-08-11 22:06:25 10.10.113.153 GET / 200
+2026-08-11 07:48:01 10.10.113.154 GET / 200
+2026-08-11 05:10:17 10.10.113.159 GET /images/logo.png 200
+2026-08-11 18:20:59 10.10.113.192 GET /app 200
+2026-08-11 03:52:58 10.10.113.213 GET /api/health 200
+2026-08-11 01:04:52 10.10.113.70 GET / 200
+2026-08-11 17:24:31 10.10.113.123 GET /images/logo.png 200
+2026-08-11 15:43:04 10.10.113.218 GET /app 200
+2026-08-11 13:22:17 10.10.113.24 GET / 200
+2026-08-11 19:06:45 10.10.113.145 GET /app 200
+2026-08-11 10:09:01 10.10.113.190 GET / 200
+2026-08-11 21:27:31 10.10.113.205 GET / 200
+2026-08-11 20:28:02 10.10.113.161 GET /images/logo.png 200
+2026-08-11 08:40:01 10.10.113.128 GET /images/logo.png 200
+2026-08-11 08:00:12 10.10.113.13 GET /api/health 200
+2026-08-11 05:32:58 10.10.113.187 GET /images/logo.png 200
+2026-08-11 03:33:31 10.10.113.209 GET /images/logo.png 200
+2026-08-11 09:04:54 10.10.113.249 GET /app 200
+2026-08-11 19:59:24 10.10.113.16 GET /api/health 200
+2026-08-11 04:36:22 10.10.113.191 GET /app 200
+2026-08-11 05:56:26 10.10.113.54 GET /api/health 200
+2026-08-11 11:57:27 10.10.113.12 GET /app 200
+2026-08-11 03:47:41 10.10.113.155 GET /images/logo.png 200
+2026-08-11 15:28:24 10.10.113.209 GET /api/health 200
+2026-08-11 08:58:41 10.10.113.10 GET / 200
+2026-08-11 02:25:38 10.10.113.12 GET /api/health 200
+2026-08-11 02:42:18 10.10.113.203 GET /images/logo.png 200
+2026-08-11 02:39:07 10.10.113.37 GET /app 200
+package,version,installed
+pkg0,1.4.0,2026-07-01
+pkg1,1.3.0,2026-07-02
+pkg2,1.7.0,2026-07-03
+pkg3,1.3.0,2026-07-04
+pkg4,1.9.0,2026-07-05
+pkg5,1.2.0,2026-07-06
+pkg6,1.5.0,2026-07-07
+pkg7,1.4.0,2026-07-08
+pkg8,1.8.0,2026-07-09
+pkg9,1.0.0,2026-07-10
+pkg10,1.0.0,2026-07-11
+pkg11,1.8.0,2026-07-12
+pkg12,1.7.0,2026-07-13
+pkg13,1.9.0,2026-07-14
+pkg14,1.4.0,2026-07-15
+pkg15,1.4.0,2026-07-16
+pkg16,1.7.0,2026-07-17
+pkg17,1.8.0,2026-07-18
+pkg18,1.9.0,2026-07-19
+pkg19,1.0.0,2026-07-20
+pkg20,1.6.0,2026-07-21
+pkg21,1.9.0,2026-07-22
+pkg22,1.8.0,2026-07-23
+pkg23,1.2.0,2026-07-24
+pkg24,1.1.0,2026-07-25
+pkg25,1.6.0,2026-07-26
+pkg26,1.4.0,2026-07-27
+pkg27,1.4.0,2026-07-01
+pkg28,1.7.0,2026-07-02
+pkg29,1.3.0,2026-07-03
+pkg30,1.4.0,2026-07-04
+pkg31,1.3.0,2026-07-05
+pkg32,1.0.0,2026-07-06
+pkg33,1.8.0,2026-07-07
+pkg34,1.6.0,2026-07-08
+pkg35,1.6.0,2026-07-09
+pkg36,1.7.0,2026-07-10
+pkg37,1.6.0,2026-07-11
+pkg38,1.6.0,2026-07-12
+pkg39,1.5.0,2026-07-13
+pkg40,1.2.0,2026-07-14
+pkg41,1.2.0,2026-07-15
+pkg42,1.2.0,2026-07-16
+pkg43,1.0.0,2026-07-17
+pkg44,1.1.0,2026-07-18
+pkg45,1.6.0,2026-07-19
+pkg46,1.8.0,2026-07-20
+pkg47,1.0.0,2026-07-21
+pkg48,1.3.0,2026-07-22
+pkg49,1.8.0,2026-07-23
+pkg50,1.4.0,2026-07-24
+pkg51,1.3.0,2026-07-25
+pkg52,1.2.0,2026-07-26
+pkg53,1.7.0,2026-07-27
+pkg54,1.1.0,2026-07-01
+pkg55,1.5.0,2026-07-02
+pkg56,1.5.0,2026-07-03
+pkg57,1.7.0,2026-07-04
+pkg58,1.8.0,2026-07-05
+pkg59,1.3.0,2026-07-06
+[?2004hroot@ca5d1b5317d6:/app# head -n 20 /disk/Windows/System32/winevt/Logs/Security-events.csv
+[?2004lTimeCreated,EventID,Level,Provider,Account,Message
+2026-08-11 10:29:37,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 06:39:28,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 18:45:07,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 08:19:20,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:07:10,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:07:18,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 03:02:42,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 21:42:22,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:06:28,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 10:19:07,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 13:23:28,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 02:44:26,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:43:27,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 11:05:58,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 12:46:46,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:21:21,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 15:00:06,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 12:38:08,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:26:31,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+[?2004hroot@ca5d1b5317d6:/app# python3 -c "import csv; f=open('/disk/Windows/System32/winevt/Logs/Security-events.csv'); r=csv.reader(f); print(next(r)); print(list(r)[:10])"
+[?2004l['TimeCreated', 'EventID', 'Level', 'Provider', 'Account', 'Message']
+[['2026-08-11 10:29:37', '5140', 'Information', 'Microsoft-Windows-Security-Auditing', 'SYSTEM', 'routine event'], ['2026-08-11 06:39:28', '4688', 'Information', 'Microsoft-Windows-Security-Auditing', 'SYSTEM', 'routine event'], ['2026-08-11 18:45:07', '4672', 'Information', 'Microsoft-Windows-Security-Auditing', 'Administrator', 'routine event'], ['2026-08-11 08:19:20', '4688', 'Information', 'Microsoft-Windows-Security-Auditing', 'svc-backup', 'routine event'], ['2026-08-11 19:07:10', '4634', 'Information', 'Microsoft-Windows-Security-Auditing', 'SYSTEM', 'routine event'], ['2026-08-11 10:07:18', '5140', 'Information', 'Microsoft-Windows-Security-Auditing', 'SYSTEM', 'routine event'], ['2026-08-11 03:02:42', '4624', 'Information', 'Microsoft-Windows-Security-Auditing', 'Administrator', 'routine event'], ['2026-08-11 21:42:22', '5140', 'Information', 'Microsoft-Windows-Security-Auditing', 'svc-backup', 'routine event'], ['2026-08-11 10:06:28', '4672', 'Information', 'Microsoft-Windows-Security-Auditing', 'Administrator', 'routine event'], ['2026-08-11 10:19:07', '4672', 'Information', 'Microsoft-Windows-Security-Auditing', 'SYSTEM', 'routine event']]
+[?2004hroot@ca5d1b5317d6:/app# strings -e l /disk/Windows/System32/wbem/Repository/OBJECTS.DATA | head -n 30; strings /disk/Windows/System32/wbem/Repository/OBJECTS.DATA | head -n 30
+[?2004lSYNTHETIC-INERT-SAMPLE (wmi-subscription) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+WMI persistence: an __EventFilter bound to a CommandLineEventConsumer (defanged)
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+[?2004hroot@ca5d1b5317d6:/app# strings /disk/Windows/System32/wbem/wbemcomn.dll | head -n 30; strings /disk/Windows/Temp/mssecsvc.exe | head -n 30
+[?2004lSYNTHETIC-INERT-SAMPLE (hijacked-dll) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+DLL search-order hijack / sideload: attacker DLL placed beside the app binary
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+SYNTHETIC-INERT-SAMPLE (exploit-implant) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+SMB exploit implant (DoublePulsar-class) ? inert defanged sample
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+[?2004hroot@ca5d1b5317d6:/app# strings /disk/Users/Public/enc.exe | head -n 20; strings /disk/Windows/Temp/lsass.dmp | head -n 20
+[?2004lSYNTHETIC-INERT-SAMPLE (ransomware-binary) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+ransomware sample: encrypts user files to .locked and drops a ransom note
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+SYNTHETIC-INERT-SAMPLE (credential-dump) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+LSASS memory dump captured (credential-dumping tool residue), saved as lsass.dmp
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+[?2004hroot@ca5d1b5317d6:/app# strings /disk/Windows/System32/config/RegBack/SECURITY.bak | head -n 20; strings /disk/Windows/System32/drivers/srv.sys | head -n 20
+[?2004lpartial recover: C2 beacon to 198.51.100.218 domain update-smb[.]example[.]cn
+credential cache fragment (defanged): administrator:<ntlm-hash-redacted>
+SYNTHETIC-INERT-SAMPLE (smbv1-baseline) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+SMBv1 enabled; MS17-010 patch missing
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+[?2004hroot@ca5d1b5317d6:/app# strings /disk/Windows/System32/winevt/Logs/System.evtx | head -n 30
+[?2004lElfFile
+Security event log cleared (EventID 1102) ? anti-forensic log tampering
+EventID 4624 An account was successfully logged on (type 10)
+EventID 4688 A new process has been created
+[?2004hroot@ca5d1b5317d6:/app# for f in $(find /disk -type f); do echo "=== $f ==="; strings "$f" | grep -v "pseudo hexdump" | grep -v "^[0-9a-f]\{8\}  "; done
+[?2004l=== /disk/Users/Public/enc.exe ===
+SYNTHETIC-INERT-SAMPLE (ransomware-binary) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+ransomware sample: encrypts user files to .locked and drops a ransom note
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+=== /disk/Windows/Temp/lsass.dmp ===
+SYNTHETIC-INERT-SAMPLE (credential-dump) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+LSASS memory dump captured (credential-dumping tool residue), saved as lsass.dmp
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+=== /disk/Windows/Temp/mssecsvc.exe ===
+SYNTHETIC-INERT-SAMPLE (exploit-implant) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+SMB exploit implant (DoublePulsar-class) ? inert defanged sample
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+=== /disk/Windows/System32/config/RegBack/SECURITY.bak ===
+partial recover: C2 beacon to 198.51.100.218 domain update-smb[.]example[.]cn
+credential cache fragment (defanged): administrator:<ntlm-hash-redacted>
+=== /disk/Windows/System32/config/RegBack/README.txt ===
+Registry backup hive location.
+=== /disk/Windows/System32/drivers/etc/hosts ===
+127.0.0.1 localhost
+=== /disk/Windows/System32/drivers/srv.sys ===
+SYNTHETIC-INERT-SAMPLE (smbv1-baseline) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+SMBv1 enabled; MS17-010 patch missing
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+=== /disk/Windows/System32/wbem/Repository/OBJECTS.DATA ===
+SYNTHETIC-INERT-SAMPLE (wmi-subscription) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+WMI persistence: an __EventFilter bound to a CommandLineEventConsumer (defanged)
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+=== /disk/Windows/System32/wbem/wbemcomn.dll ===
+SYNTHETIC-INERT-SAMPLE (hijacked-dll) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+DLL search-order hijack / sideload: attacker DLL placed beside the app binary
+pool stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+wallet 4A000000000000000000c814c46d6253
+config.json
+=== /disk/Windows/System32/winevt/Logs/System.evtx ===
+ElfFile
+Security event log cleared (EventID 1102) ? anti-forensic log tampering
+EventID 4624 An account was successfully logged on (type 10)
+EventID 4688 A new process has been created
+=== /disk/Windows/System32/winevt/Logs/Security-events.csv ===
+TimeCreated,EventID,Level,Provider,Account,Message
+2026-08-11 10:29:37,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 06:39:28,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 18:45:07,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 08:19:20,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:07:10,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:07:18,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 03:02:42,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 21:42:22,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:06:28,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 10:19:07,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 13:23:28,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 02:44:26,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:43:27,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 11:05:58,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 12:46:46,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:21:21,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 15:00:06,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 12:38:08,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:26:31,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:37:21,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 23:41:50,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 14:29:18,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:28:54,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:39:53,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 09:04:22,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 17:35:47,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 22:51:16,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 09:13:22,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 16:58:57,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 13:47:28,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 18:10:32,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 21:14:39,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 12:11:32,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 03:30:17,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 08:25:48,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 06:38:04,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 08:45:47,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 00:13:59,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:21:38,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 03:49:17,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 20:49:43,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:52:10,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 21:11:25,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 06:11:59,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:54:28,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:02:40,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 18:31:40,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 11:13:53,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 22:03:19,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:08:30,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 07:22:02,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 01:54:24,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 23:15:24,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 11:59:42,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 02:58:01,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 02:29:08,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 08:57:32,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 00:39:56,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:11:51,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:10:39,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 06:03:03,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 02:47:29,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:51:36,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 05:45:49,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 16:43:25,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:51:52,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 03:58:46,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 23:44:42,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 14:06:01,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 18:50:02,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 23:18:08,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 19:33:27,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 07:54:15,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 08:06:01,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 14:51:10,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 11:09:53,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:48:23,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:15:24,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 00:42:44,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 04:34:47,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 13:24:23,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 05:28:44,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 11:35:03,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 23:35:23,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 07:16:42,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:12:54,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 10:17:42,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 18:31:21,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 17:51:26,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 16:43:37,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 01:45:50,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 09:44:41,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 07:11:56,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 15:24:30,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:57:47,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 06:26:22,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:21:56,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 23:03:48,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:46:41,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 08:19:00,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:05:50,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:00:39,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 03:10:10,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:23:01,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 12:50:46,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:13:51,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:44:27,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:59:25,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:05:21,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 00:50:53,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 15:51:03,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 23:07:24,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 20:50:28,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 05:38:48,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:12:50,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 23:12:30,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 03:35:59,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:02:53,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 18:30:15,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 22:21:45,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 06:36:36,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:02:46,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 01:45:32,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 21:28:40,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 03:34:52,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 11:00:58,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:52:38,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:36:15,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 23:25:51,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 14:48:50,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 15:55:32,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 12:59:42,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 12:02:20,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:21:26,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 03:22:41,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:48:43,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:06:01,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 12:46:00,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:03:12,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 00:37:47,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 00:33:09,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 01:39:43,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 06:23:24,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 07:26:18,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 05:33:08,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 11:28:56,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 15:27:22,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 09:21:14,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 09:06:16,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 07:27:11,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 16:16:24,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:43:39,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 01:26:25,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 11:49:31,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 20:32:31,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 00:19:43,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:41:45,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 01:47:51,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 14:33:23,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 18:21:34,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 02:46:00,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:33:33,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 20:58:10,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 22:59:52,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 04:38:50,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 05:27:33,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:18:44,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 22:00:46,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 08:36:46,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 19:57:28,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 02:25:59,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 15:30:20,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:04:41,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:48:19,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:44:42,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 09:05:37,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 08:13:05,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 08:34:31,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 20:15:31,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 05:22:28,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 19:10:21,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 17:25:33,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:40:59,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:26:20,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 04:59:41,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 16:36:15,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:53:40,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:30:53,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 21:11:07,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 07:36:59,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:48:39,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 23:20:09,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 22:46:53,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:30:12,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 14:52:14,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 08:18:32,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 18:52:27,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 12:51:27,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 01:22:44,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 16:57:24,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:53:42,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 02:58:41,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 02:28:47,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:03:04,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:01:47,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 08:06:56,4624,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 03:51:35,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 17:13:58,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 05:06:42,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 23:03:32,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:09:09,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 17:19:45,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:14:30,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:26:03,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 12:46:11,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 10:41:16,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:58:46,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 12:21:39,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 01:11:24,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 06:34:05,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 19:09:21,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 08:41:58,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:24:59,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 23:47:48,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 01:04:42,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:46:24,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 00:10:22,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 22:51:23,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 19:57:42,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 04:41:08,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 18:17:22,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 06:38:49,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 15:20:21,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 14:39:44,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 23:01:29,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 10:55:32,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:06:13,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 18:04:40,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 08:39:46,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 21:19:39,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 14:08:48,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 18:47:06,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:16:12,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 12:28:30,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 00:00:34,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 22:00:48,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:47:34,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 03:08:10,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 04:41:08,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 00:31:33,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 13:08:45,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 03:20:27,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 03:57:33,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:27:10,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 10:31:25,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 15:01:31,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 01:25:50,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 06:52:36,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 13:38:29,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 15:02:32,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 18:40:30,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 02:13:09,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 12:13:06,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 16:38:01,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 06:48:17,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 08:52:23,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 20:30:41,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 03:00:50,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 07:09:29,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 05:49:29,5140,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 13:37:02,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 01:18:07,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 09:24:54,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 14:21:14,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 10:00:43,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 07:52:04,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 11:32:22,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 13:10:26,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 23:29:47,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 04:31:35,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 20:29:57,4624,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 15:38:17,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 19:52:11,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 06:42:11,4634,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 22:01:21,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 02:38:59,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 13:59:39,4688,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 08:25:49,4624,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 17:59:04,4672,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 19:48:04,4634,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 02:25:00,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 18:11:39,4688,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 17:38:53,5140,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 15:19:04,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 06:22:20,4672,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 20:58:09,4672,Information,Microsoft-Windows-Security-Auditing,svc-backup,routine event
+2026-08-11 22:19:30,5140,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 09:43:16,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+2026-08-11 17:23:01,4688,Information,Microsoft-Windows-Security-Auditing,SYSTEM,routine event
+2026-08-11 02:45:58,4634,Information,Microsoft-Windows-Security-Auditing,Administrator,routine event
+=== /disk/inetpub/logs/LogFiles/W3SVC1/u_ex.log ===
+#Fields: date time c-ip cs-method cs-uri-stem sc-status
+2026-08-11 19:01:02 10.10.113.62 GET /images/logo.png 200
+2026-08-11 12:29:49 10.10.113.123 GET /api/health 200
+2026-08-11 14:05:57 10.10.113.34 GET /api/health 200
+2026-08-11 01:38:00 10.10.113.154 GET / 200
+2026-08-11 01:47:16 10.10.113.233 GET /api/health 200
+2026-08-11 13:34:18 10.10.113.212 GET /api/health 200
+2026-08-11 17:27:24 10.10.113.143 GET /images/logo.png 200
+2026-08-11 23:32:24 10.10.113.181 GET /images/logo.png 200
+2026-08-11 20:33:55 10.10.113.46 GET / 200
+2026-08-11 01:31:58 10.10.113.211 GET /api/health 200
+2026-08-11 11:26:25 10.10.113.30 GET /images/logo.png 200
+2026-08-11 13:15:50 10.10.113.133 GET / 200
+2026-08-11 22:02:44 10.10.113.213 GET / 200
+2026-08-11 07:14:45 10.10.113.228 GET / 200
+2026-08-11 20:00:07 10.10.113.79 GET /app 200
+2026-08-11 12:07:06 10.10.113.160 GET /api/health 200
+2026-08-11 12:54:35 10.10.113.84 GET /app 200
+2026-08-11 00:31:15 10.10.113.244 GET /api/health 200
+2026-08-11 21:25:07 10.10.113.20 GET /images/logo.png 200
+2026-08-11 23:36:13 10.10.113.29 GET /api/health 200
+2026-08-11 20:13:11 10.10.113.113 GET /images/logo.png 200
+2026-08-11 14:53:26 10.10.113.22 GET /api/health 200
+2026-08-11 14:49:29 10.10.113.105 GET /app 200
+2026-08-11 20:21:15 10.10.113.196 GET /app 200
+2026-08-11 16:09:07 10.10.113.74 GET /app 200
+2026-08-11 19:05:18 10.10.113.24 GET /app 200
+2026-08-11 10:35:09 10.10.113.40 GET /app 200
+2026-08-11 23:24:58 10.10.113.114 GET /app 200
+2026-08-11 00:05:11 10.10.113.152 GET /images/logo.png 200
+2026-08-11 22:08:43 10.10.113.93 GET / 200
+2026-08-11 05:26:10 10.10.113.41 GET / 200
+2026-08-11 16:10:56 10.10.113.233 GET /images/logo.png 200
+2026-08-11 12:25:45 10.10.113.169 GET /images/logo.png 200
+2026-08-11 18:08:29 10.10.113.182 GET /app 200
+2026-08-11 22:31:42 10.10.113.26 GET / 200
+2026-08-11 16:13:20 10.10.113.16 GET /app 200
+2026-08-11 21:48:59 10.10.113.196 GET /api/health 200
+2026-08-11 14:29:41 10.10.113.227 GET /api/health 200
+2026-08-11 12:16:39 10.10.113.193 GET /images/logo.png 200
+2026-08-11 22:07:16 10.10.113.61 GET / 200
+2026-08-11 20:32:23 10.10.113.187 GET /api/health 200
+2026-08-11 23:12:09 10.10.113.243 GET /api/health 200
+2026-08-11 15:22:29 10.10.113.137 GET /api/health 200
+2026-08-11 09:08:37 10.10.113.132 GET /api/health 200
+2026-08-11 09:36:39 10.10.113.81 GET /api/health 200
+2026-08-11 15:05:43 10.10.113.159 GET /images/logo.png 200
+2026-08-11 13:48:08 10.10.113.76 GET /images/logo.png 200
+2026-08-11 19:15:47 10.10.113.208 GET / 200
+2026-08-11 02:25:45 10.10.113.45 GET /images/logo.png 200
+2026-08-11 15:03:39 10.10.113.3 GET /api/health 200
+2026-08-11 08:08:04 10.10.113.3 GET / 200
+2026-08-11 13:57:21 10.10.113.182 GET /images/logo.png 200
+2026-08-11 23:21:56 10.10.113.105 GET / 200
+2026-08-11 20:44:25 10.10.113.213 GET /images/logo.png 200
+2026-08-11 14:48:12 10.10.113.17 GET /images/logo.png 200
+2026-08-11 07:53:11 10.10.113.232 GET /images/logo.png 200
+2026-08-11 10:48:18 10.10.113.235 GET /app 200
+2026-08-11 13:47:44 10.10.113.79 GET /api/health 200
+2026-08-11 16:42:56 10.10.113.36 GET /api/health 200
+2026-08-11 10:17:58 10.10.113.25 GET / 200
+2026-08-11 18:22:29 10.10.113.216 GET /images/logo.png 200
+2026-08-11 08:36:22 10.10.113.209 GET /api/health 200
+2026-08-11 16:10:54 10.10.113.182 GET /api/health 200
+2026-08-11 23:35:36 10.10.113.88 GET /api/health 200
+2026-08-11 07:42:38 10.10.113.164 GET /app 200
+2026-08-11 19:01:38 10.10.113.149 GET /images/logo.png 200
+2026-08-11 08:32:19 10.10.113.219 GET /api/health 200
+2026-08-11 05:04:12 10.10.113.216 GET / 200
+2026-08-11 04:43:36 10.10.113.188 GET /images/logo.png 200
+2026-08-11 08:27:27 10.10.113.155 GET /images/logo.png 200
+2026-08-11 13:50:04 10.10.113.86 GET /api/health 200
+2026-08-11 16:10:24 10.10.113.227 GET /images/logo.png 200
+2026-08-11 09:08:50 10.10.113.5 GET /app 200
+2026-08-11 13:59:05 10.10.113.179 GET /images/logo.png 200
+2026-08-11 22:28:24 10.10.113.4 GET /api/health 200
+2026-08-11 00:36:04 10.10.113.205 GET /app 200
+2026-08-11 20:21:20 10.10.113.53 GET /images/logo.png 200
+2026-08-11 20:31:59 10.10.113.17 GET / 200
+2026-08-11 20:10:21 10.10.113.56 GET / 200
+2026-08-11 09:22:21 10.10.113.184 GET /images/logo.png 200
+2026-08-11 08:52:44 10.10.113.191 GET / 200
+2026-08-11 06:04:55 10.10.113.46 GET /app 200
+2026-08-11 21:09:24 10.10.113.210 GET /api/health 200
+2026-08-11 11:24:25 10.10.113.27 GET / 200
+2026-08-11 00:52:10 10.10.113.184 GET / 200
+2026-08-11 00:17:30 10.10.113.72 GET /app 200
+2026-08-11 17:32:57 10.10.113.143 GET /api/health 200
+2026-08-11 10:29:27 10.10.113.67 GET / 200
+2026-08-11 22:18:02 10.10.113.202 GET /api/health 200
+2026-08-11 10:20:39 10.10.113.71 GET /api/health 200
+2026-08-11 15:52:24 10.10.113.83 GET / 200
+2026-08-11 20:33:37 10.10.113.127 GET /api/health 200
+2026-08-11 16:36:26 10.10.113.12 GET /api/health 200
+2026-08-11 11:48:05 10.10.113.87 GET / 200
+2026-08-11 16:42:50 10.10.113.93 GET /images/logo.png 200
+2026-08-11 00:00:35 10.10.113.225 GET /api/health 200
+2026-08-11 20:32:21 10.10.113.73 GET / 200
+2026-08-11 04:29:12 10.10.113.139 GET /images/logo.png 200
+2026-08-11 03:48:00 10.10.113.76 GET /images/logo.png 200
+2026-08-11 01:01:16 10.10.113.43 GET /images/logo.png 200
+2026-08-11 10:30:56 10.10.113.93 GET /images/logo.png 200
+2026-08-11 03:23:29 10.10.113.136 GET /app 200
+2026-08-11 03:23:42 10.10.113.88 GET /images/logo.png 200
+2026-08-11 10:10:57 10.10.113.242 GET /api/health 200
+2026-08-11 05:30:07 10.10.113.231 GET /images/logo.png 200
+2026-08-11 22:51:43 10.10.113.32 GET /api/health 200
+2026-08-11 17:57:04 10.10.113.165 GET /app 200
+2026-08-11 23:56:05 10.10.113.135 GET /api/health 200
+2026-08-11 18:18:00 10.10.113.24 GET /images/logo.png 200
+2026-08-11 06:28:27 10.10.113.163 GET /images/logo.png 200
+2026-08-11 04:58:57 10.10.113.227 GET /api/health 200
+2026-08-11 11:20:29 10.10.113.81 GET /images/logo.png 200
+2026-08-11 15:50:36 10.10.113.181 GET /api/health 200
+2026-08-11 20:45:53 10.10.113.201 GET /app 200
+2026-08-11 23:33:03 10.10.113.52 GET /app 200
+2026-08-11 08:29:52 10.10.113.155 GET /app 200
+2026-08-11 23:04:57 10.10.113.130 GET /app 200
+2026-08-11 13:20:14 10.10.113.9 GET / 200
+2026-08-11 05:54:59 10.10.113.89 GET /app 200
+2026-08-11 16:34:22 10.10.113.174 GET /api/health 200
+2026-08-11 18:42:32 10.10.113.23 GET /app 200
+2026-08-11 10:03:14 10.10.113.27 GET / 200
+2026-08-11 15:11:55 10.10.113.111 GET /images/logo.png 200
+2026-08-11 20:55:48 10.10.113.160 GET /images/logo.png 200
+2026-08-11 10:13:05 10.10.113.158 GET /images/logo.png 200
+2026-08-11 18:15:49 10.10.113.230 GET / 200
+2026-08-11 04:33:39 10.10.113.53 GET /images/logo.png 200
+2026-08-11 21:36:35 10.10.113.223 GET /api/health 200
+2026-08-11 04:25:58 10.10.113.239 GET /app 200
+2026-08-11 16:01:48 10.10.113.227 GET /images/logo.png 200
+2026-08-11 22:08:18 10.10.113.107 GET /app 200
+2026-08-11 08:53:44 10.10.113.199 GET /app 200
+2026-08-11 08:53:59 10.10.113.55 GET /api/health 200
+2026-08-11 18:49:06 10.10.113.9 GET /images/logo.png 200
+2026-08-11 20:06:27 10.10.113.22 GET /api/health 200
+2026-08-11 08:47:45 10.10.113.35 GET /api/health 200
+2026-08-11 06:34:15 10.10.113.9 GET /api/health 200
+2026-08-11 05:45:36 10.10.113.68 GET /api/health 200
+2026-08-11 23:09:13 10.10.113.211 GET /app 200
+2026-08-11 23:18:51 10.10.113.143 GET /images/logo.png 200
+2026-08-11 19:31:01 10.10.113.137 GET /api/health 200
+2026-08-11 05:32:48 10.10.113.82 GET /api/health 200
+2026-08-11 04:34:21 10.10.113.164 GET / 200
+2026-08-11 21:58:55 10.10.113.82 GET /app 200
+2026-08-11 13:48:30 10.10.113.208 GET /images/logo.png 200
+2026-08-11 09:40:00 10.10.113.20 GET /images/logo.png 200
+2026-08-11 23:24:24 10.10.113.2 GET /app 200
+2026-08-11 03:57:26 10.10.113.212 GET /app 200
+2026-08-11 18:41:08 10.10.113.6 GET /api/health 200
+2026-08-11 09:03:08 10.10.113.32 GET / 200
+2026-08-11 00:32:58 10.10.113.158 GET / 200
+2026-08-11 01:14:47 10.10.113.170 GET /api/health 200
+2026-08-11 13:18:24 10.10.113.235 GET / 200
+2026-08-11 16:50:50 10.10.113.102 GET / 200
+2026-08-11 02:05:21 10.10.113.194 GET /app 200
+2026-08-11 03:10:23 10.10.113.196 GET /images/logo.png 200
+2026-08-11 01:53:44 10.10.113.172 GET / 200
+2026-08-11 04:03:10 10.10.113.184 GET /app 200
+2026-08-11 19:03:37 10.10.113.224 GET /api/health 200
+2026-08-11 09:26:43 10.10.113.59 GET /api/health 200
+2026-08-11 14:11:45 10.10.113.51 GET /app 200
+2026-08-11 04:12:19 10.10.113.228 GET /images/logo.png 200
+2026-08-11 11:27:00 10.10.113.199 GET /images/logo.png 200
+2026-08-11 12:11:43 10.10.113.72 GET /images/logo.png 200
+2026-08-11 21:09:23 10.10.113.116 GET / 200
+2026-08-11 13:06:23 10.10.113.15 GET /images/logo.png 200
+2026-08-11 01:18:10 10.10.113.203 GET / 200
+2026-08-11 05:57:28 10.10.113.5 GET /api/health 200
+2026-08-11 16:32:37 10.10.113.199 GET /api/health 200
+2026-08-11 22:40:48 10.10.113.35 GET / 200
+2026-08-11 05:37:12 10.10.113.115 GET /api/health 200
+2026-08-11 15:34:54 10.10.113.79 GET / 200
+2026-08-11 10:34:16 10.10.113.232 GET /app 200
+2026-08-11 22:52:56 10.10.113.203 GET /api/health 200
+2026-08-11 23:01:06 10.10.113.130 GET / 200
+2026-08-11 11:01:16 10.10.113.142 GET /app 200
+2026-08-11 11:15:41 10.10.113.73 GET / 200
+2026-08-11 19:25:44 10.10.113.158 GET /app 200
+2026-08-11 00:05:17 10.10.113.78 GET / 200
+2026-08-11 12:05:23 10.10.113.161 GET /api/health 200
+2026-08-11 04:05:55 10.10.113.143 GET /app 200
+2026-08-11 08:38:43 10.10.113.131 GET /app 200
+2026-08-11 20:42:06 10.10.113.163 GET /api/health 200
+2026-08-11 05:11:46 10.10.113.78 GET /api/health 200
+2026-08-11 01:27:47 10.10.113.93 GET /images/logo.png 200
+2026-08-11 08:35:14 10.10.113.227 GET /images/logo.png 200
+2026-08-11 10:26:08 10.10.113.116 GET /app 200
+2026-08-11 19:00:43 10.10.113.91 GET /images/logo.png 200
+2026-08-11 14:00:59 10.10.113.27 GET /api/health 200
+2026-08-11 12:03:32 10.10.113.227 GET /api/health 200
+2026-08-11 20:02:26 10.10.113.30 GET /api/health 200
+2026-08-11 10:35:28 10.10.113.223 GET /images/logo.png 200
+2026-08-11 02:39:14 10.10.113.64 GET /api/health 200
+2026-08-11 01:04:24 10.10.113.48 GET /images/logo.png 200
+2026-08-11 12:32:27 10.10.113.26 GET /app 200
+2026-08-11 06:41:03 10.10.113.88 GET / 200
+2026-08-11 22:01:23 10.10.113.57 GET /api/health 200
+2026-08-11 10:08:44 10.10.113.107 GET /app 200
+2026-08-11 07:34:33 10.10.113.209 GET /images/logo.png 200
+2026-08-11 05:27:43 10.10.113.105 GET / 200
+2026-08-11 04:59:43 10.10.113.6 GET /app 200
+2026-08-11 14:25:33 10.10.113.229 GET / 200
+2026-08-11 19:53:06 10.10.113.164 GET /images/logo.png 200
+2026-08-11 08:24:50 10.10.113.183 GET /api/health 200
+2026-08-11 09:07:13 10.10.113.120 GET /api/health 200
+2026-08-11 04:02:44 10.10.113.121 GET / 200
+2026-08-11 07:42:02 10.10.113.145 GET /images/logo.png 200
+2026-08-11 18:20:06 10.10.113.41 GET /api/health 200
+2026-08-11 23:25:07 10.10.113.124 GET /images/logo.png 200
+2026-08-11 11:09:50 10.10.113.179 GET /api/health 200
+2026-08-11 23:53:40 10.10.113.110 GET / 200
+2026-08-11 06:48:52 10.10.113.31 GET / 200
+2026-08-11 19:51:13 10.10.113.203 GET /images/logo.png 200
+2026-08-11 20:09:21 10.10.113.20 GET /app 200
+2026-08-11 02:41:42 10.10.113.31 GET /api/health 200
+2026-08-11 01:47:17 10.10.113.68 GET /api/health 200
+2026-08-11 21:42:19 10.10.113.8 GET /app 200
+2026-08-11 20:09:07 10.10.113.17 GET /app 200
+2026-08-11 06:34:26 10.10.113.144 GET /images/logo.png 200
+2026-08-11 09:42:32 10.10.113.192 GET /images/logo.png 200
+2026-08-11 16:59:23 10.10.113.51 GET /api/health 200
+2026-08-11 20:12:17 10.10.113.81 GET /images/logo.png 200
+2026-08-11 05:34:05 10.10.113.38 GET / 200
+2026-08-11 10:34:04 10.10.113.111 GET /api/health 200
+2026-08-11 06:32:06 10.10.113.105 GET / 200
+2026-08-11 16:52:09 10.10.113.101 GET /images/logo.png 200
+2026-08-11 21:57:43 10.10.113.100 GET /images/logo.png 200
+2026-08-11 23:20:15 10.10.113.137 GET /api/health 200
+2026-08-11 07:27:27 10.10.113.206 GET /api/health 200
+2026-08-11 13:16:45 10.10.113.180 GET /api/health 200
+2026-08-11 02:18:22 10.10.113.78 GET /api/health 200
+2026-08-11 06:33:58 10.10.113.24 GET / 200
+2026-08-11 11:02:44 10.10.113.140 GET /api/health 200
+2026-08-11 03:39:36 10.10.113.233 GET /app 200
+2026-08-11 22:29:58 10.10.113.206 GET /app 200
+2026-08-11 19:58:09 10.10.113.173 GET /images/logo.png 200
+2026-08-11 16:38:12 10.10.113.37 GET /app 200
+2026-08-11 10:17:45 10.10.113.204 GET /images/logo.png 200
+2026-08-11 12:29:08 10.10.113.163 GET / 200
+2026-08-11 04:46:13 10.10.113.242 GET / 200
+2026-08-11 01:12:18 10.10.113.129 GET /images/logo.png 200
+2026-08-11 16:00:45 10.10.113.70 GET /images/logo.png 200
+2026-08-11 07:15:28 10.10.113.181 GET / 200
+2026-08-11 09:20:56 10.10.113.122 GET / 200
+2026-08-11 10:56:43 10.10.113.59 GET /api/health 200
+2026-08-11 07:29:50 10.10.113.57 GET /api/health 200
+2026-08-11 09:20:31 10.10.113.138 GET /api/health 200
+2026-08-11 01:28:05 10.10.113.204 GET /images/logo.png 200
+2026-08-11 14:24:46 10.10.113.205 GET /api/health 200
+2026-08-11 06:55:57 10.10.113.26 GET / 200
+2026-08-11 20:02:31 10.10.113.120 GET / 200
+2026-08-11 23:21:37 10.10.113.38 GET / 200
+2026-08-11 00:59:08 10.10.113.105 GET /app 200
+2026-08-11 03:53:26 10.10.113.115 GET /api/health 200
+2026-08-11 17:37:13 10.10.113.250 GET / 200
+2026-08-11 06:23:53 10.10.113.115 GET / 200
+2026-08-11 12:42:33 10.10.113.91 GET /api/health 200
+2026-08-11 08:39:07 10.10.113.139 GET /api/health 200
+2026-08-11 03:20:14 10.10.113.7 GET /images/logo.png 200
+2026-08-11 13:01:25 10.10.113.72 GET /api/health 200
+2026-08-11 19:39:54 10.10.113.81 GET / 200
+2026-08-11 03:30:15 10.10.113.176 GET / 200
+2026-08-11 20:53:04 10.10.113.112 GET /api/health 200
+2026-08-11 05:56:03 10.10.113.145 GET /images/logo.png 200
+2026-08-11 10:31:26 10.10.113.232 GET /images/logo.png 200
+2026-08-11 04:32:05 10.10.113.137 GET /app 200
+2026-08-11 05:22:10 10.10.113.73 GET /api/health 200
+2026-08-11 22:28:49 10.10.113.67 GET /api/health 200
+2026-08-11 07:27:45 10.10.113.30 GET /images/logo.png 200
+2026-08-11 05:04:24 10.10.113.179 GET / 200
+2026-08-11 01:45:49 10.10.113.147 GET /api/health 200
+2026-08-11 06:21:05 10.10.113.200 GET /api/health 200
+2026-08-11 22:06:25 10.10.113.153 GET / 200
+2026-08-11 07:48:01 10.10.113.154 GET / 200
+2026-08-11 05:10:17 10.10.113.159 GET /images/logo.png 200
+2026-08-11 18:20:59 10.10.113.192 GET /app 200
+2026-08-11 03:52:58 10.10.113.213 GET /api/health 200
+2026-08-11 01:04:52 10.10.113.70 GET / 200
+2026-08-11 17:24:31 10.10.113.123 GET /images/logo.png 200
+2026-08-11 15:43:04 10.10.113.218 GET /app 200
+2026-08-11 13:22:17 10.10.113.24 GET / 200
+2026-08-11 19:06:45 10.10.113.145 GET /app 200
+2026-08-11 10:09:01 10.10.113.190 GET / 200
+2026-08-11 21:27:31 10.10.113.205 GET / 200
+2026-08-11 20:28:02 10.10.113.161 GET /images/logo.png 200
+2026-08-11 08:40:01 10.10.113.128 GET /images/logo.png 200
+2026-08-11 08:00:12 10.10.113.13 GET /api/health 200
+2026-08-11 05:32:58 10.10.113.187 GET /images/logo.png 200
+2026-08-11 03:33:31 10.10.113.209 GET /images/logo.png 200
+2026-08-11 09:04:54 10.10.113.249 GET /app 200
+2026-08-11 19:59:24 10.10.113.16 GET /api/health 200
+2026-08-11 04:36:22 10.10.113.191 GET /app 200
+2026-08-11 05:56:26 10.10.113.54 GET /api/health 200
+2026-08-11 11:57:27 10.10.113.12 GET /app 200
+2026-08-11 03:47:41 10.10.113.155 GET /images/logo.png 200
+2026-08-11 15:28:24 10.10.113.209 GET /api/health 200
+2026-08-11 08:58:41 10.10.113.10 GET / 200
+2026-08-11 02:25:38 10.10.113.12 GET /api/health 200
+2026-08-11 02:42:18 10.10.113.203 GET /images/logo.png 200
+2026-08-11 02:39:07 10.10.113.37 GET /app 200
+=== /disk/ProgramData/Package ===
+strings: '/disk/ProgramData/Package': No such file
+=== Cache/inventory.csv ===
+strings: 'Cache/inventory.csv': No such file
+[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /app/progress.md
+[?2004l[?2004h> # DFIR Investigation Progress & Working Checklist
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Timeline of Investigation
+[?2004l[?2004h> - **2026-08-11 03:20 UTC**: Incident intake logged for target `smb-prod-01` (`/sas/handoff/intake.pdf`). High-severity EDR alert cluster received.
+[?2004l[?2004h> - **Initial Alert Review**: Inspected `/sas/alerts.json`, `/sas/vulns.json`, `/sas/baseline.json`. Observed alerts for exploit implant (`/disk/Windows/Temp/mssecsvc.exe`), LSASS dump (`/disk/Windows/Temp/lsass.dmp`), ransomware (`/disk/Users/Public/enc.exe`), and SMBv1 baseline (`/disk/Windows/System32/drivers/srv.sys`).
+[?2004l[?2004h> - **Disk Artifact Analysis**: Conducted forensic evaluation of read-only image `/disk`. Discovered silent persistence mechanisms and anti-forensic activity omitted from SAS alerts:
+[?2004l[?2004h>   - Silent WMI event subscription (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`).
+[?2004l[?2004h>   - Silent DLL search-order hijacking via `/disk/Windows/System32/wbem/wbemcomn.dll`.
+[?2004l[?2004h>   - Anti-forensic System log clearing recorded in `/disk/Windows/System32/winevt/Logs/System.evtx` (EventID 1102).
+[?2004l[?2004h>   - C2 beacon IP `198.51.100.218` and domain `update-smb.example.cn` recovered from `/disk/Windows/System32/config/RegBack/SECURITY.bak`.
+[?2004l[?2004h> - **Ticket Reconciliation**: Reconciled change ticket `/sas/handoff/change-ticket.md` against on-disk and CTI evidence.
+[?2004l[?2004h> - **Deliverable Generation**: Produced forensic reports, baseline analysis, vulnerability assessment, and remediation plan under `/app`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Checklist
+[?2004l[?2004h> - [x] Analyze alert and vulnerability feeds (`/sas/alerts.json`, `/sas/vulns.json`, `/sas/baseline.json`)
+[?2004l[?2004h> - [x] Review CTI Advisory & ATT&CK Mapping (`/sas/cti/advisory.txt`, `/sas/cti/advisory.pdf`)
+[?2004l[?2004h> - [x] Inspect `/disk` filesystem and evidence artifacts
+[?2004l[?2004h> - [x] Identify entry vector & exploit implant (`/disk/Windows/Temp/mssecsvc.exe`)
+[?2004l[?2004h> - [x] Identify credential dumping artifact (`/disk/Windows/Temp/lsass.dmp`)
+[?2004l[?2004h> - [x] Identify ransomware payload (`/disk/Users/Public/enc.exe`)
+[?2004l[?2004h> - [x] Uncover silent persistence mechanism 1: WMI Event Subscription (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`)
+[?2004l[?2004h> - [x] Uncover silent persistence mechanism 2: DLL Hijacking (`/disk/Windows/System32/wbem/wbemcomn.dll`)
+[?2004l[?2004h> - [x] Uncover silent defense evasion: Event Log Clearing (`/disk/Windows/System32/winevt/Logs/System.evtx`)
+[?2004l[?2004h> - [x] Reconcile change ticket against evidence (`/sas/handoff/change-ticket.md`)
+[?2004l[?2004h> - [x] Compile all 5 required reports in `/app` with backtick citations
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /app/intrusion-report.md
+[?2004l[?2004h> # Post-Compromise Intrusion Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 1. Executive Summary
+[?2004l[?2004h> On host `smb-prod-01`, an external threat actor executed a multi-stage compromise sequence originating from IP `198.51.100.218` (`/sas/cti/advisory.txt`). The intrusion exploited an unpatched SMBv1 vulnerability (CVE-2017-0144 / MS17-010) in `/disk/Windows/System32/drivers/srv.sys` (`/sas/baseline.json`), dropping an initial DoublePulsar-class exploit implant at `/disk/Windows/Temp/mssecsvc.exe` (`/sas/alerts.json`). The threat actor subsequently executed PowerShell scripts, dumped LSASS process memory to `/disk/Windows/Temp/lsass.dmp` (`/sas/alerts.json`), and deployed a ransomware binary at `/disk/Users/Public/enc.exe` (`/sas/alerts.json`).
+[?2004l[?2004h> 
+[?2004l[?2004h> While primary execution and impact activities generated endpoint alerts, the threat actor established silent persistence and evasion mechanisms that were NOT captured by security alerting feeds:
+[?2004l[?2004h> 1. **WMI Event Subscription Persistence** (`T1546.003`): An `__EventFilter` bound to a `CommandLineEventConsumer` recorded in `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`).
+[?2004l[?2004h> 2. **DLL Search-Order Hijacking** (`T1574.001`): A malicious `wbemcomn.dll` placed in `/disk/Windows/System32/wbem/wbemcomn.dll` (`/disk/Windows/System32/wbem/wbemcomn.dll`).
+[?2004l[?2004h> 3. **Anti-Forensic Log Clearing** (`T1070.001`): Wiping of the System event log (EventID 1102) recorded in `/disk/Windows/System32/winevt/Logs/System.evtx` (`/disk/Windows/System32/winevt/Logs/System.evtx`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Threat Actor Entities & Infrastructure
+[?2004l[?2004h> - **Source IP**: `198.51.100.218` (`/sas/cti/advisory.txt`, `/disk/Windows/System32/config/RegBack/SECURITY.bak`)
+[?2004l[?2004h> - **C2 Domain**: `update-smb.example.cn` (`/sas/cti/advisory.txt`, `/disk/Windows/System32/config/RegBack/SECURITY.bak`)
+[?2004l[?2004h> - **Mining Pool / C2 Channel**: `stratum+tcp://xmr.smb.evil:3333` (`/sas/cti/advisory.txt`, `/disk/Windows/Temp/mssecsvc.exe`)
+[?2004l[?2004h> - **Monero Wallet Address**: `4A000000000000000000c814c46d6253` (`/sas/cti/advisory.txt`, `/disk/Windows/Temp/mssecsvc.exe`)
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 3. Detailed Attack Chain & ATT&CK Mapping
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1: Exploitation of Remote Services (T1210)
+[?2004l[?2004h> - **Description**: Threat actor targeted unpatched SMBv1 service (`srv.sys`) using EternalBlue (CVE-2017-0144).
+[?2004l[?2004h> - **Implant Binary**: `/disk/Windows/Temp/mssecsvc.exe` (`/disk/Windows/Temp/mssecsvc.exe`).
+[?2004l[?2004h> - **Alert ID**: `ALERT-01` (`/sas/alerts.json`).
+[?2004l[?2004h> - **Status**: Alerted.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2: PowerShell Execution (T1059.001)
+[?2004l[?2004h> - **Description**: Attacker executed PowerShell commands to conduct post-exploitation activities and stage payloads.
+[?2004l[?2004h> - **Evidence**: Advisory mapping (`/sas/cti/advisory.txt`).
+[?2004l[?2004h> - **Status**: Alerted / Advisory documented.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 3: LSASS Credential Dumping (T1003.001)
+[?2004l[?2004h> - **Description**: Attacker dumped LSASS memory to extract domain credentials.
+[?2004l[?2004h> - **Artifact**: `/disk/Windows/Temp/lsass.dmp` (`/disk/Windows/Temp/lsass.dmp`).
+[?2004l[?2004h> - **Recovered Artifact**: Credential cache fragment in `/disk/Windows/System32/config/RegBack/SECURITY.bak` (`/disk/Windows/System32/config/RegBack/SECURITY.bak`).
+[?2004l[?2004h> - **Alert ID**: `ALERT-02` (`/sas/alerts.json`).
+[?2004l[?2004h> - **Status**: Alerted.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 4: Data Encrypted for Impact (T1486)
+[?2004l[?2004h> - **Description**: Attacker executed ransomware payload to encrypt host user data files.
+[?2004l[?2004h> - **Artifact**: `/disk/Users/Public/enc.exe` (`/disk/Users/Public/enc.exe`).
+[?2004l[?2004h> - **Alert ID**: `ALERT-03` (`/sas/alerts.json`).
+[?2004l[?2004h> - **Status**: Alerted.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 5: WMI Event Subscription Persistence (T1546.003)
+[?2004l[?2004h> - **Description**: Attacker established WMI persistence using an `__EventFilter` bound to a `CommandLineEventConsumer` in the WMI repository.
+[?2004l[?2004h> - **Artifact**: `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`).
+[?2004l[?2004h> - **Status**: **SILENT (Unalerted)**.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 6: DLL Search-Order Hijacking (T1574.001)
+[?2004l[?2004h> - **Description**: Attacker dropped a rogue `wbemcomn.dll` library into the WBEM directory to hijack application DLL search order.
+[?2004l[?2004h> - **Artifact**: `/disk/Windows/System32/wbem/wbemcomn.dll` (`/disk/Windows/System32/wbem/wbemcomn.dll`).
+[?2004l[?2004h> - **Status**: **SILENT (Unalerted)**.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 7: Clear Windows Event Logs (T1070.001)
+[?2004l[?2004h> - **Description**: Attacker cleared the Security/System event logs (EventID 1102) to cover footprints and hinder investigation.
+[?2004l[?2004h> - **Artifact**: `/disk/Windows/System32/winevt/Logs/System.evtx` (`/disk/Windows/System32/winevt/Logs/System.evtx`).
+[?2004l[?2004h> - **Status**: **SILENT (Unalerted)**.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 4. Alerted vs. Silent Activity Matrix
+[?2004l[?2004h> 
+[?2004l[?2004h> | ATT&CK Technique | Description | Artifact Path | Alert Status |
+[?2004l[?2004h> |---|---|---|---|
+[?2004l[?2004h> | `T1210` | SMBv1 EternalBlue Exploit | `/disk/Windows/Temp/mssecsvc.exe` | Alerted (`ALERT-01`, `/sas/alerts.json`) |
+[?2004l[?2004h> | `T1059.001` | PowerShell Execution | System PowerShell | Documented (`/sas/cti/advisory.txt`) |
+[?2004l[?2004h> | `T1003.001` | LSASS Memory Dump | `/disk/Windows/Temp/lsass.dmp` | Alerted (`ALERT-02`, `/sas/alerts.json`) |
+[?2004l[?2004h> | `T1486` | Ransomware Binary | `/disk/Users/Public/enc.exe` | Alerted (`ALERT-03`, `/sas/alerts.json`) |
+[?2004l[?2004h> | `T1546.003` | WMI Event Subscription | `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` | **SILENT** |
+[?2004l[?2004h> | `T1574.001` | DLL Search-Order Hijack | `/disk/Windows/System32/wbem/wbemcomn.dll` | **SILENT** |
+[?2004l[?2004h> | `T1070.001` | System Log Clear | `/disk/Windows/System32/winevt/Logs/System.evtx` | **SILENT** |
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /app/vuln-report.md
+[?2004l[?2004h> # Vulnerability-Driven Entry Analysis Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 1. Executive Summary
+[?2004l[?2004h> The initial entry vector for the compromise of host `smb-prod-01` was the exploitation of the legacy Server Message Block Version 1 (SMBv1) protocol driver `/disk/Windows/System32/drivers/srv.sys` (`/sas/baseline.json`, `/sas/alerts.json`). The vulnerability exploited was **CVE-2017-0144** (commonly associated with MS17-010 / EternalBlue / DoublePulsar), which allowed remote unauthenticated arbitrary code execution at the SYSTEM level.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Vulnerability Assessment & Details
+[?2004l[?2004h> 
+[?2004l[?2004h> - **CVE Identifier**: CVE-2017-0144 (`/sas/vulns.json`, `/sas/cti/advisory.txt`)
+[?2004l[?2004h> - **Severity**: CVSS 8.8 HIGH (v3.1) (`/sas/cti/advisory.txt`)
+[?2004l[?2004h> - **Target Service / Component**: Microsoft Windows SMBv1 Server (`srv.sys`) located at `/disk/Windows/System32/drivers/srv.sys` (`/disk/Windows/System32/drivers/srv.sys`)
+[?2004l[?2004h> - **Exploit Methodology**: Remote code execution via buffer handling vulnerability in SMBv1 request processing.
+[?2004l[?2004h> - **Observed Post-Exploitation Implant**: DoublePulsar-class SMB exploit implant dropped at `/disk/Windows/Temp/mssecsvc.exe` (`/disk/Windows/Temp/mssecsvc.exe`, `/sas/alerts.json`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 3. Discrepancy & Verification Notes
+[?2004l[?2004h> - **Reconciliation with Initial Ticket Draft**: Change ticket draft (`/sas/handoff/change-ticket.md`) incorrectly listed **CVE-2019-0708 (BlueKeep)** targeting RDP. System log examination and threat intelligence confirm that BlueKeep was **NOT** used in this intrusion.
+[?2004l[?2004h> - **Confirmed Entry Vector**: All on-disk artifacts and threat intelligence (`/sas/cti/advisory.txt`, `/sas/vulns.json`) consistently confirm **CVE-2017-0144 (EternalBlue)** via SMBv1 (`srv.sys`).
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /app/baseline-report.md
+[?2004l[?2004h> # Baseline and Configuration Weaknesses Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 1. Executive Summary
+[?2004l[?2004h> Analysis of target host `smb-prod-01` identified significant baseline vulnerabilities, legacy configuration risks, and missing security controls that enabled initial compromise, persistence, and defense evasion.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Identified Configuration & Baseline Weaknesses
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 1. Legacy SMBv1 Enabled (Check: `CHK-07`, Capability: `BAS-01`)
+[?2004l[?2004h> - **Finding**: SMBv1 protocol driver `srv.sys` is enabled and active.
+[?2004l[?2004h> - **Risk**: Legacy SMBv1 protocol lacks modern security controls and is vulnerable to unauthenticated remote code execution.
+[?2004l[?2004h> - **Evidence Citation**: `/disk/Windows/System32/drivers/srv.sys` (`/disk/Windows/System32/drivers/srv.sys`), `/sas/baseline.json` (`/sas/baseline.json`), `/sas/alerts.json` (`/sas/alerts.json` [ALERT-04]).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 2. Missing Security Patch MS17-010
+[?2004l[?2004h> - **Finding**: Operating system lacks cumulative update patching CVE-2017-0144 for `/disk/Windows/System32/drivers/srv.sys`.
+[?2004l[?2004h> - **Risk**: Allows attackers to execute arbitrary code via malformed SMBv1 packets.
+[?2004l[?2004h> - **Evidence Citation**: `/disk/Windows/System32/drivers/srv.sys` (`/disk/Windows/System32/drivers/srv.sys`), `/sas/vulns.json` (`/sas/vulns.json`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 3. Unrestricted System Temp & Public Executable Directories
+[?2004l[?2004h> - **Finding**: Attacker was able to write and execute binaries in `/disk/Windows/Temp` and `/disk/Users/Public`.
+[?2004l[?2004h> - **Risk**: Staging and execution of unauthorized binaries without AppLocker / Software Restriction Policy enforcement.
+[?2004l[?2004h> - **Evidence Citation**: `/disk/Windows/Temp/mssecsvc.exe` (`/disk/Windows/Temp/mssecsvc.exe`), `/disk/Windows/Temp/lsass.dmp` (`/disk/Windows/Temp/lsass.dmp`), `/disk/Users/Public/enc.exe` (`/disk/Users/Public/enc.exe`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 4. Absence of WMI Repository Auditing & Integrity Monitoring
+[?2004l[?2004h> - **Finding**: Attacker created persistence via WMI event filter/consumer in `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` without triggering any security alerts.
+[?2004l[?2004h> - **Risk**: Stealthy persistence via WMI event subscriptions remains undetected by legacy antivirus/EDR.
+[?2004l[?2004h> - **Evidence Citation**: `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 5. Insecure DLL Search-Order Handling
+[?2004l[?2004h> - **Finding**: Rogue `wbemcomn.dll` placed in WBEM directory (`/disk/Windows/System32/wbem/wbemcomn.dll`).
+[?2004l[?2004h> - **Risk**: Arbitrary DLL execution when system utilities load libraries.
+[?2004l[?2004h> - **Evidence Citation**: `/disk/Windows/System32/wbem/wbemcomn.dll` (`/disk/Windows/System32/wbem/wbemcomn.dll`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 6. Insufficient Auditing for Event Log Tampering
+[?2004l[?2004h> - **Finding**: Security event log cleared (EventID 1102) in `/disk/Windows/System32/winevt/Logs/System.evtx` without generating a real-time security alert.
+[?2004l[?2004h> - **Risk**: Impairment of DFIR visibility and loss of forensic history.
+[?2004l[?2004h> - **Evidence Citation**: `/disk/Windows/System32/winevt/Logs/System.evtx` (`/disk/Windows/System32/winevt/Logs/System.evtx`).
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /sas/handoff/change-ticket.md
+[?2004l[?2004h> # CHANGE TICKET  CHG-1677  (RECONCILED)
+[?2004l[?2004h> 
+[?2004l[?2004h> > Reconciled against forensic findings on `/disk` and SAS threat telemetry (`/sas`).
+[?2004l[?2004h> 
+[?2004l[?2004h> | # | Action | Target | Status | Note | Citation |
+[?2004l[?2004h> |---|--------|--------|--------|------|----------|
+[?2004l[?2004h> | 1 | Block source IP inbound | 198.51.100.218 | proposed | Corrected IP from stale 203.0.113.9 to actual threat actor IP | `/sas/cti/advisory.txt` |
+[?2004l[?2004h> | 2 | Patch CVE-2017-0144 (MS17-010 EternalBlue) and disable SMBv1 | /disk/Windows/System32/drivers/srv.sys | proposed | Corrected CVE from BlueKeep (CVE-2019-0708) to CVE-2017-0144 | `/sas/vulns.json` |
+[?2004l[?2004h> | 3 | Verify cron miner absence on Windows host | /var/spool/cron/root | VERIFIED-REJECTED | Host is Windows; Linux cron path does not exist on host image | `/disk` |
+[?2004l[?2004h> | 4 | Quarantine and purge WMI Event Subscription persistence | /disk/Windows/System32/wbem/Repository/OBJECTS.DATA | proposed | Silent persistence via WMI __EventFilter / CommandLineEventConsumer | `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` |
+[?2004l[?2004h> | 5 | Quarantine hijacked DLL | /disk/Windows/System32/wbem/wbemcomn.dll | proposed | Silent search-order hijacked DLL payload | `/disk/Windows/System32/wbem/wbemcomn.dll` |
+[?2004l[?2004h> | 6 | Quarantine exploit implant | /disk/Windows/Temp/mssecsvc.exe | proposed | DoublePulsar-class SMB exploit implant | `/disk/Windows/Temp/mssecsvc.exe` |
+[?2004l[?2004h> | 7 | Quarantine credential dump file | /disk/Windows/Temp/lsass.dmp | proposed | LSASS memory dump file residue | `/disk/Windows/Temp/lsass.dmp` |
+[?2004l[?2004h> | 8 | Quarantine ransomware payload | /disk/Users/Public/enc.exe | proposed | Ransomware executable payload | `/disk/Users/Public/enc.exe` |
+[?2004l[?2004h> | 9 | Force password reset for compromised accounts | Administrator account | proposed | Credential dump mitigation for cached Administrator credentials | `/disk/Windows/System32/config/RegBack/SECURITY.bak` |
+[?2004l[?2004h> | 10 | Restore and re-enable Windows Event Log auditing | /disk/Windows/System32/winevt/Logs/System.evtx | proposed | Anti-forensic log clearing remediation and audit policy enforcement | `/disk/Windows/System32/winevt/Logs/System.evtx` |
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Reviewer checklist
+[?2004l[?2004h> - [x] Every action maps to a cited artifact under /disk or /sas
+[?2004l[?2004h> - [x] Fix the wrong IP (row 1) and wrong CVE (row 2)
+[?2004l[?2004h> - [x] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+[?2004l[?2004h> - [x] Add the silent (non-alerted) artifacts the prior shift missed
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /app/remediation-plan.md
+[?2004ltial Invalidation & Identity Recovery
+- [?2004h> # Incident Remediation Plan
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 1. Executive Strategy & Principles
+[?2004l[?2004h> This remediation plan outlines the prioritized containment, eradication, recovery, and hardening steps for host `smb-prod-01`. Per DFIR principles:
+[?2004l[?2004h> - **Isolation & Quarantine**: Malicious binaries, payloads, and persistence artifacts are backed up / quarantined to secure storage rather than deleted.
+[?2004l[?2004h> - **Evidence Alignment**: Every remediation action corresponds to verified forensic evidence in `/disk` or `/sas`.
+[?2004l[?2004h> - **Verification**: Each step includes specific validation criteria to confirm successful execution.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Phase-by-Phase Remediation Actions
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 1: Immediate Network Containment
+[?2004lystem32/winevt/Logs/System.evtx`)
+  - *Verification*: Confirm Event Log[?2004h> - **Action 1.1**: Block inbound and outbound communication for C2 IP `198.51.100.218` on perimeter firewalls.
+[?2004l[?2004h>   - *Target*: Host IP `198.51.100.218` (`/sas/cti/advisory.txt`, `/disk/Windows/System32/config/RegBack/SECURITY.bak`)
+[?2004l[?2004h>   - *Verification*: `netsh advfirewall firewall show rule name=Block_Attacker_IP` or firewall policy audit.
+[?2004l[?2004h> - **Action 1.2**: Block C2 domain `update-smb.example.cn` at DNS sinkhole / egress filtering controls.
+[?2004l[?2004h>   - *Target*: Domain `update-smb.example.cn` (`/sas/cti/advisory.txt`, `/disk/Windows/System32/config/RegBack/SECURITY.bak`)
+[?2004l[?2004h>   - *Verification*: DNS query lookup test returning sinkhole IP.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 2: Host Eradication & Quarantine (Backup over Deletion)
+[?2004l[?2004h> - **Action 2.1**: Quarantine exploit implant `/disk/Windows/Temp/mssecsvc.exe` into secure encrypted archive before removal.
+[?2004l[?2004h>   - *Target*: `/disk/Windows/Temp/mssecsvc.exe` (`/disk/Windows/Temp/mssecsvc.exe`, `/sas/alerts.json` [ALERT-01])
+[?2004l[?2004h>   - *Verification*: Confirm binary moved to quarantine directory and absent from system temp.
+[?2004l[?2004h> - **Action 2.2**: Quarantine LSASS memory dump file `/disk/Windows/Temp/lsass.dmp`.
+[?2004l[?2004h>   - *Target*: `/disk/Windows/Temp/lsass.dmp` (`/disk/Windows/Temp/lsass.dmp`, `/sas/alerts.json` [ALERT-02])
+[?2004l[?2004h>   - *Verification*: Confirm dump file secured in quarantine and removed from temp location.
+[?2004l[?2004h> - **Action 2.3**: Quarantine ransomware executable `/disk/Users/Public/enc.exe`.
+[?2004l[?2004h>   - *Target*: `/disk/Users/Public/enc.exe` (`/disk/Users/Public/enc.exe`, `/sas/alerts.json` [ALERT-03])
+[?2004l[?2004h>   - *Verification*: Confirm binary removed from `/Users/Public` and cataloged in quarantine inventory.
+[?2004l[?2004h> - **Action 2.4**: Neutralize silent WMI persistence in `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`.
+[?2004l[?2004h>   - *Target*: `/disk/Windows/System32/wbem/Repository/OBJECTS.DATA` (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`)
+[?2004l[?2004h>   - *Command*: Execute `Get-CimInstance -Namespace root\subscription -ClassName __EventFilter | Remove-CimInstance` and `Get-CimInstance -Namespace root\subscription -ClassName CommandLineEventConsumer | Remove-CimInstance` via PowerShell.
+[?2004l[?2004h>   - *Verification*: `Get-CimInstance -Namespace root\subscription` returns no suspicious consumers or filters.
+[?2004l[?2004h> - **Action 2.5**: Quarantine hijacked DLL `/disk/Windows/System32/wbem/wbemcomn.dll`.
+[?2004l[?2004h>   - *Target*: `/disk/Windows/System32/wbem/wbemcomn.dll` (`/disk/Windows/System32/wbem/wbemcomn.dll`)
+[?2004l[?2004h>   - *Verification*: Verify file moved to quarantine; replace with authentic Microsoft signed DLL if required by system.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 3: Vulnerability Patching & System Hardening
+[?2004l[?2004h> - **Action 3.1**: Disable legacy SMBv1 protocol system-wide.
+[?2004l[?2004h>   - *Target*: `/disk/Windows/System32/drivers/srv.sys` (`/disk/Windows/System32/drivers/srv.sys`, `/sas/baseline.json` [CHK-07])
+[?2004l[?2004h>   - *Command*: PowerShell `Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol -NoRestart` / Registry `Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters" SMB1 -Type DWORD 0 -Force`.
+[?2004l[?2004h>   - *Verification*: PowerShell `Get-WindowsOptionalFeature -Online -FeatureName SMB1Protocol` shows State: Disabled.
+[?2004l[?2004h> - **Action 3.2**: Apply Security Update MS17-010 (CVE-2017-0144 patching).
+[?2004l[?2004h>   - *Target*: Operating system kernel / SMB drivers (`/sas/vulns.json`)
+[?2004l[?2004h>   - *Verification*: Windows Update status check confirms MS17-010 / KB4012212 (or cumulative equivalent) installation.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 4: Credential Invalidation & Identity Recovery
+[?2004l[?2004h> - **Action 4.1**: Reset credentials for Administrator and all domain accounts with active sessions on host `smb-prod-01`.
+[?2004l[?2004h>   - *Target*: Administrator and domain accounts (`/disk/Windows/System32/config/RegBack/SECURITY.bak`, `/sas/alerts.json` [ALERT-02])
+[?2004l[?2004h>   - *Verification*: Confirm Active Directory password last set timestamp updated; invalidate Kerberos TGT/TGS tickets.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 5: Anti-Forensics Remediation & Logging Restoration
+[?2004l[?2004h> - **Action 5.1**: Restore Windows Security/System Event Log service and enforce centralized log shipping.
+[?2004l[?2004h>   - *Target*: System event logging framework (`/disk/Windows/System32/winevt/Logs/System.evtx`)
+[?2004l[?2004h>   - *Verification*: Confirm Event Log service active and forwarding Event ID 1102 / 4624 / 4688 to SIEM.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# ls -la /app
+[?2004ltotal 36
+drwxr-xr-x 1 root root 4096 Aug 16 14:55 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 14:52 [01;34m..[0m
+-rw-r--r-- 1 root root 2956 Aug 16 14:55 baseline-report.md
+-rw-r--r-- 1 root root 5347 Aug 16 14:54 intrusion-report.md
+-rw-r--r-- 1 root root 2401 Aug 16 14:54 progress.md
+-rw-r--r-- 1 root root 4838 Aug 16 14:55 remediation-plan.md
+-rw-r--r-- 1 root root 1681 Aug 16 14:54 vuln-report.md
+[?2004hroot@ca5d1b5317d6:/app# cat /app/progress.md
+[?2004l# DFIR Investigation Progress & Working Checklist
+
+## Timeline of Investigation
+- **2026-08-11 03:20 UTC**: Incident intake logged for target `smb-prod-01` (`/sas/handoff/intake.pdf`). High-severity EDR alert cluster received.
+- **Initial Alert Review**: Inspected `/sas/alerts.json`, `/sas/vulns.json`, `/sas/baseline.json`. Observed alerts for exploit implant (`/disk/Windows/Temp/mssecsvc.exe`), LSASS dump (`/disk/Windows/Temp/lsass.dmp`), ransomware (`/disk/Users/Public/enc.exe`), and SMBv1 baseline (`/disk/Windows/System32/drivers/srv.sys`).
+- **Disk Artifact Analysis**: Conducted forensic evaluation of read-only image `/disk`. Discovered silent persistence mechanisms and anti-forensic activity omitted from SAS alerts:
+  - Silent WMI event subscription (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`).
+  - Silent DLL search-order hijacking via `/disk/Windows/System32/wbem/wbemcomn.dll`.
+  - Anti-forensic System log clearing recorded in `/disk/Windows/System32/winevt/Logs/System.evtx` (EventID 1102).
+  - C2 beacon IP `198.51.100.218` and domain `update-smb.example.cn` recovered from `/disk/Windows/System32/config/RegBack/SECURITY.bak`.
+- **Ticket Reconciliation**: Reconciled change ticket `/sas/handoff/change-ticket.md` against on-disk and CTI evidence.
+- **Deliverable Generation**: Produced forensic reports, baseline analysis, vulnerability assessment, and remediation plan under `/app`.
+
+## Checklist
+- [x] Analyze alert and vulnerability feeds (`/sas/alerts.json`, `/sas/vulns.json`, `/sas/baseline.json`)
+- [x] Review CTI Advisory & ATT&CK Mapping (`/sas/cti/advisory.txt`, `/sas/cti/advisory.pdf`)
+- [x] Inspect `/disk` filesystem and evidence artifacts
+- [x] Identify entry vector & exploit implant (`/disk/Windows/Temp/mssecsvc.exe`)
+- [x] Identify credential dumping artifact (`/disk/Windows/Temp/lsass.dmp`)
+- [x] Identify ransomware payload (`/disk/Users/Public/enc.exe`)
+- [x] Uncover silent persistence mechanism 1: WMI Event Subscription (`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`)
+- [x] Uncover silent persistence mechanism 2: DLL Hijacking (`/disk/Windows/System32/wbem/wbemcomn.dll`)
+- [x] Uncover silent defense evasion: Event Log Clearing (`/disk/Windows/System32/winevt/Logs/System.evtx`)
+- [x] Reconcile change ticket against evidence (`/sas/handoff/change-ticket.md`)
+- [x] Compile all 5 required reports in `/app` with backtick citations
+[?2004hroot@ca5d1b5317d6:/app# cat << 'EOF' > /app/findings.json
+[?2004l[?2004h> {
+[?2004l[?2004h>   "findings": [
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-01",
+[?2004l[?2004h>       "path": "/Windows/Temp/mssecsvc.exe",
+[?2004l[?2004h>       "attck": "T1210",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Windows/Temp/mssecsvc.exe`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-02",
+[?2004l[?2004h>       "path": "/Windows/Temp/lsass.dmp",
+[?2004l[?2004h>       "attck": "T1003.001",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Windows/Temp/lsass.dmp`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-03",
+[?2004l[?2004h>       "path": "/Users/Public/enc.exe",
+[?2004l[?2004h>       "attck": "T1486",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Users/Public/enc.exe`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-04",
+[?2004l[?2004h>       "path": "/Windows/System32/wbem/Repository/OBJECTS.DATA",
+[?2004l[?2004h>       "attck": "T1546.003",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Windows/System32/wbem/Repository/OBJECTS.DATA`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-05",
+[?2004l[?2004h>       "path": "/Windows/System32/wbem/wbemcomn.dll",
+[?2004l[?2004h>       "attck": "T1574.001",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Windows/System32/wbem/wbemcomn.dll`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-06",
+[?2004l[?2004h>       "path": "/Windows/System32/winevt/Logs/System.evtx",
+[?2004l[?2004h>       "attck": "T1070.001",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Windows/System32/winevt/Logs/System.evtx`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-07",
+[?2004l[?2004h>       "path": "/Windows/System32/drivers/srv.sys",
+[?2004l[?2004h>       "attck": "T1210",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/Windows/System32/drivers/srv.sys`"
+[?2004l[?2004h>     }
+[?2004l[?2004h>   ]
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@ca5d1b5317d6:/app# ls -la /app
+[?2004ltotal 40
+drwxr-xr-x 1 root root 4096 Aug 16 14:56 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 14:52 [01;34m..[0m
+-rw-r--r-- 1 root root 2956 Aug 16 14:55 baseline-report.md
+-rw-r--r-- 1 root root 1427 Aug 16 14:56 findings.json
+-rw-r--r-- 1 root root 5347 Aug 16 14:54 intrusion-report.md
+-rw-r--r-- 1 root root 2401 Aug 16 14:54 progress.md
+-rw-r--r-- 1 root root 4838 Aug 16 14:55 remediation-plan.md
+-rw-r--r-- 1 root root 1681 Aug 16 14:54 vuln-report.md
+[?2004hroot@ca5d1b5317d6:/app# 

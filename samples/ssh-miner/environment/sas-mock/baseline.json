@@ -1,0 +1,14 @@
+[
+  {
+    "chk": "CHK-04",
+    "path": "/etc/ssh/sshd_config",
+    "check": "ssh-baseline",
+    "capability": "BAS-01"
+  },
+  {
+    "chk": "CHK-09",
+    "path": "/etc/my.cnf",
+    "check": "mysql-remote-root",
+    "capability": "BAS-02"
+  }
+]

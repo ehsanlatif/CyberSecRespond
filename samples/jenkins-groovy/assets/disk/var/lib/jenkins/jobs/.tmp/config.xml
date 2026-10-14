@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config>
+Jenkins CLI RCE artifact via an @type deserialization gadget (defanged)
+</config>

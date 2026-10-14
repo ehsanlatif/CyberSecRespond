@@ -1,0 +1,29 @@
+Skipping image OS validation for hb__2ebbbf37da20aa9c568352c11fc5a4de: docker inspect returned 1
+Parser warnings: - Fields appear in wrong order. Found: analysis → commands → plan, expected: analysis → plan → commands
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Trajectory dumped to jobs/run-all/redis-unauth__qic7nMh/agent/trajectory.json
+Collecting main service artifacts
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

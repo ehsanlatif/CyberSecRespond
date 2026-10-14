@@ -1,0 +1,11 @@
+{
+    "task": {
+        "path": "tasks/log4shell-webshell"
+    },
+    "trial_name": "log4shell-webshell__JPT56LP",
+    "trials_dir": "jobs/nop-all",
+    "agent": {
+        "name": "nop"
+    },
+    "job_id": "6ebf3217-8ac8-4c90-87f7-10b1d2a13362"
+}

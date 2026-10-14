@@ -1,0 +1,2 @@
+# dump.tar.gz
+staged exfil: tar archive of a database dump at /tmp/exfil.tar.gz

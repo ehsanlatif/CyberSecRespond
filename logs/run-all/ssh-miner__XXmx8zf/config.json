@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/ssh-miner"
+    },
+    "trial_name": "ssh-miner__XXmx8zf",
+    "trials_dir": "jobs/run-all",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "e020adc1-c73f-46ca-84db-15310a624a44"
+}

@@ -1,0 +1,2 @@
+# UpdateHelper
+scheduled task 'UpdateHelper' (schtasks) launches svc.exe every 5 minutes

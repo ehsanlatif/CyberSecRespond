@@ -1,0 +1,30 @@
+THREAT INTELLIGENCE ADVISORY — Smb Eternalblue campaign
+=======================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: smb-prod-01   Suspected origin IP: 198.51.100.218
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1210      Exploitation of Remote Services            [lateral-movement]  step 1: SMBv1 exploitation (CVE-2017-0144)
+   T1059.001  PowerShell                                 [execution]  step 2: PowerShell execution
+   T1003.001  LSASS Memory                               [credential-access]  step 3: LSASS credential dump
+   T1486      Data Encrypted for Impact                  [impact]  step 4: ransomware encryption
+   T1546.003  Windows Management Instrumentation Event Subscription [privilege-escalation]  step 5: WMI event subscription
+   T1574.001  DLL                                        [stealth]  step 6: DLL search-order hijack
+   T1070.001  Clear Windows Event Logs                   [defense-evasion]  step 7: System event log clear
+
+3. RELEVANT VULNERABILITIES (source: NVD, US-Gov public domain)
+   CVE-2017-0144  CVSS 8.8 (HIGH) v3.1  CWE=-
+      The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1; Windows 7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10 Gold, 1511, and 1607; and Windows Server 2016 allows remote att
+      ref: http://packetstormsecurity.com/files/154690/DOUBLEPULSAR-Payload-Execution-Neutralization.html
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.218
+   c2     update-smb[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]smb[.]evil[:]3333
+   wallet 4A000000000000000000c814c46d6253
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).

@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-06",
+    "path": "/var/lib/jenkins/config.xml",
+    "check": "jenkins-baseline",
+    "capability": "BAS-01"
+  }
+]

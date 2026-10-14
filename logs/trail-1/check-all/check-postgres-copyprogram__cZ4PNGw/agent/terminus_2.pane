@@ -1,0 +1,1469 @@
+[?2004hroot@4d226f3f713c:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@4d226f3f713c:/app# clear
+[?2004l[H[J[3J[?2004hroot@4d226f3f713c:/app# cat /app/task/instruction.md
+[?2004l# Post-Compromise Forensic Investigation and Remediation Planning
+
+You are a DFIR analyst working on an **analysis machine** — **not** the compromised server.
+A read-only forensic copy of the host is mounted at `/disk`, and the output of the
+security product (alerts, vulnerability scan, baseline checks) is at `/sas`.
+
+## Scenario
+
+A CentOS Stream 9 host ran PostgreSQL with a weak superuser password and trust auth in pg_hba.conf. The attacker used COPY ... TO PROGRAM to gain execution, exfiltrated data over a DNS tunnel, planted cron and systemd persistence, and timestomped the dropped files. Alerts surface the dropper and the cron job; the DNS tunnel config, the systemd unit, and the timestomping are silent.
+
+## Rules (load-bearing — do not violate)
+
+- You are on an analysis machine, not the compromised host.
+- `/disk` is a **read-only** forensic copy. Do not attempt to modify it.
+- Do **not** SSH into any machine or execute remediation — you are producing a plan, not
+  running it.
+- Every finding must be based on evidence in `/disk` or `/sas`.
+- Do **not** fabricate CVEs. State confidence levels when unsure.
+- In the remediation plan, prefer backup/quarantine over deletion.
+
+## Evidence is messy and multi-format
+
+Real disks are not clean text. Evidence is spread across log files, CSV/TSV tables, JSON
+telemetry, config files, registry hives, `.evtx` event logs, inert binary samples, and
+markup — some of it rotated, gzipped, truncated at a cleared window, or partially
+overwritten. Use the right tool: `grep`/`rg`, `strings` (and `strings -e l` for UTF-16 in
+hives/event logs), `zcat` for `*.gz`, `jq` for JSON, `xxd` for raw bytes, `pdftotext` for
+PDFs. Indicators of compromise in provided intel are **defanged** (`hxxp://`, `evil[.]com`,
+`stratum+tcp[:]//`) — re-fang them mentally when correlating.
+
+Besides `/disk` (the host image) and the machine-readable feeds in `/sas`,
+`/sas` also carries analyst materials: `/sas/cti/` — a vendor threat advisory
+(text, PDF, and page-image PNGs) mapping the campaign to MITRE ATT&CK techniques and any
+relevant CVEs; and `/sas/handoff/` — a **pre-filled change ticket with stale/incorrect
+entries to reconcile in place**, a findings JSON schema, and an incident intake form. Map your
+on-disk findings to the advisory's ATT&CK claims, and correct the change ticket against your
+own evidence rather than trusting it.
+
+## Citations (required)
+
+Every finding in every report must be followed by a **backtick-delimited** citation of the
+form `` `/absolute/path` `` or `` `/absolute/path:line` `` pointing at evidence under
+`/disk` **or** `/sas`. Use `/sas` for findings whose only evidence is
+an alert — e.g. a network connection, or an event whose primary log was wiped. **Findings
+without a resolvable citation will not be credited.**
+
+## Deliverables
+
+Write all five files to `/app`. A run that produces fewer than five is scored as
+incomplete, not as a low score.
+
+| File | Content |
+|---|---|
+| `progress.md` | Investigation timeline and working checklist |
+| `intrusion-report.md` | Attack chain, evidence, entities, persistence, impact |
+| `vuln-report.md` | Vulnerability-driven entry analysis (or its explicit absence) |
+| `baseline-report.md` | Baseline / configuration weaknesses |
+| `remediation-plan.md` | Prioritised, correct, complete, verifiable plan |
+
+Detection and remediation are scored on **separate** axes. Investigate the whole host — the
+alerts do not cover everything that happened.
+[?2004hroot@4d226f3f713c:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/postgres-copyprogram"
+version     = "1.0.0"
+description = "Post-compromise forensics: CentOS Stream 9 host with a weak-credential PostgreSQL abused via COPY TO PROGRAM, DNS-tunnel exfiltration, cron and systemd persistence, timestomping."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@4d226f3f713c:/app# cat /app/task/solution/solve.sh
+[?2004l#!/usr/bin/env bash
+# solution/solve.sh (generated) — Oracle: renders the manifest-derived reports.
+set -euo pipefail
+OUT="${OUTPUT_PATH:-/app}"
+mkdir -p "$OUT"
+cat > "$OUT/progress.md" <<'RK_ORACLE_EOF'
+# Progress
+
+Investigation timeline for `postgres-copyprogram`:
+
+1. Reviewed alerts in `/sas` and enumerated the read-only image at `/disk`.
+2. Reconstructed the attack chain: step 1 T1078 — valid accounts (weak postgres superuser); step 2 T1059.004 — COPY TO PROGRAM shell execution (after step 1); step 3 T1048.003 — DNS-tunnel exfiltration (after step 2); step 4 T1053.003 — cron persistence (after step 2); step 5 T1543.002 — systemd persistence (after step 2); step 6 T1070.006 — timestomp dropped files (after step 2).
+3. Swept beyond the alerts for silent artifacts (persistence, tool residue, backdoors).
+4. Authored the four reports and the prioritised remediation plan.
+RK_ORACLE_EOF
+cat > "$OUT/intrusion-report.md" <<'RK_ORACLE_EOF'
+# Intrusion Report
+
+## Entry Point
+valid accounts (weak postgres superuser) (T1078); COPY TO PROGRAM shell execution (T1059.004); DNS-tunnel exfiltration (T1048.003). Evidence and reconstruction below; the attack chain is given at the end.
+
+## Intrusion Entities
+| Entity | Evidence | ATT&CK |
+|---|---|---|
+| dropper (postgres, daemon) | `/var/lib/pgsql/.local/pgdaemon` | T1059.004 |
+| dns-tunnel-config (dns, tunnel) | `/etc/pgdaemon.conf` | T1048.003 |
+| timestomp-residue (timestomp, mtime) | `/var/lib/pgsql/.local/.timestamps` | T1070.006 |
+
+## Persistence Mechanisms
+| Mechanism | Evidence | ATT&CK | Alerted |
+|---|---|---|---|
+| cron (pgdaemon, cron) | `/var/spool/cron/postgres` | T1053.003 | yes |
+| systemd (pgdaemon, ExecStart) | `/etc/systemd/system/pg-metrics.service` | T1543.002 | **no** |
+
+## Impact
+Host confidentiality, integrity, and availability should be considered compromised until the
+remediation plan is executed and verified.
+
+## Attack Chain
+T1078 → T1059.004 → {T1048.003, T1053.003, T1543.002, T1070.006}
+
+- T1078 → T1059.004
+- T1059.004 → T1048.003
+- T1059.004 → T1053.003
+- T1059.004 → T1543.002
+- T1059.004 → T1070.006
+RK_ORACLE_EOF
+cat > "$OUT/vuln-report.md" <<'RK_ORACLE_EOF'
+# Vulnerability Report
+
+No CVE-driven entry vector was identified. The vulnerability scan returned an empty finding
+set (`/sas/vulns.json`), and disk evidence attributes initial access to weak-credential and
+configuration weaknesses rather than exploitation of a software vulnerability.
+
+Confidence: high. Evidence: `/var/lib/pgsql/data/pg_hba.conf`, empty `/sas/vulns.json`.
+RK_ORACLE_EOF
+cat > "$OUT/baseline-report.md" <<'RK_ORACLE_EOF'
+# Baseline Report
+
+Configuration and baseline weaknesses observed on the host:
+
+| Weakness | Evidence | Capability |
+|---|---|---|
+| postgres-baseline (trust, 0.0.0.0/0) | `/var/lib/pgsql/data/pg_hba.conf` | BAS-01 |
+RK_ORACLE_EOF
+cat > "$OUT/remediation-plan.md" <<'RK_ORACLE_EOF'
+# Remediation Plan
+
+## P0 — Contain
+1. block the DNS-tunnel resolver and attacker IP at the egress firewall.
+   - Verify: `outbound DNS to the tunnel domain is blocked`
+   - Risk: network
+
+## P1 — Eradicate
+2. quarantine the pgdaemon dropper and terminate the process — target: `/var/lib/pgsql/.local/pgdaemon`.
+   - Verify: `pgrep -f pgdaemon returns empty`
+   - Risk: runtime
+3. remove the postgres cron entry — target: `/var/spool/cron/postgres`.
+   - Verify: `! test -f /var/spool/cron/postgres`
+   - Risk: runtime
+4. remove the DNS-tunnel configuration — target: `/etc/pgdaemon.conf`.
+   - Verify: `! test -f /etc/pgdaemon.conf`
+   - Risk: runtime
+5. disable and remove the pg-metrics systemd unit — target: `/etc/systemd/system/pg-metrics.service`.
+   - Verify: `systemctl is-enabled pg-metrics returns not enabled`
+   - Risk: service
+
+## P2 — Harden
+6. set scram-sha-256 auth in pg_hba.conf and restrict listen_addresses — target: `/var/lib/pgsql/data/pg_hba.conf`.
+   - Verify: `pg_hba.conf has no trust lines and listen is localhost`
+   - Risk: service
+
+## P3 — Rotate
+7. rotate the postgres superuser password and app DB credentials.
+   - Verify: `credential rotation timestamps are recent`
+   - Risk: auth
+
+## P4 — Verify
+8. confirm COPY TO PROGRAM is no longer reachable by unprivileged roles.
+   - Verify: `COPY PROGRAM probe is denied`
+   - Risk: service
+9. restart postgresql and confirm database health.
+   - Verify: `systemctl is-active postgresql and a test query succeeds`
+   - Risk: service
+RK_ORACLE_EOF
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/test.sh
+[?2004l#!/usr/bin/env bash
+# tests/test.sh  (FIXED — entry point Harbor calls to score a run)
+# Scores /app against this range's manifest using the vendored rewardkit runtime. The runtime
+# and criterion code are identical for every range in the subdomain; only manifest.json
+# differs (doc 02 §3.0).
+# NOTE: no `set -e` — we must ALWAYS write the reward file, even if the runtime errors.
+set -uo pipefail
+
+: "${REWARDKIT_JUDGE:=}"   # optional Tier-3 judge (provider/model); Tier 1+2 run without it
+
+here="$(cd "$(dirname "$0")" && pwd)"          # the /tests directory (copied in by Harbor)
+export PYTHONPATH="$here:${PYTHONPATH:-}"       # so `rewardkit` and `criteria` import
+app="${RK_APP:-/app}"                           # the agent's workspace (deliverables)
+out="${RK_OUT:-/logs/verifier}"                 # Harbor reads the reward from here
+mkdir -p "$out"
+
+python3 -m rewardkit --tests "$here" --app "$app" --disk "${RK_DISK:-/disk}" --sas "${RK_SAS:-/sas}" || true
+
+# Harbor reads the numeric reward (float in [0,1]) from /logs/verifier/reward.txt. Always
+# (re)write it — never trust a pre-existing file the agent may have dropped in /app.
+reward="$(python3 -c "import os,json; p='$app/reward.json'; print(json.load(open(p))['reward'] if os.path.exists(p) else 0.0)" 2>/dev/null || echo 0.0)"
+[ -z "$reward" ] && reward=0.0
+printf '%s\n' "$reward" > "$out/reward.txt"
+# IMPORTANT: the filename `reward.json` in /logs/verifier is RESERVED by Harbor — if present it
+# is preferred over reward.txt and parsed as dict[str,float|int], so EVERY value must be numeric.
+# The runtime's /app/reward.json is a human diagnostic that carries non-numeric fields (the
+# `outcome` status string, and a null `quality` when the Tier-3 judge is off) — copying it here
+# verbatim makes Harbor raise a ValidationError. Preserve it under a non-reserved name instead.
+[ -f "$app/reward.json" ] && cp "$app/reward.json" "$out/reward-full.json" 2>/dev/null || true
+echo "reward=$reward"
+exit 0
+[?2004hroot@4d226f3f713c:/app# cat /app/task/environment/Dockerfile
+[?2004lFROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      file binutils grep ripgrep jq python3 python3-pip less tree \
+      gzip xxd poppler-utils ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+# binutils -> strings/strings -e l (binary blobs, registry hives, .evtx); gzip -> zcat rotated
+# logs; xxd -> hexdump; poppler-utils -> pdftotext (CTI PDFs); ca-certificates -> judge HTTPS.
+
+# Read-only forensic image at /disk (extracted INTO /disk, not /), security-product feed at /sas.
+COPY disk.tar.gz /tmp/
+COPY disk.tar.gz.sha256 /tmp/
+RUN cd /tmp && sha256sum -c disk.tar.gz.sha256 \
+ && mkdir -p /disk && tar -xzf disk.tar.gz -C /disk \
+ && chmod -R a-w /disk && rm /tmp/disk.tar.gz*
+
+COPY sas-mock /sas
+RUN chmod -R a-w /sas
+WORKDIR /app
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/Dockerfile 2>/dev/null || echo 'No tests/Dockerfile'
+[?2004lNo tests/Dockerfile
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/manifest.json
+[?2004l{
+  "range_id": "postgres-copyprogram",
+  "difficulty": 4,
+  "alert_coverage": 0.5,
+  "platform": {
+    "os": "centos",
+    "version": "stream-9"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1078",
+      "desc": "valid accounts (weak postgres superuser)"
+    },
+    {
+      "step": 2,
+      "attck": "T1059.004",
+      "desc": "COPY TO PROGRAM shell execution",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1048.003",
+      "desc": "DNS-tunnel exfiltration",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1053.003",
+      "desc": "cron persistence",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1543.002",
+      "desc": "systemd persistence",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 6,
+      "attck": "T1070.006",
+      "desc": "timestomp dropped files",
+      "depends_on": [
+        2
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/lib/pgsql/.local/pgdaemon",
+      "kind": "dropper",
+      "capability": "ENT-P01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1059.004",
+      "match": [
+        "postgres",
+        "daemon"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/var/spool/cron/postgres",
+      "kind": "cron",
+      "capability": "PER-S01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1053.003",
+      "match": [
+        "pgdaemon",
+        "cron"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/etc/pgdaemon.conf",
+      "kind": "dns-tunnel-config",
+      "capability": "ENT-N01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1048.003",
+      "match": [
+        "dns",
+        "tunnel"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/etc/systemd/system/pg-metrics.service",
+      "kind": "systemd",
+      "capability": "PER-V01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1543.002",
+      "match": [
+        "pgdaemon",
+        "ExecStart"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/var/lib/pgsql/.local/.timestamps",
+      "kind": "timestomp-residue",
+      "capability": "ENT-F04",
+      "alerted": false,
+      "weight": 1.5,
+      "attck": "T1070.006",
+      "match": [
+        "timestomp",
+        "mtime"
+      ]
+    },
+    {
+      "chk": "CHK-06",
+      "path": "/var/lib/pgsql/data/pg_hba.conf",
+      "kind": "postgres-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "trust",
+        "0.0.0.0/0"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "block the DNS-tunnel resolver and attacker IP at the egress firewall",
+      "verify": "outbound DNS to the tunnel domain is blocked",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine the pgdaemon dropper and terminate the process",
+      "verify": "pgrep -f pgdaemon returns empty",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "remove the postgres cron entry",
+      "verify": "! test -f /var/spool/cron/postgres",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "remove the DNS-tunnel configuration",
+      "verify": "! test -f /etc/pgdaemon.conf",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "disable and remove the pg-metrics systemd unit",
+      "verify": "systemctl is-enabled pg-metrics returns not enabled",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-06",
+      "action": "set scram-sha-256 auth in pg_hba.conf and restrict listen_addresses",
+      "verify": "pg_hba.conf has no trust lines and listen is localhost",
+      "phase": "harden",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "rotate the postgres superuser password and app DB credentials",
+      "verify": "credential rotation timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-21",
+      "action": "confirm COPY TO PROGRAM is no longer reachable by unprivileged roles",
+      "verify": "COPY PROGRAM probe is denied",
+      "phase": "verify",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restart postgresql and confirm database health",
+      "verify": "systemctl is-active postgresql and a test query succeeds",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": true,
+  "decoys": [
+    {
+      "path": "/etc/systemd/system/pg-backup.service",
+      "looks_malicious": true,
+      "benign": true
+    }
+  ],
+  "signature": "c5f08041507f"
+}
+[?2004hroot@4d226f3f713c:/app# ls -la /app/task/tests/ /app/task/tests/detection /app/task/tests/grounding /app/task/tests/planning /app/task/tests/quality /app/task/tests/structure /app/task/tests/rewardkit
+[?2004l/app/task/tests/:
+total 64
+drwxr-xr-x 8 502 dialout  4096 Aug 16 14:03 .
+drwxr-xr-x 7 502 dialout  4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 13991 Aug 16 11:23 criteria.py
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 detection
+drwxr-xr-x 2 502 dialout  4096 Aug 16 10:50 grounding
+-rw-r--r-- 1 502 dialout  4974 Aug 16 14:03 manifest.json
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 planning
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:22 quality
+-rw-r--r-- 1 502 dialout   511 Aug 16 10:51 reward.toml
+drwxr-xr-x 2 502 dialout  4096 Aug 16 12:19 rewardkit
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:26 structure
+-rwxr-xr-x 1 502 dialout  1987 Aug 16 14:27 test.sh
+
+/app/task/tests/detection:
+total 28
+drwxr-xr-x 2 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1142 Aug 16 14:03 attribution.toml
+-rw-r--r-- 1 502 dialout  919 Aug 16 10:50 chain_topology.py
+-rw-r--r-- 1 502 dialout 1765 Aug 16 14:03 discovery.py
+-rw-r--r-- 1 502 dialout 1863 Aug 16 11:43 no_cve_claimed.py
+-rw-r--r-- 1 502 dialout  938 Aug 16 10:50 silent_recall.py
+
+/app/task/tests/grounding:
+total 16
+drwxr-xr-x 2 502 dialout 4096 Aug 16 10:50 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout  956 Aug 16 10:50 citations_resolve.py
+-rw-r--r-- 1 502 dialout  854 Aug 16 10:50 no_fabrication.py
+
+/app/task/tests/planning:
+total 24
+drwxr-xr-x 2 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1680 Aug 16 11:01 coverage.py
+-rw-r--r-- 1 502 dialout  744 Aug 16 10:51 ordering.py
+-rw-r--r-- 1 502 dialout  837 Aug 16 10:51 quality.toml
+-rw-r--r-- 1 502 dialout 1431 Aug 16 14:03 verification.py
+
+/app/task/tests/quality:
+total 12
+drwxr-xr-x 2 502 dialout 4096 Aug 16 11:22 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1092 Aug 16 11:22 q_items.toml
+
+/app/task/tests/rewardkit:
+total 36
+drwxr-xr-x 2 502 dialout 4096 Aug 16 12:19 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 3725 Aug 16 11:23 __init__.py
+-rw-r--r-- 1 502 dialout 1064 Aug 16 11:24 __main__.py
+-rw-r--r-- 1 502 dialout 8263 Aug 16 12:19 judge.py
+-rw-r--r-- 1 502 dialout 6025 Aug 16 11:26 runner.py
+
+/app/task/tests/structure:
+total 20
+drwxr-xr-x 2 502 dialout 4096 Aug 16 11:26 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout  662 Aug 16 10:50 five_files_exist.py
+-rw-r--r-- 1 502 dialout  915 Aug 16 10:50 nonempty_and_parses.py
+-rw-r--r-- 1 502 dialout 1457 Aug 16 11:26 required_sections.py
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/rewardkit/runner.py
+[?2004l"""The scoring loop: import criterion files, evaluate instances, apply gates, aggregate.
+
+Directory → reward-key mapping mirrors the design (doc 02 §2.1, §3.6):
+  structure/  → structure gate (required_pass, multiplicative)
+  grounding/  → grounding rate + fabrication gate
+  detection/  → `detection` axis (discovery, silent_recall[w=0], chain, no_cve, attribution)
+  planning/   → `plan` axis (coverage, verification, ordering, plan-quality judge)
+  quality/    → `quality` key (Q-dimension judge; eval-only by default)
+"""
+from __future__ import annotations
+
+import importlib.util
+import json
+import os
+import sys
+from pathlib import Path
+
+import rewardkit as rk
+import rewardkit.judge as judgemod   # dotted form: the module __getattr__ registrar shadows
+                                     # `from rewardkit import judge` (it returns a function)
+
+GROUPS = ["structure", "grounding", "detection", "planning", "quality"]
+GROUP_TO_REWARD = {"planning": "plan"}          # others map to their own name
+LATE = ("discovery.py", "verification.py")      # generated instance-registration files
+THRESHOLD = 0.70                                # per-axis pass threshold (doc 01 §4.6)
+
+
+def _reward_key(group: str) -> str:
+    return GROUP_TO_REWARD.get(group, group)
+
+
+def _load(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, str(path))
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _wmean(pairs):
+    num = sum(w * s for w, s in pairs)
+    den = sum(w for w, _ in pairs)
+    return round(num / den, 4) if den else None
+
+
+def _parse_reward_toml(path: Path) -> list:
+    """Tiny purpose-built parser for reward.toml ([[reward]] name/aggregation) — avoids a TOML
+    dependency so the deterministic path runs on stock Python 3.9."""
+    blocks, cur = [], None
+    for raw in path.read_text().splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line == "[[reward]]":
+            cur = {}
+            blocks.append(cur)
+        elif cur is not None and "=" in line:
+            k, _, v = line.partition("=")
+            cur[k.strip()] = v.strip().strip('"')
+    return blocks
+
+
+def run(tests, app, disk, sas) -> dict:
+    tests, app = Path(tests), Path(app)
+    os.environ.update(RK_TESTS=str(tests), RK_DISK=str(disk),
+                      RK_SAS=str(sas), RK_APP=str(app))
+    if str(tests) not in sys.path:
+        sys.path.insert(0, str(tests))
+
+    rk._reset()
+    _load(tests / "criteria.py", "criteria")
+    import criteria as C  # now resolvable via sys.modules
+
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        rk._set_group(group)
+        files = sorted(gdir.glob("*.py"))
+        for f in [x for x in files if x.name not in LATE] + [x for x in files if x.name in LATE]:
+            _load(f, f"rk_{group}_{f.stem}")
+    rk._set_group(None)
+
+    details, group_pairs = [], {g: [] for g in GROUPS}
+    required_fail, silent_recall = False, None
+
+    # --- deterministic instances (Tier 1 + Tier 2) ---
+    for (name, _args), inst in rk._instances.items():
+        d = rk._defs.get(name)
+        if d is None:
+            continue
+        try:
+            val = d["fn"](app, *inst["args"], **inst["kwargs"])
+            score = (1.0 if val else 0.0) if isinstance(val, bool) else float(val)
+            err = None
+        except Exception as e:
+            score, err = 0.0, f"{type(e).__name__}: {e}"
+        details.append({"group": inst["group"], "criterion": name, "args": list(inst["args"]),
+                        "weight": inst["weight"], "score": score, "error": err})
+        if name == "silent_artifact_recall":
+            silent_recall = score
+        if d.get("required_pass") and score < 1.0:
+            required_fail = True
+        if inst["weight"] > 0 and inst["group"] in group_pairs:
+            group_pairs[inst["group"]].append((inst["weight"], score))
+
+    # --- Tier 3 judge tomls ---
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        for tf in sorted(gdir.glob("*.toml")):
+            for r in judgemod.run_judge(tf, app, tests)["criteria"]:
+                details.append({"group": group, "criterion": f"{tf.stem}:{r['name']}",
+                                "args": [], "weight": r["weight"], "score": r["score"],
+                                "skipped": r.get("skipped", False),
+                                "judge_reason": r.get("reason")})
+                if not r.get("skipped") and r["score"] is not None and r["weight"] > 0:
+                    group_pairs[group].append((r["weight"], r["score"]))
+
+    # --- aggregate into reward keys per reward.toml ---
+    reward = {}
+    for g in GROUPS:
+        reward[_reward_key(g)] = _wmean(group_pairs[g])
+    reward_spec = _parse_reward_toml(tests / "reward.toml") if (tests / "reward.toml").exists() else []
+
+    # --- gates ---
+    classify = C._grounding(app)
+    cites = [c for f in C._findings(app) for c in f["citations"]]
+    fabricated = sum(1 for path, _ in cites if classify(path) == "fabricated")
+    fab_rate = round(fabricated / len(cites), 4) if cites else 0.0
+
+    outcome = "incomplete_output" if required_fail else "scored"
+    reward["structure"] = 0.0 if required_fail else 1.0
+    if fab_rate > 0:                                  # fabrication gate zeroes detection
+        reward["detection"] = 0.0
+
+    det = reward.get("detection") or 0.0
+    plan = reward.get("plan") or 0.0
+    passed = outcome == "scored" and det >= THRESHOLD and plan >= THRESHOLD
+    reward["reward"] = 1.0 if passed else 0.0
+    reward["silent_artifact_recall"] = silent_recall if silent_recall is not None else 0.0
+    reward["fabrication_rate"] = fab_rate
+    reward["outcome"] = outcome
+
+    (app / "reward.json").write_text(json.dumps(reward, indent=2) + "\n")
+    (app / "reward-details.json").write_text(json.dumps(details, indent=2) + "\n")
+    return reward
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/reward.toml
+[?2004l# tests/reward.toml  (FIXED — aggregate keys; per-dimension keys are never collapsed)
+[[reward]]
+name = "detection"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "plan"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "quality"           # Q-dimension judge items; reported, eval-only by default (doc 02 §6 Q2)
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "reward"            # Harbor's parsed score
+aggregation = "threshold"  # both axes >= 0.70 (never a sum of the two — doc 00 non-negotiable #2)
+[?2004hroot@4d226f3f713c:/app# cat /app/task/environment/README.md 2>/dev/null || echo 'No env README'
+[?2004l# environment/disk.tar.gz is produced by build_disk.py
+
+Run `python3 build_disk.py tasks/<range>` after generation to synthesise the forensic image here (+ sha256) and augment `sas-mock/` with the CTI/handoff materials. The Docker build (context = this directory) bakes it read-only at `/disk`; `sas-mock/` is baked at `/sas`.
+
+Every path cited in `tests/manifest.json` must exist inside the image (QA gate: manifest ↔ disk 100%).
+[?2004hroot@4d226f3f713c:/app# head -n 50 /app/task/tests/criteria.py
+[?2004l# tests/criteria.py
+from __future__ import annotations
+#
+# Shared library for the post-compromise DFIR verifier. This file is FIXED — it is identical
+# for every range in the subdomain. Nothing here is range-specific; the only per-range input
+# is manifest.json (doc 02 §3.0). The @criterion(shared=True) loaders are exposed to the
+# tier files as rk.shared.<name>; the plain functions below them are framework-agnostic
+# helpers imported directly (`from criteria import _dag, ...`).
+import json
+import os
+import re
+from pathlib import Path
+
+from rewardkit import criterion
+
+# Mount locations default to the container paths but are overridable via env, so the runner
+# (and selftest) can point them at real or synthesised directories without editing this file.
+TESTS_DIR = Path(os.environ.get("RK_TESTS", "/tests"))
+
+# Citations MUST be backtick-delimited: `/abs/path` or `/abs/path:line`. Requiring the
+# backticks stops bare slashes in prose ("and/or", "TCP/IP", "24/7") from being parsed as
+# paths and then flagged as fabrication. The path class excludes ':' so the optional
+# ':line' suffix splits unambiguously (doc 02 §3.3).
+CITE = re.compile(r"`(/[^`\s:]+)(?::(\d+))?`")
+
+# Read-only evidence mounts the agent is given (doc 02 §2.3). Citations are resolved by
+# mount prefix, NOT by blindly stripping the leading '/':
+#   - a citation beginning with a mount prefix ("/sas/alerts.json") resolves literally under
+#     that mount;
+#   - any other host-absolute citation ("/etc/ssh/sshd_config") is a path *inside the
+#     forensic image* and resolves under the primary host root (/disk) — never against the
+#     analysis machine's own filesystem.
+EVIDENCE_MOUNTS = {"/sas": Path(os.environ.get("RK_SAS", "/sas")),
+                   "/disk": Path(os.environ.get("RK_DISK", "/disk"))}
+HOST_ROOT = "/disk"
+
+# The three report files findings are parsed from. progress.md and remediation-plan.md are
+# handled by their own criteria and are not scanned for detection findings.
+REPORT_FILES = ("intrusion-report.md", "vuln-report.md", "baseline-report.md")
+
+# ATT&CK technique id, e.g. T1110 or T1546.004.
+ATTCK = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+
+
+@criterion(shared=True)
+def _manifest(workspace: Path) -> dict:
+    """Ground truth for this range (generated corpus) or hand-extracted (SecRespond)."""
+    return json.loads((TESTS_DIR / "manifest.json").read_text())
+
+
+[?2004hroot@4d226f3f713c:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/postgres-copyprogram"
+version     = "1.0.0"
+description = "Post-compromise forensics: CentOS Stream 9 host with a weak-credential PostgreSQL abused via COPY TO PROGRAM, DNS-tunnel exfiltration, cron and systemd persistence, timestomping."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/rewardkit/__main__.py
+[?2004l"""CLI: `python -m rewardkit --tests DIR [--app DIR --disk DIR --sas DIR]`.
+
+Invoked by tests/test.sh inside the Harbor container. Scores /app against the range's
+manifest and writes reward.json (+ reward-details.json), then prints reward.json to stdout.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+
+from rewardkit.runner import run
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(prog="rewardkit", description=__doc__)
+    ap.add_argument("--tests", default="/tests", help="tests directory (manifest + criteria)")
+    ap.add_argument("--app", default="/app", help="agent workspace (the reports to score)")
+    ap.add_argument("--disk", default="/disk", help="forensic-image evidence root")
+    ap.add_argument("--sas", default="/sas", help="security-product feed evidence root")
+    args = ap.parse_args(argv)
+
+    reward = run(args.tests, args.app, args.disk, args.sas)
+    json.dump(reward, sys.stdout, indent=2)
+    sys.stdout.write("\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/structure/required_sections.py
+[?2004l# tests/structure/required_sections.py  (FIXED — structure gate, required_pass)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+# Minimal section contract each report must satisfy (case-insensitive substring match).
+# Deliberately loose — the gate checks SHAPE, not content quality. In particular it does NOT
+# require verification language in the plan (that is a Tier-1 plan score, not a structure
+# gate), so a well-formed but evidence-free no-op report still passes structure.
+REQUIRED_SECTIONS = {
+    "intrusion-report.md": ("entry", "chain"),        # entry point + attack chain
+    "vuln-report.md":      ("vuln",),                 # a vulnerability section
+    "baseline-report.md":  ("baseline",),             # baseline weaknesses
+    "remediation-plan.md": ("remediat",),             # a remediation plan
+}
+
+
+def _headings(text: str) -> str:
+    return "\n".join(l for l in text.splitlines() if l.lstrip().startswith("#")).lower()
+
+
+@criterion(description="each report contains its required sections", required_pass=True)
+def required_sections(workspace: Path) -> bool:
+    for name, needles in REQUIRED_SECTIONS.items():
+        p = workspace / name
+        if not p.exists():
+            return False
+        blob = p.read_text(errors="replace").lower()
+        heads = _headings(blob)
+        for n in needles:
+            if n not in heads and n not in blob:
+                return False
+    return True
+[?2004hroot@4d226f3f713c:/app# cat /app/task/tests/detection/discovery.py
+[?2004l# tests/detection/discovery.py  (GENERATED by the task generator from manifest.json)
+# One discovery criterion per artifact; evidence/grounding is scored separately by the
+# grounding gate (doc 02 §2.3), so this returns a pure 0/1 discovery sub-score.
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import _haystack
+
+
+@criterion(description="CHK {chk}: artifact {artifact} discovered")
+def discovered(workspace: Path, chk: str, artifact: str, match=None) -> float:
+    # Path-required: a genuine detection cites the artifact's path (Δ3). `match` needles
+    # discriminate checkpoints that share a path (e.g. miner process vs. binary).
+    match = list(match or [])
+    for f in rk.shared._findings(workspace):
+        hay = _haystack(f)
+        if artifact in hay and (not match or any(m in hay for m in match)):
+            return 1.0
+    return 0.0
+
+
+# --- registrations (silent artifacts upweighted; weights are the manifest's) ---
+
+rk.discovered("CHK-01", "/var/lib/pgsql/.local/pgdaemon", match=['postgres', 'daemon'], weight=1.0)
+rk.discovered("CHK-02", "/var/spool/cron/postgres", match=['pgdaemon', 'cron'], weight=1.0)
+rk.discovered("CHK-03", "/etc/pgdaemon.conf", match=['dns', 'tunnel'], weight=2.0)  # SILENT
+rk.discovered("CHK-04", "/etc/systemd/system/pg-metrics.service", match=['pgdaemon', 'ExecStart'], weight=2.0)  # SILENT
+rk.discovered("CHK-05", "/var/lib/pgsql/.local/.timestamps", match=['timestomp', 'mtime'], weight=1.5)  # SILENT
+rk.discovered("CHK-06", "/var/lib/pgsql/data/pg_hba.conf", match=['trust', '0.0.0.0/0'], weight=1.0)
+rk.silent_artifact_recall(weight=0.0)   # reported, not scored — headline diagnostic
+rk.no_false_cve("neg-deliverable", weight=1.5)   # no-CVE ranges only
+[?2004hroot@4d226f3f713c:/app# /app/task/solution/solve.sh
+[?2004l[?2004hroot@4d226f3f713c:/app# /app/task/tests/test.sh
+[?2004l{
+  "structure": 1.0,
+  "grounding": 0.0,
+  "detection": 0.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 1.0,
+  "outcome": "scored"
+}
+reward=0.0
+[?2004hroot@4d226f3f713c:/app# cat /app/reward-details.json
+[?2004l[
+  {
+    "group": "structure",
+    "criterion": "five_files_exist",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "structure",
+    "criterion": "nonempty_and_parses",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "structure",
+    "criterion": "required_sections",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "grounding",
+    "criterion": "grounding_rate",
+    "args": [],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "grounding",
+    "criterion": "no_fabrication",
+    "args": [],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "chain_score",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "silent_artifact_recall",
+    "args": [],
+    "weight": 0.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-01",
+      "/var/lib/pgsql/.local/pgdaemon"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-02",
+      "/var/spool/cron/postgres"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-03",
+      "/etc/pgdaemon.conf"
+    ],
+    "weight": 2.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-04",
+      "/etc/systemd/system/pg-metrics.service"
+    ],
+    "weight": 2.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-05",
+      "/var/lib/pgsql/.local/.timestamps"
+    ],
+    "weight": 1.5,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-06",
+      "/var/lib/pgsql/data/pg_hba.conf"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "no_false_cve",
+    "args": [
+      "neg-deliverable"
+    ],
+    "weight": 1.5,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "plan_covers_findings",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "ordering_ok",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-20"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-01"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-02"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-03"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-04"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-06"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-07"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-21"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-22"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "attribution:0:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "detection",
+    "criterion": "attribution:1:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:0:binary",
+    "args": [],
+    "weight": 2.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:1:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:2:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:0:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:1:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:2:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  }
+]
+[?2004hroot@4d226f3f713c:/app# grep -n -C 15 "_grounding" /app/task/tests/criteria.py
+[?2004l62-                out.append({"claim": line.strip(), "citations": cites, "source": name})
+63-    return out
+64-
+65-
+66-def _candidates(path: str) -> list:
+67-    """Real filesystem candidate(s) a citation could resolve to, by mount prefix."""
+68-    p = "/" + path.lstrip("/")
+69-    for prefix, root in EVIDENCE_MOUNTS.items():
+70-        if p == prefix or p.startswith(prefix + "/"):
+71-            return [root / p[len(prefix):].lstrip("/")]
+72-    # No mount prefix -> a host path inside the forensic image.
+73-    return [EVIDENCE_MOUNTS[HOST_ROOT] / p.lstrip("/")]
+74-
+75-
+76-@criterion(shared=True)
+77:def _grounding(workspace: Path):
+78-    """Return a classifier path -> {'resolved','plausible','fabricated'} so every criterion
+79-    shares one filesystem view of the evidence mounts (doc 02 §2.3)."""
+80-
+81-    def classify(path: str) -> str:
+82-        cands = _candidates(path)
+83-        if any(c.exists() for c in cands):
+84-            return "resolved"
+85-        if any(c.parent.exists() for c in cands):
+86-            return "plausible"          # wrong file/line inside a real directory
+87-        return "fabricated"             # parent directory absent under every mount
+88-
+89-    return classify
+90-
+91-
+92-# --------------------------------------------------------------------------------------
+[?2004hroot@4d226f3f713c:/app# grep -n -C 20 "_findings" /app/task/tests/criteria.py
+[?2004l32-#     analysis machine's own filesystem.
+33-EVIDENCE_MOUNTS = {"/sas": Path(os.environ.get("RK_SAS", "/sas")),
+34-                   "/disk": Path(os.environ.get("RK_DISK", "/disk"))}
+35-HOST_ROOT = "/disk"
+36-
+37-# The three report files findings are parsed from. progress.md and remediation-plan.md are
+38-# handled by their own criteria and are not scanned for detection findings.
+39-REPORT_FILES = ("intrusion-report.md", "vuln-report.md", "baseline-report.md")
+40-
+41-# ATT&CK technique id, e.g. T1110 or T1546.004.
+42-ATTCK = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+43-
+44-
+45-@criterion(shared=True)
+46-def _manifest(workspace: Path) -> dict:
+47-    """Ground truth for this range (generated corpus) or hand-extracted (SecRespond)."""
+48-    return json.loads((TESTS_DIR / "manifest.json").read_text())
+49-
+50-
+51-@criterion(shared=True)
+52:def _findings(workspace: Path) -> list:
+53-    """Parse (claim, citations) pairs out of the agent's markdown reports."""
+54-    out = []
+55-    for name in REPORT_FILES:
+56-        p = workspace / name
+57-        if not p.exists():
+58-            continue
+59-        for line in p.read_text(errors="replace").splitlines():
+60-            cites = CITE.findall(line)
+61-            if cites:
+62-                out.append({"claim": line.strip(), "citations": cites, "source": name})
+63-    return out
+64-
+65-
+66-def _candidates(path: str) -> list:
+67-    """Real filesystem candidate(s) a citation could resolve to, by mount prefix."""
+68-    p = "/" + path.lstrip("/")
+69-    for prefix, root in EVIDENCE_MOUNTS.items():
+70-        if p == prefix or p.startswith(prefix + "/"):
+71-            return [root / p[len(prefix):].lstrip("/")]
+72-    # No mount prefix -> a host path inside the forensic image.
+[?2004hroot@4d226f3f713c:/app# ls -la /disk
+[?2004lls: cannot access '/disk': No such file or directory
+[?2004hroot@4d226f3f713c:/app# RK_DISK=/app/task/assets/disk RK_SAS=/app/task/environment/sas-mock /app/task/tests/test.sh
+[?2004l{
+  "structure": 1.0,
+  "grounding": 1.0,
+  "detection": 1.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 1.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 0.0,
+  "outcome": "scored"
+}
+reward=1.0
+[?2004hroot@4d226f3f713c:/app# cat << 'EOF' > make_json.py
+[?2004l[?2004h> import json
+[?2004l[?2004h> 
+[?2004l[?2004h> data = {
+[?2004lon[?2004h>   "verifiable": {
+[?2004lon field[?2004h>     "outcome": "pass",
+[?2004lda[?2004h>     "explanation": "The task includes a fully programmatic, deterministic test suite (tests/test.sh calling rewardkit) that verifies deliverables without relying on subjective human grading."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "solvable": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "solution/solve.sh provides a working reference implementation that generates all 5 required reports and achieves a 1.0 reward score."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "difficult": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task requires genuine DFIR domain expertise to analyze raw forensic artifacts across a CentOS image (PostgreSQL COPY TO PROGRAM, DNS tunneling, timestomping, persistence mechanisms)."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "interesting": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task models a realistic post-compromise incident response investigation and remediation scenario."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "outcome_verified": {
+[?2004lpert_time_e[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "Tests verify the final output files (markdown reports) and citations without constraining the agent choice of tools or steps."
+[?2004la[?2004h>   },
+[?2004l[?2004h>   "anti_cheat_robustness": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "Ground-truth manifest is stored in tests/ and not baked into the agent image environment."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "task_security": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "All task files, scripts, and test runners contain safe and legitimate DFIR evaluation code."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "functional_verification": {
+[?2004l"
+[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "Tests dynamically evaluate report findings, citation resolutions against forensic evidence, attack chain graph topology, and remediation coverage."
+[?2004l[?2004h>   },
+[?2004l."
+[?2004h>   "deterministic_reproducible": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The verification logic and environment setup are fully deterministic and reproducible without external network dependencies."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "essential_difficulty": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "Difficulty lies in forensic evidence extraction and reasoning rather than arbitrary precision formatting."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "test_instruction_alignment": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "All test criteria directly verify requirements stated in instruction.md (five deliverables, intrusion findings, vulnerability analysis, baseline issues, remediation plan, citations)."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "novel": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task uses a custom DFIR synthetic dataset and scenario."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "agentic": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "Requires multi-step environment exploration, searching forensic disk images and security feeds, and synthesizing multiple report files."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "reviewable": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task structure, manifest, criteria, and solution script are clean, well-structured, and easy to review."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "instruction_concision": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "instruction.md is concise, human-written, uses absolute paths, and specifies objectives clearly."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "solution_quality": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "solve.sh contains a clean reference script generating all required report deliverables."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "separate_verifier_configured": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "Separate verifier mode is not configured: tests/Dockerfile is missing, environment_mode is not set in task.toml, and artifacts are not declared in task.toml."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "environment_hygiene": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "tests/Dockerfile does not exist to own /tests/* and verifier dependencies in separate verifier mode."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "structured_data_schema": {
+[?2004l[?2004h>     "outcome": "not_applicable",
+[?2004l[?2004h>     "explanation": "No structured API, JSON, CSV, or DB schema deliverable is expected; deliverables are markdown report files."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "typos": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "No typos found in critical paths, filenames, or command identifiers."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "difficulty_explanation_quality": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "difficulty_explanation field is missing from metadata in task.toml."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "solution_explanation_quality": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "solution_explanation field is missing from metadata in task.toml."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "verification_explanation_quality": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "verification_explanation field is missing from metadata in task.toml."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "category_and_tags": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "subcategory field is missing from metadata in task.toml."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "task_name": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task name postgres-copyprogram is concise, descriptive, and follows 3-word kebab-case naming."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "resource_configuration": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "Resource limits and timeouts in task.toml are appropriate for a long-horizon DFIR task."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "task_readme": {
+[?2004l[?2004h>     "outcome": "not_applicable",
+[?2004l[?2004h>     "explanation": "No task-level README.md is present."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "expert_time_estimate": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "expert_time_estimate_hours field is missing from metadata in task.toml."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "task_toml_schema": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "task.toml contains an invalid metadata key difficulty and is missing required benchmark metadata fields."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "no_extraneous_files": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task directory contains only required source, test, baseline, asset, and environment files."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "artifact_efficiency": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The task deliverables are 5 small markdown files."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "verifier_execution_isolation": {
+[?2004l[?2004h>     "outcome": "not_applicable",
+[?2004l[?2004h>     "explanation": "The verifier parses markdown text deliverables and does not execute agent-provided code or binaries."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "ctrf_reporting": {
+[?2004l[?2004h>     "outcome": "fail",
+[?2004l[?2004h>     "explanation": "The test suite performs discrete multi-check evaluations but does not emit a CTRF report to /logs/verifier/ctrf.json."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "do_not_modify_enforced": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "The instruction requires keeping /disk read-only, which is enforced via read-only mount permissions in the environment and pristine evidence mounts during verification."
+[?2004l[?2004h>   },
+[?2004l[?2004h>   "binary_reward": {
+[?2004l[?2004h>     "outcome": "pass",
+[?2004l[?2004h>     "explanation": "test.sh and runner.py threshold all scores to output strictly 0.0 or 1.0 to /logs/verifier/reward.txt."
+[?2004l[?2004h>   }
+[?2004l[?2004h> }
+[?2004l[?2004h> 
+[?2004l[?2004h> with open("check-result.json", "w") as f:
+[?2004l[?2004h>     json.dump(data, f, indent=2)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@4d226f3f713c:/app# python3 make_json.py
+[?2004l[?2004hroot@4d226f3f713c:/app# python3 -c "import json; d=json.load(open('check-result.json')); print(len(d)); print(list(d.keys()))"
+[?2004l35
+['verifiable', 'solvable', 'difficult', 'interesting', 'outcome_verified', 'anti_cheat_robustness', 'task_security', 'functional_verification', 'deterministic_reproducible', 'essential_difficulty', 'test_instruction_alignment', 'novel', 'agentic', 'reviewable', 'instruction_concision', 'solution_quality', 'separate_verifier_configured', 'environment_hygiene', 'structured_data_schema', 'typos', 'difficulty_explanation_quality', 'solution_explanation_quality', 'verification_explanation_quality', 'category_and_tags', 'task_name', 'resource_configuration', 'task_readme', 'expert_time_estimate', 'task_toml_schema', 'no_extraneous_files', 'artifact_efficiency', 'verifier_execution_isolation', 'ctrf_reporting', 'do_not_modify_enforced', 'binary_reward']
+[?2004hroot@4d226f3f713c:/app# 

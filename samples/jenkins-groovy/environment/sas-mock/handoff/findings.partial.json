@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/lib/jenkins/jobs/.tmp/config.xml",
+      "attck": "T1190",
+      "confidence": "high",
+      "evidence": "`/var/lib/jenkins/jobs/.tmp/config.xml`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

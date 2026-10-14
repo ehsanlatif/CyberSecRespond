@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "dropper",
+    "path": "/var/lib/pgsql/.local/pgdaemon",
+    "capability": "ENT-P01",
+    "summary": "dropper observed at /var/lib/pgsql/.local/pgdaemon"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "cron",
+    "path": "/var/spool/cron/postgres",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/postgres"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-06",
+    "kind": "postgres-baseline",
+    "path": "/var/lib/pgsql/data/pg_hba.conf",
+    "capability": "BAS-01",
+    "summary": "postgres-baseline observed at /var/lib/pgsql/data/pg_hba.conf"
+  }
+]

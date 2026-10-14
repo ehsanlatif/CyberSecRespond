@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-05",
+    "path": "/opt/tomcat/lib/struts2-core.jar",
+    "check": "vulnerable-lib",
+    "capability": "BAS-01"
+  }
+]

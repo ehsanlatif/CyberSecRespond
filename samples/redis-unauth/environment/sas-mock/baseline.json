@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-05",
+    "path": "/etc/redis/redis.conf",
+    "check": "redis-baseline",
+    "capability": "BAS-01"
+  }
+]

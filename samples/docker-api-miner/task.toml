@@ -1,0 +1,33 @@
+schema_version = "1.4"
+
+[task]
+name        = "dfir-eval/docker-api-miner"
+version     = "1.0.0"
+description = "Post-compromise forensics: Ubuntu 22.04 host with an exposed Docker API abused to launch a container, escape to the host, drop a cryptominer, and install cron and systemd persistence."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0

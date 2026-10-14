@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-06",
+    "path": "/var/lib/pgsql/data/pg_hba.conf",
+    "check": "postgres-baseline",
+    "capability": "BAS-01"
+  }
+]

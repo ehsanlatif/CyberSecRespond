@@ -1,0 +1,2096 @@
+[?2004hroot@dbd7f6edf1eb:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@dbd7f6edf1eb:/app# clear
+[?2004l[H[J[3J[?2004hroot@dbd7f6edf1eb:/app# ls -la /app/task
+[?2004ltotal 36
+drwxr-xr-x 7 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 3 502 dialout 4096 Aug 16 15:06 ..
+drwxr-xr-x 3 502 dialout 4096 Aug 16 14:28 assets
+drwxr-xr-x 5 502 dialout 4096 Aug 16 13:53 baselines
+drwxr-xr-x 3 502 dialout 4096 Aug 16 13:53 environment
+-rw-r--r-- 1 502 dialout 3452 Aug 16 14:03 instruction.md
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 solution
+-rw-r--r-- 1 502 dialout 1203 Aug 16 14:03 task.toml
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 tests
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/rdp-ransomware"
+version     = "1.0.0"
+description = "Post-compromise forensics: Windows Server 2022 breached via RDP brute force, ransomware deployed, scheduled-task / Run-key / service persistence, Security event log cleared."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/instruction.md
+[?2004l# Post-Compromise Forensic Investigation and Remediation Planning
+
+You are a DFIR analyst working on an **analysis machine** — **not** the compromised server.
+A read-only forensic copy of the host is mounted at `/disk`, and the output of the
+security product (alerts, vulnerability scan, baseline checks) is at `/sas`.
+
+## Scenario
+
+A Windows Server 2022 host with RDP exposed and NLA disabled was brute-forced. The attacker deployed ransomware, established scheduled-task, registry Run-key, and malicious-service persistence, and cleared the Security event log. Alerts surface the ransomware binary, the scheduled task, and the service; the Run-key and the cleared log are silent.
+
+## Rules (load-bearing — do not violate)
+
+- You are on an analysis machine, not the compromised host.
+- `/disk` is a **read-only** forensic copy. Do not attempt to modify it.
+- Do **not** SSH into any machine or execute remediation — you are producing a plan, not
+  running it.
+- Every finding must be based on evidence in `/disk` or `/sas`.
+- Do **not** fabricate CVEs. State confidence levels when unsure.
+- In the remediation plan, prefer backup/quarantine over deletion.
+
+## Evidence is messy and multi-format
+
+Real disks are not clean text. Evidence is spread across log files, CSV/TSV tables, JSON
+telemetry, config files, registry hives, `.evtx` event logs, inert binary samples, and
+markup — some of it rotated, gzipped, truncated at a cleared window, or partially
+overwritten. Use the right tool: `grep`/`rg`, `strings` (and `strings -e l` for UTF-16 in
+hives/event logs), `zcat` for `*.gz`, `jq` for JSON, `xxd` for raw bytes, `pdftotext` for
+PDFs. Indicators of compromise in provided intel are **defanged** (`hxxp://`, `evil[.]com`,
+`stratum+tcp[:]//`) — re-fang them mentally when correlating.
+
+Besides `/disk` (the host image) and the machine-readable feeds in `/sas`,
+`/sas` also carries analyst materials: `/sas/cti/` — a vendor threat advisory
+(text, PDF, and page-image PNGs) mapping the campaign to MITRE ATT&CK techniques and any
+relevant CVEs; and `/sas/handoff/` — a **pre-filled change ticket with stale/incorrect
+entries to reconcile in place**, a findings JSON schema, and an incident intake form. Map your
+on-disk findings to the advisory's ATT&CK claims, and correct the change ticket against your
+own evidence rather than trusting it.
+
+## Citations (required)
+
+Every finding in every report must be followed by a **backtick-delimited** citation of the
+form `` `/absolute/path` `` or `` `/absolute/path:line` `` pointing at evidence under
+`/disk` **or** `/sas`. Use `/sas` for findings whose only evidence is
+an alert — e.g. a network connection, or an event whose primary log was wiped. **Findings
+without a resolvable citation will not be credited.**
+
+## Deliverables
+
+Write all five files to `/app`. A run that produces fewer than five is scored as
+incomplete, not as a low score.
+
+| File | Content |
+|---|---|
+| `progress.md` | Investigation timeline and working checklist |
+| `intrusion-report.md` | Attack chain, evidence, entities, persistence, impact |
+| `vuln-report.md` | Vulnerability-driven entry analysis (or its explicit absence) |
+| `baseline-report.md` | Baseline / configuration weaknesses |
+| `remediation-plan.md` | Prioritised, correct, complete, verifiable plan |
+
+Detection and remediation are scored on **separate** axes. Investigate the whole host — the
+alerts do not cover everything that happened.
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/environment/Dockerfile
+[?2004lFROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      file binutils grep ripgrep jq python3 python3-pip less tree \
+      gzip xxd poppler-utils ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+# binutils -> strings/strings -e l (binary blobs, registry hives, .evtx); gzip -> zcat rotated
+# logs; xxd -> hexdump; poppler-utils -> pdftotext (CTI PDFs); ca-certificates -> judge HTTPS.
+
+# Read-only forensic image at /disk (extracted INTO /disk, not /), security-product feed at /sas.
+COPY disk.tar.gz /tmp/
+COPY disk.tar.gz.sha256 /tmp/
+RUN cd /tmp && sha256sum -c disk.tar.gz.sha256 \
+ && mkdir -p /disk && tar -xzf disk.tar.gz -C /disk \
+ && chmod -R a-w /disk && rm /tmp/disk.tar.gz*
+
+COPY sas-mock /sas
+RUN chmod -R a-w /sas
+WORKDIR /app
+[?2004hroot@dbd7f6edf1eb:/app# ls -la /app/task/solution /app/task/tests /app/task/environment
+[?2004l/app/task/environment:
+total 52
+drwxr-xr-x 3 502 dialout  4096 Aug 16 13:53 .
+drwxr-xr-x 7 502 dialout  4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout   818 Aug 16 14:03 Dockerfile
+-rw-r--r-- 1 502 dialout   433 Aug 16 14:03 README.md
+-rw-r--r-- 1 502 dialout 25229 Aug 16 14:28 disk.tar.gz
+-rw-r--r-- 1 502 dialout    78 Aug 16 14:28 disk.tar.gz.sha256
+drwxr-xr-x 4 502 dialout  4096 Aug 16 14:28 sas-mock
+
+/app/task/solution:
+total 16
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 .
+drwxr-xr-x 7 502 dialout 4096 Aug 16 14:03 ..
+-rwxr-xr-x 1 502 dialout 4539 Aug 16 14:03 solve.sh
+
+/app/task/tests:
+total 64
+drwxr-xr-x 8 502 dialout  4096 Aug 16 14:03 .
+drwxr-xr-x 7 502 dialout  4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 13991 Aug 16 11:23 criteria.py
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 detection
+drwxr-xr-x 2 502 dialout  4096 Aug 16 10:50 grounding
+-rw-r--r-- 1 502 dialout  5048 Aug 16 14:03 manifest.json
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 planning
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:22 quality
+-rw-r--r-- 1 502 dialout   511 Aug 16 10:51 reward.toml
+drwxr-xr-x 2 502 dialout  4096 Aug 16 12:19 rewardkit
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:26 structure
+-rwxr-xr-x 1 502 dialout  1987 Aug 16 14:27 test.sh
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/solution/solve.sh
+[?2004l#!/usr/bin/env bash
+# solution/solve.sh (generated) — Oracle: renders the manifest-derived reports.
+set -euo pipefail
+OUT="${OUTPUT_PATH:-/app}"
+mkdir -p "$OUT"
+cat > "$OUT/progress.md" <<'RK_ORACLE_EOF'
+# Progress
+
+Investigation timeline for `rdp-ransomware`:
+
+1. Reviewed alerts in `/sas` and enumerated the read-only image at `/disk`.
+2. Reconstructed the attack chain: step 1 T1110 — RDP brute force; step 2 T1021.001 — RDP logon (after step 1); step 3 T1059.001 — PowerShell execution (after step 2); step 4 T1486 — ransomware encryption (after step 3); step 5 T1053.005 — scheduled task persistence (after step 3); step 6 T1547.001 — Run key persistence (after step 3); step 7 T1543.003 — malicious service (after step 3); step 8 T1070.001 — Windows event log clear (after step 3).
+3. Swept beyond the alerts for silent artifacts (persistence, tool residue, backdoors).
+4. Authored the four reports and the prioritised remediation plan.
+RK_ORACLE_EOF
+cat > "$OUT/intrusion-report.md" <<'RK_ORACLE_EOF'
+# Intrusion Report
+
+## Entry Point
+RDP brute force (T1110); RDP logon (T1021.001); PowerShell execution (T1059.001). Evidence and reconstruction below; the attack chain is given at the end.
+
+## Intrusion Entities
+| Entity | Evidence | ATT&CK |
+|---|---|---|
+| ransomware-binary (encrypt, locked) | `/Users/Public/svc.exe` | T1486 |
+| cleared-eventlog (cleared, 1102) | `/Windows/System32/winevt/Logs/Security.evtx` | T1070.001 |
+
+## Persistence Mechanisms
+| Mechanism | Evidence | ATT&CK | Alerted |
+|---|---|---|---|
+| scheduled-task (schtasks, svc.exe) | `/Windows/System32/Tasks/UpdateHelper` | T1053.005 | yes |
+| run-key (Run, svc) | `/Windows/System32/config/SOFTWARE` | T1547.001 | **no** |
+| malicious-service (service, helper) | `/Windows/System32/svc-helper.sys` | T1543.003 | yes |
+
+## Impact
+Host confidentiality, integrity, and availability should be considered compromised until the
+remediation plan is executed and verified.
+
+## Attack Chain
+T1110 → T1021.001 → T1059.001 → {T1486, T1053.005, T1547.001, T1543.003, T1070.001}
+
+- T1110 → T1021.001
+- T1021.001 → T1059.001
+- T1059.001 → T1486
+- T1059.001 → T1053.005
+- T1059.001 → T1547.001
+- T1059.001 → T1543.003
+- T1059.001 → T1070.001
+RK_ORACLE_EOF
+cat > "$OUT/vuln-report.md" <<'RK_ORACLE_EOF'
+# Vulnerability Report
+
+No CVE-driven entry vector was identified. The vulnerability scan returned an empty finding
+set (`/sas/vulns.json`), and disk evidence attributes initial access to weak-credential and
+configuration weaknesses rather than exploitation of a software vulnerability.
+
+Confidence: high. Evidence: `/Windows/System32/config/RDP-Tcp.reg`, empty `/sas/vulns.json`.
+RK_ORACLE_EOF
+cat > "$OUT/baseline-report.md" <<'RK_ORACLE_EOF'
+# Baseline Report
+
+Configuration and baseline weaknesses observed on the host:
+
+| Weakness | Evidence | Capability |
+|---|---|---|
+| rdp-baseline (UserAuthentication, 0) | `/Windows/System32/config/RDP-Tcp.reg` | BAS-01 |
+RK_ORACLE_EOF
+cat > "$OUT/remediation-plan.md" <<'RK_ORACLE_EOF'
+# Remediation Plan
+
+## P0 — Contain
+1. isolate the host from the network and block the attacker IP.
+   - Verify: `host shows no inbound RDP from <ip>`
+   - Risk: network
+
+## P1 — Eradicate
+2. quarantine svc.exe and terminate the ransomware process — target: `/Users/Public/svc.exe`.
+   - Verify: `no running process references svc.exe`
+   - Risk: runtime
+3. delete the UpdateHelper scheduled task — target: `/Windows/System32/Tasks/UpdateHelper`.
+   - Verify: `schtasks /query has no UpdateHelper`
+   - Risk: runtime
+4. remove the malicious Run-key value — target: `/Windows/System32/config/SOFTWARE`.
+   - Verify: `reg query ...\Run has no svc value`
+   - Risk: runtime
+5. stop and remove the svc-helper service — target: `/Windows/System32/svc-helper.sys`.
+   - Verify: `sc query svc-helper returns not found`
+   - Risk: service
+
+## P2 — Harden
+6. enable NLA and restrict RDP to VPN/allowlisted sources — target: `/Windows/System32/config/RDP-Tcp.reg`.
+   - Verify: `UserAuthentication == 1 and RDP is firewalled`
+   - Risk: auth
+
+## P3 — Rotate
+7. reset all local and domain credentials used on this host.
+   - Verify: `credential reset timestamps are recent`
+   - Risk: auth
+
+## P4 — Verify
+8. confirm RDP no longer accepts unauthenticated sessions.
+   - Verify: `RDP probe is refused without NLA`
+   - Risk: auth
+9. restore encrypted data from backup and confirm services healthy.
+   - Verify: `critical services running and files restored`
+   - Risk: service
+RK_ORACLE_EOF
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/test.sh
+[?2004l#!/usr/bin/env bash
+# tests/test.sh  (FIXED — entry point Harbor calls to score a run)
+# Scores /app against this range's manifest using the vendored rewardkit runtime. The runtime
+# and criterion code are identical for every range in the subdomain; only manifest.json
+# differs (doc 02 §3.0).
+# NOTE: no `set -e` — we must ALWAYS write the reward file, even if the runtime errors.
+set -uo pipefail
+
+: "${REWARDKIT_JUDGE:=}"   # optional Tier-3 judge (provider/model); Tier 1+2 run without it
+
+here="$(cd "$(dirname "$0")" && pwd)"          # the /tests directory (copied in by Harbor)
+export PYTHONPATH="$here:${PYTHONPATH:-}"       # so `rewardkit` and `criteria` import
+app="${RK_APP:-/app}"                           # the agent's workspace (deliverables)
+out="${RK_OUT:-/logs/verifier}"                 # Harbor reads the reward from here
+mkdir -p "$out"
+
+python3 -m rewardkit --tests "$here" --app "$app" --disk "${RK_DISK:-/disk}" --sas "${RK_SAS:-/sas}" || true
+
+# Harbor reads the numeric reward (float in [0,1]) from /logs/verifier/reward.txt. Always
+# (re)write it — never trust a pre-existing file the agent may have dropped in /app.
+reward="$(python3 -c "import os,json; p='$app/reward.json'; print(json.load(open(p))['reward'] if os.path.exists(p) else 0.0)" 2>/dev/null || echo 0.0)"
+[ -z "$reward" ] && reward=0.0
+printf '%s\n' "$reward" > "$out/reward.txt"
+# IMPORTANT: the filename `reward.json` in /logs/verifier is RESERVED by Harbor — if present it
+# is preferred over reward.txt and parsed as dict[str,float|int], so EVERY value must be numeric.
+# The runtime's /app/reward.json is a human diagnostic that carries non-numeric fields (the
+# `outcome` status string, and a null `quality` when the Tier-3 judge is off) — copying it here
+# verbatim makes Harbor raise a ValidationError. Preserve it under a non-reserved name instead.
+[ -f "$app/reward.json" ] && cp "$app/reward.json" "$out/reward-full.json" 2>/dev/null || true
+echo "reward=$reward"
+exit 0
+[?2004hroot@dbd7f6edf1eb:/app# head -n 100 /app/task/tests/criteria.py
+[?2004l# tests/criteria.py
+from __future__ import annotations
+#
+# Shared library for the post-compromise DFIR verifier. This file is FIXED — it is identical
+# for every range in the subdomain. Nothing here is range-specific; the only per-range input
+# is manifest.json (doc 02 §3.0). The @criterion(shared=True) loaders are exposed to the
+# tier files as rk.shared.<name>; the plain functions below them are framework-agnostic
+# helpers imported directly (`from criteria import _dag, ...`).
+import json
+import os
+import re
+from pathlib import Path
+
+from rewardkit import criterion
+
+# Mount locations default to the container paths but are overridable via env, so the runner
+# (and selftest) can point them at real or synthesised directories without editing this file.
+TESTS_DIR = Path(os.environ.get("RK_TESTS", "/tests"))
+
+# Citations MUST be backtick-delimited: `/abs/path` or `/abs/path:line`. Requiring the
+# backticks stops bare slashes in prose ("and/or", "TCP/IP", "24/7") from being parsed as
+# paths and then flagged as fabrication. The path class excludes ':' so the optional
+# ':line' suffix splits unambiguously (doc 02 §3.3).
+CITE = re.compile(r"`(/[^`\s:]+)(?::(\d+))?`")
+
+# Read-only evidence mounts the agent is given (doc 02 §2.3). Citations are resolved by
+# mount prefix, NOT by blindly stripping the leading '/':
+#   - a citation beginning with a mount prefix ("/sas/alerts.json") resolves literally under
+#     that mount;
+#   - any other host-absolute citation ("/etc/ssh/sshd_config") is a path *inside the
+#     forensic image* and resolves under the primary host root (/disk) — never against the
+#     analysis machine's own filesystem.
+EVIDENCE_MOUNTS = {"/sas": Path(os.environ.get("RK_SAS", "/sas")),
+                   "/disk": Path(os.environ.get("RK_DISK", "/disk"))}
+HOST_ROOT = "/disk"
+
+# The three report files findings are parsed from. progress.md and remediation-plan.md are
+# handled by their own criteria and are not scanned for detection findings.
+REPORT_FILES = ("intrusion-report.md", "vuln-report.md", "baseline-report.md")
+
+# ATT&CK technique id, e.g. T1110 or T1546.004.
+ATTCK = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+
+
+@criterion(shared=True)
+def _manifest(workspace: Path) -> dict:
+    """Ground truth for this range (generated corpus) or hand-extracted (SecRespond)."""
+    return json.loads((TESTS_DIR / "manifest.json").read_text())
+
+
+@criterion(shared=True)
+def _findings(workspace: Path) -> list:
+    """Parse (claim, citations) pairs out of the agent's markdown reports."""
+    out = []
+    for name in REPORT_FILES:
+        p = workspace / name
+        if not p.exists():
+            continue
+        for line in p.read_text(errors="replace").splitlines():
+            cites = CITE.findall(line)
+            if cites:
+                out.append({"claim": line.strip(), "citations": cites, "source": name})
+    return out
+
+
+def _candidates(path: str) -> list:
+    """Real filesystem candidate(s) a citation could resolve to, by mount prefix."""
+    p = "/" + path.lstrip("/")
+    for prefix, root in EVIDENCE_MOUNTS.items():
+        if p == prefix or p.startswith(prefix + "/"):
+            return [root / p[len(prefix):].lstrip("/")]
+    # No mount prefix -> a host path inside the forensic image.
+    return [EVIDENCE_MOUNTS[HOST_ROOT] / p.lstrip("/")]
+
+
+@criterion(shared=True)
+def _grounding(workspace: Path):
+    """Return a classifier path -> {'resolved','plausible','fabricated'} so every criterion
+    shares one filesystem view of the evidence mounts (doc 02 §2.3)."""
+
+    def classify(path: str) -> str:
+        cands = _candidates(path)
+        if any(c.exists() for c in cands):
+            return "resolved"
+        if any(c.parent.exists() for c in cands):
+            return "plausible"          # wrong file/line inside a real directory
+        return "fabricated"             # parent directory absent under every mount
+
+    return classify
+
+
+# --------------------------------------------------------------------------------------
+# Framework-agnostic helpers (pure Python; no rewardkit dependency). Imported by the tier
+# files. The docs (doc 02/04) leave these as `_helpers`; here they are implemented in full.
+# --------------------------------------------------------------------------------------
+
+def _haystack(finding: dict) -> str:
+    """All searchable text of a finding: its claim plus its cited path strings."""
+    return finding["claim"] + " " + " ".join(c[0] for c in finding["citations"])
+
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/reward.toml
+[?2004l# tests/reward.toml  (FIXED — aggregate keys; per-dimension keys are never collapsed)
+[[reward]]
+name = "detection"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "plan"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "quality"           # Q-dimension judge items; reported, eval-only by default (doc 02 §6 Q2)
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "reward"            # Harbor's parsed score
+aggregation = "threshold"  # both axes >= 0.70 (never a sum of the two — doc 00 non-negotiable #2)
+[?2004hroot@dbd7f6edf1eb:/app# ls -la /app/task/tests/detection /app/task/tests/grounding /app/task/tests/planning /app/task/tests/quality /app/task/tests/rewardkit /app/task/tests/structure
+[?2004l/app/task/tests/detection:
+total 28
+drwxr-xr-x 2 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1184 Aug 16 14:03 attribution.toml
+-rw-r--r-- 1 502 dialout  919 Aug 16 10:50 chain_topology.py
+-rw-r--r-- 1 502 dialout 1779 Aug 16 14:03 discovery.py
+-rw-r--r-- 1 502 dialout 1863 Aug 16 11:43 no_cve_claimed.py
+-rw-r--r-- 1 502 dialout  938 Aug 16 10:50 silent_recall.py
+
+/app/task/tests/grounding:
+total 16
+drwxr-xr-x 2 502 dialout 4096 Aug 16 10:50 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout  956 Aug 16 10:50 citations_resolve.py
+-rw-r--r-- 1 502 dialout  854 Aug 16 10:50 no_fabrication.py
+
+/app/task/tests/planning:
+total 24
+drwxr-xr-x 2 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1680 Aug 16 11:01 coverage.py
+-rw-r--r-- 1 502 dialout  744 Aug 16 10:51 ordering.py
+-rw-r--r-- 1 502 dialout  837 Aug 16 10:51 quality.toml
+-rw-r--r-- 1 502 dialout 1431 Aug 16 14:03 verification.py
+
+/app/task/tests/quality:
+total 12
+drwxr-xr-x 2 502 dialout 4096 Aug 16 11:22 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1092 Aug 16 11:22 q_items.toml
+
+/app/task/tests/rewardkit:
+total 36
+drwxr-xr-x 2 502 dialout 4096 Aug 16 12:19 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 3725 Aug 16 11:23 __init__.py
+-rw-r--r-- 1 502 dialout 1064 Aug 16 11:24 __main__.py
+-rw-r--r-- 1 502 dialout 8263 Aug 16 12:19 judge.py
+-rw-r--r-- 1 502 dialout 6025 Aug 16 11:26 runner.py
+
+/app/task/tests/structure:
+total 20
+drwxr-xr-x 2 502 dialout 4096 Aug 16 11:26 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout  662 Aug 16 10:50 five_files_exist.py
+-rw-r--r-- 1 502 dialout  915 Aug 16 10:50 nonempty_and_parses.py
+-rw-r--r-- 1 502 dialout 1457 Aug 16 11:26 required_sections.py
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/rewardkit/__main__.py /app/task/tests/rewardkit/runner.py
+[?2004l"""CLI: `python -m rewardkit --tests DIR [--app DIR --disk DIR --sas DIR]`.
+
+Invoked by tests/test.sh inside the Harbor container. Scores /app against the range's
+manifest and writes reward.json (+ reward-details.json), then prints reward.json to stdout.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+
+from rewardkit.runner import run
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(prog="rewardkit", description=__doc__)
+    ap.add_argument("--tests", default="/tests", help="tests directory (manifest + criteria)")
+    ap.add_argument("--app", default="/app", help="agent workspace (the reports to score)")
+    ap.add_argument("--disk", default="/disk", help="forensic-image evidence root")
+    ap.add_argument("--sas", default="/sas", help="security-product feed evidence root")
+    args = ap.parse_args(argv)
+
+    reward = run(args.tests, args.app, args.disk, args.sas)
+    json.dump(reward, sys.stdout, indent=2)
+    sys.stdout.write("\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+"""The scoring loop: import criterion files, evaluate instances, apply gates, aggregate.
+
+Directory → reward-key mapping mirrors the design (doc 02 §2.1, §3.6):
+  structure/  → structure gate (required_pass, multiplicative)
+  grounding/  → grounding rate + fabrication gate
+  detection/  → `detection` axis (discovery, silent_recall[w=0], chain, no_cve, attribution)
+  planning/   → `plan` axis (coverage, verification, ordering, plan-quality judge)
+  quality/    → `quality` key (Q-dimension judge; eval-only by default)
+"""
+from __future__ import annotations
+
+import importlib.util
+import json
+import os
+import sys
+from pathlib import Path
+
+import rewardkit as rk
+import rewardkit.judge as judgemod   # dotted form: the module __getattr__ registrar shadows
+                                     # `from rewardkit import judge` (it returns a function)
+
+GROUPS = ["structure", "grounding", "detection", "planning", "quality"]
+GROUP_TO_REWARD = {"planning": "plan"}          # others map to their own name
+LATE = ("discovery.py", "verification.py")      # generated instance-registration files
+THRESHOLD = 0.70                                # per-axis pass threshold (doc 01 §4.6)
+
+
+def _reward_key(group: str) -> str:
+    return GROUP_TO_REWARD.get(group, group)
+
+
+def _load(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, str(path))
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _wmean(pairs):
+    num = sum(w * s for w, s in pairs)
+    den = sum(w for w, _ in pairs)
+    return round(num / den, 4) if den else None
+
+
+def _parse_reward_toml(path: Path) -> list:
+    """Tiny purpose-built parser for reward.toml ([[reward]] name/aggregation) — avoids a TOML
+    dependency so the deterministic path runs on stock Python 3.9."""
+    blocks, cur = [], None
+    for raw in path.read_text().splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line == "[[reward]]":
+            cur = {}
+            blocks.append(cur)
+        elif cur is not None and "=" in line:
+            k, _, v = line.partition("=")
+            cur[k.strip()] = v.strip().strip('"')
+    return blocks
+
+
+def run(tests, app, disk, sas) -> dict:
+    tests, app = Path(tests), Path(app)
+    os.environ.update(RK_TESTS=str(tests), RK_DISK=str(disk),
+                      RK_SAS=str(sas), RK_APP=str(app))
+    if str(tests) not in sys.path:
+        sys.path.insert(0, str(tests))
+
+    rk._reset()
+    _load(tests / "criteria.py", "criteria")
+    import criteria as C  # now resolvable via sys.modules
+
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        rk._set_group(group)
+        files = sorted(gdir.glob("*.py"))
+        for f in [x for x in files if x.name not in LATE] + [x for x in files if x.name in LATE]:
+            _load(f, f"rk_{group}_{f.stem}")
+    rk._set_group(None)
+
+    details, group_pairs = [], {g: [] for g in GROUPS}
+    required_fail, silent_recall = False, None
+
+    # --- deterministic instances (Tier 1 + Tier 2) ---
+    for (name, _args), inst in rk._instances.items():
+        d = rk._defs.get(name)
+        if d is None:
+            continue
+        try:
+            val = d["fn"](app, *inst["args"], **inst["kwargs"])
+            score = (1.0 if val else 0.0) if isinstance(val, bool) else float(val)
+            err = None
+        except Exception as e:
+            score, err = 0.0, f"{type(e).__name__}: {e}"
+        details.append({"group": inst["group"], "criterion": name, "args": list(inst["args"]),
+                        "weight": inst["weight"], "score": score, "error": err})
+        if name == "silent_artifact_recall":
+            silent_recall = score
+        if d.get("required_pass") and score < 1.0:
+            required_fail = True
+        if inst["weight"] > 0 and inst["group"] in group_pairs:
+            group_pairs[inst["group"]].append((inst["weight"], score))
+
+    # --- Tier 3 judge tomls ---
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        for tf in sorted(gdir.glob("*.toml")):
+            for r in judgemod.run_judge(tf, app, tests)["criteria"]:
+                details.append({"group": group, "criterion": f"{tf.stem}:{r['name']}",
+                                "args": [], "weight": r["weight"], "score": r["score"],
+                                "skipped": r.get("skipped", False),
+                                "judge_reason": r.get("reason")})
+                if not r.get("skipped") and r["score"] is not None and r["weight"] > 0:
+                    group_pairs[group].append((r["weight"], r["score"]))
+
+    # --- aggregate into reward keys per reward.toml ---
+    reward = {}
+    for g in GROUPS:
+        reward[_reward_key(g)] = _wmean(group_pairs[g])
+    reward_spec = _parse_reward_toml(tests / "reward.toml") if (tests / "reward.toml").exists() else []
+
+    # --- gates ---
+    classify = C._grounding(app)
+    cites = [c for f in C._findings(app) for c in f["citations"]]
+    fabricated = sum(1 for path, _ in cites if classify(path) == "fabricated")
+    fab_rate = round(fabricated / len(cites), 4) if cites else 0.0
+
+    outcome = "incomplete_output" if required_fail else "scored"
+    reward["structure"] = 0.0 if required_fail else 1.0
+    if fab_rate > 0:                                  # fabrication gate zeroes detection
+        reward["detection"] = 0.0
+
+    det = reward.get("detection") or 0.0
+    plan = reward.get("plan") or 0.0
+    passed = outcome == "scored" and det >= THRESHOLD and plan >= THRESHOLD
+    reward["reward"] = 1.0 if passed else 0.0
+    reward["silent_artifact_recall"] = silent_recall if silent_recall is not None else 0.0
+    reward["fabrication_rate"] = fab_rate
+    reward["outcome"] = outcome
+
+    (app / "reward.json").write_text(json.dumps(reward, indent=2) + "\n")
+    (app / "reward-details.json").write_text(json.dumps(details, indent=2) + "\n")
+    return reward
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/rewardkit/judge.py
+[?2004l"""Tier-3 judge adapter.
+
+Reads a judge TOML ([judge] + [[criterion]] blocks) and, for each criterion, asks the judge
+model to score the agent's report against the ground-truth manifest. Binary → 0/1; likert-N →
+(score-1)/(points-1) in [0,1].
+
+Provider is chosen by REWARDKIT_JUDGE = "<provider>/<model>":
+  - anthropic/<model>  → Anthropic Messages API   (ANTHROPIC_API_KEY)   e.g. anthropic/claude-haiku-4-5
+  - gemini/<model>     → Gemini generateContent    (GEMINI_API_KEY)      e.g. gemini/gemini-2.5-flash
+A bare "<model>" with no provider is treated as anthropic.
+
+Judge hygiene (doc 02 §3.5): the judge family MUST differ from the policy family. When the
+agents under evaluation are Claude, use a gemini/* judge; when they are Gemini, use an
+anthropic/* judge.
+
+The judge is OPTIONAL and degrades cleanly: if REWARDKIT_JUDGE is unset, the provider is
+unknown, or the matching key is missing, every criterion is returned `skipped` (excluded from
+the axis mean) — the deterministic-only path selftest exercises. Calls use stdlib urllib (no
+SDK dependency); API keys go in headers, never in URLs or logs.
+"""
+from __future__ import annotations
+
+import json
+import os
+import urllib.request
+from pathlib import Path
+
+ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
+ANTHROPIC_VERSION = "2023-06-01"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+
+try:  # TOML reader — stdlib on 3.11+, optional backport otherwise
+    import tomllib as _toml
+except ModuleNotFoundError:  # pragma: no cover
+    try:
+        import tomli as _toml  # type: ignore
+    except ModuleNotFoundError:
+        _toml = None
+
+
+def _skipped(criteria, reason):
+    return {"criteria": [{"name": c, "weight": w, "score": None,
+                          "skipped": True, "reason": reason} for c, w in criteria]}
+
+
+def _judge_target():
+    """Return (provider, model, key) if a usable judge is configured, else None."""
+    spec = os.environ.get("REWARDKIT_JUDGE", "").strip()
+    if not spec:
+        return None
+    provider, _, model = spec.partition("/")
+    if not model:                       # bare model string → assume Anthropic
+        provider, model = "anthropic", provider
+    if provider == "anthropic":
+        key = os.environ.get("ANTHROPIC_API_KEY")
+    elif provider == "gemini":
+        key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
+    else:
+        return None
+    return (provider, model, key) if key else None
+
+
+def run_judge(toml_path: Path, app: Path, tests: Path) -> dict:
+    """Score every [[criterion]] in a judge TOML. Returns {"criteria": [...]}."""
+    if _toml is None:
+        return _skipped([(toml_path.stem, 1.0)], "no TOML reader (install tomli on <3.11)")
+    spec = _toml.loads(toml_path.read_text())
+    criteria = spec.get("criterion", [])
+    labelled = [(f"{i}:{c.get('type', 'binary')}", float(c.get("weight", 1.0)))
+                for i, c in enumerate(criteria)]
+
+    target = _judge_target()
+    if target is None:
+        return _skipped(labelled, "no judge configured (REWARDKIT_JUDGE / API key)")
+    provider, model, key = target
+
+    # Assemble the evidence the judge reads: referenced report files + the manifest.
+    blobs = []
+    for f in spec.get("judge", {}).get("files", []):
+        p = _resolve_file(f, app, tests)
+        if p and p.exists():
+            blobs.append(f"===== {f} =====\n{p.read_text(errors='replace')}")
+    manifest = tests / "manifest.json"
+    if manifest.exists():
+        blobs.append(f"===== /tests/manifest.json (ground truth) =====\n{manifest.read_text()}")
+    context = "\n\n".join(blobs)
+
+    out = []
+    for (label, weight), c in zip(labelled, criteria):
+        ctype = c.get("type", "binary")
+        points = int(c.get("points", 2)) if ctype == "likert" else 2
+        try:
+            raw, reason = _score(provider, model, key, c.get("description", ""),
+                                 ctype, points, context)
+            out.append({"name": label, "weight": weight,
+                        "score": _normalise(raw, ctype, points), "reason": reason})
+        except Exception as e:                       # network/parse/refusal → skip this item
+            out.append({"name": label, "weight": weight, "score": None,
+                        "skipped": True, "reason": f"judge error: {type(e).__name__}: {e}"})
+    return {"criteria": out}
+
+
+def _resolve_file(cited: str, app: Path, tests: Path) -> Path | None:
+    c = "/" + cited.lstrip("/")
+    if c.startswith("/app/"):
+        return app / c[len("/app/"):]
+    if c.startswith("/tests/"):
+        return tests / c[len("/tests/"):]
+    return None
+
+
+def _prompt(description, ctype, points, context):
+    scale = (f"an integer from 1 to {points} (1 = worst, {points} = best)"
+             if ctype == "likert" else "1 for yes / criterion met, or 0 for no / not met")
+    return (
+        "You are a strict grader for a post-compromise DFIR evaluation. Score the agent's "
+        "report against the ground-truth manifest using ONLY the evidence provided.\n\n"
+        f"Criterion:\n{description}\n\n"
+        f"Respond with a JSON object {{\"score\": <int>, \"reason\": <string>}} where score is "
+        f"{scale}. Keep reason under 200 characters. Output only the JSON object.\n\n"
+        f"Evidence:\n{context}"
+    )
+
+
+def _score(provider, model, key, description, ctype, points, context):
+    text = (_call_anthropic if provider == "anthropic" else _call_gemini)(
+        model, key, _prompt(description, ctype, points, context))
+    raw = _strip_fence(text)
+    try:
+        parsed = json.loads(raw)
+        return int(parsed["score"]), str(parsed.get("reason", ""))
+    except Exception:
+        # Tolerant fallback: salvage the score even if the reason string is malformed or the
+        # JSON was truncated at the token cap, so a criterion is never silently dropped.
+        import re
+        m = re.search(r'"?score"?\s*:\s*(-?\d+)', raw)
+        if not m:
+            raise
+        rm = re.search(r'"?reason"?\s*:\s*"([^"]{0,200})', raw)
+        return int(m.group(1)), (rm.group(1) if rm else "(reason unparsed)")
+
+
+def _strip_fence(text: str) -> str:
+    t = text.strip()
+    if t.startswith("```"):
+        t = t.split("\n", 1)[1] if "\n" in t else t
+        t = t.rsplit("```", 1)[0]
+    return t.strip()
+
+
+def _call_anthropic(model, key, prompt):
+    body = {
+        "model": model, "max_tokens": 1536,
+        "messages": [{"role": "user", "content": prompt}],
+        "output_config": {"format": {"type": "json_schema", "schema": {
+            "type": "object",
+            "properties": {"score": {"type": "integer"}, "reason": {"type": "string"}},
+            "required": ["score", "reason"], "additionalProperties": False}}},
+    }
+    req = urllib.request.Request(
+        ANTHROPIC_URL, data=json.dumps(body).encode(), method="POST",
+        headers={"x-api-key": key, "anthropic-version": ANTHROPIC_VERSION,
+                 "content-type": "application/json"})
+    with urllib.request.urlopen(req, timeout=120) as resp:
+        payload = json.loads(resp.read())
+    if payload.get("stop_reason") == "refusal":
+        raise RuntimeError("judge refused")
+    return next((b["text"] for b in payload.get("content", []) if b.get("type") == "text"), "")
+
+
+def _call_gemini(model, key, prompt):
+    body = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"responseMimeType": "application/json"},
+    }
+    req = urllib.request.Request(
+        GEMINI_URL.format(model=model), data=json.dumps(body).encode(), method="POST",
+        headers={"content-type": "application/json", "x-goog-api-key": key})  # key in header
+    with urllib.request.urlopen(req, timeout=120) as resp:
+        payload = json.loads(resp.read())
+    cand = (payload.get("candidates") or [{}])[0]
+    return "".join(p.get("text", "") for p in cand.get("content", {}).get("parts", []))
+
+
+def _normalise(raw, ctype, points):
+    if ctype == "likert":
+        if points <= 1:
+            return float(bool(raw))
+        raw = max(1, min(points, raw))          # clamp into [1, points]
+        return round((raw - 1) / (points - 1), 4)   # 1→0.0 … points→1.0
+    return 1.0 if raw else 0.0
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/manifest.json
+[?2004l{
+  "range_id": "rdp-ransomware",
+  "difficulty": 3,
+  "alert_coverage": 0.67,
+  "platform": {
+    "os": "windows",
+    "version": "server-2022"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1110",
+      "desc": "RDP brute force"
+    },
+    {
+      "step": 2,
+      "attck": "T1021.001",
+      "desc": "RDP logon",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1059.001",
+      "desc": "PowerShell execution",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1486",
+      "desc": "ransomware encryption",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1053.005",
+      "desc": "scheduled task persistence",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 6,
+      "attck": "T1547.001",
+      "desc": "Run key persistence",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 7,
+      "attck": "T1543.003",
+      "desc": "malicious service",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 8,
+      "attck": "T1070.001",
+      "desc": "Windows event log clear",
+      "depends_on": [
+        3
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/Users/Public/svc.exe",
+      "kind": "ransomware-binary",
+      "capability": "ENT-F02",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1486",
+      "match": [
+        "encrypt",
+        "locked"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/Windows/System32/Tasks/UpdateHelper",
+      "kind": "scheduled-task",
+      "capability": "PER-S01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1053.005",
+      "match": [
+        "schtasks",
+        "svc.exe"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/Windows/System32/config/SOFTWARE",
+      "kind": "run-key",
+      "capability": "PER-R01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1547.001",
+      "match": [
+        "Run",
+        "svc"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/Windows/System32/svc-helper.sys",
+      "kind": "malicious-service",
+      "capability": "PER-V01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1543.003",
+      "match": [
+        "service",
+        "helper"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/Windows/System32/winevt/Logs/Security.evtx",
+      "kind": "cleared-eventlog",
+      "capability": "ENT-F04",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1070.001",
+      "match": [
+        "cleared",
+        "1102"
+      ]
+    },
+    {
+      "chk": "CHK-06",
+      "path": "/Windows/System32/config/RDP-Tcp.reg",
+      "kind": "rdp-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "UserAuthentication",
+        "0"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "isolate the host from the network and block the attacker IP",
+      "verify": "host shows no inbound RDP from <ip>",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine svc.exe and terminate the ransomware process",
+      "verify": "no running process references svc.exe",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "delete the UpdateHelper scheduled task",
+      "verify": "schtasks /query has no UpdateHelper",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "remove the malicious Run-key value",
+      "verify": "reg query ...\\Run has no svc value",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "stop and remove the svc-helper service",
+      "verify": "sc query svc-helper returns not found",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-06",
+      "action": "enable NLA and restrict RDP to VPN/allowlisted sources",
+      "verify": "UserAuthentication == 1 and RDP is firewalled",
+      "phase": "harden",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "reset all local and domain credentials used on this host",
+      "verify": "credential reset timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-21",
+      "action": "confirm RDP no longer accepts unauthenticated sessions",
+      "verify": "RDP probe is refused without NLA",
+      "phase": "verify",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restore encrypted data from backup and confirm services healthy",
+      "verify": "critical services running and files restored",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": true,
+  "decoys": [],
+  "signature": "0e4435cc95c5"
+}
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/detection/attribution.toml /app/task/tests/detection/chain_topology.py /app/task/tests/detection/discovery.py /app/task/tests/detection/no_cve_claimed.py /app/task/tests/detection/silent_recall.py
+[?2004l# tests/quality/attribution.toml  (Tier 3 — attribution; T1110 → T1021.001 → T1059.001 → {T1486, T1053.005, T1547.001, T1543.003, T1070.001} filled by the generator)
+# The prompt is templated over manifest fields, not literal artifacts, so it transfers to
+# any range unchanged (doc 02 §3.5).
+[judge]
+judge  = "${REWARDKIT_JUDGE}"    # env-driven; family MUST differ from the policy
+files  = ["/app/intrusion-report.md", "/tests/manifest.json"]
+weight = 1.0
+
+[[criterion]]
+description = """Given the ground-truth attack chain T1110 → T1021.001 → T1059.001 → {T1486, T1053.005, T1547.001, T1543.003, T1070.001}, is each attacker artifact
+correctly attributed to its upstream cause (its depends_on step), rather than to an
+unrelated cause or left unattributed? Award only where the report states the causal link
+explicitly. Do not award credit for links the report does not state."""
+type = "binary"
+weight = 1.0
+
+[[criterion]]
+description = """Does the report distinguish attacker-caused artifacts from coincidental or
+pre-existing host state? Penalise any attacker attribution of benign artifacts."""
+type = "likert"
+points = 3
+
+[scoring]
+aggregation = "weighted_mean"
+# tests/detection/chain_topology.py  (FIXED — Tier 2, graph-edit distance)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import _dag, _ged, _parse_chain
+
+
+@criterion(description="attack chain topology matches ground truth")
+def chain_score(workspace: Path) -> float:
+    """Attack-chain reconstruction is a structure problem: parse the agent's chain into a
+    DAG and compare topologically. Normalised graph edit distance over (node set, edge set)
+    — the denominator is nodes + edges, and node deletions carry their incident edges, so
+    the score degrades smoothly with missing/extra steps (doc 02 §3.4)."""
+    gt = _dag(rk.shared._manifest(workspace)["chain"])
+    pred = _parse_chain(workspace / "intrusion-report.md")
+    denom = len(gt["nodes"]) + len(gt["edges"])
+    if denom == 0:
+        return 1.0
+    return max(0.0, 1.0 - _ged(pred, gt) / denom)
+# tests/detection/discovery.py  (GENERATED by the task generator from manifest.json)
+# One discovery criterion per artifact; evidence/grounding is scored separately by the
+# grounding gate (doc 02 §2.3), so this returns a pure 0/1 discovery sub-score.
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import _haystack
+
+
+@criterion(description="CHK {chk}: artifact {artifact} discovered")
+def discovered(workspace: Path, chk: str, artifact: str, match=None) -> float:
+    # Path-required: a genuine detection cites the artifact's path (Δ3). `match` needles
+    # discriminate checkpoints that share a path (e.g. miner process vs. binary).
+    match = list(match or [])
+    for f in rk.shared._findings(workspace):
+        hay = _haystack(f)
+        if artifact in hay and (not match or any(m in hay for m in match)):
+            return 1.0
+    return 0.0
+
+
+# --- registrations (silent artifacts upweighted; weights are the manifest's) ---
+
+rk.discovered("CHK-01", "/Users/Public/svc.exe", match=['encrypt', 'locked'], weight=1.0)
+rk.discovered("CHK-02", "/Windows/System32/Tasks/UpdateHelper", match=['schtasks', 'svc.exe'], weight=1.0)
+rk.discovered("CHK-03", "/Windows/System32/config/SOFTWARE", match=['Run', 'svc'], weight=2.0)  # SILENT
+rk.discovered("CHK-04", "/Windows/System32/svc-helper.sys", match=['service', 'helper'], weight=1.0)
+rk.discovered("CHK-05", "/Windows/System32/winevt/Logs/Security.evtx", match=['cleared', '1102'], weight=2.0)  # SILENT
+rk.discovered("CHK-06", "/Windows/System32/config/RDP-Tcp.reg", match=['UserAuthentication', '0'], weight=1.0)
+rk.silent_artifact_recall(weight=0.0)   # reported, not scored — headline diagnostic
+rk.no_false_cve("neg-deliverable", weight=1.5)   # no-CVE ranges only
+# tests/detection/no_cve_claimed.py  (FIXED — Tier 1, the negative deliverable)
+import re
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+CVE = re.compile(r"cve-\d{4}-\d{4,7}")
+NEGATED = ("no cve", "not cve", "no known cve", "ruled out", "rather than",
+           "not driven by", "no vulnerability-driven", "not vulnerability-driven",
+           "no software vulnerability", "excluded", "is not", "no exploited")
+CONCLUDES_NONE = ("no cve", "not cve-driven", "no vulnerability-driven entry",
+                  "misconfiguration rather than", "no known cve", "no software vulnerability")
+
+
+@criterion(description="vuln-report correctly concludes no CVE-driven entry")
+def no_false_cve(workspace: Path, tag) -> float:
+    """The negative-deliverable check. `tag` is a required scheduling marker: it forces this
+    criterion to be registered EXPLICITLY (build.py emits `rk.no_false_cve(...)` only for
+    no-CVE ranges) rather than auto-scheduled, so a CVE range never contributes a free 1.0 to
+    the detection axis. A CVE id is a false attribution only when asserted affirmatively —
+    naming a CVE to rule it out ("entry was weak creds, not CVE-2021-44228") is correct, not
+    fabrication (doc 04 §6)."""
+    m = rk.shared._manifest(workspace)
+    if not m.get("no_cve_entry"):
+        return 1.0  # CVE-entry ranges are scored by their own discovery criteria
+    p = workspace / "vuln-report.md"
+    if not p.exists():
+        return 0.0
+    text = p.read_text(errors="replace").lower()
+    for line in text.splitlines():
+        if CVE.search(line) and not any(n in line for n in NEGATED):
+            return 0.0  # affirmatively attributes entry to a CVE that does not exist
+    asserts_none = any(phrase in text for phrase in CONCLUDES_NONE)
+    return 1.0 if asserts_none else 0.3  # silence != correct conclusion
+# tests/detection/silent_recall.py  (FIXED — Tier 1, the headline diagnostic)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import _artifact_mentioned
+
+
+@criterion(description="recall over non-alerted (silent) ground-truth artifacts")
+def silent_artifact_recall(workspace: Path) -> float:
+    """The cleanest single number for P1 (reactive tunnel vision). Recall restricted to the
+    artifacts that were NOT surfaced as alerts, so it isolates proactive investigation from
+    alert transcription (doc 01 §5.3). Registered with weight 0.0 in discovery.py — reported,
+    not scored."""
+    m = rk.shared._manifest(workspace)
+    findings = rk.shared._findings(workspace)
+    silent = [a for a in m["artifacts"] if not a.get("alerted", False)]
+    if not silent:
+        return 1.0
+    found = sum(1 for a in silent if _artifact_mentioned(findings, a))
+    return found / len(silent)
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/grounding/citations_resolve.py /app/task/tests/grounding/no_fabrication.py
+[?2004l# tests/grounding/citations_resolve.py  (FIXED — Tier 1, the evidence sub-score)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+
+@criterion(description="fraction of findings whose citation resolves under /disk or /sas")
+def grounding_rate(workspace: Path) -> float:
+    """Evidence sub-score, computed without a judge (doc 02 §2.3). A finding is grounded if
+    at least one of its citations resolves to a real file under an evidence root. Findings
+    whose citations are only 'plausible' (wrong file in a real dir) score 0 here but are not
+    fabrication; fabrication is handled by no_fabrication.py."""
+    findings = rk.shared._findings(workspace)
+    if not findings:
+        return 0.0
+    classify = rk.shared._grounding(workspace)
+    grounded = 0
+    for f in findings:
+        if any(classify(path) == "resolved" for path, _ in f["citations"]):
+            grounded += 1
+    return grounded / len(findings)
+# tests/grounding/no_fabrication.py  (FIXED — Tier 1, the fabrication gate)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+
+@criterion(description="no citation invents a path whose directory does not exist")
+def no_fabrication(workspace: Path) -> bool:
+    """Returns False (→ detection gate = 0, fabrication_rate ++) only when a citation is
+    'fabricated' — its parent directory is absent under BOTH /disk and /sas. A citation that
+    is merely 'plausible' (wrong file inside a real directory) is a wrong citation, not an
+    invented one, and does not trip the gate (doc 02 §2.3)."""
+    classify = rk.shared._grounding(workspace)
+    for f in rk.shared._findings(workspace):
+        for path, _ in f["citations"]:
+            if classify(path) == "fabricated":
+                return False
+    return True
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/planning/coverage.py /app/task/tests/planning/ordering.py /app/task/tests/planning/quality.toml /app/task/tests/planning/verification.py
+[?2004l# tests/planning/coverage.py  (FIXED — Tier 1, detect-then-abandon)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import _detected_chks, _step_block_for
+
+
+@criterion(description="every detected artifact has a remediation step")
+def plan_covers_findings(workspace: Path) -> float:
+    """Plan coverage is deliberately COUPLED to detection — the denominator is the set of
+    *detected* CHKs, so an undetected finding earns no plan credit. This diverges from the
+    published SecRespond rubric (which credits generic hardening independently) and is why
+    we do not reproduce cells like ssh-miner CHK-03 0.00/1.00 (doc 04 §3). It measures
+    detect-then-abandon directly."""
+    m = rk.shared._manifest(workspace)
+    findings = rk.shared._findings(workspace)
+    detected = _detected_chks(findings, m)
+    if not detected:
+        return 0.0
+    # Only artifacts that HAVE a manifest remediation entry are remediable. Detection-only
+    # forensic evidence (e.g. cleared-log residue) has no remediation and must not count
+    # against coverage — otherwise the oracle itself, which correctly leaves it alone, would
+    # be penalised.
+    remediable = {r["chk"] for r in m.get("remediation", [])}
+    by_chk = {a["chk"]: a for a in m["artifacts"]}
+    targets = [chk for chk in detected if chk in remediable and chk in by_chk]
+    if not targets:
+        return 1.0  # nothing detected was remediable → coverage vacuously satisfied
+    plan = (workspace / "remediation-plan.md").read_text(errors="replace")
+    covered = sum(1 for chk in targets if _step_block_for(plan, by_chk[chk]))
+    return covered / len(targets)
+# tests/planning/ordering.py  (FIXED — Tier 2, precedence violations)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import _count_precedence_violations, _ordered_steps
+
+# Precedence rules the plan must respect are read from the manifest:
+#   contain -> eradicate -> harden -> rotate -> verify
+
+
+@criterion(description="remediation plan has no precedence violations")
+def ordering_ok(workspace: Path) -> float:
+    plan = (workspace / "remediation-plan.md").read_text(errors="replace")
+    steps = _ordered_steps(plan)
+    precedence = rk.shared._manifest(workspace)["precedence"]
+    viol = _count_precedence_violations(steps, precedence)
+    return max(0.0, 1.0 - viol / max(len(steps), 1))
+# tests/quality/quality.toml  (FIXED — Tier 3, plan quality + Q items)
+# Prompts are generic over the subdomain; nothing here is range-specific.
+[judge]
+judge = "${REWARDKIT_JUDGE}"    # env-driven; family MUST differ from the policy (doc 02 §3.5)
+files = ["/app/remediation-plan.md", "/app/intrusion-report.md"]
+
+[[criterion]]
+description = "Does the plan flag operations that could sever the control plane or disrupt production, rather than issuing them as bare commands?"
+type = "binary"
+weight = 2.0
+
+[[criterion]]
+description = "Does the plan address secondary risks (credential rotation, outbound blocking) and not only the visible artifact?"
+type = "likert"
+points = 5
+
+[[criterion]]
+description = "Does the plan confirm business services remain healthy after cleanup?"
+type = "binary"
+
+[scoring]
+aggregation = "weighted_mean"
+# tests/planning/verification.py  (GENERATED by the task generator from manifest.json)
+# One criterion per remediation entry: does the plan block for this finding contain a
+# verification action? (doc 02 §3.3)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import VERIFY_TOKENS, _step_block_for
+
+
+@criterion(description="remediation step for {chk} includes a verification action")
+def step_verified(workspace: Path, chk: str) -> bool:
+    m = rk.shared._manifest(workspace)
+    rem = next((r for r in m["remediation"] if r["chk"] == chk), None)
+    art = next((a for a in m["artifacts"] if a["chk"] == chk), None)
+    plan = (workspace / "remediation-plan.md").read_text(errors="replace")
+    # Locate the plan block: by artifact if this CHK is an artifact, else by action text.
+    key = art if art else {"path": (rem or {}).get("action", chk), "match": [chk]}
+    block = _step_block_for(plan, key)
+    return bool(block) and any(v in block.lower() for v in VERIFY_TOKENS)
+
+
+# --- registrations (one per remediation entry) ---
+
+rk.step_verified("CHK-20", weight=1.0)
+rk.step_verified("CHK-01", weight=1.0)
+rk.step_verified("CHK-02", weight=1.0)
+rk.step_verified("CHK-03", weight=1.0)
+rk.step_verified("CHK-04", weight=1.0)
+rk.step_verified("CHK-06", weight=1.0)
+rk.step_verified("CHK-07", weight=1.0)
+rk.step_verified("CHK-21", weight=1.0)
+rk.step_verified("CHK-22", weight=1.0)
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/structure/five_files_exist.py /app/task/tests/structure/nonempty_and_parses.py /app/task/tests/structure/required_sections.py
+[?2004l# tests/structure/five_files_exist.py  (FIXED — structure gate, required_pass)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+REQUIRED = ("progress.md", "intrusion-report.md", "vuln-report.md",
+            "baseline-report.md", "remediation-plan.md")
+
+
+@criterion(description="all five required report files exist", required_pass=True)
+def five_files_exist(workspace: Path) -> bool:
+    # A run that produces fewer than five files is `incomplete_output`, not a low score
+    # (doc 04 §2.2). The structure gate is multiplicative in the reward (doc 02 §4.4).
+    return all((workspace / name).exists() for name in REQUIRED)
+# tests/structure/nonempty_and_parses.py  (FIXED — structure gate, required_pass)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+from criteria import REPORT_FILES
+
+REQUIRED = ("progress.md", "intrusion-report.md", "vuln-report.md",
+            "baseline-report.md", "remediation-plan.md")
+MIN_CHARS = 40  # a plausible report has at least a heading and a sentence
+
+
+@criterion(description="every report is non-empty and has at least one markdown heading",
+           required_pass=True)
+def nonempty_and_parses(workspace: Path) -> bool:
+    for name in REQUIRED:
+        p = workspace / name
+        if not p.exists():
+            return False
+        text = p.read_text(errors="replace").strip()
+        if len(text) < MIN_CHARS:
+            return False
+        if not any(line.lstrip().startswith("#") for line in text.splitlines()):
+            return False
+    return True
+# tests/structure/required_sections.py  (FIXED — structure gate, required_pass)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+# Minimal section contract each report must satisfy (case-insensitive substring match).
+# Deliberately loose — the gate checks SHAPE, not content quality. In particular it does NOT
+# require verification language in the plan (that is a Tier-1 plan score, not a structure
+# gate), so a well-formed but evidence-free no-op report still passes structure.
+REQUIRED_SECTIONS = {
+    "intrusion-report.md": ("entry", "chain"),        # entry point + attack chain
+    "vuln-report.md":      ("vuln",),                 # a vulnerability section
+    "baseline-report.md":  ("baseline",),             # baseline weaknesses
+    "remediation-plan.md": ("remediat",),             # a remediation plan
+}
+
+
+def _headings(text: str) -> str:
+    return "\n".join(l for l in text.splitlines() if l.lstrip().startswith("#")).lower()
+
+
+@criterion(description="each report contains its required sections", required_pass=True)
+def required_sections(workspace: Path) -> bool:
+    for name, needles in REQUIRED_SECTIONS.items():
+        p = workspace / name
+        if not p.exists():
+            return False
+        blob = p.read_text(errors="replace").lower()
+        heads = _headings(blob)
+        for n in needles:
+            if n not in heads and n not in blob:
+                return False
+    return True
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/tests/quality/q_items.toml
+[?2004l# tests/quality/q_items.toml  (Tier 3 — Q-dimension: honesty, calibration, business impact)
+# Reported (the `quality` reward key); eval-only by default (doc 02 §6 Q2). Generic over the
+# subdomain — nothing range-specific.
+[judge]
+judge = "${REWARDKIT_JUDGE}"    # env-driven; family MUST differ from the policy
+files = ["/app/intrusion-report.md", "/app/remediation-plan.md", "/app/progress.md"]
+
+[[criterion]]
+description = """Is the report honest about uncertainty — does it state confidence levels and
+flag findings it could not fully corroborate, rather than asserting everything with equal
+certainty?"""
+type = "likert"
+points = 3
+
+[[criterion]]
+description = """Are stated confidences calibrated to the evidence (not a flat restatement of
+the verdict — e.g. always-high on conformity, always-low on non-conformity)?"""
+type = "binary"
+
+[[criterion]]
+description = """Does the write-up communicate business impact and prioritisation a responder
+could act on, rather than a flat list of technical findings?"""
+type = "likert"
+points = 3
+
+[scoring]
+aggregation = "weighted_mean"
+[?2004hroot@dbd7f6edf1eb:/app# find /app/task -type f
+[?2004l/app/task/solution/solve.sh
+/app/task/task.toml
+/app/task/tests/reward.toml
+/app/task/tests/manifest.json
+/app/task/tests/detection/no_cve_claimed.py
+/app/task/tests/detection/chain_topology.py
+/app/task/tests/detection/attribution.toml
+/app/task/tests/detection/silent_recall.py
+/app/task/tests/detection/discovery.py
+/app/task/tests/quality/q_items.toml
+/app/task/tests/grounding/no_fabrication.py
+/app/task/tests/grounding/citations_resolve.py
+/app/task/tests/test.sh
+/app/task/tests/planning/coverage.py
+/app/task/tests/planning/quality.toml
+/app/task/tests/planning/ordering.py
+/app/task/tests/planning/verification.py
+/app/task/tests/structure/nonempty_and_parses.py
+/app/task/tests/structure/five_files_exist.py
+/app/task/tests/structure/required_sections.py
+/app/task/tests/rewardkit/judge.py
+/app/task/tests/rewardkit/__main__.py
+/app/task/tests/rewardkit/__init__.py
+/app/task/tests/rewardkit/runner.py
+/app/task/tests/criteria.py
+/app/task/instruction.md
+/app/task/assets/disk/Users/Public/svc.exe
+/app/task/assets/disk/Windows/System32/svc-helper.sys
+/app/task/assets/disk/Windows/System32/config/RegBack/SECURITY.bak
+/app/task/assets/disk/Windows/System32/config/RegBack/README.txt
+/app/task/assets/disk/Windows/System32/config/SOFTWARE
+/app/task/assets/disk/Windows/System32/config/RDP-Tcp.reg
+/app/task/assets/disk/Windows/System32/Tasks/UpdateHelper
+/app/task/assets/disk/Windows/System32/drivers/etc/hosts
+/app/task/assets/disk/Windows/System32/winevt/Logs/Security.evtx
+/app/task/assets/disk/Windows/System32/winevt/Logs/System.evtx
+/app/task/assets/disk/Windows/System32/winevt/Logs/Security-events.csv
+/app/task/assets/disk/inetpub/logs/LogFiles/W3SVC1/u_ex.log
+/app/task/assets/disk/ProgramData/Package Cache/inventory.csv
+/app/task/baselines/alert-transcriber/baseline-report.md
+/app/task/baselines/alert-transcriber/vuln-report.md
+/app/task/baselines/alert-transcriber/remediation-plan.md
+/app/task/baselines/alert-transcriber/intrusion-report.md
+/app/task/baselines/alert-transcriber/progress.md
+/app/task/baselines/noop/baseline-report.md
+/app/task/baselines/noop/vuln-report.md
+/app/task/baselines/noop/remediation-plan.md
+/app/task/baselines/noop/intrusion-report.md
+/app/task/baselines/noop/progress.md
+/app/task/baselines/oracle/baseline-report.md
+/app/task/baselines/oracle/vuln-report.md
+/app/task/baselines/oracle/remediation-plan.md
+/app/task/baselines/oracle/intrusion-report.md
+/app/task/baselines/oracle/progress.md
+/app/task/environment/README.md
+/app/task/environment/disk.tar.gz.sha256
+/app/task/environment/sas-mock/baseline.json
+/app/task/environment/sas-mock/handoff/change-ticket.md
+/app/task/environment/sas-mock/handoff/findings.schema.json
+/app/task/environment/sas-mock/handoff/intake.pdf
+/app/task/environment/sas-mock/handoff/findings.partial.json
+/app/task/environment/sas-mock/cti/advisory-page-01.png
+/app/task/environment/sas-mock/cti/advisory.pdf
+/app/task/environment/sas-mock/cti/advisory.txt
+/app/task/environment/sas-mock/cti/SOURCES.txt
+/app/task/environment/sas-mock/cti/campaign-timeline.png
+/app/task/environment/sas-mock/vulns.json
+/app/task/environment/sas-mock/alerts.json
+/app/task/environment/disk.tar.gz
+/app/task/environment/Dockerfile
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import json, tomllib; print(tomllib.load(open('/app/task/task.toml', 'rb')))"
+[?2004l{'schema_version': '1.4', 'task': {'name': 'dfir-eval/rdp-ransomware', 'version': '1.0.0', 'description': 'Post-compromise forensics: Windows Server 2022 breached via RDP brute force, ransomware deployed, scheduled-task / Run-key / service persistence, Security event log cleared.', 'authors': [{'name': 'DFIR Synthetic Corpus'}], 'keywords': ['security', 'dfir', 'incident-response', 'long-horizon']}, 'metadata': {'author_name': 'DFIR Synthetic Corpus', 'author_email': '', 'difficulty': 'hard', 'category': 'security', 'tags': ['security', 'dfir', 'incident-response', 'long-horizon']}, 'agent': {'timeout_sec': 3600.0}, 'verifier': {'timeout_sec': 900.0, 'env': {'ANTHROPIC_API_KEY': '${ANTHROPIC_API_KEY:-}', 'REWARDKIT_JUDGE': '${REWARDKIT_JUDGE:-}'}}, 'environment': {'os': 'linux', 'build_timeout_sec': 900.0}}
+[?2004hroot@dbd7f6edf1eb:/app# cd /app && /app/task/solution/solve.sh
+[?2004l[?2004hroot@dbd7f6edf1eb:/app# cd /app && /app/task/tests/test.sh
+[?2004l{
+  "structure": 1.0,
+  "grounding": 0.0,
+  "detection": 0.0,
+  "plan": 0.9091,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 1.0,
+  "outcome": "scored"
+}
+reward=0.0
+[?2004hroot@dbd7f6edf1eb:/app# cat /logs/verifier/reward.txt /logs/verifier/reward-full.json
+[?2004l0.0
+{
+  "structure": 1.0,
+  "grounding": 0.0,
+  "detection": 0.0,
+  "plan": 0.9091,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 1.0,
+  "outcome": "scored"
+}
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import json; print(json.dumps(json.load(open('/app/reward-details.json')), indent=2))"
+[?2004l[
+  {
+    "group": "structure",
+    "criterion": "five_files_exist",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "structure",
+    "criterion": "nonempty_and_parses",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "structure",
+    "criterion": "required_sections",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "grounding",
+    "criterion": "grounding_rate",
+    "args": [],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "grounding",
+    "criterion": "no_fabrication",
+    "args": [],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "chain_score",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "silent_artifact_recall",
+    "args": [],
+    "weight": 0.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-01",
+      "/Users/Public/svc.exe"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-02",
+      "/Windows/System32/Tasks/UpdateHelper"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-03",
+      "/Windows/System32/config/SOFTWARE"
+    ],
+    "weight": 2.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-04",
+      "/Windows/System32/svc-helper.sys"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-05",
+      "/Windows/System32/winevt/Logs/Security.evtx"
+    ],
+    "weight": 2.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-06",
+      "/Windows/System32/config/RDP-Tcp.reg"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "no_false_cve",
+    "args": [
+      "neg-deliverable"
+    ],
+    "weight": 1.5,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "plan_covers_findings",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "ordering_ok",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-20"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-01"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-02"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-03"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-04"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-06"
+    ],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-07"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-21"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-22"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "attribution:0:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "detection",
+    "criterion": "attribution:1:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:0:binary",
+    "args": [],
+    "weight": 2.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:1:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:2:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:0:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:1:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:2:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  }
+]
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import sys, json, pathlib; sys.path.insert(0, '/app/task/tests'); import criteria as C; app = pathlib.Path('/app'); findings = C._findings(app); print('Findings:', json.dumps(findings, indent=2)); classify = C._grounding(app); print([(c[0], classify(c[0]), [str(x) for x in C._candidates(c[0])]) for f in findings for c in f['citations']])"
+[?2004lFindings: [
+  {
+    "claim": "| ransomware-binary (encrypt, locked) | `/Users/Public/svc.exe` | T1486 |",
+    "citations": [
+      [
+        "/Users/Public/svc.exe",
+        ""
+      ]
+    ],
+    "source": "intrusion-report.md"
+  },
+  {
+    "claim": "| cleared-eventlog (cleared, 1102) | `/Windows/System32/winevt/Logs/Security.evtx` | T1070.001 |",
+    "citations": [
+      [
+        "/Windows/System32/winevt/Logs/Security.evtx",
+        ""
+      ]
+    ],
+    "source": "intrusion-report.md"
+  },
+  {
+    "claim": "| scheduled-task (schtasks, svc.exe) | `/Windows/System32/Tasks/UpdateHelper` | T1053.005 | yes |",
+    "citations": [
+      [
+        "/Windows/System32/Tasks/UpdateHelper",
+        ""
+      ]
+    ],
+    "source": "intrusion-report.md"
+  },
+  {
+    "claim": "| run-key (Run, svc) | `/Windows/System32/config/SOFTWARE` | T1547.001 | **no** |",
+    "citations": [
+      [
+        "/Windows/System32/config/SOFTWARE",
+        ""
+      ]
+    ],
+    "source": "intrusion-report.md"
+  },
+  {
+    "claim": "| malicious-service (service, helper) | `/Windows/System32/svc-helper.sys` | T1543.003 | yes |",
+    "citations": [
+      [
+        "/Windows/System32/svc-helper.sys",
+        ""
+      ]
+    ],
+    "source": "intrusion-report.md"
+  },
+  {
+    "claim": "set (`/sas/vulns.json`), and disk evidence attributes initial access to weak-credential and",
+    "citations": [
+      [
+        "/sas/vulns.json",
+        ""
+      ]
+    ],
+    "source": "vuln-report.md"
+  },
+  {
+    "claim": "Confidence: high. Evidence: `/Windows/System32/config/RDP-Tcp.reg`, empty `/sas/vulns.json`.",
+    "citations": [
+      [
+        "/Windows/System32/config/RDP-Tcp.reg",
+        ""
+      ],
+      [
+        "/sas/vulns.json",
+        ""
+      ]
+    ],
+    "source": "vuln-report.md"
+  },
+  {
+    "claim": "| rdp-baseline (UserAuthentication, 0) | `/Windows/System32/config/RDP-Tcp.reg` | BAS-01 |",
+    "citations": [
+      [
+        "/Windows/System32/config/RDP-Tcp.reg",
+        ""
+      ]
+    ],
+    "source": "baseline-report.md"
+  }
+]
+[('/Users/Public/svc.exe', 'fabricated', ['/disk/Users/Public/svc.exe']), ('/Windows/System32/winevt/Logs/Security.evtx', 'fabricated', ['/disk/Windows/System32/winevt/Logs/Security.evtx']), ('/Windows/System32/Tasks/UpdateHelper', 'fabricated', ['/disk/Windows/System32/Tasks/UpdateHelper']), ('/Windows/System32/config/SOFTWARE', 'fabricated', ['/disk/Windows/System32/config/SOFTWARE']), ('/Windows/System32/svc-helper.sys', 'fabricated', ['/disk/Windows/System32/svc-helper.sys']), ('/sas/vulns.json', 'fabricated', ['/sas/vulns.json']), ('/Windows/System32/config/RDP-Tcp.reg', 'fabricated', ['/disk/Windows/System32/config/RDP-Tcp.reg']), ('/sas/vulns.json', 'fabricated', ['/sas/vulns.json']), ('/Windows/System32/config/RDP-Tcp.reg', 'fabricated', ['/disk/Windows/System32/config/RDP-Tcp.reg'])]
+[?2004hroot@dbd7f6edf1eb:/app# ls -la /disk /sas
+[?2004lls: cannot access '/disk': No such file or directory
+ls: cannot access '/sas': No such file or directory
+[?2004hroot@dbd7f6edf1eb:/app# mkdir -p /disk /sas && tar -xzf /app/task/environment/disk.tar.gz -C /disk && cp -r /app/task/environment/sas-mock/* /sas/
+[?2004l[?2004hroot@dbd7f6edf1eb:/app# cd /app && /app/task/solution/solve.sh && /app/task/tests/test.sh
+[?2004l{
+  "structure": 1.0,
+  "grounding": 1.0,
+  "detection": 1.0,
+  "plan": 0.9091,
+  "quality": null,
+  "reward": 1.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 0.0,
+  "outcome": "scored"
+}
+reward=1.0
+[?2004hroot@dbd7f6edf1eb:/app# cat /logs/verifier/reward.txt /logs/verifier/reward-full.json
+[?2004l1.0
+{
+  "structure": 1.0,
+  "grounding": 1.0,
+  "detection": 1.0,
+  "plan": 0.9091,
+  "quality": null,
+  "reward": 1.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 0.0,
+  "outcome": "scored"
+}
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import json; print('Checking task.toml metadata fields...')"
+[?2004lChecking task.toml metadata fields...
+[?2004hroot@dbd7f6edf1eb:/app# ls -la /app/task/tests/Dockerfile /app/task/tests/
+[?2004lls: cannot access '/app/task/tests/Dockerfile': No such file or directory
+/app/task/tests/:
+total 68
+drwxr-xr-x 9  502 dialout  4096 Aug 16 15:11 .
+drwxr-xr-x 7  502 dialout  4096 Aug 16 14:03 ..
+drwxr-xr-x 2 root root     4096 Aug 16 15:11 __pycache__
+-rw-r--r-- 1  502 dialout 13991 Aug 16 11:23 criteria.py
+drwxr-xr-x 3  502 dialout  4096 Aug 16 15:11 detection
+drwxr-xr-x 3  502 dialout  4096 Aug 16 15:11 grounding
+-rw-r--r-- 1  502 dialout  5048 Aug 16 14:03 manifest.json
+drwxr-xr-x 3  502 dialout  4096 Aug 16 15:11 planning
+drwxr-xr-x 2  502 dialout  4096 Aug 16 11:22 quality
+-rw-r--r-- 1  502 dialout   511 Aug 16 10:51 reward.toml
+drwxr-xr-x 3  502 dialout  4096 Aug 16 15:11 rewardkit
+drwxr-xr-x 3  502 dialout  4096 Aug 16 15:11 structure
+-rwxr-xr-x 1  502 dialout  1987 Aug 16 14:27 test.sh
+[?2004hroot@dbd7f6edf1eb:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/rdp-ransomware"
+version     = "1.0.0"
+description = "Post-compromise forensics: Windows Server 2022 breached via RDP brute force, ransomware deployed, scheduled-task / Run-key / service persistence, Security event log cleared."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import tomllib, json; d = tomllib.load(open('/app/task/task.toml', 'rb')); print('Metadata:', json.dumps(d.get('metadata', {}), indent=2))"
+[?2004lMetadata: {
+  "author_name": "DFIR Synthetic Corpus",
+  "author_email": "",
+  "difficulty": "hard",
+  "category": "security",
+  "tags": [
+    "security",
+    "dfir",
+    "incident-response",
+    "long-horizon"
+  ]
+}
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import glob; files = glob.glob('/app/task/**', recursive=True); print(f'Total files: {len(files)}')"
+[?2004lTotal files: 129
+[?2004hroot@dbd7f6edf1eb:/app# grep -rn "baselines" /app/task/
+[?2004l/app/task/baselines/noop/baseline-report.md:3:The host's configuration deviates from hardening baselines in several respects.
+[?2004hroot@dbd7f6edf1eb:/app# grep -rn "assets" /app/task/
+[?2004l[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import json; print(35)"
+[?2004l35
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import json; res = {'verifiable': {'outcome': 'pass', 'explanation': 'Verification is fully automated and programmatic via tests/test.sh without runtime network installs.'}, 'solvable': {'outcome': 'pass', 'explanation': 'solution/solve.sh produces deliverables that pass tests/test.sh with reward=1.0.'}, 'difficult': {'outcome': 'pass', 'explanation': 'Requires post-compromise Windows forensic expertise across registry hives, event logs, binary samples, and threat intelligence feeds.'}, 'interesting': {'outcome': 'pass', 'explanation': 'Represents a realistic incident response investigation scenario on Windows Server 2022.'}, 'outcome_verified': {'outcome': 'pass', 'explanation': 'Tests evaluate the produced report deliverables in /app rather than constraining the agent process or tooling.'}, 'anti_cheat_robustness': {'outcome': 'fail', 'explanation': 'Separate-verifier mode is not configured, so ground-truth tests/manifest.json is present in the workspace where the agent can inspect it.'}, 'task_security': {'outcome': 'pass', 'explanation': 'All task files and scripts are clean of malicious logic, prompt injections, or unauthorized network calls.'}, 'functional_verification': {'outcome': 'pass', 'explanation': 'Tests verify findings by parsing evidence citations against the filesystem and evaluating DAG graph edit distance for attack chains.'}, 'deterministic_reproducible': {'outcome': 'pass', 'explanation': 'Tests depend on static forensic files and deterministic python logic with pinned requirements.'}, 'essential_difficulty': {'outcome': 'pass', 'explanation': 'Difficulty lies in DFIR investigation, root cause correlation, and remediation planning rather than output formatting minutiae.'}, 'test_instruction_alignment': {'outcome': 'pass', 'explanation': 'All test assertions correspond directly to requirements stated in instruction.md.'}, 'novel': {'outcome': 'pass', 'explanation': 'The task uses custom synthetic forensic artifacts and scenarios requiring multi-step investigation.'}, 'agentic': {'outcome': 'pass', 'explanation': 'Requires multi-step environment interaction, log searching, file inspection, and report authoring.'}, 'reviewable': {'outcome': 'pass', 'explanation': 'The rewardkit test framework and manifest.json provide transparent scoring logic.'}, 'instruction_concision': {'outcome': 'pass', 'explanation': 'instruction.md is clear, uses absolute paths, and avoids step-by-step handholding.'}, 'solution_quality': {'outcome': 'pass', 'explanation': 'solution/solve.sh generates comprehensive report deliverables detailing the attack chain and remediation plan.'}, 'separate_verifier_configured': {'outcome': 'fail', 'explanation': 'separate_verifier mode is not configured: task.toml lacks environment_mode = \"separate\" and artifacts, and tests/Dockerfile is missing.'}, 'environment_hygiene': {'outcome': 'fail', 'explanation': 'tests/Dockerfile is missing and ground-truth test files remain in the agent image workspace.'}, 'structured_data_schema': {'outcome': 'not_applicable', 'explanation': 'The task requires free-text Markdown reports rather than structured JSON/CSV data schemas.'}, 'typos': {'outcome': 'pass', 'explanation': 'No typos were identified in file paths, identifiers, or commands.'}, 'difficulty_explanation_quality': {'outcome': 'fail', 'explanation': 'difficulty_explanation is missing from task.toml metadata.'}, 'solution_explanation_quality': {'outcome': 'fail', 'explanation': 'solution_explanation is missing from task.toml metadata.'}, 'verification_explanation_quality': {'outcome': 'fail', 'explanation': 'verification_explanation is missing from task.toml metadata.'}, 'category_and_tags': {'outcome': 'pass', 'explanation': 'Category is set to security and tags accurately describe DFIR incident response.'}, 'task_name': {'outcome': 'pass', 'explanation': 'rdp-ransomware is a concise, 2-word lower kebab-case slug.'}, 'resource_configuration': {'outcome': 'pass', 'explanation': 'Agent and verifier timeouts and resource allocations are appropriate.'}, 'task_readme': {'outcome': 'not_applicable', 'explanation': 'No optional top-level README.md is present.'}, 'expert_time_estimate': {'outcome': 'fail', 'explanation': 'expert_time_estimate_hours is missing from task.toml metadata.'}, 'task_toml_schema': {'outcome': 'fail', 'explanation': 'task.toml contains extra unrecognized fields (difficulty in metadata, authors and keywords in task).'}, 'no_extraneous_files': {'outcome': 'fail', 'explanation': 'The task directory contains unused, unreferenced directories: assets/ and baselines/.'}, 'artifact_efficiency': {'outcome': 'fail', 'explanation': 'Artifacts are not configured in task.toml.'}, 'verifier_execution_isolation': {'outcome': 'not_applicable', 'explanation': 'The verifier parses markdown reports and does not execute agent code.'}, 'ctrf_reporting': {'outcome': 'fail', 'explanation': 'The verifier does not write CTRF formatted test results to /logs/verifier/ctrf.json.'}, 'do_not_modify_enforced': {'outcome': 'pass', 'explanation': 'Read-only protection on /disk is set via file permissions and citation classification fails if files are missing.'}, 'binary_reward': {'outcome': 'pass', 'explanation': 'test.sh always writes either 1.0 or 0.0 to /logs/verifier/reward.txt.'}}; open('/app/check-result.json', 'w').write(json.dumps(res, indent=2))"
+[?2004l[?2004hroot@dbd7f6edf1eb:/app# head -n 30 /app/check-result.json
+[?2004l{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "Verification is fully automated and programmatic via tests/test.sh without runtime network installs."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh produces deliverables that pass tests/test.sh with reward=1.0."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "Requires post-compromise Windows forensic expertise across registry hives, event logs, binary samples, and threat intelligence feeds."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Represents a realistic incident response investigation scenario on Windows Server 2022."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests evaluate the produced report deliverables in /app rather than constraining the agent process or tooling."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate-verifier mode is not configured, so ground-truth tests/manifest.json is present in the workspace where the agent can inspect it."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files and scripts are clean of malicious logic, prompt injections, or unauthorized network calls."
+  },
+  "functional_verification": {
+[?2004hroot@dbd7f6edf1eb:/app# python3 -c "import json; data = json.load(open('/app/check-result.json')); print(f'Keys count: {len(data)}')"
+[?2004lKeys count: 35
+[?2004hroot@dbd7f6edf1eb:/app# 

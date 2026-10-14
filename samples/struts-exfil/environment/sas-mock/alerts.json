@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "webshell",
+    "path": "/opt/tomcat/webapps/ROOT/static/upload.jsp",
+    "capability": "VUL-01",
+    "summary": "webshell observed at /opt/tomcat/webapps/ROOT/static/upload.jsp"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "exfil-archive",
+    "path": "/tmp/.cache/dump.tar.gz",
+    "capability": "ENT-F01",
+    "summary": "exfil-archive observed at /tmp/.cache/dump.tar.gz"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "cron",
+    "path": "/var/spool/cron/tomcat",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/tomcat"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-05",
+    "kind": "vulnerable-lib",
+    "path": "/opt/tomcat/lib/struts2-core.jar",
+    "capability": "BAS-01",
+    "summary": "vulnerable-lib observed at /opt/tomcat/lib/struts2-core.jar"
+  }
+]

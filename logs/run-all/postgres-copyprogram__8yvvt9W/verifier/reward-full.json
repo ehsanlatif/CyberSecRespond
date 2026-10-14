@@ -1,0 +1,12 @@
+{
+  "structure": 1.0,
+  "grounding": 0.9875,
+  "detection": 0.8632,
+  "plan": 1.0,
+  "quality": null,
+  "detection_pre_gate": 0.8632,
+  "reward": 1.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 0.0,
+  "outcome": "scored"
+}

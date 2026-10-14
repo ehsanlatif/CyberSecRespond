@@ -1,0 +1,475 @@
+Aug 23 01:07:22 docker-prod-01 chronyd[16619]: Time synchronised to time server
+Aug 23 01:07:50 docker-prod-01 dbus-daemon[22428]: pam_unix(cron:session): session opened for user root
+Aug 23 01:07:55 docker-prod-01 kernel[8081]: Started Session 438 of user root.
+Aug 23 01:08:33 docker-prod-01 chronyd[6770]: CPU0: Package temperature normal
+Aug 23 01:09:04 docker-prod-01 systemd[4594]: CPU0: Package temperature normal
+Aug 23 01:09:18 docker-prod-01 CRON[28653]: Started Session 187 of user jenkins.
+Aug 23 01:10:07 docker-prod-01 sshd[4478]: CPU0: Package temperature normal
+Aug 23 01:10:12 docker-prod-01 dbus-daemon[14656]: pam_unix(cron:session): session opened for user root
+Aug 23 01:10:56 docker-prod-01 sudo[19292]: Started Session 676 of user devops.
+Aug 23 01:11:10 docker-prod-01 chronyd[9078]: pam_unix(cron:session): session opened for user root
+Aug 23 01:12:05 docker-prod-01 kernel[14207]: Time synchronised to time server
+Aug 23 01:12:08 docker-prod-01 systemd[11912]: CPU0: Package temperature normal
+Aug 23 01:12:17 docker-prod-01 CRON[14819]: pam_unix(cron:session): session opened for user root
+Aug 23 01:12:28 docker-prod-01 chronyd[28165]: Started Session 335 of user devops.
+Aug 23 01:12:50 docker-prod-01 CRON[19058]: Received disconnect from 10.10.47.98 port 63489:11: disconnected by user
+Aug 23 01:13:17 docker-prod-01 chronyd[10984]: pam_unix(cron:session): session opened for user root
+Aug 23 01:13:32 docker-prod-01 sudo[19335]: Time synchronised to time server
+Aug 23 01:14:12 docker-prod-01 dbus-daemon[25788]: Received disconnect from 10.10.47.67 port 55425:11: disconnected by user
+Aug 23 01:14:23 docker-prod-01 chronyd[2630]: pam_unix(cron:session): session opened for user root
+Aug 23 01:15:18 docker-prod-01 CRON[12322]: Received disconnect from 10.10.47.34 port 63706:11: disconnected by user
+Aug 23 01:15:32 docker-prod-01 dbus-daemon[19043]: Received disconnect from 10.10.47.148 port 50189:11: disconnected by user
+Aug 23 01:15:38 docker-prod-01 dbus-daemon[3816]: Received disconnect from 10.10.47.57 port 44384:11: disconnected by user
+Aug 23 01:15:44 docker-prod-01 sudo[14102]: CPU0: Package temperature normal
+Aug 23 01:15:46 docker-prod-01 chronyd[15991]: pam_unix(cron:session): session opened for user root
+Aug 23 01:15:49 docker-prod-01 systemd-logind[13037]: pam_unix(cron:session): session opened for user root
+Aug 23 01:16:07 docker-prod-01 chronyd[22935]: Time synchronised to time server
+Aug 23 01:16:38 docker-prod-01 CRON[28050]: pam_unix(cron:session): session opened for user root
+Aug 23 01:17:12 docker-prod-01 chronyd[15542]: Received disconnect from 10.10.47.5 port 46847:11: disconnected by user
+Aug 23 01:17:24 docker-prod-01 systemd[3012]: Time synchronised to time server
+Aug 23 01:17:37 docker-prod-01 CRON[8597]: Time synchronised to time server
+Aug 23 01:17:40 docker-prod-01 chronyd[26390]: CPU0: Package temperature normal
+Aug 23 01:18:35 docker-prod-01 systemd[9911]: Received disconnect from 10.10.47.31 port 62495:11: disconnected by user
+Aug 23 01:19:19 docker-prod-01 dbus-daemon[6625]: Time synchronised to time server
+Aug 23 01:19:45 docker-prod-01 chronyd[729]: pam_unix(cron:session): session opened for user root
+Aug 23 01:20:33 docker-prod-01 sudo[23453]: Time synchronised to time server
+Aug 23 01:20:34 docker-prod-01 kernel[13278]: Time synchronised to time server
+Aug 23 01:21:02 docker-prod-01 systemd-logind[2095]: Received disconnect from 10.10.47.45 port 62195:11: disconnected by user
+Aug 23 01:21:08 docker-prod-01 sudo[13896]: pam_unix(cron:session): session opened for user root
+Aug 23 01:21:57 docker-prod-01 dbus-daemon[16763]: Started Session 140 of user root.
+Aug 23 01:22:20 docker-prod-01 CRON[11946]: Time synchronised to time server
+Aug 23 01:23:03 docker-prod-01 systemd-logind[15157]: Received disconnect from 10.10.47.169 port 42186:11: disconnected by user
+Aug 23 01:23:34 docker-prod-01 systemd-logind[15148]: pam_unix(cron:session): session opened for user root
+Aug 23 01:24:01 docker-prod-01 CRON[8548]: Received disconnect from 10.10.47.64 port 41061:11: disconnected by user
+Aug 23 01:24:22 docker-prod-01 sudo[14007]: pam_unix(cron:session): session opened for user root
+Aug 23 01:24:31 docker-prod-01 sshd[537]: CPU0: Package temperature normal
+Aug 23 01:24:36 docker-prod-01 kernel[6638]: Time synchronised to time server
+Aug 23 01:25:12 docker-prod-01 systemd-logind[27347]: pam_unix(cron:session): session opened for user root
+Aug 23 01:25:13 docker-prod-01 sshd[28918]: pam_unix(cron:session): session opened for user root
+Aug 23 01:25:23 docker-prod-01 kernel[2851]: Time synchronised to time server
+Aug 23 01:25:41 docker-prod-01 systemd-logind[6428]: Started Session 969 of user root.
+Aug 23 01:25:57 docker-prod-01 chronyd[23984]: Started Session 6 of user svc-backup.
+Aug 23 01:26:04 docker-prod-01 sudo[16277]: CPU0: Package temperature normal
+Aug 23 01:26:37 docker-prod-01 systemd[18031]: Time synchronised to time server
+Aug 23 01:26:49 docker-prod-01 dbus-daemon[27604]: Time synchronised to time server
+Aug 23 01:27:15 docker-prod-01 systemd[27548]: Received disconnect from 10.10.47.225 port 56968:11: disconnected by user
+Aug 23 01:27:36 docker-prod-01 systemd-logind[9317]: Received disconnect from 10.10.47.161 port 54397:11: disconnected by user
+Aug 23 01:27:59 docker-prod-01 sudo[20189]: CPU0: Package temperature normal
+Aug 23 01:28:11 docker-prod-01 sudo[3416]: CPU0: Package temperature normal
+Aug 23 01:29:01 docker-prod-01 chronyd[2739]: Time synchronised to time server
+Aug 23 01:29:35 docker-prod-01 sudo[18034]: pam_unix(cron:session): session opened for user root
+Aug 23 01:29:50 docker-prod-01 systemd-logind[12343]: Started Session 952 of user jenkins.
+Aug 23 01:30:17 docker-prod-01 systemd[16157]: CPU0: Package temperature normal
+Aug 23 01:30:53 docker-prod-01 systemd-logind[23588]: pam_unix(cron:session): session opened for user root
+Aug 23 01:31:33 docker-prod-01 kernel[10130]: pam_unix(cron:session): session opened for user root
+Aug 23 01:31:58 docker-prod-01 CRON[2968]: pam_unix(cron:session): session opened for user root
+Aug 23 01:32:02 docker-prod-01 CRON[19171]: Received disconnect from 10.10.47.6 port 44895:11: disconnected by user
+Aug 23 01:32:28 docker-prod-01 sshd[17289]: Time synchronised to time server
+Aug 23 01:32:51 docker-prod-01 sshd[26564]: CPU0: Package temperature normal
+Aug 23 01:33:05 docker-prod-01 CRON[24584]: CPU0: Package temperature normal
+Aug 23 01:33:27 docker-prod-01 systemd[2482]: CPU0: Package temperature normal
+Aug 23 01:33:36 docker-prod-01 sudo[878]: Started Session 452 of user svc-backup.
+Aug 23 01:34:11 docker-prod-01 dbus-daemon[4830]: Time synchronised to time server
+Aug 23 01:34:28 docker-prod-01 systemd-logind[25959]: pam_unix(cron:session): session opened for user root
+Aug 23 01:34:57 docker-prod-01 dbus-daemon[9865]: Received disconnect from 10.10.47.104 port 51565:11: disconnected by user
+Aug 23 01:35:20 docker-prod-01 CRON[10123]: CPU0: Package temperature normal
+Aug 23 01:35:30 docker-prod-01 sudo[19883]: CPU0: Package temperature normal
+Aug 23 01:35:40 docker-prod-01 systemd[3553]: pam_unix(cron:session): session opened for user root
+Aug 23 01:35:59 docker-prod-01 sudo[17173]: Received disconnect from 10.10.47.40 port 47982:11: disconnected by user
+Aug 23 01:36:03 docker-prod-01 sshd[8578]: Time synchronised to time server
+Aug 23 01:36:17 docker-prod-01 sshd[7544]: Started Session 170 of user jenkins.
+Aug 23 01:36:35 docker-prod-01 systemd-logind[27037]: pam_unix(cron:session): session opened for user root
+Aug 23 01:37:27 docker-prod-01 CRON[21873]: Time synchronised to time server
+Aug 23 01:38:21 docker-prod-01 sudo[22445]: Time synchronised to time server
+Aug 23 01:38:34 docker-prod-01 CRON[15710]: Started Session 68 of user root.
+Aug 23 01:38:55 docker-prod-01 kernel[679]: CPU0: Package temperature normal
+Aug 23 01:39:08 docker-prod-01 systemd[27069]: Time synchronised to time server
+Aug 23 01:39:17 docker-prod-01 kernel[20184]: CPU0: Package temperature normal
+Aug 23 01:39:37 docker-prod-01 kernel[1803]: Received disconnect from 10.10.47.15 port 51957:11: disconnected by user
+Aug 23 01:40:15 docker-prod-01 sudo[13547]: CPU0: Package temperature normal
+Aug 23 01:40:34 docker-prod-01 sshd[10398]: CPU0: Package temperature normal
+Aug 23 01:40:40 docker-prod-01 systemd-logind[11745]: Started Session 168 of user root.
+Aug 23 01:40:42 docker-prod-01 chronyd[543]: Started Session 614 of user root.
+Aug 23 01:40:58 docker-prod-01 kernel[13064]: Received disconnect from 10.10.47.20 port 46802:11: disconnected by user
+Aug 23 01:41:24 docker-prod-01 CRON[8118]: Started Session 766 of user svc-backup.
+Aug 23 01:42:14 docker-prod-01 systemd[25348]: Time synchronised to time server
+Aug 23 01:42:45 docker-prod-01 systemd[26351]: CPU0: Package temperature normal
+Aug 23 01:42:58 docker-prod-01 dbus-daemon[3573]: Received disconnect from 10.10.47.126 port 52790:11: disconnected by user
+Aug 23 01:43:43 docker-prod-01 systemd[16665]: Received disconnect from 10.10.47.20 port 54942:11: disconnected by user
+Aug 23 01:44:12 docker-prod-01 dbus-daemon[9985]: Time synchronised to time server
+Aug 23 01:44:53 docker-prod-01 kernel[9859]: pam_unix(cron:session): session opened for user root
+Aug 23 01:44:57 docker-prod-01 sshd[12930]: CPU0: Package temperature normal
+Aug 23 01:45:14 docker-prod-01 chronyd[10362]: pam_unix(cron:session): session opened for user root
+Aug 23 01:45:31 docker-prod-01 CRON[23680]: Time synchronised to time server
+Aug 23 01:45:54 docker-prod-01 sshd[8760]: Time synchronised to time server
+Aug 23 01:45:56 docker-prod-01 sshd[2607]: Received disconnect from 10.10.47.150 port 56240:11: disconnected by user
+Aug 23 01:46:09 docker-prod-01 kernel[14777]: Started Session 918 of user jenkins.
+Aug 23 01:46:39 docker-prod-01 dbus-daemon[23289]: Received disconnect from 10.10.47.206 port 46197:11: disconnected by user
+Aug 23 01:46:51 docker-prod-01 kernel[29513]: Time synchronised to time server
+Aug 23 01:47:45 docker-prod-01 chronyd[750]: pam_unix(cron:session): session opened for user root
+Aug 23 01:47:50 docker-prod-01 CRON[16400]: CPU0: Package temperature normal
+Aug 23 01:48:28 docker-prod-01 dbus-daemon[20138]: Time synchronised to time server
+Aug 23 01:49:07 docker-prod-01 chronyd[17606]: Received disconnect from 10.10.47.116 port 41467:11: disconnected by user
+Aug 23 01:49:47 docker-prod-01 CRON[9938]: pam_unix(cron:session): session opened for user root
+Aug 23 01:49:48 docker-prod-01 sudo[19167]: Received disconnect from 10.10.47.2 port 52704:11: disconnected by user
+Aug 23 01:49:49 docker-prod-01 systemd-logind[17698]: Time synchronised to time server
+Aug 23 01:50:12 docker-prod-01 kernel[23774]: CPU0: Package temperature normal
+Aug 23 01:50:53 docker-prod-01 chronyd[10138]: Received disconnect from 10.10.47.240 port 55754:11: disconnected by user
+Aug 23 01:51:40 docker-prod-01 sshd[22692]: pam_unix(cron:session): session opened for user root
+Aug 23 01:52:21 docker-prod-01 sshd[9174]: pam_unix(cron:session): session opened for user root
+Aug 23 01:52:36 docker-prod-01 sshd[7808]: pam_unix(cron:session): session opened for user root
+Aug 23 01:53:01 docker-prod-01 sshd[27164]: CPU0: Package temperature normal
+Aug 23 01:53:27 docker-prod-01 systemd[1666]: Time synchronised to time server
+Aug 23 01:53:56 docker-prod-01 kernel[25943]: CPU0: Package temperature normal
+Aug 23 01:54:39 docker-prod-01 sudo[26468]: Received disconnect from 10.10.47.46 port 40111:11: disconnected by user
+Aug 23 01:54:46 docker-prod-01 dbus-daemon[23816]: Received disconnect from 10.10.47.247 port 54779:11: disconnected by user
+Aug 23 01:55:40 docker-prod-01 systemd-logind[2969]: CPU0: Package temperature normal
+Aug 23 01:56:27 docker-prod-01 systemd-logind[22872]: Time synchronised to time server
+Aug 23 01:57:19 docker-prod-01 dbus-daemon[23514]: Started Session 581 of user root.
+Aug 23 01:57:58 docker-prod-01 sudo[27279]: Received disconnect from 10.10.47.114 port 56011:11: disconnected by user
+Aug 23 01:58:03 docker-prod-01 chronyd[1497]: pam_unix(cron:session): session opened for user root
+Aug 23 01:58:17 docker-prod-01 chronyd[21023]: Started Session 996 of user devops.
+Aug 23 01:58:40 docker-prod-01 sudo[5571]: CPU0: Package temperature normal
+Aug 23 01:59:15 docker-prod-01 systemd[9102]: pam_unix(cron:session): session opened for user root
+Aug 23 02:00:03 docker-prod-01 CRON[10837]: pam_unix(cron:session): session opened for user root
+Aug 23 02:00:07 docker-prod-01 kernel[27907]: Received disconnect from 10.10.47.238 port 47608:11: disconnected by user
+Aug 23 02:00:40 docker-prod-01 CRON[14881]: Received disconnect from 10.10.47.92 port 63918:11: disconnected by user
+Aug 23 02:01:19 docker-prod-01 sudo[9089]: Time synchronised to time server
+Aug 23 02:01:39 docker-prod-01 chronyd[16238]: Started Session 842 of user root.
+Aug 23 02:02:20 docker-prod-01 kernel[12219]: Started Session 912 of user devops.
+Aug 23 02:02:59 docker-prod-01 CRON[20568]: pam_unix(cron:session): session opened for user root
+Aug 23 02:03:20 docker-prod-01 dbus-daemon[5821]: CPU0: Package temperature normal
+Aug 23 02:04:09 docker-prod-01 sudo[16770]: Received disconnect from 10.10.47.98 port 58207:11: disconnected by user
+Aug 23 02:04:46 docker-prod-01 CRON[12153]: Started Session 387 of user root.
+Aug 23 02:04:57 docker-prod-01 chronyd[2320]: CPU0: Package temperature normal
+Aug 23 02:05:11 docker-prod-01 kernel[19716]: pam_unix(cron:session): session opened for user root
+Aug 23 02:05:45 docker-prod-01 sshd[8002]: Received disconnect from 10.10.47.53 port 50633:11: disconnected by user
+Aug 23 02:05:58 docker-prod-01 kernel[15022]: Time synchronised to time server
+Aug 23 02:06:20 docker-prod-01 CRON[9284]: Time synchronised to time server
+Aug 23 02:07:00 docker-prod-01 sshd[10519]: CPU0: Package temperature normal
+Aug 23 02:07:02 docker-prod-01 systemd-logind[29347]: Started Session 733 of user webadmin.
+Aug 23 02:07:31 docker-prod-01 systemd[28378]: pam_unix(cron:session): session opened for user root
+Aug 23 02:08:22 docker-prod-01 CRON[17240]: Time synchronised to time server
+Aug 23 02:08:34 docker-prod-01 systemd[11552]: Started Session 251 of user jenkins.
+Aug 23 02:08:51 docker-prod-01 CRON[14877]: Received disconnect from 10.10.47.91 port 64307:11: disconnected by user
+Aug 23 02:09:39 docker-prod-01 dbus-daemon[14483]: pam_unix(cron:session): session opened for user root
+Aug 23 02:10:26 docker-prod-01 sshd[8359]: Started Session 509 of user jenkins.
+Aug 23 02:10:39 docker-prod-01 CRON[15359]: Started Session 197 of user jenkins.
+Aug 23 02:11:09 docker-prod-01 dbus-daemon[29743]: CPU0: Package temperature normal
+Aug 23 02:11:59 docker-prod-01 sshd[19419]: Received disconnect from 10.10.47.138 port 58022:11: disconnected by user
+Aug 23 02:12:41 docker-prod-01 kernel[26962]: CPU0: Package temperature normal
+Aug 23 02:13:25 docker-prod-01 sshd[17475]: Started Session 192 of user jenkins.
+Aug 23 02:13:55 docker-prod-01 sudo[1592]: Received disconnect from 10.10.47.181 port 52400:11: disconnected by user
+Aug 23 02:14:08 docker-prod-01 sshd[6893]: pam_unix(cron:session): session opened for user root
+Aug 23 02:14:36 docker-prod-01 dbus-daemon[17011]: Received disconnect from 10.10.47.47 port 57705:11: disconnected by user
+Aug 23 02:15:09 docker-prod-01 sudo[25785]: Started Session 426 of user jenkins.
+Aug 23 02:15:49 docker-prod-01 dbus-daemon[23581]: Received disconnect from 10.10.47.226 port 59315:11: disconnected by user
+Aug 23 02:16:19 docker-prod-01 sudo[5067]: Started Session 739 of user root.
+Aug 23 02:17:14 docker-prod-01 kernel[4767]: Time synchronised to time server
+Aug 23 02:17:20 docker-prod-01 systemd-logind[3949]: Time synchronised to time server
+Aug 23 02:17:52 docker-prod-01 systemd[5959]: Started Session 119 of user root.
+Aug 23 02:17:53 docker-prod-01 systemd[6745]: pam_unix(cron:session): session opened for user root
+Aug 23 02:18:10 docker-prod-01 kernel[24684]: Started Session 939 of user devops.
+Aug 23 02:18:18 docker-prod-01 sudo[17734]: Started Session 932 of user root.
+Aug 23 02:19:09 docker-prod-01 kernel[4137]: Time synchronised to time server
+Aug 23 02:19:32 docker-prod-01 systemd[27917]: pam_unix(cron:session): session opened for user root
+Aug 23 02:19:50 docker-prod-01 sshd[9825]: Time synchronised to time server
+Aug 23 02:20:06 docker-prod-01 chronyd[3739]: CPU0: Package temperature normal
+Aug 23 02:20:24 docker-prod-01 systemd[25697]: Time synchronised to time server
+Aug 23 02:20:27 docker-prod-01 sshd[10243]: CPU0: Package temperature normal
+Aug 23 02:20:45 docker-prod-01 chronyd[20488]: Started Session 3 of user svc-backup.
+Aug 23 02:20:58 docker-prod-01 systemd[19210]: pam_unix(cron:session): session opened for user root
+Aug 23 02:21:14 docker-prod-01 sshd[22773]: Received disconnect from 10.10.47.210 port 64995:11: disconnected by user
+Aug 23 02:21:58 docker-prod-01 kernel[22071]: Started Session 373 of user svc-backup.
+Aug 23 02:21:59 docker-prod-01 systemd-logind[29294]: Started Session 216 of user jenkins.
+Aug 23 02:22:46 docker-prod-01 sshd[16225]: Started Session 38 of user root.
+Aug 23 02:23:26 docker-prod-01 CRON[5563]: CPU0: Package temperature normal
+Aug 23 02:23:41 docker-prod-01 dbus-daemon[6570]: Started Session 817 of user root.
+Aug 23 02:23:52 docker-prod-01 sshd[13019]: CPU0: Package temperature normal
+Aug 23 02:24:27 docker-prod-01 kernel[3344]: Started Session 119 of user webadmin.
+Aug 23 02:25:00 docker-prod-01 kernel[11832]: pam_unix(cron:session): session opened for user root
+Aug 23 02:25:02 docker-prod-01 chronyd[2015]: pam_unix(cron:session): session opened for user root
+Aug 23 02:25:17 docker-prod-01 dbus-daemon[10061]: CPU0: Package temperature normal
+Aug 23 02:25:55 docker-prod-01 chronyd[609]: CPU0: Package temperature normal
+Aug 23 02:25:57 docker-prod-01 sudo[2163]: Time synchronised to time server
+Aug 23 02:26:05 docker-prod-01 dbus-daemon[20450]: Started Session 115 of user postgres.
+Aug 23 02:26:07 docker-prod-01 systemd-logind[17062]: CPU0: Package temperature normal
+Aug 23 02:26:43 docker-prod-01 sudo[2093]: pam_unix(cron:session): session opened for user root
+Aug 23 02:27:16 docker-prod-01 dbus-daemon[29059]: Received disconnect from 10.10.47.150 port 45785:11: disconnected by user
+Aug 23 02:27:57 docker-prod-01 systemd[12205]: Time synchronised to time server
+Aug 23 02:28:42 docker-prod-01 chronyd[4003]: pam_unix(cron:session): session opened for user root
+Aug 23 02:28:59 docker-prod-01 systemd-logind[27673]: CPU0: Package temperature normal
+Aug 23 02:29:25 docker-prod-01 systemd-logind[29548]: Started Session 642 of user root.
+Aug 23 02:29:51 docker-prod-01 CRON[15432]: pam_unix(cron:session): session opened for user root
+Aug 23 02:30:01 docker-prod-01 systemd[9813]: Started Session 350 of user postgres.
+Aug 23 02:30:33 docker-prod-01 systemd[19150]: Started Session 377 of user root.
+Aug 23 02:31:19 docker-prod-01 sudo[7471]: Received disconnect from 10.10.47.8 port 44434:11: disconnected by user
+Aug 23 02:31:56 docker-prod-01 kernel[20785]: CPU0: Package temperature normal
+Aug 23 02:32:43 docker-prod-01 sudo[14077]: Time synchronised to time server
+Aug 23 02:33:09 docker-prod-01 systemd[8497]: Started Session 630 of user svc-backup.
+Aug 23 02:33:11 docker-prod-01 CRON[20410]: Started Session 334 of user jenkins.
+Aug 23 02:34:06 docker-prod-01 sshd[8277]: pam_unix(cron:session): session opened for user root
+Aug 23 02:34:38 docker-prod-01 sshd[9628]: Time synchronised to time server
+Aug 23 02:35:22 docker-prod-01 sshd[21709]: Received disconnect from 10.10.47.90 port 53839:11: disconnected by user
+Aug 23 02:36:12 docker-prod-01 sudo[5276]: CPU0: Package temperature normal
+Aug 23 02:37:02 docker-prod-01 sshd[6702]: pam_unix(cron:session): session opened for user root
+Aug 23 02:37:39 docker-prod-01 systemd-logind[24649]: CPU0: Package temperature normal
+Aug 23 02:38:08 docker-prod-01 systemd[12265]: Time synchronised to time server
+Aug 23 02:38:40 docker-prod-01 systemd-logind[5645]: Time synchronised to time server
+Aug 23 02:39:25 docker-prod-01 sudo[5763]: CPU0: Package temperature normal
+Aug 23 02:39:40 docker-prod-01 sshd[2402]: pam_unix(cron:session): session opened for user root
+Aug 23 02:39:55 docker-prod-01 CRON[1686]: pam_unix(cron:session): session opened for user root
+Aug 23 02:40:08 docker-prod-01 sudo[29140]: Started Session 168 of user postgres.
+Aug 23 02:40:44 docker-prod-01 chronyd[3373]: pam_unix(cron:session): session opened for user root
+Aug 23 02:41:38 docker-prod-01 sudo[12101]: Received disconnect from 10.10.47.4 port 47181:11: disconnected by user
+Aug 23 02:42:28 docker-prod-01 chronyd[19632]: Started Session 895 of user postgres.
+Aug 23 02:43:11 docker-prod-01 systemd-logind[21751]: Time synchronised to time server
+Aug 23 02:44:06 docker-prod-01 systemd-logind[19482]: Time synchronised to time server
+Aug 23 02:44:16 docker-prod-01 CRON[8508]: Received disconnect from 10.10.47.23 port 55170:11: disconnected by user
+Aug 23 02:44:51 docker-prod-01 kernel[25044]: Time synchronised to time server
+Aug 23 02:44:57 docker-prod-01 sshd[24055]: CPU0: Package temperature normal
+Aug 23 02:45:44 docker-prod-01 chronyd[13533]: pam_unix(cron:session): session opened for user root
+Aug 23 02:45:54 docker-prod-01 kernel[23510]: Received disconnect from 10.10.47.204 port 42418:11: disconnected by user
+Aug 23 02:46:35 docker-prod-01 CRON[8617]: pam_unix(cron:session): session opened for user root
+Aug 23 02:46:41 docker-prod-01 dbus-daemon[10050]: Time synchronised to time server
+Aug 23 02:47:32 docker-prod-01 CRON[15981]: Received disconnect from 10.10.47.113 port 53207:11: disconnected by user
+Aug 23 02:47:43 docker-prod-01 CRON[9871]: Started Session 474 of user jenkins.
+Aug 23 02:48:30 docker-prod-01 chronyd[19645]: Started Session 499 of user devops.
+Aug 23 02:49:11 docker-prod-01 sshd[27307]: Time synchronised to time server
+Aug 23 02:50:06 docker-prod-01 kernel[3839]: Received disconnect from 10.10.47.240 port 47855:11: disconnected by user
+Aug 23 02:50:38 docker-prod-01 dbus-daemon[4839]: CPU0: Package temperature normal
+Aug 23 02:51:15 docker-prod-01 systemd-logind[29347]: pam_unix(cron:session): session opened for user root
+Aug 23 02:51:23 docker-prod-01 sudo[14568]: CPU0: Package temperature normal
+Aug 23 02:52:13 docker-prod-01 kernel[9324]: CPU0: Package temperature normal
+Aug 23 02:53:04 docker-prod-01 sudo[9894]: Received disconnect from 10.10.47.26 port 45119:11: disconnected by user
+Aug 23 02:53:31 docker-prod-01 sshd[24059]: Started Session 35 of user webadmin.
+Aug 23 02:53:37 docker-prod-01 sudo[10064]: pam_unix(cron:session): session opened for user root
+Aug 23 02:54:32 docker-prod-01 sudo[20777]: Started Session 375 of user root.
+Aug 23 02:54:47 docker-prod-01 chronyd[24509]: CPU0: Package temperature normal
+Aug 23 02:55:34 docker-prod-01 systemd-logind[28591]: pam_unix(cron:session): session opened for user root
+Aug 23 02:55:58 docker-prod-01 systemd[27198]: Time synchronised to time server
+Aug 23 02:56:47 docker-prod-01 kernel[17780]: Time synchronised to time server
+Aug 23 02:57:09 docker-prod-01 sudo[11106]: pam_unix(cron:session): session opened for user root
+Aug 23 02:57:46 docker-prod-01 systemd[4878]: CPU0: Package temperature normal
+Aug 23 02:58:27 docker-prod-01 systemd[23092]: Started Session 809 of user root.
+Aug 23 02:58:29 docker-prod-01 systemd-logind[11032]: Received disconnect from 10.10.47.101 port 52469:11: disconnected by user
+Aug 23 02:58:30 docker-prod-01 sshd[19308]: Received disconnect from 10.10.47.76 port 41760:11: disconnected by user
+Aug 23 02:58:56 docker-prod-01 sshd[15293]: CPU0: Package temperature normal
+Aug 23 02:59:15 docker-prod-01 chronyd[8594]: CPU0: Package temperature normal
+Aug 23 02:59:45 docker-prod-01 systemd-logind[24974]: Time synchronised to time server
+Aug 23 03:00:21 docker-prod-01 systemd-logind[19194]: Started Session 930 of user svc-backup.
+Aug 23 03:00:59 docker-prod-01 kernel[23305]: pam_unix(cron:session): session opened for user root
+Aug 23 03:01:42 docker-prod-01 kernel[17327]: Received disconnect from 10.10.47.12 port 48483:11: disconnected by user
+Aug 23 03:01:59 docker-prod-01 CRON[602]: pam_unix(cron:session): session opened for user root
+Aug 23 03:02:54 docker-prod-01 chronyd[10919]: pam_unix(cron:session): session opened for user root
+Aug 23 03:03:30 docker-prod-01 CRON[2796]: Started Session 238 of user svc-backup.
+Aug 23 03:04:04 docker-prod-01 sudo[8706]: Started Session 925 of user svc-backup.
+Aug 23 03:04:55 docker-prod-01 dbus-daemon[29868]: Started Session 733 of user devops.
+Aug 23 03:05:27 docker-prod-01 kernel[29754]: Time synchronised to time server
+Aug 23 03:06:03 docker-prod-01 sudo[22349]: Time synchronised to time server
+Aug 23 03:06:57 docker-prod-01 sudo[5724]: pam_unix(cron:session): session opened for user root
+Aug 23 03:07:47 docker-prod-01 kernel[2329]: pam_unix(cron:session): session opened for user root
+Aug 23 03:08:22 docker-prod-01 CRON[1577]: pam_unix(cron:session): session opened for user root
+Aug 23 03:08:54 docker-prod-01 CRON[13085]: Time synchronised to time server
+Aug 23 03:09:05 docker-prod-01 chronyd[9401]: CPU0: Package temperature normal
+Aug 23 03:10:00 docker-prod-01 sudo[17241]: pam_unix(cron:session): session opened for user root
+Aug 23 03:10:01 docker-prod-01 kernel[15679]: pam_unix(cron:session): session opened for user root
+Aug 23 03:10:03 docker-prod-01 chronyd[16392]: pam_unix(cron:session): session opened for user root
+Aug 23 03:10:45 docker-prod-01 dbus-daemon[13743]: Time synchronised to time server
+Aug 23 03:11:11 docker-prod-01 sudo[13236]: Received disconnect from 10.10.47.87 port 63624:11: disconnected by user
+Aug 23 03:11:22 docker-prod-01 dbus-daemon[9744]: Received disconnect from 10.10.47.58 port 48857:11: disconnected by user
+Aug 23 03:11:57 docker-prod-01 sshd[4397]: Received disconnect from 10.10.47.223 port 43794:11: disconnected by user
+Aug 23 03:12:19 docker-prod-01 sudo[23174]: pam_unix(cron:session): session opened for user root
+Aug 23 03:12:29 docker-prod-01 systemd-logind[12487]: CPU0: Package temperature normal
+Aug 23 03:12:47 docker-prod-01 chronyd[29646]: pam_unix(cron:session): session opened for user root
+Aug 23 03:13:26 docker-prod-01 CRON[18204]: Started Session 311 of user webadmin.
+Aug 23 03:14:14 docker-prod-01 chronyd[4710]: Received disconnect from 10.10.47.69 port 47097:11: disconnected by user
+Aug 23 03:14:54 docker-prod-01 CRON[28946]: CPU0: Package temperature normal
+Aug 23 03:15:30 docker-prod-01 systemd-logind[2738]: Started Session 692 of user jenkins.
+Aug 23 03:15:37 docker-prod-01 systemd[17448]: Started Session 342 of user svc-backup.
+Aug 23 03:16:05 docker-prod-01 kernel[1804]: Received disconnect from 10.10.47.151 port 52617:11: disconnected by user
+Aug 23 03:16:47 docker-prod-01 kernel[13032]: Received disconnect from 10.10.47.158 port 47413:11: disconnected by user
+Aug 23 03:16:52 docker-prod-01 sudo[21151]: Time synchronised to time server
+Aug 23 03:17:39 docker-prod-01 sshd[15381]: pam_unix(cron:session): session opened for user root
+Aug 23 03:18:10 docker-prod-01 dbus-daemon[3268]: pam_unix(cron:session): session opened for user root
+Aug 23 03:18:52 docker-prod-01 kernel[11773]: Started Session 182 of user jenkins.
+Aug 23 03:19:41 docker-prod-01 chronyd[11343]: CPU0: Package temperature normal
+Aug 23 03:19:51 docker-prod-01 sshd[5777]: Time synchronised to time server
+Aug 23 03:20:11 docker-prod-01 sudo[8767]: Received disconnect from 10.10.47.39 port 54862:11: disconnected by user
+Aug 23 03:21:04 docker-prod-01 systemd-logind[19554]: Started Session 432 of user root.
+Aug 23 03:21:21 docker-prod-01 dbus-daemon[23427]: pam_unix(cron:session): session opened for user root
+Aug 23 03:22:12 docker-prod-01 chronyd[351]: Received disconnect from 10.10.47.172 port 53985:11: disconnected by user
+Aug 23 03:22:40 docker-prod-01 sudo[9060]: pam_unix(cron:session): session opened for user root
+Aug 23 03:23:26 docker-prod-01 CRON[18233]: CPU0: Package temperature normal
+Aug 23 03:23:47 docker-prod-01 systemd[12620]: CPU0: Package temperature normal
+Aug 23 03:24:09 docker-prod-01 sshd[21535]: Time synchronised to time server
+Aug 23 03:24:18 docker-prod-01 sshd[18128]: pam_unix(cron:session): session opened for user root
+Aug 23 03:25:05 docker-prod-01 chronyd[2349]: CPU0: Package temperature normal
+Aug 23 03:25:19 docker-prod-01 dbus-daemon[9255]: CPU0: Package temperature normal
+Aug 23 03:26:05 docker-prod-01 CRON[2480]: Started Session 781 of user svc-backup.
+Aug 23 03:26:25 docker-prod-01 systemd[16204]: Received disconnect from 10.10.47.71 port 44024:11: disconnected by user
+Aug 23 03:26:35 docker-prod-01 dbus-daemon[22001]: CPU0: Package temperature normal
+Aug 23 03:27:18 docker-prod-01 kernel[8133]: pam_unix(cron:session): session opened for user root
+Aug 23 03:28:12 docker-prod-01 chronyd[5214]: pam_unix(cron:session): session opened for user root
+Aug 23 03:28:32 docker-prod-01 sshd[20187]: Time synchronised to time server
+Aug 23 03:29:16 docker-prod-01 systemd[422]: Time synchronised to time server
+Aug 23 03:29:43 docker-prod-01 sshd[14676]: Time synchronised to time server
+Aug 23 03:30:29 docker-prod-01 sshd[26916]: pam_unix(cron:session): session opened for user root
+Aug 23 03:31:23 docker-prod-01 CRON[7896]: Received disconnect from 10.10.47.132 port 43569:11: disconnected by user
+Aug 23 03:31:44 docker-prod-01 sshd[3861]: Time synchronised to time server
+Aug 23 03:31:52 docker-prod-01 kernel[9079]: Received disconnect from 10.10.47.92 port 54160:11: disconnected by user
+Aug 23 03:32:39 docker-prod-01 sudo[28679]: pam_unix(cron:session): session opened for user root
+Aug 23 03:32:46 docker-prod-01 sudo[23827]: Started Session 367 of user devops.
+Aug 23 03:33:15 docker-prod-01 chronyd[20947]: Time synchronised to time server
+Aug 23 03:33:33 docker-prod-01 systemd-logind[4796]: CPU0: Package temperature normal
+Aug 23 03:33:34 docker-prod-01 systemd[4908]: Time synchronised to time server
+Aug 23 03:33:41 docker-prod-01 systemd[1599]: Started Session 339 of user svc-backup.
+Aug 23 03:33:49 docker-prod-01 systemd-logind[27410]: CPU0: Package temperature normal
+Aug 23 03:34:18 docker-prod-01 sudo[28483]: Received disconnect from 10.10.47.13 port 46307:11: disconnected by user
+Aug 23 03:35:05 docker-prod-01 dbus-daemon[25570]: Started Session 746 of user root.
+Aug 23 03:35:52 docker-prod-01 sudo[15774]: Time synchronised to time server
+Aug 23 03:36:25 docker-prod-01 dbus-daemon[19141]: Started Session 771 of user jenkins.
+Aug 23 03:36:35 docker-prod-01 dbus-daemon[18306]: Received disconnect from 10.10.47.245 port 43233:11: disconnected by user
+Aug 23 03:36:58 docker-prod-01 systemd[19868]: Time synchronised to time server
+Aug 23 03:37:12 docker-prod-01 sshd[9463]: CPU0: Package temperature normal
+Aug 23 03:38:01 docker-prod-01 CRON[27261]: Started Session 132 of user svc-backup.
+Aug 23 03:38:20 docker-prod-01 sudo[9870]: Time synchronised to time server
+Aug 23 03:38:37 docker-prod-01 systemd-logind[7594]: Started Session 292 of user postgres.
+Aug 23 03:39:04 docker-prod-01 sshd[10812]: Received disconnect from 10.10.47.33 port 59526:11: disconnected by user
+Aug 23 03:39:49 docker-prod-01 sudo[20778]: Started Session 129 of user webadmin.
+Aug 23 03:39:58 docker-prod-01 kernel[667]: Started Session 118 of user svc-backup.
+Aug 23 03:40:23 docker-prod-01 chronyd[355]: CPU0: Package temperature normal
+Aug 23 03:40:59 docker-prod-01 kernel[7106]: CPU0: Package temperature normal
+Aug 23 03:41:18 docker-prod-01 chronyd[18820]: Started Session 851 of user devops.
+Aug 23 03:41:39 docker-prod-01 dbus-daemon[12651]: Time synchronised to time server
+Aug 23 03:42:17 docker-prod-01 dbus-daemon[3405]: Started Session 847 of user svc-backup.
+Aug 23 03:42:22 docker-prod-01 sudo[28509]: Received disconnect from 10.10.47.11 port 56045:11: disconnected by user
+Aug 23 03:42:39 docker-prod-01 dbus-daemon[17975]: Time synchronised to time server
+Aug 23 03:43:25 docker-prod-01 chronyd[27044]: Started Session 384 of user root.
+Aug 23 03:44:16 docker-prod-01 dbus-daemon[14863]: Received disconnect from 10.10.47.92 port 57098:11: disconnected by user
+Aug 23 03:44:18 docker-prod-01 sudo[6710]: Time synchronised to time server
+Aug 23 03:44:20 docker-prod-01 systemd-logind[19521]: Received disconnect from 10.10.47.46 port 44044:11: disconnected by user
+Aug 23 03:45:06 docker-prod-01 sshd[13201]: Received disconnect from 10.10.47.42 port 62247:11: disconnected by user
+Aug 23 03:45:26 docker-prod-01 systemd-logind[21173]: CPU0: Package temperature normal
+Aug 23 03:46:13 docker-prod-01 dbus-daemon[3992]: Received disconnect from 10.10.47.124 port 55947:11: disconnected by user
+Aug 23 03:46:56 docker-prod-01 systemd[24431]: Time synchronised to time server
+Aug 23 03:47:51 docker-prod-01 sshd[16461]: CPU0: Package temperature normal
+Aug 23 03:47:54 docker-prod-01 kernel[25796]: pam_unix(cron:session): session opened for user root
+Aug 23 03:48:16 docker-prod-01 chronyd[23605]: CPU0: Package temperature normal
+Aug 23 03:49:07 docker-prod-01 dbus-daemon[1616]: CPU0: Package temperature normal
+Aug 23 03:49:53 docker-prod-01 sshd[7737]: pam_unix(cron:session): session opened for user root
+Aug 23 03:50:39 docker-prod-01 dbus-daemon[17156]: Started Session 984 of user svc-backup.
+Aug 23 03:51:04 docker-prod-01 systemd[24686]: pam_unix(cron:session): session opened for user root
+Aug 23 03:51:23 docker-prod-01 CRON[5838]: Received disconnect from 10.10.47.102 port 47877:11: disconnected by user
+Aug 23 03:52:00 docker-prod-01 chronyd[6395]: Time synchronised to time server
+Aug 23 03:52:22 docker-prod-01 sudo[7862]: CPU0: Package temperature normal
+Aug 23 03:52:25 docker-prod-01 systemd[21886]: Started Session 573 of user webadmin.
+Aug 23 03:52:57 docker-prod-01 sudo[3524]: CPU0: Package temperature normal
+Aug 23 03:53:12 docker-prod-01 chronyd[10723]: pam_unix(cron:session): session opened for user root
+Aug 23 03:53:40 docker-prod-01 kernel[23395]: CPU0: Package temperature normal
+Aug 23 03:54:09 docker-prod-01 CRON[9380]: pam_unix(cron:session): session opened for user root
+Aug 23 03:54:24 docker-prod-01 systemd-logind[7571]: Received disconnect from 10.10.47.26 port 45055:11: disconnected by user
+Aug 23 03:54:52 docker-prod-01 CRON[26236]: Started Session 149 of user postgres.
+Aug 23 03:55:35 docker-prod-01 sshd[3216]: pam_unix(cron:session): session opened for user root
+Aug 23 03:55:56 docker-prod-01 kernel[29166]: CPU0: Package temperature normal
+Aug 23 03:56:27 docker-prod-01 CRON[6217]: pam_unix(cron:session): session opened for user root
+Aug 23 03:56:58 docker-prod-01 chronyd[25970]: Started Session 164 of user devops.
+Aug 23 03:57:14 docker-prod-01 kernel[5914]: Received disconnect from 10.10.47.128 port 61685:11: disconnected by user
+Aug 23 03:57:18 docker-prod-01 systemd-logind[587]: Started Session 38 of user postgres.
+Aug 23 03:57:37 docker-prod-01 sshd[3250]: CPU0: Package temperature normal
+Aug 23 03:58:30 docker-prod-01 dbus-daemon[13787]: Time synchronised to time server
+Aug 23 03:59:11 docker-prod-01 systemd-logind[27441]: Started Session 950 of user webadmin.
+Aug 23 03:59:59 docker-prod-01 CRON[2623]: pam_unix(cron:session): session opened for user root
+Aug 23 04:00:12 docker-prod-01 chronyd[28859]: CPU0: Package temperature normal
+Aug 23 04:01:02 docker-prod-01 kernel[15849]: Received disconnect from 10.10.47.197 port 46272:11: disconnected by user
+Aug 23 04:01:57 docker-prod-01 systemd[24220]: Time synchronised to time server
+Aug 23 04:02:19 docker-prod-01 dbus-daemon[28077]: Received disconnect from 10.10.47.202 port 46612:11: disconnected by user
+Aug 23 04:02:53 docker-prod-01 systemd[1889]: Time synchronised to time server
+Aug 23 04:03:03 docker-prod-01 sshd[5180]: pam_unix(cron:session): session opened for user root
+Aug 23 04:03:46 docker-prod-01 kernel[8365]: pam_unix(cron:session): session opened for user root
+Aug 23 04:04:04 docker-prod-01 dbus-daemon[19083]: Received disconnect from 10.10.47.95 port 53508:11: disconnected by user
+Aug 23 04:04:25 docker-prod-01 dbus-daemon[12341]: pam_unix(cron:session): session opened for user root
+Aug 23 04:04:44 docker-prod-01 kernel[22113]: pam_unix(cron:session): session opened for user root
+Aug 23 04:05:36 docker-prod-01 systemd-logind[12423]: Time synchronised to time server
+Aug 23 04:05:53 docker-prod-01 systemd[14188]: Started Session 178 of user jenkins.
+Aug 23 04:06:23 docker-prod-01 chronyd[20833]: Started Session 922 of user root.
+Aug 23 04:06:45 docker-prod-01 sudo[6398]: pam_unix(cron:session): session opened for user root
+Aug 23 04:07:23 docker-prod-01 chronyd[11374]: Time synchronised to time server
+Aug 23 04:08:05 docker-prod-01 systemd[9877]: Time synchronised to time server
+Aug 23 04:08:06 docker-prod-01 systemd[24493]: Started Session 165 of user jenkins.
+Aug 23 04:08:14 docker-prod-01 systemd[18210]: pam_unix(cron:session): session opened for user root
+Aug 23 04:08:56 docker-prod-01 dbus-daemon[18659]: pam_unix(cron:session): session opened for user root
+Aug 23 04:09:03 docker-prod-01 systemd[15582]: pam_unix(cron:session): session opened for user root
+Aug 23 04:09:18 docker-prod-01 sudo[24255]: Started Session 602 of user webadmin.
+Aug 23 04:10:06 docker-prod-01 chronyd[7321]: Time synchronised to time server
+Aug 23 04:10:15 docker-prod-01 sudo[23971]: pam_unix(cron:session): session opened for user root
+Aug 23 04:10:41 docker-prod-01 kernel[9353]: pam_unix(cron:session): session opened for user root
+Aug 23 04:10:56 docker-prod-01 dbus-daemon[6469]: Started Session 295 of user root.
+Aug 23 04:11:23 docker-prod-01 systemd-logind[14670]: CPU0: Package temperature normal
+Aug 23 04:12:00 docker-prod-01 systemd-logind[11387]: CPU0: Package temperature normal
+Aug 23 04:12:21 docker-prod-01 systemd-logind[8818]: CPU0: Package temperature normal
+Aug 23 04:12:22 docker-prod-01 CRON[27940]: pam_unix(cron:session): session opened for user root
+Aug 23 04:13:04 docker-prod-01 systemd-logind[14329]: Received disconnect from 10.10.47.210 port 45797:11: disconnected by user
+Aug 23 04:13:24 docker-prod-01 kernel[5009]: pam_unix(cron:session): session opened for user root
+Aug 23 04:13:35 docker-prod-01 kernel[8737]: CPU0: Package temperature normal
+Aug 23 04:14:11 docker-prod-01 dbus-daemon[27739]: Time synchronised to time server
+Aug 23 04:14:32 docker-prod-01 sudo[10964]: pam_unix(cron:session): session opened for user root
+Aug 23 04:15:15 docker-prod-01 sshd[466]: Time synchronised to time server
+Aug 23 04:15:33 docker-prod-01 sshd[6316]: Started Session 574 of user devops.
+Aug 23 04:16:11 docker-prod-01 CRON[4095]: Received disconnect from 10.10.47.234 port 56697:11: disconnected by user
+Aug 23 04:16:38 docker-prod-01 systemd-logind[21171]: pam_unix(cron:session): session opened for user root
+Aug 23 04:17:06 docker-prod-01 systemd[21960]: Received disconnect from 10.10.47.14 port 46118:11: disconnected by user
+Aug 23 04:17:21 docker-prod-01 dbus-daemon[9246]: pam_unix(cron:session): session opened for user root
+Aug 23 04:17:23 docker-prod-01 kernel[28652]: pam_unix(cron:session): session opened for user root
+Aug 23 04:18:01 docker-prod-01 dbus-daemon[21329]: pam_unix(cron:session): session opened for user root
+Aug 23 04:18:49 docker-prod-01 CRON[12460]: Started Session 357 of user devops.
+Aug 23 04:19:12 docker-prod-01 sudo[5527]: Time synchronised to time server
+Aug 23 04:19:15 docker-prod-01 sshd[27250]: pam_unix(cron:session): session opened for user root
+Aug 23 04:19:28 docker-prod-01 sshd[5803]: pam_unix(cron:session): session opened for user root
+Aug 23 04:19:54 docker-prod-01 systemd[24403]: Started Session 614 of user postgres.
+Aug 23 04:20:20 docker-prod-01 dbus-daemon[24074]: pam_unix(cron:session): session opened for user root
+Aug 23 04:21:15 docker-prod-01 systemd-logind[20869]: Started Session 411 of user webadmin.
+Aug 23 04:21:50 docker-prod-01 dbus-daemon[28914]: pam_unix(cron:session): session opened for user root
+Aug 23 04:22:39 docker-prod-01 systemd[10588]: Started Session 852 of user svc-backup.
+Aug 23 04:22:51 docker-prod-01 sshd[24261]: Received disconnect from 10.10.47.26 port 44733:11: disconnected by user
+Aug 23 04:23:45 docker-prod-01 systemd[3569]: Started Session 891 of user svc-backup.
+Aug 23 04:23:51 docker-prod-01 sudo[20677]: Received disconnect from 10.10.47.33 port 42158:11: disconnected by user
+Aug 23 04:24:02 docker-prod-01 dbus-daemon[6720]: Time synchronised to time server
+Aug 23 04:24:19 docker-prod-01 CRON[14525]: Time synchronised to time server
+Aug 23 04:25:14 docker-prod-01 systemd-logind[26546]: Time synchronised to time server
+Aug 23 04:25:59 docker-prod-01 systemd-logind[535]: Started Session 814 of user postgres.
+Aug 23 04:26:44 docker-prod-01 chronyd[3158]: pam_unix(cron:session): session opened for user root
+Aug 23 04:27:24 docker-prod-01 CRON[4600]: Started Session 951 of user webadmin.
+Aug 23 04:27:57 docker-prod-01 CRON[25330]: Time synchronised to time server
+Aug 23 04:28:34 docker-prod-01 CRON[7033]: pam_unix(cron:session): session opened for user root
+Aug 23 04:28:43 docker-prod-01 systemd-logind[1749]: pam_unix(cron:session): session opened for user root
+Aug 23 04:29:33 docker-prod-01 systemd-logind[23405]: Time synchronised to time server
+Aug 23 04:29:35 docker-prod-01 chronyd[23038]: Received disconnect from 10.10.47.4 port 64996:11: disconnected by user
+Aug 23 04:30:30 docker-prod-01 dbus-daemon[16094]: Started Session 226 of user webadmin.
+Aug 23 04:30:50 docker-prod-01 chronyd[15806]: CPU0: Package temperature normal
+Aug 23 04:30:56 docker-prod-01 systemd[4470]: Received disconnect from 10.10.47.109 port 47573:11: disconnected by user
+Aug 23 04:31:47 docker-prod-01 CRON[8164]: Received disconnect from 10.10.47.75 port 60274:11: disconnected by user
+Aug 23 04:31:48 docker-prod-01 CRON[28418]: pam_unix(cron:session): session opened for user root
+Aug 23 04:32:22 docker-prod-01 systemd-logind[6261]: Time synchronised to time server
+Aug 23 04:32:35 docker-prod-01 chronyd[10040]: pam_unix(cron:session): session opened for user root
+Aug 23 04:33:29 docker-prod-01 sudo[20091]: Time synchronised to time server
+Aug 23 04:34:01 docker-prod-01 systemd[2110]: pam_unix(cron:session): session opened for user root
+Aug 23 04:34:54 docker-prod-01 sudo[28234]: CPU0: Package temperature normal
+Aug 23 04:35:42 docker-prod-01 kernel[14384]: Received disconnect from 10.10.47.138 port 50826:11: disconnected by user
+Aug 23 04:35:59 docker-prod-01 chronyd[17440]: Started Session 248 of user postgres.
+Aug 23 04:36:42 docker-prod-01 chronyd[7883]: pam_unix(cron:session): session opened for user root
+Aug 23 04:37:20 docker-prod-01 systemd[21110]: CPU0: Package temperature normal
+Aug 23 04:37:46 docker-prod-01 dbus-daemon[10361]: Received disconnect from 10.10.47.40 port 64720:11: disconnected by user
+Aug 23 04:38:04 docker-prod-01 kernel[23059]: Received disconnect from 10.10.47.2 port 56703:11: disconnected by user
+Aug 23 04:38:06 docker-prod-01 CRON[27218]: Time synchronised to time server
+Aug 23 04:38:09 docker-prod-01 sudo[19648]: CPU0: Package temperature normal
+Aug 23 04:38:13 docker-prod-01 dbus-daemon[10816]: Started Session 616 of user postgres.
+Aug 23 04:38:22 docker-prod-01 CRON[6222]: Received disconnect from 10.10.47.82 port 55728:11: disconnected by user
+Aug 23 04:38:30 docker-prod-01 CRON[7221]: Time synchronised to time server
+Aug 23 04:38:43 docker-prod-01 systemd[19789]: CPU0: Package temperature normal
+Aug 23 04:39:33 docker-prod-01 CRON[18254]: Time synchronised to time server
+Aug 23 04:39:39 docker-prod-01 systemd[21400]: Time synchronised to time server
+Aug 23 04:40:10 docker-prod-01 sudo[29913]: CPU0: Package temperature normal
+Aug 23 04:40:57 docker-prod-01 sudo[11064]: Time synchronised to time server
+Aug 23 04:41:43 docker-prod-01 CRON[10326]: Received disconnect from 10.10.47.215 port 63369:11: disconnected by user
+Aug 23 04:42:35 docker-prod-01 kernel[1303]: CPU0: Package temperature normal

@@ -1,0 +1,2 @@
+# .sysd
+reverse shell process ('bash -i' beacon to 198.51.100.136 over /dev/tcp) — defanged, non-runnable

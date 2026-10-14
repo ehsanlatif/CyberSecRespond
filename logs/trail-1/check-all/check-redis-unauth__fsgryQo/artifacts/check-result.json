@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The verifier runs deterministically using local test criteria in Python, evaluating report deliverables without network dependencies or non-deterministic behavior."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "The oracle solution in solution/solve.sh produces the five required report deliverables and successfully achieves a 1.0 reward score when run against the test suite."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires genuine security and DFIR expertise to analyze forensic disk artifacts, identify Redis RCE, uncover silent LD_PRELOAD persistence, correlate findings with CTI materials, and write a structured remediation plan."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "The scenario reflects a realistic post-compromise incident response exercise on a Linux system compromised via Redis."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "The verifier checks the final written reports (progress, intrusion, vuln, baseline, remediation plan) for evidence grounding, topology accuracy, and action coverage rather than enforcing specific steps or tools."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Ground-truth manifest data (tests/manifest.json) containing all expected artifacts, attack chain steps, and remediation details is accessible directly within the agent image because separate verifier mode is not configured."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task scripts and test files are standard, non-malicious benchmark code."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests programmatically parse markdown reports, evaluate graph edit distance for attack chain topology, resolve citations against evidence mounts, and check phase precedence ordering."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Test execution relies on deterministic Python logic and local evidence files without live external network dependencies."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty arises from technical DFIR investigation, evidence correlation, and stealthy persistence discovery rather than formatting tricks."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All test criteria evaluate requirements explicitly specified in instruction.md (five deliverable files, backtick citations, attack chain structure, and remediation phases)."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task involves a custom forensic dataset combining Redis exploitation, cryptomining, cron, and LD_PRELOAD persistence."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Solving the task requires multi-step environment navigation, file analysis across /disk and /sas, and report synthesis."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The test suite, manifest, and criteria are cleanly written and easy to review."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "The instructions are clear, human-written, concise, use absolute paths (/disk, /sas, /app), and describe objectives without hinting at solution steps."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "The solution script solve.sh outputs valid markdown reports that pass all test criteria."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured: tests/Dockerfile does not exist, environment_mode is not set, and artifacts are not declared in task.toml."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "Test files and ground-truth ground data reside inside the agent environment rather than being isolated in a separate verifier image."
+  },
+  "structured_data_schema": {
+    "outcome": "pass",
+    "explanation": "Instruction.md documents the exact deliverable file names, markdown report structures, table requirements, and citation format."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were identified in paths, commands, filenames, or variables."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation field in task.toml metadata is missing."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation field in task.toml metadata is missing."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation field in task.toml metadata is missing."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The category is security, but the subcategory field is missing in task.toml metadata."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task folder name redis-unauth is concise (2 words), kebab-case, and descriptive."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Resource settings and timeouts (3600s agent, 900s verifier) are appropriate for the task."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "The README.md in environment/ provides standard setup context without duplicating task instructions."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours metadata field is missing/unset in task.toml."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml is missing required metadata fields (difficulty_explanation, solution_explanation, verification_explanation, expert_time_estimate_hours, subcategory) and includes non-standard metadata field difficulty."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The baselines/ directory contains unreferenced baseline files not used by Dockerfile, solution, or tests."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured and no artifacts are declared."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier parses static markdown reports and does not execute untrusted agent code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier does not emit a CTRF test report to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "fail",
+    "explanation": "The instruction states that /disk is read-only and must not be modified, but the verifier resolves citations against /disk without verifying whether /disk was altered or tampered with by the agent."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "The verifier thresholds scores to output strictly 0.0 or 1.0 to /logs/verifier/reward.txt."
+  }
+}

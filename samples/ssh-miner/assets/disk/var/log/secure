@@ -1,0 +1,444 @@
+Aug 15 00:34:02 ssh-prod-01 sshd[3375]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 00:34:47 ssh-prod-01 sshd[2190]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:00 ssh-prod-01 sshd[4799]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug 15 00:35:16 ssh-prod-01 sshd[4664]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:18 ssh-prod-01 sshd[1516]: Accepted publickey for devops from 10.10.105.152 port 41010 ssh2: RSA SHA256:2be87387
+Aug 15 00:35:38 ssh-prod-01 sshd[8270]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 00:36:14 ssh-prod-01 sshd[8142]: Received disconnect from 10.10.105.177 port 45807:11: disconnected by user
+Aug 15 00:36:45 ssh-prod-01 sshd[5748]: Accepted publickey for svc-backup from 10.10.105.241 port 47778 ssh2: RSA SHA256:540c1dd3
+Aug 15 00:36:49 ssh-prod-01 sshd[8807]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:37:28 ssh-prod-01 sshd[8089]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:38:08 ssh-prod-01 sshd[1578]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 00:38:47 ssh-prod-01 sshd[5116]: Accepted publickey for postgres from 10.10.105.116 port 47849 ssh2: RSA SHA256:15a64c96
+Aug 15 00:39:21 ssh-prod-01 sshd[5657]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:39:29 ssh-prod-01 sshd[4564]: Received disconnect from 10.10.105.220 port 42349:11: disconnected by user
+Aug 15 00:39:40 ssh-prod-01 sshd[3534]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:40:08 ssh-prod-01 sshd[5474]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug 15 00:40:20 ssh-prod-01 sshd[6960]: Accepted publickey for webadmin from 10.10.105.4 port 63902 ssh2: RSA SHA256:2a0792fb
+Aug 15 00:40:26 ssh-prod-01 sshd[7724]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 00:40:59 ssh-prod-01 sshd[4083]: Accepted publickey for jenkins from 10.10.105.162 port 41843 ssh2: RSA SHA256:4f63995e
+Aug 15 00:41:13 ssh-prod-01 sshd[7594]: Received disconnect from 10.10.105.145 port 59310:11: disconnected by user
+Aug 15 00:41:19 ssh-prod-01 sshd[2300]: Accepted publickey for svc-backup from 10.10.105.122 port 40727 ssh2: RSA SHA256:14cc89c5
+Aug 15 00:41:37 ssh-prod-01 sshd[1706]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 00:42:13 ssh-prod-01 sshd[2019]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:42:23 ssh-prod-01 sshd[4490]: Received disconnect from 10.10.105.145 port 59818:11: disconnected by user
+Aug 15 00:43:00 ssh-prod-01 sshd[4890]: Received disconnect from 10.10.105.238 port 50588:11: disconnected by user
+Aug 15 00:43:13 ssh-prod-01 sshd[7536]: Received disconnect from 10.10.105.184 port 42051:11: disconnected by user
+Aug 15 00:43:25 ssh-prod-01 sshd[3098]: Accepted publickey for devops from 10.10.105.198 port 50984 ssh2: RSA SHA256:19c4d7b5
+Aug 15 00:43:54 ssh-prod-01 sshd[2256]: Accepted publickey for webadmin from 10.10.105.93 port 63023 ssh2: RSA SHA256:7dd58618
+Aug 15 00:44:33 ssh-prod-01 sshd[2548]: Received disconnect from 10.10.105.92 port 43609:11: disconnected by user
+Aug 15 00:45:13 ssh-prod-01 sshd[2702]: Received disconnect from 10.10.105.191 port 53449:11: disconnected by user
+Aug 15 00:45:36 ssh-prod-01 sshd[7942]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 00:46:04 ssh-prod-01 sshd[7990]: Received disconnect from 10.10.105.132 port 60321:11: disconnected by user
+Aug 15 00:46:42 ssh-prod-01 sshd[3932]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 15 00:46:55 ssh-prod-01 sshd[4621]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 15 00:47:24 ssh-prod-01 sshd[8362]: Received disconnect from 10.10.105.204 port 47106:11: disconnected by user
+Aug 15 00:47:45 ssh-prod-01 sshd[7291]: Received disconnect from 10.10.105.225 port 53066:11: disconnected by user
+Aug 15 00:47:51 ssh-prod-01 sshd[5067]: Received disconnect from 10.10.105.211 port 46682:11: disconnected by user
+Aug 15 00:48:15 ssh-prod-01 sshd[3448]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 15 00:48:27 ssh-prod-01 sshd[2495]: Received disconnect from 10.10.105.105 port 50924:11: disconnected by user
+Aug 15 00:48:53 ssh-prod-01 sshd[2720]: Received disconnect from 10.10.105.89 port 44283:11: disconnected by user
+Aug 15 00:49:10 ssh-prod-01 sshd[5962]: Received disconnect from 10.10.105.19 port 63044:11: disconnected by user
+Aug 15 00:49:43 ssh-prod-01 sshd[2153]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 00:50:07 ssh-prod-01 sshd[5303]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:50:31 ssh-prod-01 sshd[2312]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:50:56 ssh-prod-01 sshd[6143]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:51:17 ssh-prod-01 sshd[3491]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:51:46 ssh-prod-01 sshd[5526]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 15 00:51:51 ssh-prod-01 sshd[6233]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:52:11 ssh-prod-01 sshd[7874]: Received disconnect from 10.10.105.56 port 51679:11: disconnected by user
+Aug 15 00:52:44 ssh-prod-01 sshd[1583]: Accepted publickey for root from 10.10.105.4 port 50830 ssh2: RSA SHA256:118d3593
+Aug 15 00:53:22 ssh-prod-01 sshd[5139]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:53:54 ssh-prod-01 sshd[6597]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 15 00:54:32 ssh-prod-01 sshd[1899]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 00:55:05 ssh-prod-01 sshd[6730]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 00:55:19 ssh-prod-01 sshd[7195]: Accepted publickey for jenkins from 10.10.105.46 port 48262 ssh2: RSA SHA256:658929e8
+Aug 15 00:55:54 ssh-prod-01 sshd[8025]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:56:21 ssh-prod-01 sshd[5610]: Received disconnect from 10.10.105.103 port 50975:11: disconnected by user
+Aug 15 00:56:52 ssh-prod-01 sshd[5102]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:57:16 ssh-prod-01 sshd[3705]: Received disconnect from 10.10.105.145 port 57710:11: disconnected by user
+Aug 15 00:57:33 ssh-prod-01 sshd[7712]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 15 00:58:06 ssh-prod-01 sshd[6802]: Received disconnect from 10.10.105.218 port 56191:11: disconnected by user
+Aug 15 00:58:11 ssh-prod-01 sshd[8233]: Received disconnect from 10.10.105.6 port 62777:11: disconnected by user
+Aug 15 00:58:56 ssh-prod-01 sshd[4291]: Received disconnect from 10.10.105.150 port 43241:11: disconnected by user
+Aug 15 00:59:02 ssh-prod-01 sshd[8697]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug 15 00:59:11 ssh-prod-01 sshd[7496]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 15 00:59:25 ssh-prod-01 sshd[1960]: Accepted publickey for root from 10.10.105.159 port 50065 ssh2: RSA SHA256:5e44390d
+Aug 15 00:59:31 ssh-prod-01 sshd[6723]: Received disconnect from 10.10.105.162 port 64149:11: disconnected by user
+Aug 15 01:00:05 ssh-prod-01 sshd[5685]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:00:34 ssh-prod-01 sshd[1476]: Accepted publickey for webadmin from 10.10.105.2 port 47543 ssh2: RSA SHA256:6f025852
+Aug 15 01:00:41 ssh-prod-01 sshd[5647]: Received disconnect from 10.10.105.192 port 44438:11: disconnected by user
+Aug 15 01:01:14 ssh-prod-01 sshd[3353]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 15 01:01:48 ssh-prod-01 sshd[1361]: Accepted publickey for postgres from 10.10.105.125 port 61528 ssh2: RSA SHA256:44f5e775
+Aug 15 01:02:07 ssh-prod-01 sshd[5208]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:02:48 ssh-prod-01 sshd[4854]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 15 01:03:27 ssh-prod-01 sshd[7241]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 15 01:03:51 ssh-prod-01 sshd[6033]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:03:58 ssh-prod-01 sshd[4754]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:03:59 ssh-prod-01 sshd[6013]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:04:20 ssh-prod-01 sshd[2586]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 01:04:35 ssh-prod-01 sshd[2789]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:04:49 ssh-prod-01 sshd[7008]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:05:32 ssh-prod-01 sshd[7636]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:05:47 ssh-prod-01 sshd[8874]: Accepted publickey for jenkins from 10.10.105.27 port 47995 ssh2: RSA SHA256:2ba0c70a
+Aug 15 01:05:53 ssh-prod-01 sshd[1939]: Received disconnect from 10.10.105.110 port 49777:11: disconnected by user
+Aug 15 01:06:25 ssh-prod-01 sshd[5097]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:06:57 ssh-prod-01 sshd[5297]: Accepted publickey for webadmin from 10.10.105.37 port 62564 ssh2: RSA SHA256:73ab622d
+Aug 15 01:07:42 ssh-prod-01 sshd[5623]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug 15 01:07:48 ssh-prod-01 sshd[7024]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:08:18 ssh-prod-01 sshd[5913]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 01:08:25 ssh-prod-01 sshd[3611]: Accepted publickey for postgres from 10.10.105.137 port 52829 ssh2: RSA SHA256:3420fbbd
+Aug 15 01:08:37 ssh-prod-01 sshd[5473]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug 15 01:09:19 ssh-prod-01 sshd[2611]: Accepted publickey for postgres from 10.10.105.167 port 58801 ssh2: RSA SHA256:778a02b3
+Aug 15 01:09:23 ssh-prod-01 sshd[5419]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:10:04 ssh-prod-01 sshd[7149]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:10:49 ssh-prod-01 sshd[8956]: Accepted publickey for svc-backup from 10.10.105.33 port 47823 ssh2: RSA SHA256:128fbde6
+Aug 15 01:10:58 ssh-prod-01 sshd[6611]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 01:11:18 ssh-prod-01 sshd[4642]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 01:12:02 ssh-prod-01 sshd[4899]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug 15 01:12:22 ssh-prod-01 sshd[2267]: Received disconnect from 10.10.105.130 port 53943:11: disconnected by user
+Aug 15 01:12:42 ssh-prod-01 sshd[2280]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:13:11 ssh-prod-01 sshd[7832]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 15 01:13:34 ssh-prod-01 sshd[2232]: Received disconnect from 10.10.105.22 port 45392:11: disconnected by user
+Aug 15 01:14:03 ssh-prod-01 sshd[1560]: Received disconnect from 10.10.105.32 port 48338:11: disconnected by user
+Aug 15 01:14:24 ssh-prod-01 sshd[5624]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:14:59 ssh-prod-01 sshd[3320]: Received disconnect from 10.10.105.86 port 56670:11: disconnected by user
+Aug 15 01:15:34 ssh-prod-01 sshd[3102]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:15:42 ssh-prod-01 sshd[6683]: Accepted publickey for postgres from 10.10.105.104 port 50700 ssh2: RSA SHA256:58e4e307
+Aug 15 01:16:00 ssh-prod-01 sshd[2566]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 01:16:28 ssh-prod-01 sshd[1836]: Accepted publickey for jenkins from 10.10.105.30 port 60414 ssh2: RSA SHA256:400198ef
+Aug 15 01:16:45 ssh-prod-01 sshd[2701]: Accepted publickey for svc-backup from 10.10.105.22 port 57494 ssh2: RSA SHA256:435331b6
+Aug 15 01:17:00 ssh-prod-01 sshd[7296]: Accepted publickey for svc-backup from 10.10.105.80 port 57264 ssh2: RSA SHA256:779ed5b7
+Aug 15 01:17:17 ssh-prod-01 sshd[5352]: Accepted publickey for devops from 10.10.105.7 port 53890 ssh2: RSA SHA256:07c721e3
+Aug 15 01:17:42 ssh-prod-01 sshd[2934]: Accepted publickey for jenkins from 10.10.105.73 port 43220 ssh2: RSA SHA256:6566103c
+Aug 15 01:18:25 ssh-prod-01 sshd[1608]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 15 01:18:48 ssh-prod-01 sshd[8410]: Received disconnect from 10.10.105.36 port 43260:11: disconnected by user
+Aug 15 01:18:50 ssh-prod-01 sshd[1871]: Accepted publickey for jenkins from 10.10.105.57 port 56072 ssh2: RSA SHA256:34e3fafe
+Aug 15 01:19:34 ssh-prod-01 sshd[8613]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug 15 01:20:03 ssh-prod-01 sshd[8732]: Accepted publickey for root from 10.10.105.214 port 50568 ssh2: RSA SHA256:494c255e
+Aug 15 01:20:26 ssh-prod-01 sshd[1629]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:20:39 ssh-prod-01 sshd[7111]: Accepted publickey for jenkins from 10.10.105.220 port 63625 ssh2: RSA SHA256:2b8d79e9
+Aug 15 01:21:00 ssh-prod-01 sshd[3300]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:21:05 ssh-prod-01 sshd[6214]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:21:25 ssh-prod-01 sshd[2325]: Received disconnect from 10.10.105.176 port 40012:11: disconnected by user
+Aug 15 01:21:44 ssh-prod-01 sshd[5105]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug 15 01:22:03 ssh-prod-01 sshd[8009]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 15 01:22:22 ssh-prod-01 sshd[4115]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 01:22:36 ssh-prod-01 sshd[3704]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:23:02 ssh-prod-01 sshd[1159]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:23:38 ssh-prod-01 sshd[4145]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 15 01:23:54 ssh-prod-01 sshd[3996]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:24:11 ssh-prod-01 sshd[2753]: Accepted publickey for webadmin from 10.10.105.201 port 41169 ssh2: RSA SHA256:5d2c8151
+Aug 15 01:24:55 ssh-prod-01 sshd[2326]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:25:39 ssh-prod-01 sshd[5397]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:26:13 ssh-prod-01 sshd[2131]: Accepted publickey for postgres from 10.10.105.12 port 57220 ssh2: RSA SHA256:582a8586
+Aug 15 01:26:50 ssh-prod-01 sshd[5969]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 01:27:31 ssh-prod-01 sshd[7932]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:27:56 ssh-prod-01 sshd[7039]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:28:06 ssh-prod-01 sshd[1471]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 01:28:21 ssh-prod-01 sshd[5131]: Accepted publickey for webadmin from 10.10.105.151 port 54134 ssh2: RSA SHA256:282ef819
+Aug 15 01:28:38 ssh-prod-01 sshd[6089]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:53:24 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 40819 ssh2
+Aug 15 00:53:25 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 44818 ssh2
+Aug 15 00:53:26 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 40136 ssh2
+Aug 15 00:53:29 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 45658 ssh2
+Aug 15 00:53:30 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 61805 ssh2
+Aug 15 00:53:32 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 60115 ssh2
+Aug 15 00:53:34 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 53471 ssh2
+Aug 15 00:53:36 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 58572 ssh2
+Aug 15 00:53:40 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 59248 ssh2
+Aug 15 00:53:44 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 42161 ssh2
+Aug 15 00:53:45 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 44623 ssh2
+Aug 15 00:53:47 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 40416 ssh2
+Aug 15 00:53:50 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 47380 ssh2
+Aug 15 00:53:52 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 52280 ssh2
+Aug 15 00:53:56 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 53433 ssh2
+Aug 15 00:53:58 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 61891 ssh2
+Aug 15 00:54:00 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 46554 ssh2
+Aug 15 00:54:03 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 60712 ssh2
+Aug 15 00:54:07 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 48093 ssh2
+Aug 15 00:54:11 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 44844 ssh2
+Aug 15 00:54:12 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 50036 ssh2
+Aug 15 00:54:14 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 58295 ssh2
+Aug 15 00:54:16 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 45491 ssh2
+Aug 15 00:54:18 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 61129 ssh2
+Aug 15 00:54:19 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 51909 ssh2
+Aug 15 00:54:20 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 60358 ssh2
+Aug 15 00:54:23 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 45938 ssh2
+Aug 15 00:54:26 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 45276 ssh2
+Aug 15 00:54:30 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 51392 ssh2
+Aug 15 00:54:33 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 44727 ssh2
+Aug 15 00:54:34 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 46529 ssh2
+Aug 15 00:54:36 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 63332 ssh2
+Aug 15 00:54:40 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 57870 ssh2
+Aug 15 00:54:42 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 40920 ssh2
+Aug 15 00:54:44 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 57049 ssh2
+Aug 15 00:54:48 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 55827 ssh2
+Aug 15 00:54:52 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 57223 ssh2
+Aug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from 198.51.100.78 port 51900 ssh2
+Aug 15 01:29:12 ssh-prod-01 sshd[8675]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug 15 01:29:48 ssh-prod-01 sshd[7439]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:30:01 ssh-prod-01 sshd[8733]: Accepted publickey for webadmin from 10.10.105.199 port 53234 ssh2: RSA SHA256:29b67f4d
+Aug 15 01:30:21 ssh-prod-01 sshd[7849]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 01:30:28 ssh-prod-01 sshd[6981]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:30:45 ssh-prod-01 sshd[4505]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:31:21 ssh-prod-01 sshd[8760]: Accepted publickey for devops from 10.10.105.96 port 49951 ssh2: RSA SHA256:5b8f3212
+Aug 15 01:31:38 ssh-prod-01 sshd[4664]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 01:32:08 ssh-prod-01 sshd[1104]: Received disconnect from 10.10.105.159 port 61904:11: disconnected by user
+Aug 15 01:32:09 ssh-prod-01 sshd[3838]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 01:32:19 ssh-prod-01 sshd[2978]: Accepted publickey for root from 10.10.105.163 port 60169 ssh2: RSA SHA256:1273a972
+Aug 15 01:32:43 ssh-prod-01 sshd[7708]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:33:22 ssh-prod-01 sshd[4599]: Accepted publickey for postgres from 10.10.105.135 port 49969 ssh2: RSA SHA256:56f1fa61
+Aug 15 01:33:47 ssh-prod-01 sshd[6249]: Accepted publickey for postgres from 10.10.105.39 port 63127 ssh2: RSA SHA256:26995049
+Aug 15 01:34:28 ssh-prod-01 sshd[1195]: Accepted publickey for devops from 10.10.105.95 port 64778 ssh2: RSA SHA256:389ed169
+Aug 15 01:35:08 ssh-prod-01 sshd[4668]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:35:45 ssh-prod-01 sshd[1932]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 15 01:36:21 ssh-prod-01 sshd[5478]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 01:36:56 ssh-prod-01 sshd[3901]: Received disconnect from 10.10.105.84 port 41161:11: disconnected by user
+Aug 15 01:37:39 ssh-prod-01 sshd[3950]: Received disconnect from 10.10.105.147 port 56248:11: disconnected by user
+Aug 15 01:38:14 ssh-prod-01 sshd[2522]: Accepted publickey for svc-backup from 10.10.105.19 port 61731 ssh2: RSA SHA256:2fd798b8
+Aug 15 01:38:16 ssh-prod-01 sshd[7892]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug 15 01:38:45 ssh-prod-01 sshd[2733]: Accepted publickey for webadmin from 10.10.105.151 port 55433 ssh2: RSA SHA256:4a50e0ac
+Aug 15 01:38:50 ssh-prod-01 sshd[8072]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 01:39:03 ssh-prod-01 sshd[8965]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 01:39:32 ssh-prod-01 sshd[2473]: Received disconnect from 10.10.105.99 port 60840:11: disconnected by user
+Aug 15 01:39:42 ssh-prod-01 sshd[6131]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 15 01:40:17 ssh-prod-01 sshd[8471]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 15 01:40:54 ssh-prod-01 sshd[1604]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 15 01:41:01 ssh-prod-01 sshd[5985]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 15 01:41:38 ssh-prod-01 sshd[5536]: Accepted publickey for root from 10.10.105.48 port 63630 ssh2: RSA SHA256:3cce6b57
+Aug 15 01:42:01 ssh-prod-01 sshd[8935]: Received disconnect from 10.10.105.125 port 41265:11: disconnected by user
+Aug 15 01:42:03 ssh-prod-01 sshd[4150]: Received disconnect from 10.10.105.127 port 44022:11: disconnected by user
+Aug 15 01:42:04 ssh-prod-01 sshd[6242]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 15 01:42:25 ssh-prod-01 sshd[6951]: Accepted publickey for webadmin from 10.10.105.235 port 50494 ssh2: RSA SHA256:31fe5d0c
+Aug 15 01:42:35 ssh-prod-01 sshd[2334]: Accepted publickey for svc-backup from 10.10.105.219 port 44392 ssh2: RSA SHA256:3f3d9359
+Aug 15 01:43:01 ssh-prod-01 sshd[5914]: Accepted publickey for devops from 10.10.105.37 port 47399 ssh2: RSA SHA256:7fbf2e76
+Aug 15 01:43:04 ssh-prod-01 sshd[5348]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 01:43:33 ssh-prod-01 sshd[1185]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 15 01:43:56 ssh-prod-01 sshd[8127]: Received disconnect from 10.10.105.6 port 41281:11: disconnected by user
+Aug 15 01:44:31 ssh-prod-01 sshd[5642]: Accepted publickey for root from 10.10.105.113 port 54109 ssh2: RSA SHA256:0ea41026
+Aug 15 01:44:38 ssh-prod-01 sshd[1162]: Accepted publickey for root from 10.10.105.24 port 63998 ssh2: RSA SHA256:4fdf484c
+Aug 15 01:45:08 ssh-prod-01 sshd[2205]: Accepted publickey for svc-backup from 10.10.105.113 port 44689 ssh2: RSA SHA256:726b2798
+Aug 15 01:45:11 ssh-prod-01 sshd[4554]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 01:45:12 ssh-prod-01 sshd[3480]: Accepted publickey for svc-backup from 10.10.105.76 port 40732 ssh2: RSA SHA256:11fd0a13
+Aug 15 01:45:54 ssh-prod-01 sshd[6302]: Accepted publickey for jenkins from 10.10.105.28 port 55960 ssh2: RSA SHA256:5f59cca6
+Aug 15 01:46:27 ssh-prod-01 sshd[1311]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug 15 01:47:12 ssh-prod-01 sshd[3503]: Accepted publickey for root from 10.10.105.24 port 52158 ssh2: RSA SHA256:621d8da8
+Aug 15 01:47:53 ssh-prod-01 sshd[4639]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 15 01:48:35 ssh-prod-01 sshd[6350]: Received disconnect from 10.10.105.230 port 58573:11: disconnected by user
+Aug 15 01:48:47 ssh-prod-01 sshd[2187]: Accepted publickey for svc-backup from 10.10.105.234 port 41298 ssh2: RSA SHA256:5cf674af
+Aug 15 03:03:00 ssh-prod-01 systemd[1]: --- 15 authentication lines cleared here (T1070.002 log tampering) ---
+Aug 15 01:55:43 ssh-prod-01 sshd[5963]: Accepted publickey for postgres from 10.10.105.99 port 60434 ssh2: RSA SHA256:1cc29e9d
+Aug 15 01:56:14 ssh-prod-01 sshd[1919]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 15 01:56:27 ssh-prod-01 sshd[2952]: Received disconnect from 10.10.105.97 port 50234:11: disconnected by user
+Aug 15 01:56:30 ssh-prod-01 sshd[7874]: Received disconnect from 10.10.105.88 port 43265:11: disconnected by user
+Aug 15 01:57:14 ssh-prod-01 sshd[7406]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 01:57:18 ssh-prod-01 sshd[7976]: Accepted publickey for svc-backup from 10.10.105.174 port 40225 ssh2: RSA SHA256:68071eb1
+Aug 15 01:57:21 ssh-prod-01 sshd[3416]: Received disconnect from 10.10.105.66 port 40594:11: disconnected by user
+Aug 15 01:57:56 ssh-prod-01 sshd[7269]: Received disconnect from 10.10.105.187 port 46708:11: disconnected by user
+Aug 15 01:58:39 ssh-prod-01 sshd[2593]: Accepted publickey for webadmin from 10.10.105.117 port 59964 ssh2: RSA SHA256:3679aeaa
+Aug 15 01:58:53 ssh-prod-01 sshd[3426]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 01:59:05 ssh-prod-01 sshd[6185]: Accepted publickey for svc-backup from 10.10.105.154 port 43924 ssh2: RSA SHA256:1155190a
+Aug 15 01:59:32 ssh-prod-01 sshd[1530]: Received disconnect from 10.10.105.89 port 48543:11: disconnected by user
+Aug 15 01:59:59 ssh-prod-01 sshd[6736]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 15 02:00:05 ssh-prod-01 sshd[3311]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug 15 02:00:33 ssh-prod-01 sshd[7792]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 15 02:01:09 ssh-prod-01 sshd[3476]: Received disconnect from 10.10.105.69 port 61635:11: disconnected by user
+Aug 15 02:01:32 ssh-prod-01 sshd[8056]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 02:01:34 ssh-prod-01 sshd[6963]: Received disconnect from 10.10.105.61 port 53271:11: disconnected by user
+Aug 15 02:02:19 ssh-prod-01 sshd[4981]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 02:02:41 ssh-prod-01 sshd[8980]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 02:02:45 ssh-prod-01 sshd[2992]: Accepted publickey for postgres from 10.10.105.68 port 49078 ssh2: RSA SHA256:70f583b3
+Aug 15 02:03:04 ssh-prod-01 sshd[5786]: Accepted publickey for jenkins from 10.10.105.98 port 57831 ssh2: RSA SHA256:19f90bda
+Aug 15 02:03:48 ssh-prod-01 sshd[8223]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 02:04:18 ssh-prod-01 sshd[7488]: Received disconnect from 10.10.105.168 port 61171:11: disconnected by user
+Aug 15 02:04:48 ssh-prod-01 sshd[1386]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 02:05:03 ssh-prod-01 sshd[4962]: Received disconnect from 10.10.105.224 port 45417:11: disconnected by user
+Aug 15 02:05:22 ssh-prod-01 sshd[8039]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 02:06:00 ssh-prod-01 sshd[7973]: Accepted publickey for postgres from 10.10.105.76 port 58063 ssh2: RSA SHA256:06124a21
+Aug 15 02:06:36 ssh-prod-01 sshd[8490]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 15 02:06:48 ssh-prod-01 sshd[4264]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 02:07:17 ssh-prod-01 sshd[6226]: Accepted publickey for postgres from 10.10.105.22 port 59574 ssh2: RSA SHA256:2b30511e
+Aug 15 02:07:22 ssh-prod-01 sshd[4444]: Received disconnect from 10.10.105.18 port 57539:11: disconnected by user
+Aug 15 02:08:02 ssh-prod-01 sshd[4262]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:08:16 ssh-prod-01 sshd[2095]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 15 02:08:50 ssh-prod-01 sshd[7809]: Accepted publickey for jenkins from 10.10.105.57 port 53119 ssh2: RSA SHA256:07fe05ef
+Aug 15 02:08:53 ssh-prod-01 sshd[2349]: Accepted publickey for postgres from 10.10.105.96 port 41112 ssh2: RSA SHA256:77b03131
+Aug 15 02:09:08 ssh-prod-01 sshd[3696]: Received disconnect from 10.10.105.186 port 49012:11: disconnected by user
+Aug 15 02:09:38 ssh-prod-01 sshd[6154]: Received disconnect from 10.10.105.183 port 47277:11: disconnected by user
+Aug 15 02:09:53 ssh-prod-01 sshd[6433]: Accepted publickey for webadmin from 10.10.105.25 port 63520 ssh2: RSA SHA256:0df451e7
+Aug 15 02:10:32 ssh-prod-01 sshd[5791]: Received disconnect from 10.10.105.237 port 42243:11: disconnected by user
+Aug 15 02:10:41 ssh-prod-01 sshd[2851]: Accepted publickey for jenkins from 10.10.105.150 port 51297 ssh2: RSA SHA256:66e38ccb
+Aug 15 02:10:54 ssh-prod-01 sshd[3893]: Received disconnect from 10.10.105.245 port 56399:11: disconnected by user
+Aug 15 02:11:23 ssh-prod-01 sshd[5364]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 02:11:40 ssh-prod-01 sshd[3902]: Accepted publickey for webadmin from 10.10.105.163 port 55015 ssh2: RSA SHA256:746ca5fb
+Aug 15 02:12:11 ssh-prod-01 sshd[7131]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug 15 02:12:28 ssh-prod-01 sshd[6944]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 02:13:02 ssh-prod-01 sshd[3633]: Received disconnect from 10.10.105.4 port 50436:11: disconnected by user
+Aug 15 02:13:32 ssh-prod-01 sshd[4366]: Received disconnect from 10.10.105.91 port 56996:11: disconnected by user
+Aug 15 02:14:17 ssh-prod-01 sshd[3005]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 02:14:39 ssh-prod-01 sshd[8841]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 15 02:15:05 ssh-prod-01 sshd[5314]: Accepted publickey for svc-backup from 10.10.105.143 port 53009 ssh2: RSA SHA256:304597b5
+Aug 15 02:15:18 ssh-prod-01 sshd[7476]: Received disconnect from 10.10.105.91 port 40721:11: disconnected by user
+Aug 15 02:15:27 ssh-prod-01 sshd[2053]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 15 02:16:04 ssh-prod-01 sshd[4061]: Received disconnect from 10.10.105.221 port 40605:11: disconnected by user
+Aug 15 02:16:48 ssh-prod-01 sshd[3336]: Received disconnect from 10.10.105.141 port 45720:11: disconnected by user
+Aug 15 02:17:25 ssh-prod-01 sshd[7581]: Accepted publickey for devops from 10.10.105.202 port 58207 ssh2: RSA SHA256:16c577fd
+Aug 15 02:18:08 ssh-prod-01 sshd[2351]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 02:18:25 ssh-prod-01 sshd[4304]: Received disconnect from 10.10.105.168 port 53186:11: disconnected by user
+Aug 15 02:19:02 ssh-prod-01 sshd[4633]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 15 02:19:09 ssh-prod-01 sshd[5578]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 02:19:54 ssh-prod-01 sshd[7520]: Received disconnect from 10.10.105.250 port 57266:11: disconnected by user
+Aug 15 02:20:35 ssh-prod-01 sshd[7126]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 02:21:01 ssh-prod-01 sshd[8953]: Accepted publickey for jenkins from 10.10.105.180 port 53113 ssh2: RSA SHA256:52171693
+Aug 15 02:21:23 ssh-prod-01 sshd[1190]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:21:26 ssh-prod-01 sshd[5693]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 15 02:21:57 ssh-prod-01 sshd[6921]: Received disconnect from 10.10.105.217 port 59412:11: disconnected by user
+Aug 15 02:22:27 ssh-prod-01 sshd[8629]: Received disconnect from 10.10.105.213 port 43866:11: disconnected by user
+Aug 15 02:23:06 ssh-prod-01 sshd[6201]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 02:23:14 ssh-prod-01 sshd[6448]: Received disconnect from 10.10.105.91 port 41274:11: disconnected by user
+Aug 15 02:23:57 ssh-prod-01 sshd[5442]: Accepted publickey for svc-backup from 10.10.105.215 port 45167 ssh2: RSA SHA256:69e90957
+Aug 15 02:24:16 ssh-prod-01 sshd[3373]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 02:24:49 ssh-prod-01 sshd[4338]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 15 02:25:00 ssh-prod-01 sshd[5151]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 02:25:42 ssh-prod-01 sshd[4184]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 02:25:59 ssh-prod-01 sshd[4467]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 15 02:26:37 ssh-prod-01 sshd[7446]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 15 02:26:51 ssh-prod-01 sshd[2246]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 02:27:27 ssh-prod-01 sshd[6340]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 15 02:27:51 ssh-prod-01 sshd[6381]: Accepted publickey for root from 10.10.105.159 port 42037 ssh2: RSA SHA256:1e0b54aa
+Aug 15 02:28:15 ssh-prod-01 sshd[6452]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 02:28:50 ssh-prod-01 sshd[6218]: Accepted publickey for svc-backup from 10.10.105.28 port 45280 ssh2: RSA SHA256:50a3a1ab
+Aug 15 02:28:53 ssh-prod-01 sshd[2380]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 02:29:07 ssh-prod-01 sshd[2425]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:29:31 ssh-prod-01 sshd[7270]: Accepted publickey for devops from 10.10.105.11 port 43423 ssh2: RSA SHA256:31149381
+Aug 15 02:29:35 ssh-prod-01 sshd[6610]: Received disconnect from 10.10.105.122 port 61030:11: disconnected by user
+Aug 15 02:30:19 ssh-prod-01 sshd[2683]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 15 02:30:32 ssh-prod-01 sshd[6188]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 02:31:15 ssh-prod-01 sshd[4745]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug 15 02:31:59 ssh-prod-01 sshd[5052]: Received disconnect from 10.10.105.162 port 61651:11: disconnected by user
+Aug 15 02:32:19 ssh-prod-01 sshd[2888]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug 15 02:32:38 ssh-prod-01 sshd[1665]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 02:32:46 ssh-prod-01 sshd[6600]: Received disconnect from 10.10.105.238 port 40716:11: disconnected by user
+Aug 15 02:33:03 ssh-prod-01 sshd[5620]: Received disconnect from 10.10.105.225 port 57472:11: disconnected by user
+Aug 15 02:33:17 ssh-prod-01 sshd[1575]: Accepted publickey for postgres from 10.10.105.73 port 46666 ssh2: RSA SHA256:0f8268b3
+Aug 15 02:33:30 ssh-prod-01 sshd[1427]: Accepted publickey for webadmin from 10.10.105.188 port 40244 ssh2: RSA SHA256:4068ddf0
+Aug 15 02:34:13 ssh-prod-01 sshd[6196]: Received disconnect from 10.10.105.239 port 52748:11: disconnected by user
+Aug 15 02:34:18 ssh-prod-01 sshd[3439]: Accepted publickey for webadmin from 10.10.105.126 port 55199 ssh2: RSA SHA256:35b85823
+Aug 15 02:34:31 ssh-prod-01 sshd[7459]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:34:37 ssh-prod-01 sshd[6790]: Accepted publickey for webadmin from 10.10.105.229 port 45283 ssh2: RSA SHA256:417583c9
+Aug 15 02:34:39 ssh-prod-01 sshd[7731]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug 15 02:34:42 ssh-prod-01 sshd[7255]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:35:01 ssh-prod-01 sshd[5244]: Accepted publickey for postgres from 10.10.105.226 port 45450 ssh2: RSA SHA256:796cf2ef
+Aug 15 02:35:25 ssh-prod-01 sshd[8492]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 15 02:35:46 ssh-prod-01 sshd[5980]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 02:36:22 ssh-prod-01 sshd[1088]: Accepted publickey for root from 10.10.105.154 port 59172 ssh2: RSA SHA256:19cb8f4c
+Aug 15 02:36:51 ssh-prod-01 sshd[8006]: Accepted publickey for jenkins from 10.10.105.5 port 57132 ssh2: RSA SHA256:0388aaba
+Aug 15 02:37:06 ssh-prod-01 sshd[3293]: Received disconnect from 10.10.105.248 port 52417:11: disconnected by user
+Aug 15 02:37:21 ssh-prod-01 sshd[3804]: Received disconnect from 10.10.105.74 port 64030:11: disconnected by user
+Aug 15 02:38:06 ssh-prod-01 sshd[4937]: Received disconnect from 10.10.105.24 port 54277:11: disconnected by user
+Aug 15 02:38:12 ssh-prod-01 sshd[6043]: Accepted publickey for root from 10.10.105.115 port 46983 ssh2: RSA SHA256:1b2a6fbd
+Aug 15 02:38:20 ssh-prod-01 sshd[8687]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 02:38:59 ssh-prod-01 sshd[7098]: Accepted publickey for devops from 10.10.105.165 port 60592 ssh2: RSA SHA256:26c6e2d9
+Aug 15 02:39:00 ssh-prod-01 sshd[1159]: Received disconnect from 10.10.105.109 port 40096:11: disconnected by user
+Aug 15 02:39:42 ssh-prod-01 sshd[1251]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 02:40:09 ssh-prod-01 sshd[3922]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 15 02:40:42 ssh-prod-01 sshd[7978]: Received disconnect from 10.10.105.236 port 63649:11: disconnected by user
+Aug 15 02:41:10 ssh-prod-01 sshd[6129]: Accepted publickey for svc-backup from 10.10.105.19 port 47810 ssh2: RSA SHA256:61c5650a
+Aug 15 02:41:14 ssh-prod-01 sshd[6315]: Received disconnect from 10.10.105.229 port 40067:11: disconnected by user
+Aug 15 02:41:45 ssh-prod-01 sshd[5574]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 02:42:06 ssh-prod-01 sshd[6898]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug 15 02:42:22 ssh-prod-01 sshd[3171]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 02:42:59 ssh-prod-01 sshd[4184]: Received disconnect from 10.10.105.87 port 49567:11: disconnected by user
+Aug 15 02:43:16 ssh-prod-01 sshd[3356]: Accepted publickey for root from 10.10.105.119 port 45030 ssh2: RSA SHA256:61a1db61
+Aug 15 02:43:52 ssh-prod-01 sshd[5675]: Received disconnect from 10.10.105.18 port 54946:11: disconnected by user
+Aug 15 02:44:30 ssh-prod-01 sshd[5513]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 15 02:45:00 ssh-prod-01 sshd[6770]: Accepted publickey for svc-backup from 10.10.105.98 port 48370 ssh2: RSA SHA256:1524587e
+Aug 15 02:45:34 ssh-prod-01 sshd[4332]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 15 02:46:08 ssh-prod-01 sshd[1517]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:46:53 ssh-prod-01 sshd[7004]: Received disconnect from 10.10.105.31 port 57231:11: disconnected by user
+Aug 15 02:47:30 ssh-prod-01 sshd[5227]: Accepted publickey for webadmin from 10.10.105.162 port 64491 ssh2: RSA SHA256:6598bff8
+Aug 15 02:48:04 ssh-prod-01 sshd[6607]: Received disconnect from 10.10.105.79 port 49754:11: disconnected by user
+Aug 15 02:48:15 ssh-prod-01 sshd[4864]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 15 02:48:49 ssh-prod-01 sshd[5958]: Accepted publickey for svc-backup from 10.10.105.120 port 56495 ssh2: RSA SHA256:043e97d8
+Aug 15 02:48:54 ssh-prod-01 sshd[6193]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug 15 02:49:03 ssh-prod-01 sshd[1500]: Received disconnect from 10.10.105.148 port 48486:11: disconnected by user
+Aug 15 02:49:40 ssh-prod-01 sshd[6723]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 02:49:51 ssh-prod-01 sshd[6415]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 02:50:06 ssh-prod-01 sshd[8594]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:50:48 ssh-prod-01 sshd[7836]: Accepted publickey for jenkins from 10.10.105.210 port 44608 ssh2: RSA SHA256:1ff90908
+Aug 15 02:50:59 ssh-prod-01 sshd[5058]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 15 02:51:06 ssh-prod-01 sshd[3256]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 02:51:14 ssh-prod-01 sshd[8019]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 15 02:51:18 ssh-prod-01 sshd[1851]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 02:51:55 ssh-prod-01 sshd[5050]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug 15 02:51:59 ssh-prod-01 sshd[7156]: Received disconnect from 10.10.105.182 port 42387:11: disconnected by user
+Aug 15 02:52:30 ssh-prod-01 sshd[1145]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 02:52:35 ssh-prod-01 sshd[4965]: Received disconnect from 10.10.105.90 port 44520:11: disconnected by user
+Aug 15 02:52:54 ssh-prod-01 sshd[4050]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug 15 02:53:18 ssh-prod-01 sshd[7644]: Received disconnect from 10.10.105.213 port 42639:11: disconnected by user
+Aug 15 02:53:20 ssh-prod-01 sshd[5474]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 15 02:53:53 ssh-prod-01 sshd[4841]: Received disconnect from 10.10.105.184 port 61068:11: disconnected by user
+Aug 15 02:54:30 ssh-prod-01 sshd[4194]: Received disconnect from 10.10.105.16 port 62479:11: disconnected by user
+Aug 15 02:55:03 ssh-prod-01 sshd[8803]: Accepted publickey for svc-backup from 10.10.105.74 port 62552 ssh2: RSA SHA256:1238cdc4
+Aug 15 02:55:39 ssh-prod-01 sshd[4789]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 15 02:56:10 ssh-prod-01 sshd[8206]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 15 02:56:19 ssh-prod-01 sshd[7684]: Accepted publickey for postgres from 10.10.105.109 port 55524 ssh2: RSA SHA256:17e0f414
+Aug 15 02:57:00 ssh-prod-01 sshd[6623]: Received disconnect from 10.10.105.157 port 42756:11: disconnected by user
+Aug 15 02:57:37 ssh-prod-01 sshd[2068]: Accepted publickey for devops from 10.10.105.227 port 56865 ssh2: RSA SHA256:5c356386
+Aug 15 02:58:19 ssh-prod-01 sshd[6590]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 02:58:38 ssh-prod-01 sshd[1948]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 02:58:54 ssh-prod-01 sshd[6147]: Accepted publickey for svc-backup from 10.10.105.194 port 43023 ssh2: RSA SHA256:1a362441
+Aug 15 02:59:26 ssh-prod-01 sshd[6308]: Received disconnect from 10.10.105.217 port 63386:11: disconnected by user
+Aug 15 02:59:43 ssh-prod-01 sshd[2643]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 15 03:00:10 ssh-prod-01 sshd[4844]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 15 03:00:26 ssh-prod-01 sshd[5516]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 15 03:00:56 ssh-prod-01 sshd[2677]: Received disconnect from 10.10.105.212 port 51958:11: disconnected by user
+Aug 15 03:01:41 ssh-prod-01 sshd[5035]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 03:02:19 ssh-prod-01 sshd[3964]: Accepted publickey for root from 10.10.105.133 port 57824 ssh2: RSA SHA256:22421a5d
+Aug 15 03:03:02 ssh-prod-01 sshd[5782]: Received disconnect from 10.10.105.227 port 43624:11: disconnected by user
+Aug 15 03:03:33 ssh-prod-01 sshd[8008]: Received disconnect from 10.10.105.180 port 51751:11: disconnected by user
+Aug 15 03:04:08 ssh-prod-01 sshd[7714]: Accepted publickey for root from 10.10.105.149 port 42203 ssh2: RSA SHA256:344987ed
+Aug 15 03:04:19 ssh-prod-01 sshd[8212]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug 15 03:04:46 ssh-prod-01 sshd[8075]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 15 03:05:01 ssh-prod-01 sshd[8596]: Received disconnect from 10.10.105.79 port 61886:11: disconnected by user
+Aug 15 03:05:34 ssh-prod-01 sshd[4099]: Received disconnect from 10.10.105.61 port 42824:11: disconnected by user
+Aug 15 03:06:11 ssh-prod-01 sshd[4764]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 15 03:06:36 ssh-prod-01 sshd[6873]: Accepted publickey for postgres from 10.10.105.214 port 64539 ssh2: RSA SHA256:5318bba7
+Aug 15 03:06:46 ssh-prod-01 sshd[4614]: Accepted publickey for devops from 10.10.105.238 port 41577 ssh2: RSA SHA256:1cb9d72a
+Aug 15 03:07:17 ssh-prod-01 sshd[8553]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 15 03:07:47 ssh-prod-01 sshd[1525]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 03:08:30 ssh-prod-01 sshd[3707]: Accepted publickey for svc-backup from 10.10.105.86 port 50205 ssh2: RSA SHA256:015ab3bb
+Aug 15 03:08:39 ssh-prod-01 sshd[3130]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug 15 03:09:04 ssh-prod-01 sshd[8918]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 03:09:36 ssh-prod-01 sshd[6825]: Received disconnect from 10.10.105.192 port 53214:11: disconnected by user
+Aug 15 03:09:52 ssh-prod-01 sshd[8356]: Accepted publickey for root from 10.10.105.200 port 52900 ssh2: RSA SHA256:02d0b680
+Aug 15 03:10:19 ssh-prod-01 sshd[6447]: Accepted publickey for devops from 10.10.105.107 port 55452 ssh2: RSA SHA256:3a7668bf
+Aug 15 03:10:21 ssh-prod-01 sshd[4717]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug 15 03:10:36 ssh-prod-01 sshd[7666]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 03:10:49 ssh-prod-01 sshd[6701]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 03:11:24 ssh-prod-01 sshd[3992]: Accepted publickey for devops from 10.10.105.95 port 40744 ssh2: RSA SHA256:2c13ead3
+Aug 15 03:12:04 ssh-prod-01 sshd[2991]: Accepted publickey for svc-backup from 10.10.105.114 port 57151 ssh2: RSA SHA256:6d6c5d78
+Aug 15 03:12:41 ssh-prod-01 sshd[7516]: Received disconnect from 10.10.105.61 port 46159:11: disconnected by user
+Aug 15 03:13:07 ssh-prod-01 sshd[4358]: Received disconnect from 10.10.105.31 port 63767:11: disconnected by user
+Aug 15 03:13:35 ssh-prod-01 sshd[1310]: Accepted publickey for svc-backup from 10.10.105.5 port 60669 ssh2: RSA SHA256:054c84dd
+Aug 15 03:14:00 ssh-prod-01 sshd[2270]: Accepted publickey for devops from 10.10.105.186 port 53012 ssh2: RSA SHA256:61cc7e81
+Aug 15 03:14:24 ssh-prod-01 sshd[7574]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 03:14:43 ssh-prod-01 sshd[4359]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 03:15:21 ssh-prod-01 sshd[5705]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 03:15:38 ssh-prod-01 sshd[3970]: Received disconnect from 10.10.105.226 port 46944:11: disconnected by user
+Aug 15 03:16:21 ssh-prod-01 sshd[3802]: Received disconnect from 10.10.105.199 port 48160:11: disconnected by user
+Aug 15 03:16:27 ssh-prod-01 sshd[6982]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 03:16:56 ssh-prod-01 sshd[7526]: Accepted publickey for svc-backup from 10.10.105.140 port 64322 ssh2: RSA SHA256:42b0541a
+Aug 15 03:17:31 ssh-prod-01 sshd[3841]: Received disconnect from 10.10.105.208 port 47772:11: disconnected by user
+Aug 15 03:17:51 ssh-prod-01 sshd[4061]: Received disconnect from 10.10.105.61 port 45853:11: disconnected by user
+Aug 15 03:18:32 ssh-prod-01 sshd[8207]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 15 03:19:03 ssh-prod-01 sshd[3733]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 03:19:44 ssh-prod-01 sshd[1971]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 15 03:20:29 ssh-prod-01 sshd[1811]: Received disconnect from 10.10.105.217 port 48074:11: disconnected by user
+Aug 15 03:21:01 ssh-prod-01 sshd[7189]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 03:21:32 ssh-prod-01 sshd[4545]: Accepted publickey for webadmin from 10.10.105.11 port 50438 ssh2: RSA SHA256:4744435d
+Aug 15 03:21:50 ssh-prod-01 sshd[3134]: Received disconnect from 10.10.105.48 port 43141:11: disconnected by user
+Aug 15 03:22:15 ssh-prod-01 sshd[4422]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 03:22:37 ssh-prod-01 sshd[1491]: Accepted publickey for devops from 10.10.105.77 port 42536 ssh2: RSA SHA256:3d037674
+Aug 15 03:23:13 ssh-prod-01 sshd[5633]: Accepted publickey for jenkins from 10.10.105.194 port 60182 ssh2: RSA S

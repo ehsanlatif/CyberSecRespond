@@ -1,0 +1,7 @@
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2021-44228",
+    "path": "/var/lib/tomcat9/webapps/ROOT/static/status.jsp"
+  }
+]

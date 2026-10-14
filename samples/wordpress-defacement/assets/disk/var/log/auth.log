@@ -1,0 +1,473 @@
+Aug  9 00:33:37 wordpress-prod-01 sshd[6988]: Accepted publickey for svc-backup from 10.10.169.243 port 53992 ssh2: RSA SHA256:7c593090
+Aug  9 00:34:17 wordpress-prod-01 sshd[8744]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 00:34:45 wordpress-prod-01 sshd[6253]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 00:34:52 wordpress-prod-01 sshd[3730]: Received disconnect from 10.10.169.82 port 49334:11: disconnected by user
+Aug  9 00:35:17 wordpress-prod-01 sshd[5334]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug  9 00:35:25 wordpress-prod-01 sshd[4503]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug  9 00:36:03 wordpress-prod-01 sshd[7090]: Received disconnect from 10.10.169.91 port 56242:11: disconnected by user
+Aug  9 00:36:43 wordpress-prod-01 sshd[8868]: Accepted publickey for svc-backup from 10.10.169.208 port 57186 ssh2: RSA SHA256:21aba1b9
+Aug  9 00:37:23 wordpress-prod-01 sshd[3714]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 00:38:04 wordpress-prod-01 sshd[5891]: Accepted publickey for webadmin from 10.10.169.94 port 54375 ssh2: RSA SHA256:32ada7fd
+Aug  9 00:38:48 wordpress-prod-01 sshd[3722]: Accepted publickey for svc-backup from 10.10.169.197 port 60919 ssh2: RSA SHA256:02e6932c
+Aug  9 00:39:05 wordpress-prod-01 sshd[2227]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 00:39:22 wordpress-prod-01 sshd[3752]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  9 00:40:06 wordpress-prod-01 sshd[1078]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug  9 00:40:36 wordpress-prod-01 sshd[7086]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 00:40:47 wordpress-prod-01 sshd[6921]: Received disconnect from 10.10.169.108 port 50449:11: disconnected by user
+Aug  9 00:41:23 wordpress-prod-01 sshd[3568]: Accepted publickey for postgres from 10.10.169.53 port 58806 ssh2: RSA SHA256:62ca8643
+Aug  9 00:41:33 wordpress-prod-01 sshd[2284]: Received disconnect from 10.10.169.47 port 60363:11: disconnected by user
+Aug  9 00:41:49 wordpress-prod-01 sshd[8251]: Received disconnect from 10.10.169.52 port 44022:11: disconnected by user
+Aug  9 00:42:15 wordpress-prod-01 sshd[2891]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 00:42:38 wordpress-prod-01 sshd[5685]: Accepted publickey for svc-backup from 10.10.169.86 port 53125 ssh2: RSA SHA256:0b78b94e
+Aug  9 00:42:41 wordpress-prod-01 sshd[7156]: Accepted publickey for webadmin from 10.10.169.3 port 45916 ssh2: RSA SHA256:34b0a3a2
+Aug  9 00:42:42 wordpress-prod-01 sshd[5065]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 00:43:04 wordpress-prod-01 sshd[1112]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug  9 00:43:07 wordpress-prod-01 sshd[3950]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 00:43:19 wordpress-prod-01 sshd[1398]: Received disconnect from 10.10.169.172 port 48590:11: disconnected by user
+Aug  9 00:43:23 wordpress-prod-01 sshd[8821]: Accepted publickey for devops from 10.10.169.6 port 47205 ssh2: RSA SHA256:4cc555e8
+Aug  9 00:43:59 wordpress-prod-01 sshd[4017]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  9 00:44:35 wordpress-prod-01 sshd[7625]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug  9 00:45:10 wordpress-prod-01 sshd[2714]: Accepted publickey for root from 10.10.169.19 port 63889 ssh2: RSA SHA256:7e2d78c8
+Aug  9 00:45:47 wordpress-prod-01 sshd[2267]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  9 00:46:04 wordpress-prod-01 sshd[1484]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  9 00:46:34 wordpress-prod-01 sshd[4414]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 00:47:07 wordpress-prod-01 sshd[4834]: Received disconnect from 10.10.169.99 port 62213:11: disconnected by user
+Aug  9 00:47:09 wordpress-prod-01 sshd[3591]: Received disconnect from 10.10.169.133 port 43582:11: disconnected by user
+Aug  9 00:47:33 wordpress-prod-01 sshd[3997]: Received disconnect from 10.10.169.121 port 57162:11: disconnected by user
+Aug  9 00:47:44 wordpress-prod-01 sshd[2068]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug  9 00:48:09 wordpress-prod-01 sshd[2823]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 00:48:30 wordpress-prod-01 sshd[1004]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 00:49:13 wordpress-prod-01 sshd[3870]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 00:49:56 wordpress-prod-01 sshd[2791]: Received disconnect from 10.10.169.120 port 56551:11: disconnected by user
+Aug  9 00:50:31 wordpress-prod-01 sshd[5661]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 00:51:14 wordpress-prod-01 sshd[5870]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 00:51:19 wordpress-prod-01 sshd[1052]: Received disconnect from 10.10.169.140 port 50399:11: disconnected by user
+Aug  9 00:51:29 wordpress-prod-01 sshd[5663]: Accepted publickey for webadmin from 10.10.169.203 port 45924 ssh2: RSA SHA256:4a05f621
+Aug  9 00:52:01 wordpress-prod-01 sshd[3769]: Accepted publickey for svc-backup from 10.10.169.130 port 63544 ssh2: RSA SHA256:05accd8f
+Aug  9 00:52:22 wordpress-prod-01 sshd[4968]: Accepted publickey for postgres from 10.10.169.245 port 60452 ssh2: RSA SHA256:70b58765
+Aug  9 00:52:49 wordpress-prod-01 sshd[4008]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 00:53:22 wordpress-prod-01 sshd[4394]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 00:54:02 wordpress-prod-01 sshd[1280]: Received disconnect from 10.10.169.250 port 42873:11: disconnected by user
+Aug  9 00:54:37 wordpress-prod-01 sshd[5125]: Received disconnect from 10.10.169.25 port 58171:11: disconnected by user
+Aug  9 00:55:05 wordpress-prod-01 sshd[4935]: Received disconnect from 10.10.169.178 port 49688:11: disconnected by user
+Aug  9 00:55:50 wordpress-prod-01 sshd[6118]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug  9 00:56:33 wordpress-prod-01 sshd[7532]: Received disconnect from 10.10.169.191 port 45852:11: disconnected by user
+Aug  9 00:56:57 wordpress-prod-01 sshd[5034]: Accepted publickey for devops from 10.10.169.228 port 56529 ssh2: RSA SHA256:69bffe22
+Aug  9 00:57:08 wordpress-prod-01 sshd[5072]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  9 00:57:32 wordpress-prod-01 sshd[6506]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  9 00:58:09 wordpress-prod-01 sshd[3932]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 00:58:28 wordpress-prod-01 sshd[6406]: Received disconnect from 10.10.169.47 port 46843:11: disconnected by user
+Aug  9 00:58:45 wordpress-prod-01 sshd[3248]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 00:58:48 wordpress-prod-01 sshd[6739]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug  9 00:58:56 wordpress-prod-01 sshd[7134]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  9 00:59:34 wordpress-prod-01 sshd[1557]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  9 01:00:13 wordpress-prod-01 sshd[3685]: Accepted publickey for postgres from 10.10.169.208 port 57267 ssh2: RSA SHA256:55caada1
+Aug  9 01:00:41 wordpress-prod-01 sshd[4416]: Received disconnect from 10.10.169.55 port 47914:11: disconnected by user
+Aug  9 01:01:09 wordpress-prod-01 sshd[1358]: Received disconnect from 10.10.169.90 port 54964:11: disconnected by user
+Aug  9 01:01:53 wordpress-prod-01 sshd[4885]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  9 01:02:21 wordpress-prod-01 sshd[2946]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  9 01:02:35 wordpress-prod-01 sshd[5424]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  9 01:03:00 wordpress-prod-01 sshd[2418]: Accepted publickey for jenkins from 10.10.169.19 port 59363 ssh2: RSA SHA256:0c741394
+Aug  9 01:03:21 wordpress-prod-01 sshd[2021]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug  9 01:03:53 wordpress-prod-01 sshd[1632]: Received disconnect from 10.10.169.170 port 43759:11: disconnected by user
+Aug  9 01:04:34 wordpress-prod-01 sshd[2000]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 01:05:16 wordpress-prod-01 sshd[8280]: Accepted publickey for svc-backup from 10.10.169.36 port 42644 ssh2: RSA SHA256:5ae18897
+Aug  9 01:06:00 wordpress-prod-01 sshd[1337]: Accepted publickey for devops from 10.10.169.4 port 47918 ssh2: RSA SHA256:7524373c
+Aug  9 01:06:30 wordpress-prod-01 sshd[3757]: Received disconnect from 10.10.169.141 port 46904:11: disconnected by user
+Aug  9 01:06:35 wordpress-prod-01 sshd[5969]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug  9 01:06:48 wordpress-prod-01 sshd[1723]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug  9 01:07:15 wordpress-prod-01 sshd[6647]: Accepted publickey for jenkins from 10.10.169.215 port 51723 ssh2: RSA SHA256:20c22f7f
+Aug  9 01:07:58 wordpress-prod-01 sshd[2524]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:08:06 wordpress-prod-01 sshd[7989]: Accepted publickey for devops from 10.10.169.155 port 49216 ssh2: RSA SHA256:1278d605
+Aug  9 01:08:27 wordpress-prod-01 sshd[3596]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 01:08:29 wordpress-prod-01 sshd[7919]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug  9 01:09:13 wordpress-prod-01 sshd[3013]: Accepted publickey for root from 10.10.169.171 port 64797 ssh2: RSA SHA256:0d3b0d28
+Aug  9 01:09:50 wordpress-prod-01 sshd[2643]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 01:10:35 wordpress-prod-01 sshd[6489]: Received disconnect from 10.10.169.173 port 50744:11: disconnected by user
+Aug  9 01:10:55 wordpress-prod-01 sshd[1655]: Received disconnect from 10.10.169.65 port 46349:11: disconnected by user
+Aug  9 01:11:12 wordpress-prod-01 sshd[7612]: Accepted publickey for devops from 10.10.169.41 port 51548 ssh2: RSA SHA256:6e90c172
+Aug  9 01:11:51 wordpress-prod-01 sshd[3693]: Received disconnect from 10.10.169.148 port 57547:11: disconnected by user
+Aug  9 01:12:35 wordpress-prod-01 sshd[7755]: Accepted publickey for jenkins from 10.10.169.160 port 49475 ssh2: RSA SHA256:014b52d2
+Aug  9 01:13:05 wordpress-prod-01 sshd[6287]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:13:48 wordpress-prod-01 sshd[8650]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 01:13:55 wordpress-prod-01 sshd[5657]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 01:14:12 wordpress-prod-01 sshd[1030]: Accepted publickey for svc-backup from 10.10.169.147 port 46887 ssh2: RSA SHA256:337b618b
+Aug  9 01:14:51 wordpress-prod-01 sshd[4730]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 01:15:04 wordpress-prod-01 sshd[7491]: Accepted publickey for webadmin from 10.10.169.233 port 42174 ssh2: RSA SHA256:397cec2c
+Aug  9 01:15:25 wordpress-prod-01 sshd[3189]: Accepted publickey for root from 10.10.169.47 port 56538 ssh2: RSA SHA256:7b5f677c
+Aug  9 01:15:33 wordpress-prod-01 sshd[5199]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:15:44 wordpress-prod-01 sshd[6026]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug  9 01:16:09 wordpress-prod-01 sshd[1851]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 01:16:14 wordpress-prod-01 sshd[6572]: Accepted publickey for postgres from 10.10.169.95 port 46763 ssh2: RSA SHA256:1ea81a45
+Aug  9 01:16:50 wordpress-prod-01 sshd[4991]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 01:17:03 wordpress-prod-01 sshd[4727]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 01:17:36 wordpress-prod-01 sshd[3924]: Accepted publickey for svc-backup from 10.10.169.32 port 49845 ssh2: RSA SHA256:2374277e
+Aug  9 01:17:43 wordpress-prod-01 sshd[5693]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug  9 01:17:53 wordpress-prod-01 sshd[4890]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 01:18:23 wordpress-prod-01 sshd[5542]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  9 01:18:33 wordpress-prod-01 sshd[8932]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 01:18:50 wordpress-prod-01 sshd[5201]: Accepted publickey for webadmin from 10.10.169.36 port 59698 ssh2: RSA SHA256:221c928d
+Aug  9 01:19:32 wordpress-prod-01 sshd[5677]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug  9 01:19:47 wordpress-prod-01 sshd[6374]: Accepted publickey for devops from 10.10.169.24 port 49800 ssh2: RSA SHA256:7066bc51
+Aug  9 01:19:48 wordpress-prod-01 sshd[7378]: Accepted publickey for postgres from 10.10.169.7 port 41539 ssh2: RSA SHA256:00f8a6a3
+Aug  9 01:19:50 wordpress-prod-01 sshd[4034]: Received disconnect from 10.10.169.211 port 45190:11: disconnected by user
+Aug  9 01:20:35 wordpress-prod-01 sshd[4774]: Accepted publickey for svc-backup from 10.10.169.121 port 44726 ssh2: RSA SHA256:52c86d78
+Aug  9 01:20:55 wordpress-prod-01 sshd[2981]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 01:21:29 wordpress-prod-01 sshd[7893]: Received disconnect from 10.10.169.13 port 44311:11: disconnected by user
+Aug  9 01:22:11 wordpress-prod-01 sshd[8624]: Accepted publickey for webadmin from 10.10.169.184 port 44213 ssh2: RSA SHA256:1e605ef5
+Aug  9 01:22:26 wordpress-prod-01 sshd[5433]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  9 01:22:53 wordpress-prod-01 sshd[3350]: Received disconnect from 10.10.169.46 port 56385:11: disconnected by user
+Aug  9 01:23:23 wordpress-prod-01 sshd[4544]: Accepted publickey for postgres from 10.10.169.217 port 55875 ssh2: RSA SHA256:3be60f6d
+Aug  9 01:23:57 wordpress-prod-01 sshd[3228]: Accepted publickey for devops from 10.10.169.195 port 42250 ssh2: RSA SHA256:4fe51da1
+Aug  9 01:24:19 wordpress-prod-01 sshd[7901]: Accepted publickey for postgres from 10.10.169.85 port 55002 ssh2: RSA SHA256:6df73fc5
+Aug  9 01:24:34 wordpress-prod-01 sshd[3517]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  9 01:25:09 wordpress-prod-01 sshd[1348]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug  9 01:25:22 wordpress-prod-01 sshd[8624]: Accepted publickey for webadmin from 10.10.169.118 port 48867 ssh2: RSA SHA256:05f14f1a
+Aug  9 01:25:47 wordpress-prod-01 sshd[1098]: Accepted publickey for postgres from 10.10.169.238 port 64349 ssh2: RSA SHA256:49ad7f08
+Aug  9 01:26:08 wordpress-prod-01 sshd[7301]: Accepted publickey for root from 10.10.169.97 port 63320 ssh2: RSA SHA256:4a482dd3
+Aug  9 01:26:28 wordpress-prod-01 sshd[7590]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  9 01:26:35 wordpress-prod-01 sshd[7471]: Received disconnect from 10.10.169.17 port 43654:11: disconnected by user
+Aug  9 01:26:58 wordpress-prod-01 sshd[8312]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 01:27:26 wordpress-prod-01 sshd[6091]: Accepted publickey for root from 10.10.169.120 port 61572 ssh2: RSA SHA256:14fdefd6
+Aug  9 01:28:01 wordpress-prod-01 sshd[8726]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:28:27 wordpress-prod-01 sshd[6712]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 01:28:49 wordpress-prod-01 sshd[5091]: Received disconnect from 10.10.169.93 port 49536:11: disconnected by user
+Aug  9 01:29:28 wordpress-prod-01 sshd[6786]: Accepted publickey for svc-backup from 10.10.169.182 port 52253 ssh2: RSA SHA256:1a13a24e
+Aug  9 01:29:32 wordpress-prod-01 sshd[2653]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug  9 01:29:54 wordpress-prod-01 sshd[2314]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  9 01:30:29 wordpress-prod-01 sshd[6578]: Accepted publickey for postgres from 10.10.169.183 port 40087 ssh2: RSA SHA256:4129ca4e
+Aug  9 01:30:54 wordpress-prod-01 sshd[4626]: Received disconnect from 10.10.169.62 port 58872:11: disconnected by user
+Aug  9 01:31:37 wordpress-prod-01 sshd[6901]: Received disconnect from 10.10.169.243 port 63117:11: disconnected by user
+Aug  9 01:32:10 wordpress-prod-01 sshd[8509]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 01:32:27 wordpress-prod-01 sshd[7696]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:32:38 wordpress-prod-01 sshd[5188]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 01:33:19 wordpress-prod-01 sshd[8944]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  9 01:33:54 wordpress-prod-01 sshd[5769]: Accepted publickey for root from 10.10.169.75 port 42438 ssh2: RSA SHA256:35447714
+Aug  9 00:53:21 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 64888 ssh2
+Aug  9 00:53:25 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 46141 ssh2
+Aug  9 00:53:29 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 53195 ssh2
+Aug  9 00:53:30 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 48846 ssh2
+Aug  9 00:53:33 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 61393 ssh2
+Aug  9 00:53:35 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 49986 ssh2
+Aug  9 00:53:37 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 48492 ssh2
+Aug  9 00:53:38 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 60876 ssh2
+Aug  9 00:53:41 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 44534 ssh2
+Aug  9 00:53:43 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 63839 ssh2
+Aug  9 00:53:46 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 64456 ssh2
+Aug  9 00:53:50 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 50189 ssh2
+Aug  9 00:53:51 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 64286 ssh2
+Aug  9 00:53:52 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 60873 ssh2
+Aug  9 00:53:53 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 57433 ssh2
+Aug  9 00:53:57 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 50594 ssh2
+Aug  9 00:54:01 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 63967 ssh2
+Aug  9 00:54:05 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 54901 ssh2
+Aug  9 00:54:08 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 60887 ssh2
+Aug  9 00:54:11 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 56494 ssh2
+Aug  9 00:54:14 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 42657 ssh2
+Aug  9 00:54:18 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 40222 ssh2
+Aug  9 00:54:21 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 50517 ssh2
+Aug  9 00:54:25 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 55860 ssh2
+Aug  9 00:54:29 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 50041 ssh2
+Aug  9 00:54:30 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 46706 ssh2
+Aug  9 00:54:34 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 60429 ssh2
+Aug  9 00:54:35 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 62469 ssh2
+Aug  9 00:54:36 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 49089 ssh2
+Aug  9 00:54:37 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 42038 ssh2
+Aug  9 00:54:39 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 53129 ssh2
+Aug  9 00:54:41 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 47716 ssh2
+Aug  9 00:54:45 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 51612 ssh2
+Aug  9 00:54:47 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 47749 ssh2
+Aug  9 00:54:49 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 49015 ssh2
+Aug  9 00:54:51 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 55596 ssh2
+Aug  9 00:54:53 wordpress-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.40 port 43304 ssh2
+Aug  9 00:54:56 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 62888 ssh2
+Aug  9 00:54:57 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 51854 ssh2
+Aug  9 00:55:00 wordpress-prod-01 sshd[1201]: Failed password for test from 198.51.100.40 port 55216 ssh2
+Aug  9 00:55:03 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 41055 ssh2
+Aug  9 00:55:04 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 58984 ssh2
+Aug  9 00:55:08 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 40097 ssh2
+Aug  9 00:55:10 wordpress-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.40 port 56576 ssh2
+Aug  9 00:55:12 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 56245 ssh2
+Aug  9 00:55:13 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 45628 ssh2
+Aug  9 00:55:16 wordpress-prod-01 sshd[1201]: Failed password for root from 198.51.100.40 port 42572 ssh2
+Aug  9 00:55:17 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 55643 ssh2
+Aug  9 00:55:18 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 62930 ssh2
+Aug  9 00:55:20 wordpress-prod-01 sshd[1201]: Failed password for admin from 198.51.100.40 port 49477 ssh2
+Aug  9 00:55:23 wordpress-prod-01 sshd[1201]: Accepted password for root from 198.51.100.40 port 51900 ssh2
+Aug  9 01:34:29 wordpress-prod-01 sshd[6904]: Accepted publickey for svc-backup from 10.10.169.219 port 58456 ssh2: RSA SHA256:446ae82c
+Aug  9 01:34:45 wordpress-prod-01 sshd[7526]: Accepted publickey for devops from 10.10.169.45 port 48855 ssh2: RSA SHA256:42607bc4
+Aug  9 01:35:01 wordpress-prod-01 sshd[8652]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug  9 01:35:10 wordpress-prod-01 sshd[3780]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  9 01:35:28 wordpress-prod-01 sshd[1010]: Accepted publickey for svc-backup from 10.10.169.176 port 53751 ssh2: RSA SHA256:4469b00b
+Aug  9 01:35:51 wordpress-prod-01 sshd[4023]: Accepted publickey for devops from 10.10.169.28 port 54270 ssh2: RSA SHA256:26b8d845
+Aug  9 01:35:52 wordpress-prod-01 sshd[2153]: Received disconnect from 10.10.169.140 port 52093:11: disconnected by user
+Aug  9 01:35:59 wordpress-prod-01 sshd[1874]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  9 01:36:09 wordpress-prod-01 sshd[2203]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  9 01:36:28 wordpress-prod-01 sshd[7803]: Received disconnect from 10.10.169.101 port 62165:11: disconnected by user
+Aug  9 01:36:45 wordpress-prod-01 sshd[3273]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 01:37:29 wordpress-prod-01 sshd[4534]: Accepted publickey for webadmin from 10.10.169.95 port 60543 ssh2: RSA SHA256:3f81d2b5
+Aug  9 01:37:33 wordpress-prod-01 sshd[8606]: Accepted publickey for jenkins from 10.10.169.134 port 55350 ssh2: RSA SHA256:658d4bd3
+Aug  9 01:37:45 wordpress-prod-01 sshd[4772]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug  9 01:37:58 wordpress-prod-01 sshd[8290]: Accepted publickey for svc-backup from 10.10.169.111 port 53502 ssh2: RSA SHA256:50930579
+Aug  9 01:38:06 wordpress-prod-01 sshd[6835]: Received disconnect from 10.10.169.97 port 48062:11: disconnected by user
+Aug  9 01:38:34 wordpress-prod-01 sshd[5956]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug  9 01:38:36 wordpress-prod-01 sshd[4081]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  9 01:38:57 wordpress-prod-01 sshd[4740]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 01:39:01 wordpress-prod-01 sshd[7887]: Received disconnect from 10.10.169.150 port 63622:11: disconnected by user
+Aug  9 01:39:03 wordpress-prod-01 sshd[5921]: Received disconnect from 10.10.169.162 port 40497:11: disconnected by user
+Aug  9 01:39:29 wordpress-prod-01 sshd[6957]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug  9 01:39:31 wordpress-prod-01 sshd[2223]: Accepted publickey for webadmin from 10.10.169.121 port 56112 ssh2: RSA SHA256:012d17a6
+Aug  9 01:39:55 wordpress-prod-01 sshd[8910]: Accepted publickey for jenkins from 10.10.169.149 port 63905 ssh2: RSA SHA256:3b4fc36d
+Aug  9 01:40:03 wordpress-prod-01 sshd[7056]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug  9 01:40:15 wordpress-prod-01 sshd[1532]: Received disconnect from 10.10.169.232 port 40564:11: disconnected by user
+Aug  9 01:40:37 wordpress-prod-01 sshd[5966]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  9 01:40:49 wordpress-prod-01 sshd[4196]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:41:33 wordpress-prod-01 sshd[4206]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 01:42:05 wordpress-prod-01 sshd[5269]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 01:42:35 wordpress-prod-01 sshd[2377]: Accepted publickey for postgres from 10.10.169.33 port 56493 ssh2: RSA SHA256:5c2ec592
+Aug  9 01:43:01 wordpress-prod-01 sshd[4680]: Accepted publickey for postgres from 10.10.169.187 port 53375 ssh2: RSA SHA256:3afef01c
+Aug  9 01:43:26 wordpress-prod-01 sshd[1282]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 01:44:08 wordpress-prod-01 sshd[7296]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  9 01:44:28 wordpress-prod-01 sshd[2034]: Accepted publickey for svc-backup from 10.10.169.246 port 41793 ssh2: RSA SHA256:7c14ab17
+Aug  9 01:44:37 wordpress-prod-01 sshd[5230]: Received disconnect from 10.10.169.214 port 52963:11: disconnected by user
+Aug  9 01:45:13 wordpress-prod-01 sshd[4919]: Accepted publickey for svc-backup from 10.10.169.129 port 43739 ssh2: RSA SHA256:5eebc3f7
+Aug  9 01:45:35 wordpress-prod-01 sshd[7991]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug  9 01:45:48 wordpress-prod-01 sshd[6406]: Accepted publickey for svc-backup from 10.10.169.238 port 55928 ssh2: RSA SHA256:4f52f828
+Aug  9 01:46:29 wordpress-prod-01 sshd[5293]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug  9 01:47:07 wordpress-prod-01 sshd[8852]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 01:47:49 wordpress-prod-01 sshd[6000]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 01:48:27 wordpress-prod-01 sshd[8710]: Received disconnect from 10.10.169.209 port 60272:11: disconnected by user
+Aug  9 01:49:01 wordpress-prod-01 sshd[6940]: Accepted publickey for jenkins from 10.10.169.131 port 47268 ssh2: RSA SHA256:17a46b99
+Aug  9 01:49:05 wordpress-prod-01 sshd[8759]: Accepted publickey for postgres from 10.10.169.118 port 44686 ssh2: RSA SHA256:27741509
+Aug  9 01:49:28 wordpress-prod-01 sshd[3084]: Accepted publickey for webadmin from 10.10.169.163 port 40388 ssh2: RSA SHA256:2d795ad0
+Aug  9 01:49:49 wordpress-prod-01 sshd[7602]: Accepted publickey for devops from 10.10.169.69 port 54109 ssh2: RSA SHA256:5529fb46
+Aug  9 03:03:00 wordpress-prod-01 systemd[1]: --- 15 authentication lines cleared here (T1070.002 log tampering) ---
+Aug  9 01:56:40 wordpress-prod-01 sshd[3319]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  9 01:57:17 wordpress-prod-01 sshd[2555]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  9 01:57:28 wordpress-prod-01 sshd[2110]: Received disconnect from 10.10.169.62 port 54031:11: disconnected by user
+Aug  9 01:57:50 wordpress-prod-01 sshd[6850]: Accepted publickey for webadmin from 10.10.169.113 port 41431 ssh2: RSA SHA256:3405f08b
+Aug  9 01:58:33 wordpress-prod-01 sshd[7582]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  9 01:58:56 wordpress-prod-01 sshd[5728]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  9 01:59:18 wordpress-prod-01 sshd[8455]: Received disconnect from 10.10.169.33 port 62632:11: disconnected by user
+Aug  9 02:00:00 wordpress-prod-01 sshd[8806]: Received disconnect from 10.10.169.169 port 55302:11: disconnected by user
+Aug  9 02:00:09 wordpress-prod-01 sshd[7803]: Accepted publickey for postgres from 10.10.169.79 port 58575 ssh2: RSA SHA256:39a05b3b
+Aug  9 02:00:15 wordpress-prod-01 sshd[6130]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  9 02:00:33 wordpress-prod-01 sshd[2875]: Received disconnect from 10.10.169.225 port 59764:11: disconnected by user
+Aug  9 02:01:06 wordpress-prod-01 sshd[7216]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:01:50 wordpress-prod-01 sshd[7971]: Accepted publickey for root from 10.10.169.18 port 53999 ssh2: RSA SHA256:29ad0ed0
+Aug  9 02:02:31 wordpress-prod-01 sshd[4456]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:02:39 wordpress-prod-01 sshd[5148]: Accepted publickey for webadmin from 10.10.169.91 port 42796 ssh2: RSA SHA256:5f8f6aac
+Aug  9 02:02:55 wordpress-prod-01 sshd[7766]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  9 02:03:30 wordpress-prod-01 sshd[8925]: Accepted publickey for jenkins from 10.10.169.237 port 59018 ssh2: RSA SHA256:2b36f783
+Aug  9 02:04:12 wordpress-prod-01 sshd[4278]: Accepted publickey for postgres from 10.10.169.28 port 58832 ssh2: RSA SHA256:39b2cbaf
+Aug  9 02:04:56 wordpress-prod-01 sshd[3558]: Accepted publickey for postgres from 10.10.169.27 port 50213 ssh2: RSA SHA256:53e1cf82
+Aug  9 02:05:19 wordpress-prod-01 sshd[7172]: Accepted publickey for postgres from 10.10.169.180 port 56222 ssh2: RSA SHA256:46e8c90b
+Aug  9 02:05:57 wordpress-prod-01 sshd[8612]: Accepted publickey for jenkins from 10.10.169.21 port 59087 ssh2: RSA SHA256:2b3d32ae
+Aug  9 02:06:29 wordpress-prod-01 sshd[5329]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug  9 02:06:41 wordpress-prod-01 sshd[1408]: Received disconnect from 10.10.169.239 port 62912:11: disconnected by user
+Aug  9 02:06:54 wordpress-prod-01 sshd[7100]: Received disconnect from 10.10.169.232 port 58251:11: disconnected by user
+Aug  9 02:07:09 wordpress-prod-01 sshd[2037]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  9 02:07:50 wordpress-prod-01 sshd[3558]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:07:51 wordpress-prod-01 sshd[6338]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:08:26 wordpress-prod-01 sshd[3904]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:08:46 wordpress-prod-01 sshd[5132]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:08:57 wordpress-prod-01 sshd[1504]: Accepted publickey for postgres from 10.10.169.133 port 64517 ssh2: RSA SHA256:154d7e41
+Aug  9 02:09:37 wordpress-prod-01 sshd[4005]: Accepted publickey for jenkins from 10.10.169.188 port 55581 ssh2: RSA SHA256:4f94062d
+Aug  9 02:10:21 wordpress-prod-01 sshd[7186]: Accepted publickey for jenkins from 10.10.169.186 port 46343 ssh2: RSA SHA256:336dd6ad
+Aug  9 02:10:24 wordpress-prod-01 sshd[7805]: Accepted publickey for svc-backup from 10.10.169.5 port 55981 ssh2: RSA SHA256:6551dfc9
+Aug  9 02:10:25 wordpress-prod-01 sshd[2510]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:11:05 wordpress-prod-01 sshd[2169]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  9 02:11:34 wordpress-prod-01 sshd[8628]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug  9 02:12:03 wordpress-prod-01 sshd[1453]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:12:35 wordpress-prod-01 sshd[2974]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 02:13:07 wordpress-prod-01 sshd[8686]: Accepted publickey for devops from 10.10.169.237 port 54304 ssh2: RSA SHA256:1a8419fe
+Aug  9 02:13:09 wordpress-prod-01 sshd[6706]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug  9 02:13:47 wordpress-prod-01 sshd[3675]: Accepted publickey for root from 10.10.169.126 port 48005 ssh2: RSA SHA256:79c0e136
+Aug  9 02:14:05 wordpress-prod-01 sshd[8862]: Accepted publickey for svc-backup from 10.10.169.238 port 44445 ssh2: RSA SHA256:349ed798
+Aug  9 02:14:23 wordpress-prod-01 sshd[8962]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  9 02:15:08 wordpress-prod-01 sshd[5925]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug  9 02:15:27 wordpress-prod-01 sshd[5513]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:15:45 wordpress-prod-01 sshd[2621]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug  9 02:16:23 wordpress-prod-01 sshd[2588]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  9 02:17:02 wordpress-prod-01 sshd[2628]: Accepted publickey for devops from 10.10.169.40 port 50594 ssh2: RSA SHA256:0629ac96
+Aug  9 02:17:14 wordpress-prod-01 sshd[7633]: Accepted publickey for svc-backup from 10.10.169.228 port 48821 ssh2: RSA SHA256:6aa865a2
+Aug  9 02:17:31 wordpress-prod-01 sshd[2259]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  9 02:17:57 wordpress-prod-01 sshd[7988]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 02:18:10 wordpress-prod-01 sshd[8169]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug  9 02:18:28 wordpress-prod-01 sshd[8136]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:18:49 wordpress-prod-01 sshd[3081]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug  9 02:19:30 wordpress-prod-01 sshd[7396]: Accepted publickey for svc-backup from 10.10.169.54 port 64536 ssh2: RSA SHA256:4d7038d5
+Aug  9 02:19:42 wordpress-prod-01 sshd[1281]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:19:53 wordpress-prod-01 sshd[5851]: Received disconnect from 10.10.169.139 port 43995:11: disconnected by user
+Aug  9 02:20:26 wordpress-prod-01 sshd[1011]: Received disconnect from 10.10.169.181 port 57913:11: disconnected by user
+Aug  9 02:20:42 wordpress-prod-01 sshd[2223]: Received disconnect from 10.10.169.105 port 40821:11: disconnected by user
+Aug  9 02:20:45 wordpress-prod-01 sshd[1683]: Accepted publickey for jenkins from 10.10.169.166 port 43399 ssh2: RSA SHA256:7d72a2a3
+Aug  9 02:20:56 wordpress-prod-01 sshd[3933]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  9 02:20:59 wordpress-prod-01 sshd[5500]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:21:38 wordpress-prod-01 sshd[5087]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:22:12 wordpress-prod-01 sshd[1450]: Accepted publickey for postgres from 10.10.169.192 port 55227 ssh2: RSA SHA256:35a3519b
+Aug  9 02:22:23 wordpress-prod-01 sshd[3654]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:23:05 wordpress-prod-01 sshd[8171]: Received disconnect from 10.10.169.81 port 44237:11: disconnected by user
+Aug  9 02:23:48 wordpress-prod-01 sshd[8591]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug  9 02:24:27 wordpress-prod-01 sshd[1511]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug  9 02:25:04 wordpress-prod-01 sshd[8826]: Received disconnect from 10.10.169.116 port 54323:11: disconnected by user
+Aug  9 02:25:12 wordpress-prod-01 sshd[8103]: Accepted publickey for webadmin from 10.10.169.41 port 42142 ssh2: RSA SHA256:420efa59
+Aug  9 02:25:15 wordpress-prod-01 sshd[6792]: Accepted publickey for postgres from 10.10.169.196 port 48237 ssh2: RSA SHA256:5e174d32
+Aug  9 02:25:55 wordpress-prod-01 sshd[6779]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 02:26:23 wordpress-prod-01 sshd[6802]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug  9 02:26:45 wordpress-prod-01 sshd[6927]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:27:18 wordpress-prod-01 sshd[3391]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  9 02:27:37 wordpress-prod-01 sshd[1044]: Accepted publickey for devops from 10.10.169.183 port 44547 ssh2: RSA SHA256:777c9c6f
+Aug  9 02:28:19 wordpress-prod-01 sshd[3276]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  9 02:28:48 wordpress-prod-01 sshd[8042]: Accepted publickey for postgres from 10.10.169.189 port 41853 ssh2: RSA SHA256:0afef0b2
+Aug  9 02:28:57 wordpress-prod-01 sshd[7830]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:29:22 wordpress-prod-01 sshd[2975]: Accepted publickey for devops from 10.10.169.104 port 54757 ssh2: RSA SHA256:57e9e2d6
+Aug  9 02:29:50 wordpress-prod-01 sshd[7745]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:30:09 wordpress-prod-01 sshd[3622]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 02:30:51 wordpress-prod-01 sshd[5522]: Received disconnect from 10.10.169.228 port 62821:11: disconnected by user
+Aug  9 02:31:22 wordpress-prod-01 sshd[2931]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:31:47 wordpress-prod-01 sshd[2658]: Received disconnect from 10.10.169.166 port 59871:11: disconnected by user
+Aug  9 02:31:51 wordpress-prod-01 sshd[7030]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:32:13 wordpress-prod-01 sshd[7252]: Accepted publickey for devops from 10.10.169.20 port 44389 ssh2: RSA SHA256:4e4d245c
+Aug  9 02:32:31 wordpress-prod-01 sshd[6068]: Accepted publickey for postgres from 10.10.169.114 port 47642 ssh2: RSA SHA256:3678c733
+Aug  9 02:32:59 wordpress-prod-01 sshd[8868]: Accepted publickey for webadmin from 10.10.169.236 port 64001 ssh2: RSA SHA256:606d2737
+Aug  9 02:33:09 wordpress-prod-01 sshd[6936]: Accepted publickey for webadmin from 10.10.169.31 port 51808 ssh2: RSA SHA256:559d40db
+Aug  9 02:33:43 wordpress-prod-01 sshd[8808]: Received disconnect from 10.10.169.108 port 53623:11: disconnected by user
+Aug  9 02:34:07 wordpress-prod-01 sshd[5284]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:34:23 wordpress-prod-01 sshd[3425]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug  9 02:35:02 wordpress-prod-01 sshd[8042]: Received disconnect from 10.10.169.201 port 41722:11: disconnected by user
+Aug  9 02:35:29 wordpress-prod-01 sshd[3910]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug  9 02:35:32 wordpress-prod-01 sshd[4824]: Received disconnect from 10.10.169.214 port 63933:11: disconnected by user
+Aug  9 02:35:44 wordpress-prod-01 sshd[7978]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:36:16 wordpress-prod-01 sshd[3039]: Received disconnect from 10.10.169.200 port 41988:11: disconnected by user
+Aug  9 02:36:50 wordpress-prod-01 sshd[7328]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:37:20 wordpress-prod-01 sshd[8900]: Accepted publickey for devops from 10.10.169.88 port 57968 ssh2: RSA SHA256:3403e522
+Aug  9 02:37:49 wordpress-prod-01 sshd[7589]: Accepted publickey for jenkins from 10.10.169.31 port 42903 ssh2: RSA SHA256:7bb0f3a6
+Aug  9 02:38:28 wordpress-prod-01 sshd[1415]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 02:39:08 wordpress-prod-01 sshd[8168]: Accepted publickey for root from 10.10.169.99 port 59947 ssh2: RSA SHA256:373cdff9
+Aug  9 02:39:25 wordpress-prod-01 sshd[8912]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:39:38 wordpress-prod-01 sshd[2159]: Received disconnect from 10.10.169.11 port 52082:11: disconnected by user
+Aug  9 02:39:46 wordpress-prod-01 sshd[2273]: Received disconnect from 10.10.169.117 port 59169:11: disconnected by user
+Aug  9 02:40:18 wordpress-prod-01 sshd[7714]: Received disconnect from 10.10.169.46 port 51096:11: disconnected by user
+Aug  9 02:40:41 wordpress-prod-01 sshd[7978]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:41:12 wordpress-prod-01 sshd[8338]: Accepted publickey for svc-backup from 10.10.169.229 port 58671 ssh2: RSA SHA256:66e6f538
+Aug  9 02:41:33 wordpress-prod-01 sshd[7743]: Received disconnect from 10.10.169.176 port 49207:11: disconnected by user
+Aug  9 02:42:07 wordpress-prod-01 sshd[4506]: Accepted publickey for webadmin from 10.10.169.198 port 43311 ssh2: RSA SHA256:5ea8454b
+Aug  9 02:42:31 wordpress-prod-01 sshd[3600]: Received disconnect from 10.10.169.8 port 41908:11: disconnected by user
+Aug  9 02:42:57 wordpress-prod-01 sshd[5503]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  9 02:43:41 wordpress-prod-01 sshd[7042]: Received disconnect from 10.10.169.72 port 52261:11: disconnected by user
+Aug  9 02:43:46 wordpress-prod-01 sshd[6845]: Received disconnect from 10.10.169.230 port 59567:11: disconnected by user
+Aug  9 02:43:49 wordpress-prod-01 sshd[5350]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  9 02:44:25 wordpress-prod-01 sshd[5109]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  9 02:44:55 wordpress-prod-01 sshd[1148]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  9 02:45:22 wordpress-prod-01 sshd[5770]: Received disconnect from 10.10.169.202 port 40232:11: disconnected by user
+Aug  9 02:45:58 wordpress-prod-01 sshd[8025]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:46:23 wordpress-prod-01 sshd[7642]: Accepted publickey for devops from 10.10.169.76 port 44279 ssh2: RSA SHA256:4a7c4e2e
+Aug  9 02:47:03 wordpress-prod-01 sshd[4698]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug  9 02:47:22 wordpress-prod-01 sshd[6855]: Received disconnect from 10.10.169.241 port 64621:11: disconnected by user
+Aug  9 02:47:42 wordpress-prod-01 sshd[7319]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:47:50 wordpress-prod-01 sshd[7344]: Received disconnect from 10.10.169.47 port 54183:11: disconnected by user
+Aug  9 02:47:57 wordpress-prod-01 sshd[2284]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:48:31 wordpress-prod-01 sshd[8113]: Accepted publickey for svc-backup from 10.10.169.55 port 64407 ssh2: RSA SHA256:385c7987
+Aug  9 02:49:04 wordpress-prod-01 sshd[8562]: Accepted publickey for devops from 10.10.169.104 port 63695 ssh2: RSA SHA256:5834e5f7
+Aug  9 02:49:36 wordpress-prod-01 sshd[7092]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  9 02:50:19 wordpress-prod-01 sshd[7587]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:50:23 wordpress-prod-01 sshd[2764]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:50:55 wordpress-prod-01 sshd[7795]: Accepted publickey for svc-backup from 10.10.169.14 port 64511 ssh2: RSA SHA256:56c98885
+Aug  9 02:51:20 wordpress-prod-01 sshd[3613]: Received disconnect from 10.10.169.62 port 52062:11: disconnected by user
+Aug  9 02:51:35 wordpress-prod-01 sshd[3532]: Received disconnect from 10.10.169.238 port 45550:11: disconnected by user
+Aug  9 02:51:38 wordpress-prod-01 sshd[5235]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug  9 02:51:45 wordpress-prod-01 sshd[8177]: Accepted publickey for webadmin from 10.10.169.146 port 52633 ssh2: RSA SHA256:20c9837c
+Aug  9 02:52:17 wordpress-prod-01 sshd[1636]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug  9 02:53:01 wordpress-prod-01 sshd[6653]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug  9 02:53:34 wordpress-prod-01 sshd[2600]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 02:53:49 wordpress-prod-01 sshd[7762]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug  9 02:54:14 wordpress-prod-01 sshd[6467]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:54:22 wordpress-prod-01 sshd[3642]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:55:04 wordpress-prod-01 sshd[8841]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  9 02:55:28 wordpress-prod-01 sshd[1790]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug  9 02:55:31 wordpress-prod-01 sshd[5617]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:55:59 wordpress-prod-01 sshd[6324]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:56:42 wordpress-prod-01 sshd[6279]: Received disconnect from 10.10.169.171 port 47105:11: disconnected by user
+Aug  9 02:57:05 wordpress-prod-01 sshd[6206]: Accepted publickey for jenkins from 10.10.169.119 port 53600 ssh2: RSA SHA256:0b668602
+Aug  9 02:57:08 wordpress-prod-01 sshd[3489]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  9 02:57:32 wordpress-prod-01 sshd[8174]: Received disconnect from 10.10.169.129 port 55508:11: disconnected by user
+Aug  9 02:57:59 wordpress-prod-01 sshd[2152]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 02:58:19 wordpress-prod-01 sshd[1222]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 02:58:34 wordpress-prod-01 sshd[6028]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug  9 02:59:03 wordpress-prod-01 sshd[4722]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 02:59:14 wordpress-prod-01 sshd[3980]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 02:59:32 wordpress-prod-01 sshd[6210]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:59:56 wordpress-prod-01 sshd[1422]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 02:59:58 wordpress-prod-01 sshd[7747]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 03:00:10 wordpress-prod-01 sshd[4516]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  9 03:00:29 wordpress-prod-01 sshd[1770]: Accepted publickey for webadmin from 10.10.169.4 port 54167 ssh2: RSA SHA256:036fc899
+Aug  9 03:01:14 wordpress-prod-01 sshd[4977]: Received disconnect from 10.10.169.14 port 51835:11: disconnected by user
+Aug  9 03:01:57 wordpress-prod-01 sshd[1322]: Received disconnect from 10.10.169.188 port 48085:11: disconnected by user
+Aug  9 03:02:28 wordpress-prod-01 sshd[5512]: Accepted publickey for devops from 10.10.169.68 port 40424 ssh2: RSA SHA256:7e255c9f
+Aug  9 03:03:12 wordpress-prod-01 sshd[4686]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 03:03:29 wordpress-prod-01 sshd[2274]: Received disconnect from 10.10.169.153 port 47651:11: disconnected by user
+Aug  9 03:03:52 wordpress-prod-01 sshd[5450]: Accepted publickey for svc-backup from 10.10.169.204 port 41342 ssh2: RSA SHA256:451047e0
+Aug  9 03:04:00 wordpress-prod-01 sshd[3566]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 03:04:03 wordpress-prod-01 sshd[3575]: Accepted publickey for root from 10.10.169.135 port 44645 ssh2: RSA SHA256:626af39d
+Aug  9 03:04:34 wordpress-prod-01 sshd[8070]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 03:05:08 wordpress-prod-01 sshd[2402]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  9 03:05:15 wordpress-prod-01 sshd[4883]: Received disconnect from 10.10.169.177 port 52986:11: disconnected by user
+Aug  9 03:05:58 wordpress-prod-01 sshd[6427]: Accepted publickey for jenkins from 10.10.169.184 port 49529 ssh2: RSA SHA256:7d98291e
+Aug  9 03:06:12 wordpress-prod-01 sshd[5239]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 03:06:44 wordpress-prod-01 sshd[8749]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 03:07:25 wordpress-prod-01 sshd[3041]: Received disconnect from 10.10.169.87 port 55368:11: disconnected by user
+Aug  9 03:08:06 wordpress-prod-01 sshd[7969]: Accepted publickey for devops from 10.10.169.51 port 59993 ssh2: RSA SHA256:6db6303d
+Aug  9 03:08:42 wordpress-prod-01 sshd[2065]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug  9 03:08:50 wordpress-prod-01 sshd[7165]: Accepted publickey for devops from 10.10.169.22 port 56970 ssh2: RSA SHA256:4c9cb5e2
+Aug  9 03:09:01 wordpress-prod-01 sshd[6880]: Received disconnect from 10.10.169.145 port 46143:11: disconnected by user
+Aug  9 03:09:39 wordpress-prod-01 sshd[7305]: Accepted publickey for postgres from 10.10.169.97 port 46251 ssh2: RSA SHA256:06072688
+Aug  9 03:09:47 wordpress-prod-01 sshd[2252]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 03:10:16 wordpress-prod-01 sshd[3055]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  9 03:10:30 wordpress-prod-01 sshd[6282]: Accepted publickey for postgres from 10.10.169.239 port 60466 ssh2: RSA SHA256:10ad4901
+Aug  9 03:10:37 wordpress-prod-01 sshd[1265]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  9 03:10:59 wordpress-prod-01 sshd[5445]: Accepted publickey for svc-backup from 10.10.169.227 port 41463 ssh2: RSA SHA256:0e11f7b1
+Aug  9 03:11:00 wordpress-prod-01 sshd[2201]: Received disconnect from 10.10.169.170 port 57401:11: disconnected by user
+Aug  9 03:11:27 wordpress-prod-01 sshd[6452]: Received disconnect from 10.10.169.46 port 40561:11: disconnected by user
+Aug  9 03:11:36 wordpress-prod-01 sshd[6832]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 03:11:38 wordpress-prod-01 sshd[7898]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 03:11:56 wordpress-prod-01 sshd[5430]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 03:12:32 wordpress-prod-01 sshd[4330]: Accepted publickey for root from 10.10.169.99 port 46345 ssh2: RSA SHA256:4aa705a4
+Aug  9 03:12:53 wordpress-prod-01 sshd[7477]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 03:13:33 wordpress-prod-01 sshd[3668]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug  9 03:14:10 wordpress-prod-01 sshd[4249]: Received disconnect from 10.10.169.25 port 57000:11: disconnected by user
+Aug  9 03:14:40 wordpress-prod-01 sshd[1738]: Accepted publickey for svc-backup from 10.10.169.76 port 53994 ssh2: RSA SHA256:383b4bc5
+Aug  9 03:15:03 wordpress-prod-01 sshd[8119]: Accepted publickey for devops from 10.10.169.161 port 59598 ssh2: RSA SHA256:7876dafb
+Aug  9 03:15:31 wordpress-prod-01 sshd[1145]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 03:15:36 wordpress-prod-01 sshd[4590]: Accepted publickey for devops from 10.10.169.230 port 51388 ssh2: RSA SHA256:493fb3f3
+Aug  9 03:16:10 wordpress-prod-01 sshd[7053]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  9 03:16:42 wordpress-prod-01 sshd[7432]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  9 03:16:54 wordpress-prod-01 sshd[4385]: Received disconnect from 10.10.169.198 port 52611:11: disconnected by user
+Aug  9 03:17:02 wordpress-prod-01 sshd[6884]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  9 03:17:26 wordpress-prod-01 sshd[4264]: Received disconnect from 10.10.169.179 port 58436:11: disconnected by user
+Aug  9 03:17:31 wordpress-prod-01 sshd[3002]: Received disconnect from 10.10.169.169 port 49426:11: disconnected by user
+Aug  9 03:18:14 wordpress-prod-01 sshd[6818]: Received disconnect from 10.10.169.133 port 52023:11: disconnected by user
+Aug  9 03:18:49 wordpress-prod-01 sshd[8022]: Accepted publickey for jenkins from 10.10.169.245 port 59946 ssh2: RSA SHA256:137efa9d
+Aug  9 03:19:16 wordpress-prod-01 sshd[8543]: Accepted publickey for postgres from 10.10.169.127 port 63089 ssh2: RSA SHA256:45275f9c
+Aug  9 03:19:29 wordpress-prod-01 sshd[5488]: Received disconnect from 10.10.169.226 port 47866:11: disconnected by user
+Aug  9 03:19:55 wordpress-prod-01 sshd[7313]: Accepted publickey for svc-backup from 10.10.169.29 port 55609 ssh2: RSA SHA256:765bb909
+Aug  9 03:20:03 wordpress-prod-01 sshd[6361]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug  9 03:20:46 wordpress-prod-01 sshd[3289]: Received disconnect from 10.10.169.130 port 62030:11: disconnected by user
+Aug  9 03:20:59 wordpress-prod-01 sshd[2391]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug  9 03:21:25 wordpress-prod-01 sshd[6116]: Received disconnect from 10.10.169.54 port 60582:11: disconnected by user
+Aug  9 03:21:33 wordpress-prod-01 sshd[3109]: Received disconnect from 10.10.169.234 port 47390:11: disconnected by user
+Aug  9 03:21:50 wordpress-prod-01 sshd[5706]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  9 03:22:02 wordpress-prod-01 sshd[4879]: Received disconnect from 10.10.169.50 port 40265:11: disconnected by user
+Aug  9 03:22:20 wordpress-prod-01 sshd[2721]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  9 03:22:51 wordpress-prod-01 sshd[5172]: Received disconnect from 10.10.169.63 port 45637:11: disconnected by user
+Aug  9 03:23:03 wordpress-prod-01 sshd[7028]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  9 03:23:22 wordpress-prod-01 sshd[3668]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  9 03:23:55 wordpress-prod-01 sshd[7547]: Received disconnect from 10.10.169.193 port 59669:11: disconnected by user
+Aug  9 03:24:28 wordpress-prod-01 sshd[7261]: Received disconnect from 10.10.169.170 port 48416:11: disconnected by user
+Aug  9 03:24:37 wordpress-prod-01 sshd[4623]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 03:24:55 wordpress-prod-01 sshd[7386]: Received disconnect from 10.10.169.51 port 57500:11: disconnected by user
+Aug  9 03:24:56 wordpress-prod-01 sshd[4100]: Received disconnect from 10.10.169.163 port 46201:11: disconnected by user
+Aug  9 03:24:57 wordpress-prod-01 sshd[8841]: Accepted publickey for postgres from 10.10.169.37 port 50042 ssh2: RSA SHA256:486eca35
+Aug  9 03:25:23 wordpress-prod-01 sshd[3295]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug  9 03:25:56 wordpress-prod-01 sshd[5420]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  9 03:26:30 wordpress-prod-01 sshd[8315]: Accepted publickey for root from 10.10.169.175 port 58060 ssh2: RSA S

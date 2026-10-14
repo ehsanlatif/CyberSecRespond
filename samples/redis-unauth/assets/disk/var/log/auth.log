@@ -1,0 +1,525 @@
+Aug 11 00:33:52 redis-prod-01 sshd[7055]: Accepted publickey for webadmin from 10.10.115.96 port 53598 ssh2: RSA SHA256:451035ca
+Aug 11 00:33:56 redis-prod-01 sshd[3331]: Accepted publickey for jenkins from 10.10.115.152 port 50482 ssh2: RSA SHA256:553e8056
+Aug 11 00:34:01 redis-prod-01 sshd[2253]: Accepted publickey for devops from 10.10.115.52 port 58888 ssh2: RSA SHA256:519c25c1
+Aug 11 00:34:23 redis-prod-01 sshd[1411]: Received disconnect from 10.10.115.160 port 49348:11: disconnected by user
+Aug 11 00:34:48 redis-prod-01 sshd[8116]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 00:35:08 redis-prod-01 sshd[2878]: Received disconnect from 10.10.115.86 port 48902:11: disconnected by user
+Aug 11 00:35:19 redis-prod-01 sshd[8242]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug 11 00:35:39 redis-prod-01 sshd[7414]: Accepted publickey for webadmin from 10.10.115.99 port 58819 ssh2: RSA SHA256:62bacdbb
+Aug 11 00:36:24 redis-prod-01 sshd[1851]: Received disconnect from 10.10.115.113 port 62250:11: disconnected by user
+Aug 11 00:36:39 redis-prod-01 sshd[7151]: Received disconnect from 10.10.115.180 port 41900:11: disconnected by user
+Aug 11 00:36:43 redis-prod-01 sshd[5022]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 00:36:50 redis-prod-01 sshd[1909]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 00:37:31 redis-prod-01 sshd[8502]: Accepted publickey for postgres from 10.10.115.222 port 42548 ssh2: RSA SHA256:65257c72
+Aug 11 00:38:10 redis-prod-01 sshd[2226]: Accepted publickey for postgres from 10.10.115.220 port 53169 ssh2: RSA SHA256:133a5c23
+Aug 11 00:38:50 redis-prod-01 sshd[3977]: Accepted publickey for jenkins from 10.10.115.34 port 41633 ssh2: RSA SHA256:067019d4
+Aug 11 00:38:51 redis-prod-01 sshd[7373]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug 11 00:39:00 redis-prod-01 sshd[3042]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 00:39:02 redis-prod-01 sshd[7806]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 11 00:39:20 redis-prod-01 sshd[5282]: Received disconnect from 10.10.115.66 port 61715:11: disconnected by user
+Aug 11 00:39:30 redis-prod-01 sshd[1266]: Received disconnect from 10.10.115.19 port 56791:11: disconnected by user
+Aug 11 00:40:02 redis-prod-01 sshd[2962]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 00:40:37 redis-prod-01 sshd[5775]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 11 00:40:38 redis-prod-01 sshd[4372]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 00:40:41 redis-prod-01 sshd[4984]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 00:41:03 redis-prod-01 sshd[8254]: Received disconnect from 10.10.115.152 port 58026:11: disconnected by user
+Aug 11 00:41:40 redis-prod-01 sshd[3529]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 11 00:42:11 redis-prod-01 sshd[6827]: Received disconnect from 10.10.115.89 port 45819:11: disconnected by user
+Aug 11 00:42:42 redis-prod-01 sshd[5921]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 11 00:42:45 redis-prod-01 sshd[4554]: Accepted publickey for svc-backup from 10.10.115.200 port 45981 ssh2: RSA SHA256:0be306a6
+Aug 11 00:43:07 redis-prod-01 sshd[8113]: Received disconnect from 10.10.115.68 port 54778:11: disconnected by user
+Aug 11 00:43:45 redis-prod-01 sshd[4662]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 00:44:24 redis-prod-01 sshd[5605]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug 11 00:44:33 redis-prod-01 sshd[2240]: Received disconnect from 10.10.115.192 port 42662:11: disconnected by user
+Aug 11 00:45:07 redis-prod-01 sshd[2166]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 11 00:45:16 redis-prod-01 sshd[7725]: Received disconnect from 10.10.115.117 port 41342:11: disconnected by user
+Aug 11 00:45:33 redis-prod-01 sshd[2297]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 11 00:45:46 redis-prod-01 sshd[3439]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 00:46:25 redis-prod-01 sshd[1099]: Accepted publickey for root from 10.10.115.188 port 58580 ssh2: RSA SHA256:10d4e2aa
+Aug 11 00:46:35 redis-prod-01 sshd[8602]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 00:46:55 redis-prod-01 sshd[6224]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 00:47:22 redis-prod-01 sshd[2469]: Accepted publickey for postgres from 10.10.115.107 port 44508 ssh2: RSA SHA256:04eed201
+Aug 11 00:47:55 redis-prod-01 sshd[7156]: Accepted publickey for webadmin from 10.10.115.140 port 50445 ssh2: RSA SHA256:673ce79a
+Aug 11 00:48:20 redis-prod-01 sshd[6856]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 00:49:03 redis-prod-01 sshd[6682]: Accepted publickey for svc-backup from 10.10.115.250 port 53225 ssh2: RSA SHA256:3d7b0bdd
+Aug 11 00:49:35 redis-prod-01 sshd[4108]: Accepted publickey for root from 10.10.115.232 port 41377 ssh2: RSA SHA256:71adef2e
+Aug 11 00:50:08 redis-prod-01 sshd[5974]: Accepted publickey for root from 10.10.115.192 port 41062 ssh2: RSA SHA256:7ea17af8
+Aug 11 00:50:20 redis-prod-01 sshd[3727]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 00:50:29 redis-prod-01 sshd[8783]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 11 00:50:52 redis-prod-01 sshd[7225]: Received disconnect from 10.10.115.240 port 46155:11: disconnected by user
+Aug 11 00:51:13 redis-prod-01 sshd[8539]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 11 00:51:47 redis-prod-01 sshd[6616]: Received disconnect from 10.10.115.31 port 52988:11: disconnected by user
+Aug 11 00:52:30 redis-prod-01 sshd[3563]: Accepted publickey for postgres from 10.10.115.141 port 51223 ssh2: RSA SHA256:08b0ea6f
+Aug 11 00:53:09 redis-prod-01 sshd[2938]: Received disconnect from 10.10.115.35 port 57287:11: disconnected by user
+Aug 11 00:53:34 redis-prod-01 sshd[4823]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 00:53:48 redis-prod-01 sshd[8076]: Received disconnect from 10.10.115.247 port 64542:11: disconnected by user
+Aug 11 00:54:03 redis-prod-01 sshd[7213]: Accepted publickey for root from 10.10.115.155 port 61554 ssh2: RSA SHA256:2c9a9e78
+Aug 11 00:54:39 redis-prod-01 sshd[8894]: Received disconnect from 10.10.115.17 port 43113:11: disconnected by user
+Aug 11 00:54:54 redis-prod-01 sshd[4900]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 11 00:55:12 redis-prod-01 sshd[2657]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 11 00:55:41 redis-prod-01 sshd[5557]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug 11 00:55:56 redis-prod-01 sshd[2713]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 00:56:21 redis-prod-01 sshd[6839]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 11 00:56:22 redis-prod-01 sshd[2657]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 00:56:33 redis-prod-01 sshd[1253]: Received disconnect from 10.10.115.126 port 63156:11: disconnected by user
+Aug 11 00:56:59 redis-prod-01 sshd[6389]: Accepted publickey for devops from 10.10.115.55 port 53780 ssh2: RSA SHA256:752e83f0
+Aug 11 00:57:20 redis-prod-01 sshd[8516]: Received disconnect from 10.10.115.101 port 43812:11: disconnected by user
+Aug 11 00:58:05 redis-prod-01 sshd[3569]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 00:58:09 redis-prod-01 sshd[4437]: Accepted publickey for root from 10.10.115.191 port 46853 ssh2: RSA SHA256:509a327e
+Aug 11 00:58:54 redis-prod-01 sshd[8097]: Received disconnect from 10.10.115.239 port 64029:11: disconnected by user
+Aug 11 00:59:36 redis-prod-01 sshd[8382]: Received disconnect from 10.10.115.101 port 44820:11: disconnected by user
+Aug 11 01:00:03 redis-prod-01 sshd[4066]: Received disconnect from 10.10.115.146 port 45780:11: disconnected by user
+Aug 11 01:00:30 redis-prod-01 sshd[2810]: Received disconnect from 10.10.115.157 port 41428:11: disconnected by user
+Aug 11 01:00:31 redis-prod-01 sshd[2045]: Received disconnect from 10.10.115.227 port 55581:11: disconnected by user
+Aug 11 01:00:47 redis-prod-01 sshd[4566]: Accepted publickey for devops from 10.10.115.17 port 41249 ssh2: RSA SHA256:493df685
+Aug 11 01:00:53 redis-prod-01 sshd[4467]: Received disconnect from 10.10.115.32 port 52219:11: disconnected by user
+Aug 11 01:01:38 redis-prod-01 sshd[5800]: Accepted publickey for webadmin from 10.10.115.246 port 52688 ssh2: RSA SHA256:57e0fa7e
+Aug 11 01:02:08 redis-prod-01 sshd[7147]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:02:29 redis-prod-01 sshd[7155]: Accepted publickey for webadmin from 10.10.115.53 port 62434 ssh2: RSA SHA256:39d29bd7
+Aug 11 01:02:36 redis-prod-01 sshd[3540]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 01:02:41 redis-prod-01 sshd[5969]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug 11 01:03:18 redis-prod-01 sshd[8652]: Received disconnect from 10.10.115.128 port 57804:11: disconnected by user
+Aug 11 01:03:54 redis-prod-01 sshd[3004]: Received disconnect from 10.10.115.145 port 62472:11: disconnected by user
+Aug 11 01:03:56 redis-prod-01 sshd[6148]: Received disconnect from 10.10.115.50 port 63313:11: disconnected by user
+Aug 11 01:04:14 redis-prod-01 sshd[6522]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug 11 01:04:42 redis-prod-01 sshd[4984]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:05:27 redis-prod-01 sshd[4659]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 01:06:06 redis-prod-01 sshd[4118]: Received disconnect from 10.10.115.82 port 51014:11: disconnected by user
+Aug 11 01:06:10 redis-prod-01 sshd[2992]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug 11 01:06:31 redis-prod-01 sshd[8292]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 11 01:07:02 redis-prod-01 sshd[4333]: Received disconnect from 10.10.115.94 port 53679:11: disconnected by user
+Aug 11 01:07:12 redis-prod-01 sshd[1394]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 11 01:07:38 redis-prod-01 sshd[7987]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:07:50 redis-prod-01 sshd[1530]: Accepted publickey for webadmin from 10.10.115.106 port 62499 ssh2: RSA SHA256:43869b35
+Aug 11 01:08:28 redis-prod-01 sshd[4821]: Received disconnect from 10.10.115.140 port 52343:11: disconnected by user
+Aug 11 01:08:54 redis-prod-01 sshd[1084]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 01:09:09 redis-prod-01 sshd[8180]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 11 01:09:32 redis-prod-01 sshd[1711]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 01:09:50 redis-prod-01 sshd[3604]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 01:10:18 redis-prod-01 sshd[7619]: Received disconnect from 10.10.115.52 port 62231:11: disconnected by user
+Aug 11 01:11:03 redis-prod-01 sshd[8880]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:11:33 redis-prod-01 sshd[5775]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug 11 01:11:58 redis-prod-01 sshd[5080]: Received disconnect from 10.10.115.238 port 64658:11: disconnected by user
+Aug 11 01:11:59 redis-prod-01 sshd[3693]: Received disconnect from 10.10.115.97 port 51732:11: disconnected by user
+Aug 11 01:12:34 redis-prod-01 sshd[1137]: Received disconnect from 10.10.115.227 port 56370:11: disconnected by user
+Aug 11 01:13:11 redis-prod-01 sshd[1360]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug 11 01:13:39 redis-prod-01 sshd[3628]: Received disconnect from 10.10.115.242 port 49268:11: disconnected by user
+Aug 11 01:14:14 redis-prod-01 sshd[1414]: Received disconnect from 10.10.115.38 port 58924:11: disconnected by user
+Aug 11 01:14:38 redis-prod-01 sshd[7093]: Received disconnect from 10.10.115.228 port 44212:11: disconnected by user
+Aug 11 01:14:40 redis-prod-01 sshd[7756]: Accepted publickey for root from 10.10.115.75 port 58061 ssh2: RSA SHA256:1679c683
+Aug 11 01:15:09 redis-prod-01 sshd[7111]: Accepted publickey for webadmin from 10.10.115.54 port 44669 ssh2: RSA SHA256:7b914e5b
+Aug 11 01:15:16 redis-prod-01 sshd[2777]: Accepted publickey for webadmin from 10.10.115.26 port 44838 ssh2: RSA SHA256:759e6e99
+Aug 11 01:15:41 redis-prod-01 sshd[7864]: Accepted publickey for root from 10.10.115.154 port 53723 ssh2: RSA SHA256:1c3fb519
+Aug 11 01:15:44 redis-prod-01 sshd[7032]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:16:23 redis-prod-01 sshd[7369]: Received disconnect from 10.10.115.64 port 43095:11: disconnected by user
+Aug 11 01:16:56 redis-prod-01 sshd[4385]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:17:33 redis-prod-01 sshd[4967]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:17:50 redis-prod-01 sshd[3689]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 11 01:18:16 redis-prod-01 sshd[4502]: Accepted publickey for root from 10.10.115.26 port 49494 ssh2: RSA SHA256:0e716bb5
+Aug 11 01:18:39 redis-prod-01 sshd[5778]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:19:15 redis-prod-01 sshd[8300]: Accepted publickey for jenkins from 10.10.115.99 port 45596 ssh2: RSA SHA256:6022456e
+Aug 11 01:19:21 redis-prod-01 sshd[2094]: Accepted publickey for postgres from 10.10.115.194 port 47201 ssh2: RSA SHA256:4892f6cf
+Aug 11 01:19:48 redis-prod-01 sshd[5231]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 01:20:24 redis-prod-01 sshd[7504]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 11 01:21:09 redis-prod-01 sshd[5052]: Received disconnect from 10.10.115.211 port 52137:11: disconnected by user
+Aug 11 01:21:14 redis-prod-01 sshd[4846]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:21:21 redis-prod-01 sshd[1336]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 01:21:26 redis-prod-01 sshd[8268]: Received disconnect from 10.10.115.137 port 58054:11: disconnected by user
+Aug 11 01:21:54 redis-prod-01 sshd[6515]: Received disconnect from 10.10.115.235 port 58591:11: disconnected by user
+Aug 11 01:22:35 redis-prod-01 sshd[7694]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 01:22:48 redis-prod-01 sshd[3806]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 01:22:55 redis-prod-01 sshd[2635]: Accepted publickey for webadmin from 10.10.115.136 port 47968 ssh2: RSA SHA256:1d2c81ba
+Aug 11 01:23:25 redis-prod-01 sshd[1067]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:24:04 redis-prod-01 sshd[7289]: Accepted publickey for root from 10.10.115.84 port 64047 ssh2: RSA SHA256:0c8a8433
+Aug 11 01:24:48 redis-prod-01 sshd[1386]: Accepted publickey for root from 10.10.115.110 port 46826 ssh2: RSA SHA256:69f5d1ca
+Aug 11 01:25:30 redis-prod-01 sshd[2849]: Accepted publickey for jenkins from 10.10.115.247 port 60358 ssh2: RSA SHA256:6f0f6471
+Aug 11 01:25:52 redis-prod-01 sshd[6912]: Accepted publickey for jenkins from 10.10.115.156 port 43489 ssh2: RSA SHA256:5499f21b
+Aug 11 01:26:31 redis-prod-01 sshd[2554]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 01:27:13 redis-prod-01 sshd[7853]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 11 01:27:56 redis-prod-01 sshd[4082]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:28:31 redis-prod-01 sshd[2228]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 01:29:04 redis-prod-01 sshd[5405]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 11 01:29:32 redis-prod-01 sshd[5745]: Accepted publickey for jenkins from 10.10.115.118 port 54510 ssh2: RSA SHA256:65d71b9e
+Aug 11 01:30:11 redis-prod-01 sshd[3429]: Accepted publickey for jenkins from 10.10.115.214 port 46148 ssh2: RSA SHA256:78549967
+Aug 11 01:30:40 redis-prod-01 sshd[5219]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 01:31:03 redis-prod-01 sshd[7104]: Accepted publickey for devops from 10.10.115.181 port 55781 ssh2: RSA SHA256:01d72bef
+Aug 11 01:31:23 redis-prod-01 sshd[7759]: Accepted publickey for jenkins from 10.10.115.186 port 50193 ssh2: RSA SHA256:2ae45927
+Aug 11 01:32:01 redis-prod-01 sshd[3032]: Accepted publickey for root from 10.10.115.5 port 54727 ssh2: RSA SHA256:68f31f44
+Aug 11 01:32:34 redis-prod-01 sshd[3578]: Accepted publickey for root from 10.10.115.57 port 48960 ssh2: RSA SHA256:4775a654
+Aug 11 01:33:02 redis-prod-01 sshd[3583]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 01:33:39 redis-prod-01 sshd[3979]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 11 01:34:15 redis-prod-01 sshd[7666]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 11 01:34:29 redis-prod-01 sshd[8295]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 11 01:34:47 redis-prod-01 sshd[5529]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 01:35:05 redis-prod-01 sshd[6026]: Received disconnect from 10.10.115.195 port 56259:11: disconnected by user
+Aug 11 01:35:42 redis-prod-01 sshd[3513]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 11 01:36:02 redis-prod-01 sshd[4173]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 01:36:03 redis-prod-01 sshd[3689]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 11 01:36:42 redis-prod-01 sshd[5749]: Received disconnect from 10.10.115.181 port 62025:11: disconnected by user
+Aug 11 01:37:00 redis-prod-01 sshd[3559]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 11 01:37:28 redis-prod-01 sshd[3035]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 01:37:32 redis-prod-01 sshd[6209]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:38:14 redis-prod-01 sshd[2433]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 01:38:30 redis-prod-01 sshd[7324]: Received disconnect from 10.10.115.36 port 61057:11: disconnected by user
+Aug 11 01:38:54 redis-prod-01 sshd[4146]: Received disconnect from 10.10.115.189 port 46710:11: disconnected by user
+Aug 11 01:39:33 redis-prod-01 sshd[2869]: Received disconnect from 10.10.115.60 port 45780:11: disconnected by user
+Aug 11 00:53:22 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 62161 ssh2
+Aug 11 00:53:25 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 54541 ssh2
+Aug 11 00:53:27 redis-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.170 port 41064 ssh2
+Aug 11 00:53:31 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 48365 ssh2
+Aug 11 00:53:34 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 42243 ssh2
+Aug 11 00:53:35 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 51556 ssh2
+Aug 11 00:53:36 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 62634 ssh2
+Aug 11 00:53:37 redis-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.170 port 63721 ssh2
+Aug 11 00:53:40 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 54878 ssh2
+Aug 11 00:53:42 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 58963 ssh2
+Aug 11 00:53:46 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 58269 ssh2
+Aug 11 00:53:48 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 47739 ssh2
+Aug 11 00:53:52 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 64119 ssh2
+Aug 11 00:53:54 redis-prod-01 sshd[1201]: Failed password for admin from 198.51.100.170 port 41213 ssh2
+Aug 11 00:53:58 redis-prod-01 sshd[1201]: Failed password for admin from 198.51.100.170 port 55399 ssh2
+Aug 11 00:54:02 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 41155 ssh2
+Aug 11 00:54:03 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 62000 ssh2
+Aug 11 00:54:05 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 46429 ssh2
+Aug 11 00:54:08 redis-prod-01 sshd[1201]: Failed password for admin from 198.51.100.170 port 63768 ssh2
+Aug 11 00:54:09 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 50841 ssh2
+Aug 11 00:54:10 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 60876 ssh2
+Aug 11 00:54:14 redis-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.170 port 61524 ssh2
+Aug 11 00:54:15 redis-prod-01 sshd[1201]: Failed password for test from 198.51.100.170 port 51410 ssh2
+Aug 11 00:54:18 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 52672 ssh2
+Aug 11 00:54:22 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 45744 ssh2
+Aug 11 00:54:25 redis-prod-01 sshd[1201]: Failed password for test from 198.51.100.170 port 44443 ssh2
+Aug 11 00:54:27 redis-prod-01 sshd[1201]: Failed password for admin from 198.51.100.170 port 44290 ssh2
+Aug 11 00:54:31 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 52515 ssh2
+Aug 11 00:54:34 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 58317 ssh2
+Aug 11 00:54:36 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 59287 ssh2
+Aug 11 00:54:39 redis-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.170 port 56886 ssh2
+Aug 11 00:54:42 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 63531 ssh2
+Aug 11 00:54:44 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 44133 ssh2
+Aug 11 00:54:47 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 44284 ssh2
+Aug 11 00:54:48 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 54125 ssh2
+Aug 11 00:54:49 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 41000 ssh2
+Aug 11 00:54:50 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 43116 ssh2
+Aug 11 00:54:51 redis-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.170 port 57150 ssh2
+Aug 11 00:54:53 redis-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.170 port 60432 ssh2
+Aug 11 00:54:55 redis-prod-01 sshd[1201]: Failed password for root from 198.51.100.170 port 45635 ssh2
+Aug 11 00:54:56 redis-prod-01 sshd[1201]: Failed password for admin from 198.51.100.170 port 59366 ssh2
+Aug 11 00:54:59 redis-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.170 port 60713 ssh2
+Aug 11 00:55:02 redis-prod-01 sshd[1201]: Accepted password for root from 198.51.100.170 port 51900 ssh2
+Aug 11 01:39:54 redis-prod-01 sshd[5630]: Received disconnect from 10.10.115.180 port 43440:11: disconnected by user
+Aug 11 01:40:01 redis-prod-01 sshd[7471]: Received disconnect from 10.10.115.160 port 60374:11: disconnected by user
+Aug 11 01:40:43 redis-prod-01 sshd[4914]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:41:15 redis-prod-01 sshd[4694]: Accepted publickey for svc-backup from 10.10.115.25 port 58070 ssh2: RSA SHA256:1e5a37c2
+Aug 11 01:41:24 redis-prod-01 sshd[5714]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 01:41:31 redis-prod-01 sshd[1507]: Received disconnect from 10.10.115.17 port 40255:11: disconnected by user
+Aug 11 01:41:55 redis-prod-01 sshd[3723]: Accepted publickey for webadmin from 10.10.115.177 port 61385 ssh2: RSA SHA256:3e4a8836
+Aug 11 01:42:01 redis-prod-01 sshd[5394]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 01:42:23 redis-prod-01 sshd[6116]: Accepted publickey for devops from 10.10.115.136 port 55728 ssh2: RSA SHA256:1fa619aa
+Aug 11 01:42:32 redis-prod-01 sshd[5579]: Received disconnect from 10.10.115.237 port 59492:11: disconnected by user
+Aug 11 01:43:01 redis-prod-01 sshd[1873]: Received disconnect from 10.10.115.121 port 47377:11: disconnected by user
+Aug 11 01:43:45 redis-prod-01 sshd[2477]: Received disconnect from 10.10.115.242 port 60105:11: disconnected by user
+Aug 11 01:43:59 redis-prod-01 sshd[6457]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 11 01:44:10 redis-prod-01 sshd[3091]: Received disconnect from 10.10.115.127 port 54782:11: disconnected by user
+Aug 11 01:44:13 redis-prod-01 sshd[5068]: Accepted publickey for webadmin from 10.10.115.206 port 40709 ssh2: RSA SHA256:3f004f2d
+Aug 11 01:44:27 redis-prod-01 sshd[2925]: Accepted publickey for svc-backup from 10.10.115.122 port 40720 ssh2: RSA SHA256:18ade6a3
+Aug 11 01:44:54 redis-prod-01 sshd[5518]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 01:45:37 redis-prod-01 sshd[5504]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug 11 01:45:40 redis-prod-01 sshd[6324]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 01:46:17 redis-prod-01 sshd[4964]: Accepted publickey for webadmin from 10.10.115.17 port 46900 ssh2: RSA SHA256:0afda3ac
+Aug 11 01:46:20 redis-prod-01 sshd[4107]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 11 01:46:54 redis-prod-01 sshd[3826]: Received disconnect from 10.10.115.141 port 41440:11: disconnected by user
+Aug 11 01:47:09 redis-prod-01 sshd[8131]: Received disconnect from 10.10.115.187 port 56439:11: disconnected by user
+Aug 11 01:47:23 redis-prod-01 sshd[5549]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 11 01:47:36 redis-prod-01 sshd[6131]: Accepted publickey for postgres from 10.10.115.238 port 45395 ssh2: RSA SHA256:44481ded
+Aug 11 01:47:39 redis-prod-01 sshd[2600]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 01:48:08 redis-prod-01 sshd[7210]: Accepted publickey for jenkins from 10.10.115.45 port 51140 ssh2: RSA SHA256:5a197cea
+Aug 11 01:48:23 redis-prod-01 sshd[1141]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:48:49 redis-prod-01 sshd[5523]: Accepted publickey for root from 10.10.115.233 port 53467 ssh2: RSA SHA256:26183d13
+Aug 11 01:48:52 redis-prod-01 sshd[8154]: Accepted publickey for postgres from 10.10.115.145 port 48126 ssh2: RSA SHA256:721fc17a
+Aug 11 01:49:15 redis-prod-01 sshd[4844]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:49:51 redis-prod-01 sshd[2741]: Accepted publickey for svc-backup from 10.10.115.190 port 51411 ssh2: RSA SHA256:5fbeeef5
+Aug 11 01:50:09 redis-prod-01 sshd[6632]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 11 01:50:33 redis-prod-01 sshd[7031]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 01:50:36 redis-prod-01 sshd[5607]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 01:50:54 redis-prod-01 sshd[2306]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:51:29 redis-prod-01 sshd[5804]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 11 01:51:44 redis-prod-01 sshd[1751]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 11 01:51:51 redis-prod-01 sshd[3821]: Accepted publickey for jenkins from 10.10.115.58 port 45029 ssh2: RSA SHA256:1fb84074
+Aug 11 01:52:03 redis-prod-01 sshd[2299]: Accepted publickey for svc-backup from 10.10.115.239 port 46088 ssh2: RSA SHA256:4d2a7317
+Aug 11 01:52:38 redis-prod-01 sshd[4725]: Accepted publickey for svc-backup from 10.10.115.8 port 44774 ssh2: RSA SHA256:5219f4a8
+Aug 11 01:52:42 redis-prod-01 sshd[8289]: Received disconnect from 10.10.115.189 port 51734:11: disconnected by user
+Aug 11 01:53:23 redis-prod-01 sshd[1931]: Received disconnect from 10.10.115.188 port 44283:11: disconnected by user
+Aug 11 01:53:40 redis-prod-01 sshd[4991]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 01:53:57 redis-prod-01 sshd[8169]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 01:54:41 redis-prod-01 sshd[7328]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 11 01:55:23 redis-prod-01 sshd[1327]: Accepted publickey for svc-backup from 10.10.115.205 port 62885 ssh2: RSA SHA256:425ed59e
+Aug 11 01:55:33 redis-prod-01 sshd[3753]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 01:55:43 redis-prod-01 sshd[1199]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 11 01:56:07 redis-prod-01 sshd[1036]: Received disconnect from 10.10.115.180 port 52581:11: disconnected by user
+Aug 11 01:56:47 redis-prod-01 sshd[2017]: Received disconnect from 10.10.115.135 port 54861:11: disconnected by user
+Aug 11 01:57:24 redis-prod-01 sshd[4366]: Accepted publickey for root from 10.10.115.188 port 57709 ssh2: RSA SHA256:6f660bc4
+Aug 11 01:57:35 redis-prod-01 sshd[4820]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 11 01:58:06 redis-prod-01 sshd[1574]: Accepted publickey for webadmin from 10.10.115.71 port 40790 ssh2: RSA SHA256:6af6f598
+Aug 11 01:58:18 redis-prod-01 sshd[2946]: Received disconnect from 10.10.115.198 port 41706:11: disconnected by user
+Aug 11 01:58:48 redis-prod-01 sshd[5304]: Received disconnect from 10.10.115.102 port 51844:11: disconnected by user
+Aug 11 01:58:55 redis-prod-01 sshd[4778]: Accepted publickey for root from 10.10.115.21 port 41954 ssh2: RSA SHA256:4d3d611f
+Aug 11 01:59:20 redis-prod-01 sshd[4278]: Accepted publickey for postgres from 10.10.115.16 port 41629 ssh2: RSA SHA256:0d2c9906
+Aug 11 02:00:05 redis-prod-01 sshd[4231]: Received disconnect from 10.10.115.250 port 43942:11: disconnected by user
+Aug 11 02:00:38 redis-prod-01 sshd[3754]: Received disconnect from 10.10.115.104 port 56715:11: disconnected by user
+Aug 11 02:00:41 redis-prod-01 sshd[7616]: Received disconnect from 10.10.115.165 port 56640:11: disconnected by user
+Aug 11 03:03:00 redis-prod-01 systemd[1]: --- 15 authentication lines cleared here (T1070.002 log tampering) ---
+Aug 11 02:05:19 redis-prod-01 sshd[4350]: Received disconnect from 10.10.115.115 port 52835:11: disconnected by user
+Aug 11 02:05:23 redis-prod-01 sshd[7354]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 11 02:05:28 redis-prod-01 sshd[1709]: Accepted publickey for svc-backup from 10.10.115.148 port 53764 ssh2: RSA SHA256:02660ed3
+Aug 11 02:05:35 redis-prod-01 sshd[2248]: Received disconnect from 10.10.115.36 port 61349:11: disconnected by user
+Aug 11 02:05:52 redis-prod-01 sshd[6620]: Accepted publickey for svc-backup from 10.10.115.170 port 44072 ssh2: RSA SHA256:47b1345b
+Aug 11 02:06:07 redis-prod-01 sshd[2212]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 11 02:06:30 redis-prod-01 sshd[8405]: Accepted publickey for webadmin from 10.10.115.228 port 46222 ssh2: RSA SHA256:6242b0c7
+Aug 11 02:07:11 redis-prod-01 sshd[2983]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 11 02:07:22 redis-prod-01 sshd[7625]: Accepted publickey for root from 10.10.115.26 port 43572 ssh2: RSA SHA256:0ac689b0
+Aug 11 02:07:50 redis-prod-01 sshd[1253]: pam_unix(sudo:session): session opened for user root by devops(uid=1003)
+Aug 11 02:08:32 redis-prod-01 sshd[8250]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 02:08:37 redis-prod-01 sshd[6596]: Received disconnect from 10.10.115.208 port 58603:11: disconnected by user
+Aug 11 02:09:18 redis-prod-01 sshd[8023]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 02:10:01 redis-prod-01 sshd[1305]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 11 02:10:20 redis-prod-01 sshd[1015]: Accepted publickey for jenkins from 10.10.115.91 port 56865 ssh2: RSA SHA256:5484014a
+Aug 11 02:10:39 redis-prod-01 sshd[3993]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 11 02:11:10 redis-prod-01 sshd[8184]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 11 02:11:45 redis-prod-01 sshd[8257]: Received disconnect from 10.10.115.218 port 44805:11: disconnected by user
+Aug 11 02:12:07 redis-prod-01 sshd[2899]: Accepted publickey for svc-backup from 10.10.115.97 port 52378 ssh2: RSA SHA256:541cf523
+Aug 11 02:12:47 redis-prod-01 sshd[4457]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug 11 02:13:13 redis-prod-01 sshd[2532]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:13:40 redis-prod-01 sshd[2155]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:13:41 redis-prod-01 sshd[3973]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 11 02:13:55 redis-prod-01 sshd[2143]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 11 02:13:56 redis-prod-01 sshd[8468]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:14:19 redis-prod-01 sshd[6388]: Received disconnect from 10.10.115.100 port 44018:11: disconnected by user
+Aug 11 02:14:52 redis-prod-01 sshd[5149]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 02:15:14 redis-prod-01 sshd[5085]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 11 02:15:26 redis-prod-01 sshd[5052]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 11 02:15:48 redis-prod-01 sshd[8499]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 02:16:31 redis-prod-01 sshd[3941]: Received disconnect from 10.10.115.160 port 61830:11: disconnected by user
+Aug 11 02:16:39 redis-prod-01 sshd[3752]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:17:02 redis-prod-01 sshd[1237]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:17:46 redis-prod-01 sshd[2007]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:18:25 redis-prod-01 sshd[4928]: Received disconnect from 10.10.115.152 port 63955:11: disconnected by user
+Aug 11 02:19:10 redis-prod-01 sshd[4877]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 11 02:19:35 redis-prod-01 sshd[8712]: Accepted publickey for webadmin from 10.10.115.122 port 50676 ssh2: RSA SHA256:71151b51
+Aug 11 02:19:45 redis-prod-01 sshd[8908]: Received disconnect from 10.10.115.104 port 44437:11: disconnected by user
+Aug 11 02:19:48 redis-prod-01 sshd[8530]: Accepted publickey for webadmin from 10.10.115.114 port 59141 ssh2: RSA SHA256:031a14a0
+Aug 11 02:19:56 redis-prod-01 sshd[7196]: Accepted publickey for postgres from 10.10.115.180 port 44209 ssh2: RSA SHA256:42175f82
+Aug 11 02:20:26 redis-prod-01 sshd[6599]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 11 02:20:40 redis-prod-01 sshd[2158]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:20:51 redis-prod-01 sshd[1782]: pam_unix(sudo:session): session opened for user root by root(uid=1003)
+Aug 11 02:21:01 redis-prod-01 sshd[6614]: Received disconnect from 10.10.115.250 port 57143:11: disconnected by user
+Aug 11 02:21:39 redis-prod-01 sshd[5798]: Accepted publickey for postgres from 10.10.115.46 port 59751 ssh2: RSA SHA256:6612d3aa
+Aug 11 02:22:07 redis-prod-01 sshd[1006]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 02:22:45 redis-prod-01 sshd[8335]: Received disconnect from 10.10.115.63 port 52288:11: disconnected by user
+Aug 11 02:23:17 redis-prod-01 sshd[3591]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug 11 02:23:58 redis-prod-01 sshd[7549]: Received disconnect from 10.10.115.26 port 56659:11: disconnected by user
+Aug 11 02:24:15 redis-prod-01 sshd[3770]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:24:46 redis-prod-01 sshd[6066]: Accepted publickey for postgres from 10.10.115.2 port 46821 ssh2: RSA SHA256:39bf3664
+Aug 11 02:24:48 redis-prod-01 sshd[5085]: Received disconnect from 10.10.115.244 port 64800:11: disconnected by user
+Aug 11 02:25:28 redis-prod-01 sshd[4803]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 02:26:02 redis-prod-01 sshd[2484]: Accepted publickey for devops from 10.10.115.123 port 51197 ssh2: RSA SHA256:781d71a3
+Aug 11 02:26:24 redis-prod-01 sshd[3714]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:26:55 redis-prod-01 sshd[3650]: Accepted publickey for jenkins from 10.10.115.245 port 57720 ssh2: RSA SHA256:1cd3cd91
+Aug 11 02:27:18 redis-prod-01 sshd[4885]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:27:37 redis-prod-01 sshd[5137]: Accepted publickey for webadmin from 10.10.115.220 port 54180 ssh2: RSA SHA256:354ee157
+Aug 11 02:27:38 redis-prod-01 sshd[6227]: Received disconnect from 10.10.115.203 port 46979:11: disconnected by user
+Aug 11 02:27:58 redis-prod-01 sshd[3502]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 02:28:40 redis-prod-01 sshd[5136]: Received disconnect from 10.10.115.36 port 46199:11: disconnected by user
+Aug 11 02:28:44 redis-prod-01 sshd[3139]: Accepted publickey for webadmin from 10.10.115.53 port 41931 ssh2: RSA SHA256:45169aee
+Aug 11 02:29:06 redis-prod-01 sshd[1195]: Accepted publickey for jenkins from 10.10.115.176 port 43530 ssh2: RSA SHA256:039fb4c8
+Aug 11 02:29:43 redis-prod-01 sshd[6724]: Received disconnect from 10.10.115.86 port 57379:11: disconnected by user
+Aug 11 02:30:24 redis-prod-01 sshd[6277]: Accepted publickey for jenkins from 10.10.115.39 port 52899 ssh2: RSA SHA256:231a0cc0
+Aug 11 02:30:47 redis-prod-01 sshd[2886]: Accepted publickey for root from 10.10.115.201 port 51510 ssh2: RSA SHA256:55bcecda
+Aug 11 02:30:49 redis-prod-01 sshd[8857]: Received disconnect from 10.10.115.14 port 57498:11: disconnected by user
+Aug 11 02:30:57 redis-prod-01 sshd[8926]: Accepted publickey for jenkins from 10.10.115.218 port 41495 ssh2: RSA SHA256:7f29f838
+Aug 11 02:31:20 redis-prod-01 sshd[2108]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 02:31:43 redis-prod-01 sshd[5635]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 02:31:52 redis-prod-01 sshd[5942]: Received disconnect from 10.10.115.148 port 42818:11: disconnected by user
+Aug 11 02:32:08 redis-prod-01 sshd[3780]: Received disconnect from 10.10.115.105 port 63103:11: disconnected by user
+Aug 11 02:32:21 redis-prod-01 sshd[8460]: Received disconnect from 10.10.115.29 port 43044:11: disconnected by user
+Aug 11 02:32:27 redis-prod-01 sshd[7641]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug 11 02:32:57 redis-prod-01 sshd[5547]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:33:02 redis-prod-01 sshd[6366]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:33:21 redis-prod-01 sshd[3802]: Accepted publickey for postgres from 10.10.115.169 port 62095 ssh2: RSA SHA256:04218d6c
+Aug 11 02:33:45 redis-prod-01 sshd[7798]: Received disconnect from 10.10.115.214 port 59286:11: disconnected by user
+Aug 11 02:33:50 redis-prod-01 sshd[6921]: Received disconnect from 10.10.115.111 port 58793:11: disconnected by user
+Aug 11 02:34:23 redis-prod-01 sshd[8811]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:34:51 redis-prod-01 sshd[2244]: Received disconnect from 10.10.115.53 port 45507:11: disconnected by user
+Aug 11 02:35:22 redis-prod-01 sshd[3659]: Received disconnect from 10.10.115.96 port 55856:11: disconnected by user
+Aug 11 02:35:40 redis-prod-01 sshd[8797]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 02:36:06 redis-prod-01 sshd[3061]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 02:36:30 redis-prod-01 sshd[2715]: Received disconnect from 10.10.115.168 port 40499:11: disconnected by user
+Aug 11 02:37:12 redis-prod-01 sshd[1260]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 11 02:37:26 redis-prod-01 sshd[6696]: Received disconnect from 10.10.115.32 port 46015:11: disconnected by user
+Aug 11 02:38:04 redis-prod-01 sshd[3520]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 11 02:38:12 redis-prod-01 sshd[4302]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 11 02:38:49 redis-prod-01 sshd[6756]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 11 02:39:27 redis-prod-01 sshd[5587]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 11 02:40:06 redis-prod-01 sshd[5850]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 11 02:40:51 redis-prod-01 sshd[7047]: Accepted publickey for postgres from 10.10.115.188 port 45726 ssh2: RSA SHA256:3463c21b
+Aug 11 02:41:29 redis-prod-01 sshd[2347]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:41:34 redis-prod-01 sshd[7096]: Received disconnect from 10.10.115.30 port 56522:11: disconnected by user
+Aug 11 02:42:14 redis-prod-01 sshd[6540]: Received disconnect from 10.10.115.92 port 62815:11: disconnected by user
+Aug 11 02:42:58 redis-prod-01 sshd[5960]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 11 02:43:12 redis-prod-01 sshd[4226]: Received disconnect from 10.10.115.104 port 62217:11: disconnected by user
+Aug 11 02:43:40 redis-prod-01 sshd[1338]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 02:43:43 redis-prod-01 sshd[4886]: Received disconnect from 10.10.115.203 port 63702:11: disconnected by user
+Aug 11 02:44:09 redis-prod-01 sshd[7849]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 11 02:44:40 redis-prod-01 sshd[8639]: Accepted publickey for devops from 10.10.115.101 port 61867 ssh2: RSA SHA256:1579f462
+Aug 11 02:44:49 redis-prod-01 sshd[7063]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 02:44:54 redis-prod-01 sshd[4153]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug 11 02:45:19 redis-prod-01 sshd[4888]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 11 02:45:46 redis-prod-01 sshd[4424]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 02:45:54 redis-prod-01 sshd[5681]: Received disconnect from 10.10.115.157 port 48535:11: disconnected by user
+Aug 11 02:46:00 redis-prod-01 sshd[2098]: Received disconnect from 10.10.115.29 port 63202:11: disconnected by user
+Aug 11 02:46:15 redis-prod-01 sshd[6692]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug 11 02:46:44 redis-prod-01 sshd[3051]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 11 02:47:27 redis-prod-01 sshd[2890]: Received disconnect from 10.10.115.9 port 41958:11: disconnected by user
+Aug 11 02:48:01 redis-prod-01 sshd[3269]: Accepted publickey for svc-backup from 10.10.115.95 port 60839 ssh2: RSA SHA256:25d3ef5b
+Aug 11 02:48:25 redis-prod-01 sshd[5795]: Accepted publickey for devops from 10.10.115.210 port 52199 ssh2: RSA SHA256:1bcd91b8
+Aug 11 02:48:26 redis-prod-01 sshd[8581]: Accepted publickey for devops from 10.10.115.67 port 44439 ssh2: RSA SHA256:2612f1b6
+Aug 11 02:48:59 redis-prod-01 sshd[5529]: Received disconnect from 10.10.115.215 port 50184:11: disconnected by user
+Aug 11 02:49:23 redis-prod-01 sshd[1721]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug 11 02:49:36 redis-prod-01 sshd[6568]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 02:49:43 redis-prod-01 sshd[2839]: Accepted publickey for postgres from 10.10.115.140 port 63863 ssh2: RSA SHA256:737329ce
+Aug 11 02:50:14 redis-prod-01 sshd[5649]: Accepted publickey for webadmin from 10.10.115.198 port 55726 ssh2: RSA SHA256:48e372ac
+Aug 11 02:50:41 redis-prod-01 sshd[6119]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 02:50:49 redis-prod-01 sshd[5097]: Accepted publickey for root from 10.10.115.175 port 46923 ssh2: RSA SHA256:50deedb7
+Aug 11 02:51:17 redis-prod-01 sshd[2670]: Received disconnect from 10.10.115.120 port 50836:11: disconnected by user
+Aug 11 02:51:33 redis-prod-01 sshd[2558]: Received disconnect from 10.10.115.60 port 41721:11: disconnected by user
+Aug 11 02:52:18 redis-prod-01 sshd[7974]: Received disconnect from 10.10.115.147 port 52140:11: disconnected by user
+Aug 11 02:52:24 redis-prod-01 sshd[3283]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 02:52:53 redis-prod-01 sshd[4062]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 11 02:53:02 redis-prod-01 sshd[7583]: Received disconnect from 10.10.115.141 port 53539:11: disconnected by user
+Aug 11 02:53:28 redis-prod-01 sshd[4314]: Received disconnect from 10.10.115.94 port 40841:11: disconnected by user
+Aug 11 02:54:00 redis-prod-01 sshd[6606]: Accepted publickey for svc-backup from 10.10.115.191 port 43171 ssh2: RSA SHA256:001eabd2
+Aug 11 02:54:39 redis-prod-01 sshd[1001]: Accepted publickey for svc-backup from 10.10.115.182 port 58674 ssh2: RSA SHA256:5870594e
+Aug 11 02:54:41 redis-prod-01 sshd[8766]: Accepted publickey for root from 10.10.115.168 port 59468 ssh2: RSA SHA256:64d6d552
+Aug 11 02:55:19 redis-prod-01 sshd[1346]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 11 02:55:45 redis-prod-01 sshd[8633]: Received disconnect from 10.10.115.105 port 42078:11: disconnected by user
+Aug 11 02:55:59 redis-prod-01 sshd[2438]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 11 02:56:24 redis-prod-01 sshd[1276]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 11 02:56:36 redis-prod-01 sshd[3815]: Accepted publickey for webadmin from 10.10.115.119 port 52363 ssh2: RSA SHA256:5775aad5
+Aug 11 02:56:39 redis-prod-01 sshd[5423]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 02:56:41 redis-prod-01 sshd[1786]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 11 02:56:55 redis-prod-01 sshd[4842]: Received disconnect from 10.10.115.128 port 50506:11: disconnected by user
+Aug 11 02:57:36 redis-prod-01 sshd[2821]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug 11 02:58:16 redis-prod-01 sshd[7552]: Accepted publickey for svc-backup from 10.10.115.25 port 48402 ssh2: RSA SHA256:3b0c5929
+Aug 11 02:58:27 redis-prod-01 sshd[4154]: Accepted publickey for jenkins from 10.10.115.172 port 57078 ssh2: RSA SHA256:4b93022f
+Aug 11 02:58:47 redis-prod-01 sshd[8299]: Accepted publickey for svc-backup from 10.10.115.150 port 40375 ssh2: RSA SHA256:56e93a74
+Aug 11 02:59:02 redis-prod-01 sshd[6769]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 02:59:10 redis-prod-01 sshd[3861]: Accepted publickey for webadmin from 10.10.115.20 port 49224 ssh2: RSA SHA256:03804d9e
+Aug 11 02:59:38 redis-prod-01 sshd[6741]: Accepted publickey for jenkins from 10.10.115.94 port 46681 ssh2: RSA SHA256:5ef3d2c6
+Aug 11 02:59:47 redis-prod-01 sshd[1989]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug 11 02:59:48 redis-prod-01 sshd[7260]: Accepted publickey for webadmin from 10.10.115.163 port 48510 ssh2: RSA SHA256:46d05819
+Aug 11 03:00:28 redis-prod-01 sshd[5499]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:00:55 redis-prod-01 sshd[1422]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:01:26 redis-prod-01 sshd[2625]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 03:01:52 redis-prod-01 sshd[7962]: Received disconnect from 10.10.115.21 port 42349:11: disconnected by user
+Aug 11 03:02:01 redis-prod-01 sshd[1953]: Received disconnect from 10.10.115.105 port 63388:11: disconnected by user
+Aug 11 03:02:24 redis-prod-01 sshd[3013]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 03:02:31 redis-prod-01 sshd[4544]: Accepted publickey for svc-backup from 10.10.115.230 port 46377 ssh2: RSA SHA256:08524ae5
+Aug 11 03:02:47 redis-prod-01 sshd[3886]: Accepted publickey for webadmin from 10.10.115.18 port 47236 ssh2: RSA SHA256:12551158
+Aug 11 03:03:08 redis-prod-01 sshd[2439]: Received disconnect from 10.10.115.78 port 51039:11: disconnected by user
+Aug 11 03:03:36 redis-prod-01 sshd[8640]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 03:04:19 redis-prod-01 sshd[4568]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 03:05:00 redis-prod-01 sshd[4110]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 03:05:09 redis-prod-01 sshd[5971]: Accepted publickey for postgres from 10.10.115.98 port 51672 ssh2: RSA SHA256:27d65ac5
+Aug 11 03:05:52 redis-prod-01 sshd[3725]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 03:06:22 redis-prod-01 sshd[7123]: Accepted publickey for root from 10.10.115.16 port 48428 ssh2: RSA SHA256:54e58efd
+Aug 11 03:06:40 redis-prod-01 sshd[5025]: Accepted publickey for postgres from 10.10.115.155 port 43661 ssh2: RSA SHA256:32908eed
+Aug 11 03:07:12 redis-prod-01 sshd[7188]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug 11 03:07:36 redis-prod-01 sshd[1720]: Received disconnect from 10.10.115.93 port 51132:11: disconnected by user
+Aug 11 03:07:59 redis-prod-01 sshd[1877]: Received disconnect from 10.10.115.73 port 63038:11: disconnected by user
+Aug 11 03:08:14 redis-prod-01 sshd[5942]: Accepted publickey for root from 10.10.115.112 port 58285 ssh2: RSA SHA256:6288828b
+Aug 11 03:08:28 redis-prod-01 sshd[6436]: Received disconnect from 10.10.115.176 port 57520:11: disconnected by user
+Aug 11 03:09:10 redis-prod-01 sshd[2235]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:09:37 redis-prod-01 sshd[3516]: Received disconnect from 10.10.115.62 port 44163:11: disconnected by user
+Aug 11 03:09:59 redis-prod-01 sshd[6268]: Received disconnect from 10.10.115.18 port 46341:11: disconnected by user
+Aug 11 03:10:20 redis-prod-01 sshd[7353]: Accepted publickey for svc-backup from 10.10.115.102 port 53672 ssh2: RSA SHA256:0c4083c4
+Aug 11 03:10:54 redis-prod-01 sshd[6856]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 03:11:28 redis-prod-01 sshd[5676]: Accepted publickey for jenkins from 10.10.115.187 port 52060 ssh2: RSA SHA256:3d93e532
+Aug 11 03:11:29 redis-prod-01 sshd[1225]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 03:11:56 redis-prod-01 sshd[1816]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 03:12:09 redis-prod-01 sshd[8467]: Accepted publickey for svc-backup from 10.10.115.124 port 53472 ssh2: RSA SHA256:1b1800f1
+Aug 11 03:12:13 redis-prod-01 sshd[2382]: Accepted publickey for devops from 10.10.115.244 port 58157 ssh2: RSA SHA256:25abf295
+Aug 11 03:12:48 redis-prod-01 sshd[8645]: Received disconnect from 10.10.115.188 port 62009:11: disconnected by user
+Aug 11 03:13:10 redis-prod-01 sshd[4082]: Accepted publickey for devops from 10.10.115.17 port 61117 ssh2: RSA SHA256:48e5053e
+Aug 11 03:13:37 redis-prod-01 sshd[6849]: Accepted publickey for svc-backup from 10.10.115.56 port 44394 ssh2: RSA SHA256:19b99d1d
+Aug 11 03:14:06 redis-prod-01 sshd[7628]: Received disconnect from 10.10.115.218 port 42490:11: disconnected by user
+Aug 11 03:14:16 redis-prod-01 sshd[2572]: Received disconnect from 10.10.115.72 port 50575:11: disconnected by user
+Aug 11 03:14:25 redis-prod-01 sshd[2047]: Accepted publickey for webadmin from 10.10.115.238 port 48013 ssh2: RSA SHA256:2c4fac4a
+Aug 11 03:14:34 redis-prod-01 sshd[7813]: Accepted publickey for postgres from 10.10.115.76 port 41176 ssh2: RSA SHA256:583f0943
+Aug 11 03:15:09 redis-prod-01 sshd[3839]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 11 03:15:17 redis-prod-01 sshd[5767]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug 11 03:15:47 redis-prod-01 sshd[8126]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 03:16:14 redis-prod-01 sshd[8472]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 03:16:22 redis-prod-01 sshd[6256]: Accepted publickey for jenkins from 10.10.115.177 port 57660 ssh2: RSA SHA256:785868ee
+Aug 11 03:16:41 redis-prod-01 sshd[1241]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:17:23 redis-prod-01 sshd[4666]: Received disconnect from 10.10.115.123 port 64653:11: disconnected by user
+Aug 11 03:17:35 redis-prod-01 sshd[6100]: Received disconnect from 10.10.115.112 port 41279:11: disconnected by user
+Aug 11 03:17:42 redis-prod-01 sshd[8818]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1002)
+Aug 11 03:17:49 redis-prod-01 sshd[6784]: Accepted publickey for jenkins from 10.10.115.124 port 60663 ssh2: RSA SHA256:434b14a4
+Aug 11 03:18:05 redis-prod-01 sshd[7789]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 11 03:18:08 redis-prod-01 sshd[7282]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 11 03:18:10 redis-prod-01 sshd[3318]: Accepted publickey for postgres from 10.10.115.93 port 43855 ssh2: RSA SHA256:4d8c55ec
+Aug 11 03:18:39 redis-prod-01 sshd[1164]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 11 03:19:02 redis-prod-01 sshd[8332]: Accepted publickey for root from 10.10.115.135 port 62008 ssh2: RSA SHA256:18bbc442
+Aug 11 03:19:16 redis-prod-01 sshd[2053]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 03:19:42 redis-prod-01 sshd[2916]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug 11 03:20:26 redis-prod-01 sshd[7439]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 03:21:08 redis-prod-01 sshd[6453]: Received disconnect from 10.10.115.33 port 54017:11: disconnected by user
+Aug 11 03:21:32 redis-prod-01 sshd[1317]: Received disconnect from 10.10.115.196 port 40766:11: disconnected by user
+Aug 11 03:22:00 redis-prod-01 sshd[3035]: Accepted publickey for devops from 10.10.115.62 port 55373 ssh2: RSA SHA256:7474d7f6
+Aug 11 03:22:25 redis-prod-01 sshd[3920]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 03:22:54 redis-prod-01 sshd[2815]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 03:23:22 redis-prod-01 sshd[7307]: Received disconnect from 10.10.115.201 port 54806:11: disconnected by user
+Aug 11 03:23:54 redis-prod-01 sshd[7082]: Received disconnect from 10.10.115.200 port 63382:11: disconnected by user
+Aug 11 03:24:08 redis-prod-01 sshd[2419]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:24:18 redis-prod-01 sshd[8617]: Received disconnect from 10.10.115.111 port 47149:11: disconnected by user
+Aug 11 03:24:51 redis-prod-01 sshd[8550]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug 11 03:25:17 redis-prod-01 sshd[2725]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 03:25:36 redis-prod-01 sshd[2542]: Accepted publickey for root from 10.10.115.203 port 63526 ssh2: RSA SHA256:47e53508
+Aug 11 03:25:39 redis-prod-01 sshd[7543]: Accepted publickey for postgres from 10.10.115.70 port 53934 ssh2: RSA SHA256:2c97d293
+Aug 11 03:26:10 redis-prod-01 sshd[7072]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 11 03:26:53 redis-prod-01 sshd[4862]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 03:27:21 redis-prod-01 sshd[8264]: Accepted publickey for root from 10.10.115.71 port 52532 ssh2: RSA SHA256:0558e1ac
+Aug 11 03:27:51 redis-prod-01 sshd[7363]: Accepted publickey for postgres from 10.10.115.52 port 48002 ssh2: RSA SHA256:4524c2cd
+Aug 11 03:28:11 redis-prod-01 sshd[1333]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 11 03:28:25 redis-prod-01 sshd[4036]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug 11 03:29:10 redis-prod-01 sshd[7428]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:29:39 redis-prod-01 sshd[1781]: Accepted publickey for jenkins from 10.10.115.226 port 64201 ssh2: RSA SHA256:6c1a2c94
+Aug 11 03:30:11 redis-prod-01 sshd[8622]: Accepted publickey for jenkins from 10.10.115.24 port 41108 ssh2: RSA SHA256:7826dbc3
+Aug 11 03:30:18 redis-prod-01 sshd[7853]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 03:30:49 redis-prod-01 sshd[1958]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 03:31:10 redis-prod-01 sshd[1422]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 11 03:31:45 redis-prod-01 sshd[5714]: Received disconnect from 10.10.115.113 port 56803:11: disconnected by user
+Aug 11 03:32:10 redis-prod-01 sshd[4940]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:32:33 redis-prod-01 sshd[6712]: Accepted publickey for webadmin from 10.10.115.168 port 47512 ssh2: RSA SHA256:465aba13
+Aug 11 03:33:03 redis-prod-01 sshd[1113]: Accepted publickey for postgres from 10.10.115.35 port 50851 ssh2: RSA SHA256:6849329e
+Aug 11 03:33:48 redis-prod-01 sshd[1824]: Accepted publickey for jenkins from 10.10.115.113 port 45096 ssh2: RSA SHA256:27622efd
+Aug 11 03:34:10 redis-prod-01 sshd[6761]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug 11 03:34:14 redis-prod-01 sshd[6190]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug 11 03:34:24 redis-prod-01 sshd[3466]: Accepted publickey for svc-backup from 10.10.115.35 port 64018 ssh2: RSA SHA256:7fa39f3f
+Aug 11 03:34:53 redis-prod-01 sshd[4666]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug 11 03:35:30 redis-prod-01 sshd[3154]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 11 03:35:47 redis-prod-01 sshd[4293]: Accepted publickey for svc-backup from 10.10.115.217 port 44328 ssh2: RSA SHA256:3376a921
+Aug 11 03:36:30 redis-prod-01 sshd[4130]: Received disconnect from 10.10.115.128 port 52689:11: disconnected by user
+Aug 11 03:37:08 redis-prod-01 sshd[2949]: Received disconnect from 10.10.115.84 port 44148:11: disconnected by user
+Aug 11 03:37:11 redis-prod-01 sshd[5946]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug 11 03:37:16 redis-prod-01 sshd[8338]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug 11 03:37:40 redis-prod-01 sshd[8180]: pam_unix(sudo:session): session opened for user root by postgres(uid=1001)
+Aug 11 03:38:07 redis-prod-01 sshd[5156]: Received disconnect from 10.10.115.50 port 63010:11: disconnected by user
+Aug 11 03:38:38 redis-prod-01 sshd[6942]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 11 03:38:48 redis-prod-01 sshd[2965]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 03:39:25 redis-prod-01 sshd[6688]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 11 03:39:51 redis-prod-01 sshd[2145]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 11 03:40:20 redis-prod-01 sshd[7961]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug 11 03:40:32 redis-prod-01 sshd[1282]: Accepted publickey for postgres from 10.10.115.196 port 41478 ssh2: RSA SHA256:2ac79b2e
+Aug 11 03:40:45 redis-prod-01 sshd[3230]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug 11 03:40:47 redis-prod-01 sshd[7226]: Accepted publickey for webadmin from 10.10.115.37 port 52404 ssh2: RSA SHA256:085ecc61
+Aug 11 03:41:22 redis-prod-01 sshd[7299]: pam_unix(sudo:session): session opened for user root by de

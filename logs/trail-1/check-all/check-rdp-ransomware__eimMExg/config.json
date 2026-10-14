@@ -1,0 +1,15 @@
+{
+    "task": {
+        "path": "/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/harbor-check-u1mrqhdd/check-rdp-ransomware"
+    },
+    "trial_name": "check-rdp-ransomware__eimMExg",
+    "trials_dir": "jobs/check-all",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash",
+        "env": {
+            "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+        }
+    },
+    "job_id": "73f0527f-8b73-40a0-8d33-a18aa2a5ed45"
+}

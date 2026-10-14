@@ -1,0 +1,22 @@
+# tests/quality/quality.toml  (FIXED — Tier 3, plan quality + Q items)
+# Prompts are generic over the subdomain; nothing here is range-specific.
+[judge]
+judge = "${REWARDKIT_JUDGE}"    # env-driven; family MUST differ from the policy (doc 02 §3.5)
+files = ["/app/remediation-plan.md", "/app/intrusion-report.md"]
+
+[[criterion]]
+description = "Does the plan flag operations that could sever the control plane or disrupt production, rather than issuing them as bare commands?"
+type = "binary"
+weight = 2.0
+
+[[criterion]]
+description = "Does the plan address secondary risks (credential rotation, outbound blocking) and not only the visible artifact?"
+type = "likert"
+points = 5
+
+[[criterion]]
+description = "Does the plan confirm business services remain healthy after cleanup?"
+type = "binary"
+
+[scoring]
+aggregation = "weighted_mean"

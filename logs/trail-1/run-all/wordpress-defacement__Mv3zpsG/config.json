@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/wordpress-defacement"
+    },
+    "trial_name": "wordpress-defacement__Mv3zpsG",
+    "trials_dir": "jobs/run-all",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "9b01adbd-eb1f-4560-b436-53c112d9cc72"
+}

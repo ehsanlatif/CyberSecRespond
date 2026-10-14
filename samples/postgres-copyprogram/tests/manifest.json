@@ -1,0 +1,216 @@
+{
+  "range_id": "postgres-copyprogram",
+  "difficulty": 4,
+  "alert_coverage": 0.5,
+  "platform": {
+    "os": "centos",
+    "version": "stream-9"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1078",
+      "desc": "valid accounts (weak postgres superuser)"
+    },
+    {
+      "step": 2,
+      "attck": "T1059.004",
+      "desc": "COPY TO PROGRAM shell execution",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1048.003",
+      "desc": "DNS-tunnel exfiltration",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1053.003",
+      "desc": "cron persistence",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1543.002",
+      "desc": "systemd persistence",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 6,
+      "attck": "T1070.006",
+      "desc": "timestomp dropped files",
+      "depends_on": [
+        2
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/lib/pgsql/.local/pgdaemon",
+      "kind": "dropper",
+      "capability": "ENT-P01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1059.004",
+      "match": [
+        "postgres",
+        "daemon"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/var/spool/cron/postgres",
+      "kind": "cron",
+      "capability": "PER-S01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1053.003",
+      "match": [
+        "pgdaemon",
+        "cron"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/etc/pgdaemon.conf",
+      "kind": "dns-tunnel-config",
+      "capability": "ENT-N01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1048.003",
+      "match": [
+        "dns",
+        "tunnel"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/etc/systemd/system/pg-metrics.service",
+      "kind": "systemd",
+      "capability": "PER-V01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1543.002",
+      "match": [
+        "pgdaemon",
+        "ExecStart"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/var/lib/pgsql/.local/.timestamps",
+      "kind": "timestomp-residue",
+      "capability": "ENT-F04",
+      "alerted": false,
+      "weight": 1.5,
+      "attck": "T1070.006",
+      "match": [
+        "timestomp",
+        "mtime"
+      ]
+    },
+    {
+      "chk": "CHK-06",
+      "path": "/var/lib/pgsql/data/pg_hba.conf",
+      "kind": "postgres-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "trust",
+        "0.0.0.0/0"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "block the DNS-tunnel resolver and attacker IP at the egress firewall",
+      "verify": "outbound DNS to the tunnel domain is blocked",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine the pgdaemon dropper and terminate the process",
+      "verify": "pgrep -f pgdaemon returns empty",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "remove the postgres cron entry",
+      "verify": "! test -f /var/spool/cron/postgres",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "remove the DNS-tunnel configuration",
+      "verify": "! test -f /etc/pgdaemon.conf",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "disable and remove the pg-metrics systemd unit",
+      "verify": "systemctl is-enabled pg-metrics returns not enabled",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-06",
+      "action": "set scram-sha-256 auth in pg_hba.conf and restrict listen_addresses",
+      "verify": "pg_hba.conf has no trust lines and listen is localhost",
+      "phase": "harden",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "rotate the postgres superuser password and app DB credentials",
+      "verify": "credential rotation timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-21",
+      "action": "confirm COPY TO PROGRAM is no longer reachable by unprivileged roles",
+      "verify": "COPY PROGRAM probe is denied",
+      "phase": "verify",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restart postgresql and confirm database health",
+      "verify": "systemctl is-active postgresql and a test query succeeds",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": true,
+  "decoys": [
+    {
+      "path": "/etc/systemd/system/pg-backup.service",
+      "looks_malicious": true,
+      "benign": true
+    }
+  ],
+  "signature": "c5f08041507f"
+}

@@ -1,0 +1,8 @@
+{
+    "task": {
+        "path": "tasks/log4shell-webshell"
+    },
+    "trial_name": "log4shell-webshell__nmdBxdj",
+    "trials_dir": "jobs/oracle-all",
+    "job_id": "8dc2a62a-60c3-4293-a133-5728b965b0c4"
+}

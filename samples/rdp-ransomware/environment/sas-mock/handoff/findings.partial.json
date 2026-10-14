@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/Users/Public/svc.exe",
+      "attck": "T1486",
+      "confidence": "high",
+      "evidence": "`/Users/Public/svc.exe`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

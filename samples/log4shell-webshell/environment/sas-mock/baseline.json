@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-06",
+    "path": "/opt/app/log4j2.xml",
+    "check": "vulnerable-config",
+    "capability": "BAS-01"
+  }
+]

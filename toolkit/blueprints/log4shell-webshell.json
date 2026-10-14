@@ -1,0 +1,65 @@
+{
+  "range_id": "log4shell-webshell",
+  "description": "Post-compromise forensic investigation: Ubuntu web host breached via Log4Shell, webshell + reverse shell, cron/systemd persistence, timestomping.",
+  "difficulty": 3,
+  "platform": {"os": "ubuntu", "version": "22.04"},
+  "no_cve_entry": false,
+
+  "scenario": "An internet-facing Ubuntu 22.04 application server was exploited through a Log4Shell (CVE-2021-44228) request against a vulnerable logging path. The attacker dropped a JSP webshell, established a reverse shell, installed cron and systemd persistence, and timestomped the webshell to blend in. The alert feed surfaces the exploit and the systemd unit; the webshell's cron twin and the tool residue are silent.",
+
+  "chain": [
+    {"step": 1, "attck": "T1190",     "desc": "Log4Shell RCE (CVE-2021-44228)"},
+    {"step": 2, "attck": "T1505.003", "desc": "JSP webshell planted",     "depends_on": [1]},
+    {"step": 3, "attck": "T1059.004", "desc": "reverse shell execution",  "depends_on": [2]},
+    {"step": 4, "attck": "T1053.003", "desc": "cron persistence",         "depends_on": [3]},
+    {"step": 5, "attck": "T1543.002", "desc": "systemd persistence",      "depends_on": [3]},
+    {"step": 6, "attck": "T1070.006", "desc": "timestomp webshell",       "depends_on": [2]}
+  ],
+
+  "artifacts": [
+    {"chk": "CHK-01", "path": "/var/lib/tomcat9/webapps/ROOT/static/status.jsp",
+     "kind": "webshell", "capability": "VUL-01", "alerted": true, "weight": 1.0,
+     "cve": "CVE-2021-44228", "attck": "T1190", "match": ["jndi", "ldap", "webshell"]},
+    {"chk": "CHK-02", "path": "/tmp/.sysd", "kind": "reverse-shell",
+     "capability": "ENT-P01", "alerted": true, "weight": 1.0, "attck": "T1059.004",
+     "match": ["process", "reverse", "bash -i"]},
+    {"chk": "CHK-03", "path": "/etc/cron.d/apache-cache", "kind": "cron",
+     "capability": "PER-S01", "alerted": false, "weight": 2.0, "attck": "T1053.003"},
+    {"chk": "CHK-04", "path": "/etc/systemd/system/apache-cache.service", "kind": "systemd",
+     "capability": "PER-V01", "alerted": true, "weight": 1.0, "attck": "T1543.002"},
+    {"chk": "CHK-05", "path": "/var/lib/tomcat9/webapps/ROOT/static/.helper.jsp",
+     "kind": "webshell-secondary", "capability": "PER-W01", "alerted": false, "weight": 2.0,
+     "attck": "T1505.003", "match": ["jsp", "webshell"]},
+    {"chk": "CHK-06", "path": "/opt/app/log4j2.xml", "kind": "vulnerable-config",
+     "capability": "BAS-01", "alerted": true, "weight": 1.0, "match": ["log4j", "2.14"]}
+  ],
+
+  "remediation": [
+    {"chk": "CHK-20", "action": "block attacker source IP inbound at the edge",
+     "verify": "iptables -L INPUT -n | grep <ip>", "phase": "contain", "risk_class": "network"},
+    {"chk": "CHK-01", "action": "quarantine the JSP webshell and remove the drop directory",
+     "verify": "! test -f /var/lib/tomcat9/webapps/ROOT/static/status.jsp", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-02", "action": "terminate the reverse-shell process",
+     "verify": "pgrep -f .sysd returns empty", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-03", "action": "remove /etc/cron.d/apache-cache",
+     "verify": "! test -f /etc/cron.d/apache-cache", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-04", "action": "disable and remove apache-cache.service",
+     "verify": "systemctl is-enabled apache-cache 2>&1 | grep -qv enabled", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-05", "action": "remove the secondary .helper.jsp webshell",
+     "verify": "! test -f /var/lib/tomcat9/webapps/ROOT/static/.helper.jsp", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-06", "action": "upgrade log4j past 2.15 and disable JNDI lookups",
+     "verify": "grep -L 'log4j-core-2.1[0-4]' /opt/app/log4j2.xml", "phase": "harden", "risk_class": "service"},
+    {"chk": "CHK-07", "action": "rotate application and service-account credentials",
+     "verify": "credential rotation timestamp is recent", "phase": "rotate", "risk_class": "auth"},
+    {"chk": "CHK-21", "action": "confirm the exploit path no longer returns a shell",
+     "verify": "replay a benign JNDI probe and confirm it is refused", "phase": "verify", "risk_class": "service"},
+    {"chk": "CHK-22", "action": "restart the web service and confirm health",
+     "verify": "systemctl is-active tomcat9 and HTTP 200 on /", "phase": "verify", "risk_class": "service"}
+  ],
+
+  "precedence": ["contain", "eradicate", "harden", "rotate", "verify"],
+  "decoys": [
+    {"path": "/etc/cron.d/backup-nightly", "looks_malicious": true, "benign": true}
+  ],
+  "judge": {"attribution": true, "quality": true}
+}

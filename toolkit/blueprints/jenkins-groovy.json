@@ -1,0 +1,63 @@
+{
+  "range_id": "jenkins-groovy",
+  "description": "Post-compromise forensics: Ubuntu 22.04 Jenkins controller breached via an authenticated RCE, Groovy init backdoor and SSH key planted, cryptominer dropped, log wipe.",
+  "difficulty": 3,
+  "platform": {"os": "ubuntu", "version": "22.04"},
+  "no_cve_entry": false,
+  "scenario": "An Ubuntu 22.04 Jenkins controller was exploited through CVE-2024-23897. The attacker dropped a cryptominer, planted a Groovy init hook and an SSH authorized_keys backdoor, added a cron job, and truncated the Jenkins log. Alerts surface the miner and the cron job; the Groovy hook and the SSH key are silent.",
+
+  "chain": [
+    {"step": 1, "attck": "T1190",     "desc": "Jenkins RCE (CVE-2024-23897)"},
+    {"step": 2, "attck": "T1059.004", "desc": "Groovy/shell execution",     "depends_on": [1]},
+    {"step": 3, "attck": "T1496",     "desc": "cryptomining",               "depends_on": [2]},
+    {"step": 4, "attck": "T1037.004", "desc": "Groovy init hook",           "depends_on": [2]},
+    {"step": 5, "attck": "T1098.004", "desc": "authorized_keys backdoor",   "depends_on": [2]},
+    {"step": 6, "attck": "T1053.003", "desc": "cron persistence",           "depends_on": [2]},
+    {"step": 7, "attck": "T1070.002", "desc": "Jenkins log truncation",     "depends_on": [2]}
+  ],
+
+  "artifacts": [
+    {"chk": "CHK-01", "path": "/var/lib/jenkins/jobs/.tmp/config.xml", "kind": "rce-artifact",
+     "capability": "VUL-01", "alerted": true, "weight": 1.0, "cve": "CVE-2024-23897",
+     "attck": "T1190", "match": ["jenkins", "@"]},
+    {"chk": "CHK-02", "path": "/opt/jenkins/.xmr/xmrig", "kind": "miner-process",
+     "capability": "ENT-P01", "alerted": true, "weight": 1.0, "attck": "T1496",
+     "match": ["xmrig", "pool"]},
+    {"chk": "CHK-03", "path": "/var/lib/jenkins/init.groovy.d/z-backdoor.groovy", "kind": "groovy-init-hook",
+     "capability": "PER-I01", "alerted": false, "weight": 2.0, "attck": "T1037.004",
+     "match": ["Thread", "execute"]},
+    {"chk": "CHK-04", "path": "/var/lib/jenkins/.ssh/authorized_keys", "kind": "ssh-key-backdoor",
+     "capability": "PER-K01", "alerted": false, "weight": 2.0, "attck": "T1098.004",
+     "match": ["ssh-rsa", "attacker"]},
+    {"chk": "CHK-05", "path": "/var/spool/cron/crontabs/jenkins", "kind": "cron",
+     "capability": "PER-S01", "alerted": true, "weight": 1.0, "attck": "T1053.003",
+     "match": ["xmrig", "cron"]},
+    {"chk": "CHK-06", "path": "/var/lib/jenkins/config.xml", "kind": "jenkins-baseline",
+     "capability": "BAS-01", "alerted": true, "weight": 1.0, "match": ["useSecurity", "false"]}
+  ],
+
+  "remediation": [
+    {"chk": "CHK-20", "action": "block the mining pool and attacker IP at the egress firewall",
+     "verify": "iptables -L OUTPUT -n | grep <pool-ip>", "phase": "contain", "risk_class": "network"},
+    {"chk": "CHK-02", "action": "quarantine the xmrig miner and terminate the process",
+     "verify": "pgrep -f xmrig returns empty", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-03", "action": "remove the malicious Groovy init hook",
+     "verify": "! test -f /var/lib/jenkins/init.groovy.d/z-backdoor.groovy", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-04", "action": "remove the attacker key from the jenkins authorized_keys",
+     "verify": "! grep -q attacker /var/lib/jenkins/.ssh/authorized_keys", "phase": "eradicate", "risk_class": "auth"},
+    {"chk": "CHK-05", "action": "remove the jenkins cron entry",
+     "verify": "! test -f /var/spool/cron/crontabs/jenkins", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-01", "action": "upgrade Jenkins past the CVE-2024-23897 fix and enable security",
+     "verify": "jenkins version is patched and useSecurity=true", "phase": "harden", "risk_class": "service"},
+    {"chk": "CHK-07", "action": "rotate Jenkins admin, agent, and stored pipeline credentials",
+     "verify": "credential rotation timestamps are recent", "phase": "rotate", "risk_class": "auth"},
+    {"chk": "CHK-21", "action": "confirm the CVE-2024-23897 path no longer discloses files",
+     "verify": "benign probe returns access denied", "phase": "verify", "risk_class": "service"},
+    {"chk": "CHK-22", "action": "restart Jenkins and confirm controller health",
+     "verify": "systemctl is-active jenkins and HTTP 200 on /login", "phase": "verify", "risk_class": "service"}
+  ],
+
+  "precedence": ["contain", "eradicate", "harden", "rotate", "verify"],
+  "decoys": [{"path": "/var/lib/jenkins/init.groovy.d/logging.groovy", "looks_malicious": true, "benign": true}],
+  "judge": {"attribution": true, "quality": true}
+}

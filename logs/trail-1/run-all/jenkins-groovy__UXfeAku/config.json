@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/jenkins-groovy"
+    },
+    "trial_name": "jenkins-groovy__UXfeAku",
+    "trials_dir": "jobs/run-all",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "9b01adbd-eb1f-4560-b436-53c112d9cc72"
+}

@@ -1,0 +1,35 @@
+{
+    "job_name": "oracle-all",
+    "tasks": [
+        {
+            "path": "tasks/docker-api-miner"
+        },
+        {
+            "path": "tasks/jenkins-groovy"
+        },
+        {
+            "path": "tasks/log4shell-webshell"
+        },
+        {
+            "path": "tasks/postgres-copyprogram"
+        },
+        {
+            "path": "tasks/rdp-ransomware"
+        },
+        {
+            "path": "tasks/redis-unauth"
+        },
+        {
+            "path": "tasks/smb-eternalblue"
+        },
+        {
+            "path": "tasks/ssh-miner"
+        },
+        {
+            "path": "tasks/struts-exfil"
+        },
+        {
+            "path": "tasks/wordpress-defacement"
+        }
+    ]
+}

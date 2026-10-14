@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "Programmatic verifier evaluates deliverables deterministically."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "Reference solution passes tests."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "Requires DFIR expertise."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Realistic DFIR scenario."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify final report deliverables."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Ground truth files are in agent container."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "No malicious code."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Verifies report contents and DAG edit distance."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Self-contained and reproducible."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty comes from DFIR reasoning."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "Tests align with instruction requirements."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "Custom incident response scenario."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment interaction."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "Clear ground truth manifest."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Concise and human-written."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "Solution produces complete reports."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is missing."
+  },
+  "environment_hygiene": {
+    "outcome": "pass",
+    "explanation": "Clean Dockerfile setup."
+  },
+  "structured_data_schema": {
+    "outcome": "not_applicable",
+    "explanation": "No structured output expected."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No critical typos found."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "Metadata field is missing."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "Metadata field is missing."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "Metadata field is missing."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "Subcategory is missing."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "Concise slug name."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Appropriate timeouts and resources."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "Provides maintainer context."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "Expert time estimate missing."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "Non-standard fields and missing metadata."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "Extraneous assets/disk/ and baselines/ directories present."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "Separate verifier not configured."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "No agent code executed."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "CTRF report not emitted."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "Disk set read-only."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "Emits binary reward."
+  }
+}

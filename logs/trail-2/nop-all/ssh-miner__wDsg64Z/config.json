@@ -1,0 +1,11 @@
+{
+    "task": {
+        "path": "tasks/ssh-miner"
+    },
+    "trial_name": "ssh-miner__wDsg64Z",
+    "trials_dir": "jobs/nop-all",
+    "agent": {
+        "name": "nop"
+    },
+    "job_id": "96dd44b7-4368-4e59-96da-a682c1b069e2"
+}

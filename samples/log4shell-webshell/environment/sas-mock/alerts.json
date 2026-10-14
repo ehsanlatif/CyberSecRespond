@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "webshell",
+    "path": "/var/lib/tomcat9/webapps/ROOT/static/status.jsp",
+    "capability": "VUL-01",
+    "summary": "webshell observed at /var/lib/tomcat9/webapps/ROOT/static/status.jsp"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "reverse-shell",
+    "path": "/tmp/.sysd",
+    "capability": "ENT-P01",
+    "summary": "reverse-shell observed at /tmp/.sysd"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "systemd",
+    "path": "/etc/systemd/system/apache-cache.service",
+    "capability": "PER-V01",
+    "summary": "systemd observed at /etc/systemd/system/apache-cache.service"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-06",
+    "kind": "vulnerable-config",
+    "path": "/opt/app/log4j2.xml",
+    "capability": "BAS-01",
+    "summary": "vulnerable-config observed at /opt/app/log4j2.xml"
+  }
+]

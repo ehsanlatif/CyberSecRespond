@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "ransomware-binary",
+    "path": "/Users/Public/svc.exe",
+    "capability": "ENT-F02",
+    "summary": "ransomware-binary observed at /Users/Public/svc.exe"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "scheduled-task",
+    "path": "/Windows/System32/Tasks/UpdateHelper",
+    "capability": "PER-S01",
+    "summary": "scheduled-task observed at /Windows/System32/Tasks/UpdateHelper"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "malicious-service",
+    "path": "/Windows/System32/svc-helper.sys",
+    "capability": "PER-V01",
+    "summary": "malicious-service observed at /Windows/System32/svc-helper.sys"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-06",
+    "kind": "rdp-baseline",
+    "path": "/Windows/System32/config/RDP-Tcp.reg",
+    "capability": "BAS-01",
+    "summary": "rdp-baseline observed at /Windows/System32/config/RDP-Tcp.reg"
+  }
+]

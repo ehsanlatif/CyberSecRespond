@@ -1,0 +1,7 @@
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2022-1609",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php"
+  }
+]

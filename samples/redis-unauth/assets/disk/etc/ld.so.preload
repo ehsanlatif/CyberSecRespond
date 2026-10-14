@@ -1,0 +1,1 @@
+/etc/ld.so.preload references /lib/.hide.so (userland .so preload rootkit)

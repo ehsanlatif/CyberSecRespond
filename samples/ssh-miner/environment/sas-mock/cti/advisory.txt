@@ -1,0 +1,26 @@
+THREAT INTELLIGENCE ADVISORY — Ssh Miner campaign
+=================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: ssh-prod-01   Suspected origin IP: 198.51.100.78
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1110      Brute Force                                [credential-access]  step 1: SSH brute force as root
+   T1021.004  SSH                                        [lateral-movement]  step 2: SSH login
+   T1059.004  Unix Shell                                 [execution]  step 3: shell execution
+   T1496      Resource Hijacking                         [impact]  step 4: cryptomining
+   T1053.003  Cron                                       [execution]  step 5: cron persistence
+   T1546.004  Unix Shell Configuration Modification      [privilege-escalation]  step 6: bashrc persistence
+   T1543.002  Systemd Service                            [persistence]  step 7: systemd persistence
+   T1070.002  Clear Linux or Mac System Logs             [defense-evasion]  step 8: auth log cleared
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.78
+   c2     update-ssh[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+   wallet 4A0000000000000000000d1ec67074f7
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).

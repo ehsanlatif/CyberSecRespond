@@ -1,0 +1,8 @@
+{
+    "task": {
+        "path": "tasks/ssh-miner"
+    },
+    "trial_name": "ssh-miner__dQ6pbcQ",
+    "trials_dir": "jobs/oracle-all",
+    "job_id": "ead589ce-c943-4ea1-8252-453db2b7d63b"
+}

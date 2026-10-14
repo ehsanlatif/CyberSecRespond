@@ -1,0 +1,60 @@
+Aug  9 01:06:51 wordpress-prod-01 kernel[7307]: Received disconnect from 10.10.169.77 port 56250:11: disconnected by user
+Aug  9 01:07:38 wordpress-prod-01 dbus-daemon[711]: CPU0: Package temperature normal
+Aug  9 01:07:58 wordpress-prod-01 kernel[16467]: Time synchronised to time server
+Aug  9 01:08:28 wordpress-prod-01 sudo[20932]: pam_unix(cron:session): session opened for user root
+Aug  9 01:08:49 wordpress-prod-01 sudo[20270]: Started Session 953 of user root.
+Aug  9 01:09:21 wordpress-prod-01 systemd-logind[16153]: Started Session 425 of user jenkins.
+Aug  9 01:09:54 wordpress-prod-01 sshd[435]: Received disconnect from 10.10.169.66 port 53501:11: disconnected by user
+Aug  9 01:09:58 wordpress-prod-01 sshd[17982]: Time synchronised to time server
+Aug  9 01:10:19 wordpress-prod-01 chronyd[12639]: Started Session 817 of user root.
+Aug  9 01:11:04 wordpress-prod-01 sshd[11340]: Time synchronised to time server
+Aug  9 01:11:39 wordpress-prod-01 sshd[3276]: Received disconnect from 10.10.169.234 port 55722:11: disconnected by user
+Aug  9 01:11:42 wordpress-prod-01 kernel[27808]: Started Session 324 of user devops.
+Aug  9 01:11:48 wordpress-prod-01 systemd[15185]: pam_unix(cron:session): session opened for user root
+Aug  9 01:11:49 wordpress-prod-01 kernel[5245]: Received disconnect from 10.10.169.109 port 60717:11: disconnected by user
+Aug  9 01:12:26 wordpress-prod-01 kernel[27444]: Received disconnect from 10.10.169.193 port 44704:11: disconnected by user
+Aug  9 01:12:47 wordpress-prod-01 sshd[23338]: Started Session 160 of user jenkins.
+Aug  9 01:12:58 wordpress-prod-01 systemd-logind[28590]: Started Session 871 of user devops.
+Aug  9 01:12:59 wordpress-prod-01 CRON[17247]: Started Session 913 of user jenkins.
+Aug  9 01:13:39 wordpress-prod-01 systemd[21869]: Time synchronised to time server
+Aug  9 01:14:29 wordpress-prod-01 chronyd[11713]: CPU0: Package temperature normal
+Aug  9 01:14:43 wordpress-prod-01 chronyd[17590]: Time synchronised to time server
+Aug  9 01:15:30 wordpress-prod-01 sudo[20217]: Started Session 487 of user postgres.
+Aug  9 01:15:42 wordpress-prod-01 systemd[7292]: CPU0: Package temperature normal
+Aug  9 01:15:43 wordpress-prod-01 systemd[12045]: Time synchronised to time server
+Aug  9 01:15:44 wordpress-prod-01 systemd-logind[10954]: pam_unix(cron:session): session opened for user root
+Aug  9 01:15:59 wordpress-prod-01 sshd[15727]: CPU0: Package temperature normal
+Aug  9 01:16:22 wordpress-prod-01 systemd[15314]: CPU0: Package temperature normal
+Aug  9 01:16:51 wordpress-prod-01 sudo[6536]: CPU0: Package temperature normal
+Aug  9 01:17:10 wordpress-prod-01 sudo[7354]: Received disconnect from 10.10.169.13 port 50131:11: disconnected by user
+Aug  9 01:17:47 wordpress-prod-01 sshd[19367]: Started Session 59 of user devops.
+Aug  9 01:18:03 wordpress-prod-01 chronyd[20705]: Time synchronised to time server
+Aug  9 01:18:31 wordpress-prod-01 dbus-daemon[6640]: pam_unix(cron:session): session opened for user root
+Aug  9 01:18:59 wordpress-prod-01 dbus-daemon[15758]: pam_unix(cron:session): session opened for user root
+Aug  9 01:19:40 wordpress-prod-01 chronyd[21543]: Started Session 301 of user devops.
+Aug  9 01:20:06 wordpress-prod-01 dbus-daemon[3583]: Received disconnect from 10.10.169.216 port 64164:11: disconnected by user
+Aug  9 01:20:35 wordpress-prod-01 dbus-daemon[28420]: CPU0: Package temperature normal
+Aug  9 01:21:23 wordpress-prod-01 sudo[14429]: CPU0: Package temperature normal
+Aug  9 01:21:36 wordpress-prod-01 CRON[5810]: pam_unix(cron:session): session opened for user root
+Aug  9 01:22:29 wordpress-prod-01 sudo[1750]: CPU0: Package temperature normal
+Aug  9 01:22:49 wordpress-prod-01 systemd[28107]: Started Session 106 of user svc-backup.
+Aug  9 01:23:06 wordpress-prod-01 kernel[19024]: Received disconnect from 10.10.169.223 port 60610:11: disconnected by user
+Aug  9 01:23:42 wordpress-prod-01 systemd[28552]: Received disconnect from 10.10.169.204 port 57869:11: disconnected by user
+Aug  9 01:24:23 wordpress-prod-01 chronyd[22225]: CPU0: Package temperature normal
+Aug  9 01:25:00 wordpress-prod-01 systemd[18768]: CPU0: Package temperature normal
+Aug  9 01:25:32 wordpress-prod-01 sudo[15733]: Started Session 127 of user webadmin.
+Aug  9 01:25:34 wordpress-prod-01 dbus-daemon[16503]: Received disconnect from 10.10.169.211 port 41217:11: disconnected by user
+Aug  9 01:26:07 wordpress-prod-01 systemd-logind[27664]: pam_unix(cron:session): session opened for user root
+Aug  9 01:26:39 wordpress-prod-01 CRON[27428]: Received disconnect from 10.10.169.159 port 48524:11: disconnected by user
+Aug  9 01:27:23 wordpress-prod-01 sshd[13669]: pam_unix(cron:session): session opened for user root
+Aug  9 01:28:05 wordpress-prod-01 CRON[27601]: Started Session 888 of user webadmin.
+Aug  9 01:28:15 wordpress-prod-01 systemd-logind[28686]: Started Session 171 of user svc-backup.
+Aug  9 01:28:48 wordpress-prod-01 kernel[25064]: CPU0: Package temperature normal
+Aug  9 01:29:34 wordpress-prod-01 chronyd[8915]: Time synchronised to time server
+Aug  9 01:29:59 wordpress-prod-01 CRON[943]: Time synchronised to time server
+Aug  9 01:30:19 wordpress-prod-01 dbus-daemon[522]: Received disconnect from 10.10.169.46 port 55477:11: disconnected by user
+Aug  9 01:31:05 wordpress-prod-01 dbus-daemon[26372]: Received disconnect from 10.10.169.51 port 49525:11: disconnected by user
+Aug  9 01:31:07 wordpress-prod-01 kernel[15367]: Time synchronised to time server
+Aug  9 01:31:41 wordpress-prod-01 chronyd[10782]: CPU0: Package temperature normal
+Aug  9 01:32:21 wordpress-prod-01 systemd[11923]: Time synchronised to time server
+Aug  9 01:32:58 wordpress-prod-01 chronyd[6532]: Started Session 397 of user postgres.

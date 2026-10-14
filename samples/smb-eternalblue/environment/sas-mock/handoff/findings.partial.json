@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/Windows/Temp/mssecsvc.exe",
+      "attck": "T1210",
+      "confidence": "high",
+      "evidence": "`/Windows/Temp/mssecsvc.exe`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

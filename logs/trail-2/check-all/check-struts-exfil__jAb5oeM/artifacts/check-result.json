@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The verifier is programmatic, deterministic, and executes locally without runtime network calls."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh generates all five required report files which pass all tests and score a 1.0 reward."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires expert DFIR knowledge to analyze Struts2 OGNL exploits, silent backdoors, system logs, map findings to ATT&CK, and build remediation plans."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Represents a realistic incident response scenario following an application server compromise."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify end-result markdown report files by checking finding accuracy, citations, attack chain topology, and remediation steps without enforcing specific agent tools or procedures."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Ground-truth data (manifest.json) is not isolated in a separate verifier image because tests/Dockerfile is missing and separate verifier mode is not configured."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files contain clean bash and python code with no malicious payloads, exfiltration attempts, or prompt injection."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests verify functionality by parsing report citations, validating them against filesystem paths in /disk and /sas, verifying DAG dependencies, and checking remediation phase ordering."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Verification is completely self-contained and produces consistent deterministic results across runs."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty stems from genuine forensic investigation, ATT&CK mapping, and remediation planning rather than formatting minutiae."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All requirements in instruction.md (five report files, backtick citations, attack chain topology, remediation sections) are directly checked by the test suite."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "Features a custom synthetic DFIR scenario involving Apache Struts OGNL exploit, staging exfil archive, silent SSH backdoor, cron persistence, and selective log wiping."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment exploration across forensic disk images, logs, threat advisories, and change tickets."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "Ground truth is declared in tests/manifest.json and demonstrated by solution/solve.sh."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instructions are concise, human-written, use absolute paths (/disk, /sas, /app), and describe required deliverables clearly without unnecessary fluff."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh writes the complete set of five required reports that achieve a 1.0 reward."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "tests/Dockerfile is missing, verifier.environment_mode is not set in task.toml, and no artifacts table is defined."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "A separate verifier Dockerfile (tests/Dockerfile) does not exist to own /tests and verifier dependencies."
+  },
+  "structured_data_schema": {
+    "outcome": "pass",
+    "explanation": "Expected report sections, citation syntax, and schema files (findings.schema.json) are explicitly documented."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were found in filenames, paths, or code identifiers."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation field is missing from task.toml."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation field is missing from task.toml."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation field is missing from task.toml."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The subcategory field is missing from task.toml metadata."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task name (struts-exfil) is a concise 2-word kebab-case slug describing the task."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeouts (3600s agent, 900s verifier) and environment resource settings are appropriate for a long-horizon DFIR task."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "environment/README.md provides useful development context without duplicating instruction content."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours field is missing from task.toml metadata."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml is missing required metadata fields (difficulty_explanation, solution_explanation, verification_explanation, expert_time_estimate_hours, subcategory) and includes an extra field difficulty = \"hard\" in metadata."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task directory contains unreferenced baseline directories under baselines/ (alert-transcriber, noop, oracle)."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "No artifacts table or separate-verifier artifact collection mechanism is configured in task.toml."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier only parses text markdown report files and does not execute any agent-produced code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier does not emit CTRF output to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "The forensic image /disk is mounted read-only and isolated from agent modifications."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "The verifier thresholding produces exactly 1.0 or 0.0 for the reward key written to /logs/verifier/reward.txt."
+  }
+}

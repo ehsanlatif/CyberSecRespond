@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The verifier programmatic scoring script rewardkit executes deterministically and reliably without network dependencies at verify time."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh produces all five required markdown reports and passes all verifier checks with reward 1.0."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires domain expertise in post-compromise digital forensics, incident response, WordPress exploit analysis, persistence mechanism identification, and MITRE ATT&CK mapping."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "The scenario reflects a realistic forensic investigation and remediation planning workflow for a breached web server."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify the content, citations, detection claims, and remediation steps in the final markdown reports rather than checking command history or tool usage."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured, leaving tests/manifest.json containing the exact ground truth findings accessible to the agent in the runtime container."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "Task files contain no malicious payloads, network exfiltration, or credential scraping."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Verification parses report findings and validates citations against evidence mounts and expected attack chain topologies."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "The host evidence image disk.tar.gz and sas-mock telemetry feeds are static and completely self-contained."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "The primary challenge comes from thorough forensic analysis across host artifacts rather than clerical formatting details."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "Every requirement in instruction.md (five deliverables, backtick citations, ATT&CK mapping, remediation plan) corresponds directly to test criteria."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task presents a custom synthetic forensic scenario combining plugin exploitation, web shell placement, cron jobs, and htaccess redirects."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Solving requires multi-step environment exploration across log files, web directories, cron jobs, and config files."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The manifest.json file clearly defines expected artifacts and attack chain steps, making the task easy to audit."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "instruction.md is clear, concise, uses absolute paths, and avoids solution hints or unnecessary fluff."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh correctly renders the complete reports needed to satisfy all verifier checks."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "task.toml lacks environment_mode = \"container\", does not define an artifacts list, and tests/Dockerfile is missing."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "Without separate verifier mode, test scripts and ground truth manifest.json are present in the agent container at start time."
+  },
+  "structured_data_schema": {
+    "outcome": "pass",
+    "explanation": "Required report structures and citation formats are documented in instruction.md and findings.schema.json in /sas/handoff."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos found in critical identifiers, filenames, paths, or commands."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation metadata field is missing from task.toml."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation metadata field is missing from task.toml."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation metadata field is missing from task.toml."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The subcategory metadata field is missing from task.toml."
+  },
+  "task_name": {
+    "outcome": "fail",
+    "explanation": "The task name dfir-eval/wordpress-defacement in task.toml contains a slash rather than being a single kebab-case folder slug."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeouts and environment resource limits specified in task.toml are appropriate for the task."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "environment/README.md provides useful setup context without duplicating instructions."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours metadata field is missing from task.toml."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml contains unrecognized field difficulty in [metadata] and missing standard metadata fields (difficulty_explanation, solution_explanation, verification_explanation, subcategory, expert_time_estimate_hours)."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task folder contains unused directories assets/ (duplicate uncompressed disk files) and baselines/ (reference report benchmarks) not referenced by build, test, or solution scripts."
+  },
+  "artifact_efficiency": {
+    "outcome": "not_applicable",
+    "explanation": "Separate verifier mode is not configured for this task."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier parses static markdown reports and does not execute untrusted agent code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier does not write CTRF test results to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "fail",
+    "explanation": "instruction.md instructs the agent not to modify /disk, but the verifier does not test or verify whether /disk was altered."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "test.sh thresholds the aggregated score to write either 0.0 or 1.0 to /logs/verifier/reward.txt."
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/redis-unauth"
+    },
+    "trial_name": "redis-unauth__umzshh6",
+    "trials_dir": "jobs/run-all",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "2b3b5270-8b82-492a-a1a9-c3a2b148a917"
+}

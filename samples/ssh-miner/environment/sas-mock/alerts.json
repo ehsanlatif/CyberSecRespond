@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "miner-process",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "miner-binary",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-F02",
+    "summary": "miner-binary observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "ssh-baseline",
+    "path": "/etc/ssh/sshd_config",
+    "capability": "BAS-01",
+    "summary": "ssh-baseline observed at /etc/ssh/sshd_config"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-09",
+    "kind": "mysql-remote-root",
+    "path": "/etc/my.cnf",
+    "capability": "BAS-02",
+    "summary": "mysql-remote-root observed at /etc/my.cnf"
+  },
+  {
+    "id": "ALERT-05",
+    "chk": "CHK-11",
+    "kind": "cron",
+    "path": "/var/spool/cron/root",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/root"
+  },
+  {
+    "id": "ALERT-06",
+    "chk": "CHK-13",
+    "kind": "systemd",
+    "path": "/etc/systemd/system/system-update-helper.service",
+    "capability": "PER-V01",
+    "summary": "systemd observed at /etc/systemd/system/system-update-helper.service"
+  }
+]

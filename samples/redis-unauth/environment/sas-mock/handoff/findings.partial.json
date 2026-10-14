@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/tmp/.redis/kdevtmpfsi",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/tmp/.redis/kdevtmpfsi`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

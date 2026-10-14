@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-05",
+    "path": "/var/www/html/wp-config.php",
+    "check": "wordpress-baseline",
+    "capability": "BAS-01"
+  }
+]

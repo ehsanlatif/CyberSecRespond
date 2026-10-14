@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "Verification is programmatic, fast, deterministic, and does not run network installs at verify time."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "The provided reference solution in solution/solve.sh produces all required report files and achieves reward 1.0."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires genuine domain expertise in digital forensics and incident response (DFIR), investigating disk images, Docker overlay residue, persistence, and constructing structured IR reports."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Represents a realistic real-world forensic scenario of investigating an exposed Docker API compromise on a server."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify the output reports, finding grounding, attack chain DAG topology, and remediation plan steps rather than restricting the agent method."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured and ground truth files (e.g., tests/manifest.json) are directly accessible to the agent in shared container mode, allowing the agent to read the expected findings."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "Task files contain only legitimate code for forensic task setup, solution generation, and reward verification."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests parse deliverables, check citation resolution against evidence mounts, verify DAG topology, and-evaluate remediation step alignment."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Verification is self-contained and produces consistent binary results across test runs without live external service dependencies."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty stems from genuine forensic analysis and incident response planning rather than formatting minutiae."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All test assertions align directly with requirements stated in instruction.md (five deliverables, citation syntax, attack chain topology, and remediation phases)."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "Custom forensic scenario with specific artifact paths, CTI advisories, and campaign details."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment exploration, command-line tool usage (grep, jq, zcat, strings), evidence correlation, and report writing."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The ground truth manifest and test criteria scripts are clear and auditable by non-specialist reviewers."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instruction is concise, human-written, uses absolute paths (/disk, /sas, /app), and specifies clear goals without step-by-step procedural hints."
+  },
+  "solution_quality": {
+    "outcome": "fail",
+    "explanation": "solution/solve.sh uses heredocs to directly cat precomputed markdown reports into /app without executing any commands or scripts that derive the answer through forensic computation."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "tests/Dockerfile is missing, environment_mode = \"separate\" is not specified in task.toml, and no artifacts table is defined."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "Test dependencies and test code are not isolated into a verifier image because tests/Dockerfile does not exist."
+  },
+  "structured_data_schema": {
+    "outcome": "pass",
+    "explanation": "Required markdown report section structures, citation syntax, and referenced schema files (/sas/handoff/findings.schema.json) are clearly documented."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were found in critical identifiers, file paths, commands, or variable names."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation metadata field is missing in task.toml."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation metadata field is missing in task.toml."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation metadata field is missing in task.toml."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The subcategory field in task.toml metadata is missing."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task directory name docker-api-miner is 3 words, lowercase kebab-case, and clearly descriptive."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeouts and system resources specified in task.toml are appropriate for the task requirements."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "environment/README.md provides useful development context regarding disk image synthesis and QA checks without duplicating task instructions."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours field is missing in task.toml."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml includes unrecognized/invented fields in [task] (version, description, authors, keywords) and [metadata] (difficulty instead of difficulty_explanation) while missing required metadata fields."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task directory contains OS cruft (.DS_Store files), unreferenced baseline outputs in baselines/, and raw uncompressed duplicate disk trees in assets/disk/."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured, and large uncompressed duplicate disk trees are stored under assets/disk/ alongside environment/disk.tar.gx."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier parses markdown text reports and does not execute agent-produced code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier uses a custom runner script and does not execute pytest with --ctrf /logs/verifier/ctrf.json to produce a CTRF report."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "fail",
+    "explanation": "The instruction states that /disk is read-only and must not be modified, but the verifier does not check for modifications or verify /disk against a pristine copy."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "Every reachable reward write path explicitly emits either 0.0 or 1.0 to /logs/verifier/reward.txt."
+  }
+}

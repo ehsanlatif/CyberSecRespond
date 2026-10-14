@@ -1,0 +1,7 @@
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2023-50164",
+    "path": "/opt/tomcat/webapps/ROOT/static/upload.jsp"
+  }
+]

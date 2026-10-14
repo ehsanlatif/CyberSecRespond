@@ -1,0 +1,368 @@
+Aug  9 01:06:59 log4shell-prod-01 kernel[3550]: CPU0: Package temperature normal
+Aug  9 01:07:15 log4shell-prod-01 sshd[28605]: CPU0: Package temperature normal
+Aug  9 01:07:20 log4shell-prod-01 systemd-logind[29193]: CPU0: Package temperature normal
+Aug  9 01:07:32 log4shell-prod-01 dbus-daemon[28171]: CPU0: Package temperature normal
+Aug  9 01:08:11 log4shell-prod-01 dbus-daemon[18828]: Received disconnect from 10.10.177.190 port 46227:11: disconnected by user
+Aug  9 01:08:19 log4shell-prod-01 CRON[28192]: CPU0: Package temperature normal
+Aug  9 01:09:08 log4shell-prod-01 kernel[15205]: pam_unix(cron:session): session opened for user root
+Aug  9 01:09:49 log4shell-prod-01 sshd[18318]: Started Session 453 of user webadmin.
+Aug  9 01:10:08 log4shell-prod-01 dbus-daemon[5226]: Received disconnect from 10.10.177.27 port 42072:11: disconnected by user
+Aug  9 01:10:55 log4shell-prod-01 systemd-logind[24875]: Received disconnect from 10.10.177.40 port 56156:11: disconnected by user
+Aug  9 01:11:09 log4shell-prod-01 systemd-logind[4616]: pam_unix(cron:session): session opened for user root
+Aug  9 01:11:20 log4shell-prod-01 CRON[12332]: CPU0: Package temperature normal
+Aug  9 01:12:04 log4shell-prod-01 chronyd[7624]: Received disconnect from 10.10.177.215 port 47713:11: disconnected by user
+Aug  9 01:12:49 log4shell-prod-01 systemd[28362]: Received disconnect from 10.10.177.124 port 43615:11: disconnected by user
+Aug  9 01:12:52 log4shell-prod-01 CRON[29726]: Time synchronised to time server
+Aug  9 01:13:01 log4shell-prod-01 dbus-daemon[9363]: CPU0: Package temperature normal
+Aug  9 01:13:15 log4shell-prod-01 sshd[6357]: Received disconnect from 10.10.177.249 port 52992:11: disconnected by user
+Aug  9 01:13:58 log4shell-prod-01 systemd[4300]: Received disconnect from 10.10.177.21 port 53968:11: disconnected by user
+Aug  9 01:14:20 log4shell-prod-01 systemd-logind[16176]: Time synchronised to time server
+Aug  9 01:15:11 log4shell-prod-01 kernel[421]: Received disconnect from 10.10.177.183 port 43817:11: disconnected by user
+Aug  9 01:15:35 log4shell-prod-01 sshd[16067]: Started Session 162 of user jenkins.
+Aug  9 01:15:45 log4shell-prod-01 sshd[9214]: Started Session 598 of user svc-backup.
+Aug  9 01:16:07 log4shell-prod-01 sudo[22761]: pam_unix(cron:session): session opened for user root
+Aug  9 01:16:52 log4shell-prod-01 systemd-logind[21919]: Received disconnect from 10.10.177.32 port 62179:11: disconnected by user
+Aug  9 01:17:13 log4shell-prod-01 sshd[719]: Time synchronised to time server
+Aug  9 01:18:05 log4shell-prod-01 systemd[16799]: Started Session 597 of user svc-backup.
+Aug  9 01:18:41 log4shell-prod-01 sshd[19040]: CPU0: Package temperature normal
+Aug  9 01:18:59 log4shell-prod-01 kernel[17320]: Received disconnect from 10.10.177.178 port 45205:11: disconnected by user
+Aug  9 01:19:35 log4shell-prod-01 dbus-daemon[26474]: Started Session 101 of user devops.
+Aug  9 01:20:19 log4shell-prod-01 systemd[20226]: CPU0: Package temperature normal
+Aug  9 01:20:25 log4shell-prod-01 systemd[4004]: CPU0: Package temperature normal
+Aug  9 01:20:39 log4shell-prod-01 CRON[12341]: Started Session 183 of user root.
+Aug  9 01:21:34 log4shell-prod-01 systemd-logind[16607]: Received disconnect from 10.10.177.54 port 57891:11: disconnected by user
+Aug  9 01:21:57 log4shell-prod-01 sudo[27600]: CPU0: Package temperature normal
+Aug  9 01:22:11 log4shell-prod-01 sshd[11755]: CPU0: Package temperature normal
+Aug  9 01:22:21 log4shell-prod-01 systemd[10521]: Time synchronised to time server
+Aug  9 01:23:13 log4shell-prod-01 CRON[5872]: Received disconnect from 10.10.177.162 port 55724:11: disconnected by user
+Aug  9 01:23:58 log4shell-prod-01 sshd[26858]: CPU0: Package temperature normal
+Aug  9 01:24:33 log4shell-prod-01 systemd[13796]: Received disconnect from 10.10.177.14 port 56617:11: disconnected by user
+Aug  9 01:25:28 log4shell-prod-01 systemd[3954]: pam_unix(cron:session): session opened for user root
+Aug  9 01:26:23 log4shell-prod-01 kernel[9086]: CPU0: Package temperature normal
+Aug  9 01:26:38 log4shell-prod-01 sudo[24268]: pam_unix(cron:session): session opened for user root
+Aug  9 01:27:00 log4shell-prod-01 systemd-logind[19882]: Started Session 661 of user postgres.
+Aug  9 01:27:04 log4shell-prod-01 kernel[13428]: CPU0: Package temperature normal
+Aug  9 01:27:27 log4shell-prod-01 dbus-daemon[11857]: Time synchronised to time server
+Aug  9 01:27:36 log4shell-prod-01 sudo[22496]: pam_unix(cron:session): session opened for user root
+Aug  9 01:27:39 log4shell-prod-01 chronyd[24583]: Received disconnect from 10.10.177.187 port 52183:11: disconnected by user
+Aug  9 01:28:16 log4shell-prod-01 kernel[13732]: Time synchronised to time server
+Aug  9 01:28:42 log4shell-prod-01 kernel[23136]: CPU0: Package temperature normal
+Aug  9 01:29:35 log4shell-prod-01 kernel[17359]: Received disconnect from 10.10.177.219 port 51367:11: disconnected by user
+Aug  9 01:30:17 log4shell-prod-01 systemd-logind[21327]: Time synchronised to time server
+Aug  9 01:30:58 log4shell-prod-01 kernel[22519]: Started Session 912 of user postgres.
+Aug  9 01:31:02 log4shell-prod-01 sshd[24824]: Started Session 537 of user root.
+Aug  9 01:31:38 log4shell-prod-01 sudo[21373]: Received disconnect from 10.10.177.157 port 44984:11: disconnected by user
+Aug  9 01:32:13 log4shell-prod-01 sshd[21433]: Started Session 445 of user jenkins.
+Aug  9 01:33:06 log4shell-prod-01 sshd[3231]: CPU0: Package temperature normal
+Aug  9 01:33:20 log4shell-prod-01 chronyd[19389]: CPU0: Package temperature normal
+Aug  9 01:33:37 log4shell-prod-01 kernel[7245]: Time synchronised to time server
+Aug  9 01:33:55 log4shell-prod-01 kernel[409]: Time synchronised to time server
+Aug  9 01:34:40 log4shell-prod-01 sshd[21328]: pam_unix(cron:session): session opened for user root
+Aug  9 01:34:51 log4shell-prod-01 dbus-daemon[10782]: Received disconnect from 10.10.177.27 port 56990:11: disconnected by user
+Aug  9 01:35:33 log4shell-prod-01 dbus-daemon[22570]: pam_unix(cron:session): session opened for user root
+Aug  9 01:36:13 log4shell-prod-01 systemd-logind[23126]: Started Session 217 of user webadmin.
+Aug  9 01:36:29 log4shell-prod-01 systemd[23054]: Received disconnect from 10.10.177.177 port 59686:11: disconnected by user
+Aug  9 01:37:07 log4shell-prod-01 kernel[18581]: CPU0: Package temperature normal
+Aug  9 01:37:15 log4shell-prod-01 CRON[22000]: Started Session 202 of user jenkins.
+Aug  9 01:38:03 log4shell-prod-01 dbus-daemon[23060]: CPU0: Package temperature normal
+Aug  9 01:38:53 log4shell-prod-01 kernel[24694]: Started Session 949 of user webadmin.
+Aug  9 01:39:35 log4shell-prod-01 systemd[4262]: pam_unix(cron:session): session opened for user root
+Aug  9 01:40:10 log4shell-prod-01 sshd[11782]: Time synchronised to time server
+Aug  9 01:40:32 log4shell-prod-01 sshd[12887]: Started Session 362 of user postgres.
+Aug  9 01:41:18 log4shell-prod-01 dbus-daemon[8677]: CPU0: Package temperature normal
+Aug  9 01:41:19 log4shell-prod-01 sshd[16171]: CPU0: Package temperature normal
+Aug  9 01:41:41 log4shell-prod-01 sshd[5540]: CPU0: Package temperature normal
+Aug  9 01:42:35 log4shell-prod-01 sshd[16531]: Started Session 989 of user svc-backup.
+Aug  9 01:42:37 log4shell-prod-01 sudo[22000]: Started Session 874 of user svc-backup.
+Aug  9 01:43:20 log4shell-prod-01 systemd-logind[22536]: Started Session 226 of user devops.
+Aug  9 01:44:02 log4shell-prod-01 CRON[11407]: CPU0: Package temperature normal
+Aug  9 01:44:25 log4shell-prod-01 chronyd[27188]: Received disconnect from 10.10.177.146 port 53040:11: disconnected by user
+Aug  9 01:44:48 log4shell-prod-01 dbus-daemon[29566]: Started Session 810 of user postgres.
+Aug  9 01:45:14 log4shell-prod-01 dbus-daemon[11282]: Started Session 22 of user webadmin.
+Aug  9 01:45:27 log4shell-prod-01 systemd[13472]: pam_unix(cron:session): session opened for user root
+Aug  9 01:45:54 log4shell-prod-01 chronyd[26418]: Time synchronised to time server
+Aug  9 01:46:36 log4shell-prod-01 CRON[13437]: Started Session 732 of user webadmin.
+Aug  9 01:47:26 log4shell-prod-01 CRON[27937]: Time synchronised to time server
+Aug  9 01:48:16 log4shell-prod-01 CRON[23477]: Time synchronised to time server
+Aug  9 01:48:59 log4shell-prod-01 sshd[11101]: pam_unix(cron:session): session opened for user root
+Aug  9 01:49:12 log4shell-prod-01 dbus-daemon[4570]: pam_unix(cron:session): session opened for user root
+Aug  9 01:49:48 log4shell-prod-01 sshd[26885]: Started Session 426 of user devops.
+Aug  9 01:50:23 log4shell-prod-01 CRON[6182]: Time synchronised to time server
+Aug  9 01:51:15 log4shell-prod-01 CRON[20108]: CPU0: Package temperature normal
+Aug  9 01:51:46 log4shell-prod-01 systemd-logind[18244]: pam_unix(cron:session): session opened for user root
+Aug  9 01:52:02 log4shell-prod-01 systemd-logind[6241]: CPU0: Package temperature normal
+Aug  9 01:52:48 log4shell-prod-01 sudo[21821]: pam_unix(cron:session): session opened for user root
+Aug  9 01:53:01 log4shell-prod-01 systemd[842]: Started Session 572 of user svc-backup.
+Aug  9 01:53:21 log4shell-prod-01 kernel[28758]: Started Session 268 of user devops.
+Aug  9 01:53:26 log4shell-prod-01 systemd-logind[19638]: pam_unix(cron:session): session opened for user root
+Aug  9 01:54:21 log4shell-prod-01 CRON[4576]: pam_unix(cron:session): session opened for user root
+Aug  9 01:54:50 log4shell-prod-01 chronyd[9881]: pam_unix(cron:session): session opened for user root
+Aug  9 01:55:13 log4shell-prod-01 CRON[5128]: Received disconnect from 10.10.177.32 port 56108:11: disconnected by user
+Aug  9 01:56:07 log4shell-prod-01 chronyd[1023]: Started Session 239 of user devops.
+Aug  9 01:56:48 log4shell-prod-01 sshd[28313]: Received disconnect from 10.10.177.112 port 59306:11: disconnected by user
+Aug  9 01:57:32 log4shell-prod-01 kernel[2995]: pam_unix(cron:session): session opened for user root
+Aug  9 01:57:38 log4shell-prod-01 sudo[27095]: CPU0: Package temperature normal
+Aug  9 01:58:06 log4shell-prod-01 systemd[29213]: Received disconnect from 10.10.177.66 port 49073:11: disconnected by user
+Aug  9 01:58:52 log4shell-prod-01 kernel[22871]: Received disconnect from 10.10.177.60 port 57154:11: disconnected by user
+Aug  9 01:59:24 log4shell-prod-01 sudo[10025]: Time synchronised to time server
+Aug  9 01:59:29 log4shell-prod-01 sshd[3416]: Started Session 874 of user webadmin.
+Aug  9 02:00:00 log4shell-prod-01 sudo[15028]: CPU0: Package temperature normal
+Aug  9 02:00:14 log4shell-prod-01 sudo[17081]: Received disconnect from 10.10.177.181 port 63758:11: disconnected by user
+Aug  9 02:00:49 log4shell-prod-01 sudo[2138]: CPU0: Package temperature normal
+Aug  9 02:01:30 log4shell-prod-01 systemd-logind[28765]: CPU0: Package temperature normal
+Aug  9 02:02:16 log4shell-prod-01 systemd-logind[26169]: pam_unix(cron:session): session opened for user root
+Aug  9 02:02:27 log4shell-prod-01 kernel[23180]: Time synchronised to time server
+Aug  9 02:03:14 log4shell-prod-01 dbus-daemon[8755]: Received disconnect from 10.10.177.23 port 57897:11: disconnected by user
+Aug  9 02:03:43 log4shell-prod-01 systemd-logind[11036]: pam_unix(cron:session): session opened for user root
+Aug  9 02:03:55 log4shell-prod-01 dbus-daemon[2695]: pam_unix(cron:session): session opened for user root
+Aug  9 02:04:47 log4shell-prod-01 sshd[23875]: pam_unix(cron:session): session opened for user root
+Aug  9 02:05:26 log4shell-prod-01 CRON[5823]: Time synchronised to time server
+Aug  9 02:06:14 log4shell-prod-01 sshd[24777]: Received disconnect from 10.10.177.190 port 47623:11: disconnected by user
+Aug  9 02:07:04 log4shell-prod-01 dbus-daemon[29702]: pam_unix(cron:session): session opened for user root
+Aug  9 02:07:47 log4shell-prod-01 systemd-logind[4348]: Time synchronised to time server
+Aug  9 02:08:35 log4shell-prod-01 sudo[4723]: Started Session 640 of user root.
+Aug  9 02:09:17 log4shell-prod-01 systemd-logind[24656]: CPU0: Package temperature normal
+Aug  9 02:09:27 log4shell-prod-01 chronyd[10717]: Time synchronised to time server
+Aug  9 02:10:11 log4shell-prod-01 sshd[14310]: Received disconnect from 10.10.177.161 port 63646:11: disconnected by user
+Aug  9 02:10:35 log4shell-prod-01 kernel[16564]: Time synchronised to time server
+Aug  9 02:11:22 log4shell-prod-01 CRON[22489]: Started Session 346 of user postgres.
+Aug  9 02:11:28 log4shell-prod-01 systemd[22131]: Started Session 240 of user webadmin.
+Aug  9 02:11:41 log4shell-prod-01 sudo[20145]: Time synchronised to time server
+Aug  9 02:12:07 log4shell-prod-01 systemd[7717]: Received disconnect from 10.10.177.235 port 64587:11: disconnected by user
+Aug  9 02:12:18 log4shell-prod-01 systemd[17673]: Time synchronised to time server
+Aug  9 02:13:06 log4shell-prod-01 sudo[21274]: CPU0: Package temperature normal
+Aug  9 02:13:48 log4shell-prod-01 chronyd[4273]: pam_unix(cron:session): session opened for user root
+Aug  9 02:14:13 log4shell-prod-01 kernel[14169]: pam_unix(cron:session): session opened for user root
+Aug  9 02:14:22 log4shell-prod-01 CRON[9402]: Started Session 480 of user devops.
+Aug  9 02:14:50 log4shell-prod-01 kernel[22229]: pam_unix(cron:session): session opened for user root
+Aug  9 02:15:42 log4shell-prod-01 chronyd[28467]: pam_unix(cron:session): session opened for user root
+Aug  9 02:15:46 log4shell-prod-01 sudo[14162]: pam_unix(cron:session): session opened for user root
+Aug  9 02:16:09 log4shell-prod-01 chronyd[28868]: pam_unix(cron:session): session opened for user root
+Aug  9 02:16:48 log4shell-prod-01 chronyd[8155]: Received disconnect from 10.10.177.138 port 48437:11: disconnected by user
+Aug  9 02:17:20 log4shell-prod-01 systemd[614]: CPU0: Package temperature normal
+Aug  9 02:18:05 log4shell-prod-01 kernel[3787]: Received disconnect from 10.10.177.45 port 53499:11: disconnected by user
+Aug  9 02:18:06 log4shell-prod-01 sudo[14141]: Time synchronised to time server
+Aug  9 02:18:19 log4shell-prod-01 CRON[10359]: pam_unix(cron:session): session opened for user root
+Aug  9 02:18:31 log4shell-prod-01 kernel[4481]: CPU0: Package temperature normal
+Aug  9 02:18:46 log4shell-prod-01 kernel[24492]: Time synchronised to time server
+Aug  9 02:19:22 log4shell-prod-01 sshd[20333]: pam_unix(cron:session): session opened for user root
+Aug  9 02:20:03 log4shell-prod-01 dbus-daemon[7111]: Received disconnect from 10.10.177.219 port 64778:11: disconnected by user
+Aug  9 02:20:07 log4shell-prod-01 kernel[4316]: Started Session 813 of user devops.
+Aug  9 02:20:39 log4shell-prod-01 kernel[18740]: CPU0: Package temperature normal
+Aug  9 02:21:12 log4shell-prod-01 kernel[27047]: Received disconnect from 10.10.177.6 port 61886:11: disconnected by user
+Aug  9 02:21:40 log4shell-prod-01 dbus-daemon[9179]: Time synchronised to time server
+Aug  9 02:21:59 log4shell-prod-01 kernel[14232]: pam_unix(cron:session): session opened for user root
+Aug  9 02:22:53 log4shell-prod-01 sshd[27476]: Started Session 51 of user jenkins.
+Aug  9 02:23:46 log4shell-prod-01 sudo[1401]: CPU0: Package temperature normal
+Aug  9 02:24:14 log4shell-prod-01 CRON[9171]: Time synchronised to time server
+Aug  9 02:24:55 log4shell-prod-01 sshd[13079]: Received disconnect from 10.10.177.80 port 64253:11: disconnected by user
+Aug  9 02:25:09 log4shell-prod-01 sudo[12748]: Time synchronised to time server
+Aug  9 02:25:26 log4shell-prod-01 chronyd[17272]: Received disconnect from 10.10.177.106 port 63331:11: disconnected by user
+Aug  9 02:26:12 log4shell-prod-01 sudo[17662]: Time synchronised to time server
+Aug  9 02:27:04 log4shell-prod-01 kernel[14596]: CPU0: Package temperature normal
+Aug  9 02:27:44 log4shell-prod-01 CRON[22851]: Received disconnect from 10.10.177.202 port 62610:11: disconnected by user
+Aug  9 02:28:06 log4shell-prod-01 chronyd[4825]: Started Session 41 of user jenkins.
+Aug  9 02:28:51 log4shell-prod-01 dbus-daemon[21101]: Received disconnect from 10.10.177.52 port 60915:11: disconnected by user
+Aug  9 02:29:12 log4shell-prod-01 sshd[17187]: CPU0: Package temperature normal
+Aug  9 02:29:19 log4shell-prod-01 chronyd[19616]: pam_unix(cron:session): session opened for user root
+Aug  9 02:30:14 log4shell-prod-01 kernel[21498]: CPU0: Package temperature normal
+Aug  9 02:31:03 log4shell-prod-01 chronyd[6650]: Time synchronised to time server
+Aug  9 02:31:17 log4shell-prod-01 CRON[25971]: Received disconnect from 10.10.177.54 port 43605:11: disconnected by user
+Aug  9 02:31:36 log4shell-prod-01 chronyd[13570]: Received disconnect from 10.10.177.105 port 43046:11: disconnected by user
+Aug  9 02:32:04 log4shell-prod-01 kernel[15453]: pam_unix(cron:session): session opened for user root
+Aug  9 02:32:16 log4shell-prod-01 kernel[14197]: Received disconnect from 10.10.177.5 port 60395:11: disconnected by user
+Aug  9 02:32:29 log4shell-prod-01 sshd[4735]: Time synchronised to time server
+Aug  9 02:33:24 log4shell-prod-01 systemd[18279]: pam_unix(cron:session): session opened for user root
+Aug  9 02:34:13 log4shell-prod-01 sudo[8883]: CPU0: Package temperature normal
+Aug  9 02:35:05 log4shell-prod-01 sshd[18971]: CPU0: Package temperature normal
+Aug  9 02:35:17 log4shell-prod-01 systemd[26233]: CPU0: Package temperature normal
+Aug  9 02:35:50 log4shell-prod-01 CRON[10197]: CPU0: Package temperature normal
+Aug  9 02:35:58 log4shell-prod-01 dbus-daemon[28436]: Received disconnect from 10.10.177.18 port 62247:11: disconnected by user
+Aug  9 02:36:05 log4shell-prod-01 dbus-daemon[26512]: Started Session 664 of user postgres.
+Aug  9 02:36:19 log4shell-prod-01 chronyd[27342]: Started Session 225 of user devops.
+Aug  9 02:37:09 log4shell-prod-01 CRON[24643]: CPU0: Package temperature normal
+Aug  9 02:37:49 log4shell-prod-01 systemd[18720]: Received disconnect from 10.10.177.63 port 53682:11: disconnected by user
+Aug  9 02:38:03 log4shell-prod-01 sudo[9922]: Started Session 488 of user jenkins.
+Aug  9 02:38:07 log4shell-prod-01 CRON[6407]: Started Session 290 of user svc-backup.
+Aug  9 02:38:27 log4shell-prod-01 CRON[4002]: pam_unix(cron:session): session opened for user root
+Aug  9 02:38:42 log4shell-prod-01 chronyd[18607]: CPU0: Package temperature normal
+Aug  9 02:38:45 log4shell-prod-01 systemd[17594]: Started Session 292 of user jenkins.
+Aug  9 02:39:15 log4shell-prod-01 chronyd[23992]: Time synchronised to time server
+Aug  9 02:39:42 log4shell-prod-01 sshd[20253]: Time synchronised to time server
+Aug  9 02:40:17 log4shell-prod-01 dbus-daemon[21524]: pam_unix(cron:session): session opened for user root
+Aug  9 02:41:00 log4shell-prod-01 systemd[4805]: Received disconnect from 10.10.177.189 port 40359:11: disconnected by user
+Aug  9 02:41:48 log4shell-prod-01 dbus-daemon[29473]: Received disconnect from 10.10.177.10 port 43264:11: disconnected by user
+Aug  9 02:42:24 log4shell-prod-01 sshd[10516]: Time synchronised to time server
+Aug  9 02:43:05 log4shell-prod-01 sudo[28704]: CPU0: Package temperature normal
+Aug  9 02:43:37 log4shell-prod-01 dbus-daemon[24715]: Time synchronised to time server
+Aug  9 02:44:01 log4shell-prod-01 sudo[2222]: Received disconnect from 10.10.177.198 port 41022:11: disconnected by user
+Aug  9 02:44:51 log4shell-prod-01 systemd-logind[17635]: Time synchronised to time server
+Aug  9 02:45:16 log4shell-prod-01 CRON[28064]: CPU0: Package temperature normal
+Aug  9 02:45:41 log4shell-prod-01 kernel[23084]: Started Session 191 of user postgres.
+Aug  9 02:46:22 log4shell-prod-01 chronyd[20013]: Started Session 652 of user jenkins.
+Aug  9 02:46:59 log4shell-prod-01 CRON[20292]: Received disconnect from 10.10.177.87 port 63854:11: disconnected by user
+Aug  9 02:47:15 log4shell-prod-01 sshd[14212]: Time synchronised to time server
+Aug  9 02:47:17 log4shell-prod-01 sudo[18092]: Received disconnect from 10.10.177.4 port 55997:11: disconnected by user
+Aug  9 02:47:19 log4shell-prod-01 CRON[4664]: Received disconnect from 10.10.177.147 port 52635:11: disconnected by user
+Aug  9 02:47:54 log4shell-prod-01 sudo[10632]: CPU0: Package temperature normal
+Aug  9 02:48:15 log4shell-prod-01 kernel[6040]: pam_unix(cron:session): session opened for user root
+Aug  9 02:49:00 log4shell-prod-01 dbus-daemon[8385]: Started Session 651 of user svc-backup.
+Aug  9 02:49:52 log4shell-prod-01 systemd[18393]: CPU0: Package temperature normal
+Aug  9 02:49:58 log4shell-prod-01 sudo[11563]: Received disconnect from 10.10.177.27 port 43846:11: disconnected by user
+Aug  9 02:50:26 log4shell-prod-01 chronyd[7665]: Time synchronised to time server
+Aug  9 02:50:28 log4shell-prod-01 sudo[12625]: Started Session 463 of user svc-backup.
+Aug  9 02:50:43 log4shell-prod-01 chronyd[7591]: pam_unix(cron:session): session opened for user root
+Aug  9 02:51:16 log4shell-prod-01 CRON[19599]: pam_unix(cron:session): session opened for user root
+Aug  9 02:51:58 log4shell-prod-01 CRON[27846]: Started Session 491 of user jenkins.
+Aug  9 02:52:03 log4shell-prod-01 chronyd[24536]: Time synchronised to time server
+Aug  9 02:52:32 log4shell-prod-01 kernel[26398]: pam_unix(cron:session): session opened for user root
+Aug  9 02:53:12 log4shell-prod-01 chronyd[22994]: CPU0: Package temperature normal
+Aug  9 02:53:18 log4shell-prod-01 sshd[14111]: Received disconnect from 10.10.177.8 port 47296:11: disconnected by user
+Aug  9 02:53:26 log4shell-prod-01 sshd[6823]: Started Session 427 of user jenkins.
+Aug  9 02:54:14 log4shell-prod-01 dbus-daemon[29569]: pam_unix(cron:session): session opened for user root
+Aug  9 02:54:39 log4shell-prod-01 sshd[21412]: pam_unix(cron:session): session opened for user root
+Aug  9 02:55:06 log4shell-prod-01 kernel[23141]: CPU0: Package temperature normal
+Aug  9 02:55:16 log4shell-prod-01 chronyd[15205]: Started Session 450 of user svc-backup.
+Aug  9 02:56:10 log4shell-prod-01 sshd[27101]: Received disconnect from 10.10.177.203 port 47942:11: disconnected by user
+Aug  9 02:56:11 log4shell-prod-01 chronyd[17275]: CPU0: Package temperature normal
+Aug  9 02:57:02 log4shell-prod-01 chronyd[7573]: CPU0: Package temperature normal
+Aug  9 02:57:55 log4shell-prod-01 dbus-daemon[22128]: Time synchronised to time server
+Aug  9 02:58:35 log4shell-prod-01 sudo[2317]: Time synchronised to time server
+Aug  9 02:58:46 log4shell-prod-01 dbus-daemon[20327]: Time synchronised to time server
+Aug  9 02:59:28 log4shell-prod-01 sudo[735]: Time synchronised to time server
+Aug  9 03:00:11 log4shell-prod-01 CRON[23375]: Time synchronised to time server
+Aug  9 03:00:16 log4shell-prod-01 CRON[13500]: Started Session 511 of user devops.
+Aug  9 03:01:10 log4shell-prod-01 sshd[2209]: CPU0: Package temperature normal
+Aug  9 03:01:41 log4shell-prod-01 sudo[29726]: Time synchronised to time server
+Aug  9 03:02:22 log4shell-prod-01 sudo[2879]: pam_unix(cron:session): session opened for user root
+Aug  9 03:02:29 log4shell-prod-01 systemd-logind[24586]: Time synchronised to time server
+Aug  9 03:03:19 log4shell-prod-01 CRON[21562]: Started Session 831 of user svc-backup.
+Aug  9 03:04:08 log4shell-prod-01 sshd[7004]: Time synchronised to time server
+Aug  9 03:04:17 log4shell-prod-01 sshd[24494]: Started Session 473 of user svc-backup.
+Aug  9 03:05:01 log4shell-prod-01 systemd-logind[27556]: Started Session 643 of user svc-backup.
+Aug  9 03:05:43 log4shell-prod-01 kernel[19848]: Received disconnect from 10.10.177.192 port 63500:11: disconnected by user
+Aug  9 03:06:14 log4shell-prod-01 sudo[28447]: Time synchronised to time server
+Aug  9 03:06:49 log4shell-prod-01 sshd[14081]: Time synchronised to time server
+Aug  9 03:07:15 log4shell-prod-01 dbus-daemon[26178]: Started Session 732 of user jenkins.
+Aug  9 03:07:51 log4shell-prod-01 systemd-logind[28273]: Time synchronised to time server
+Aug  9 03:08:04 log4shell-prod-01 CRON[16019]: Received disconnect from 10.10.177.67 port 64902:11: disconnected by user
+Aug  9 03:08:41 log4shell-prod-01 chronyd[20183]: Received disconnect from 10.10.177.231 port 60830:11: disconnected by user
+Aug  9 03:09:05 log4shell-prod-01 dbus-daemon[24319]: Time synchronised to time server
+Aug  9 03:09:22 log4shell-prod-01 systemd-logind[6336]: Time synchronised to time server
+Aug  9 03:09:30 log4shell-prod-01 sudo[11767]: CPU0: Package temperature normal
+Aug  9 03:09:58 log4shell-prod-01 dbus-daemon[2473]: pam_unix(cron:session): session opened for user root
+Aug  9 03:10:22 log4shell-prod-01 CRON[1755]: CPU0: Package temperature normal
+Aug  9 03:11:09 log4shell-prod-01 systemd[23925]: CPU0: Package temperature normal
+Aug  9 03:11:53 log4shell-prod-01 sshd[18248]: Time synchronised to time server
+Aug  9 03:11:57 log4shell-prod-01 dbus-daemon[6335]: Started Session 70 of user jenkins.
+Aug  9 03:12:52 log4shell-prod-01 sshd[16851]: Received disconnect from 10.10.177.126 port 47324:11: disconnected by user
+Aug  9 03:13:38 log4shell-prod-01 systemd[22875]: Time synchronised to time server
+Aug  9 03:14:20 log4shell-prod-01 CRON[26915]: pam_unix(cron:session): session opened for user root
+Aug  9 03:14:57 log4shell-prod-01 kernel[15105]: CPU0: Package temperature normal
+Aug  9 03:15:14 log4shell-prod-01 chronyd[28806]: Received disconnect from 10.10.177.42 port 55182:11: disconnected by user
+Aug  9 03:16:04 log4shell-prod-01 CRON[17064]: Time synchronised to time server
+Aug  9 03:16:24 log4shell-prod-01 systemd-logind[22235]: CPU0: Package temperature normal
+Aug  9 03:16:43 log4shell-prod-01 kernel[4042]: CPU0: Package temperature normal
+Aug  9 03:17:21 log4shell-prod-01 chronyd[24287]: Started Session 517 of user postgres.
+Aug  9 03:17:51 log4shell-prod-01 systemd-logind[4900]: Received disconnect from 10.10.177.247 port 42568:11: disconnected by user
+Aug  9 03:18:41 log4shell-prod-01 systemd-logind[1794]: CPU0: Package temperature normal
+Aug  9 03:19:22 log4shell-prod-01 dbus-daemon[18383]: Received disconnect from 10.10.177.71 port 56089:11: disconnected by user
+Aug  9 03:19:28 log4shell-prod-01 sshd[13269]: Received disconnect from 10.10.177.8 port 53844:11: disconnected by user
+Aug  9 03:19:29 log4shell-prod-01 kernel[22221]: pam_unix(cron:session): session opened for user root
+Aug  9 03:19:33 log4shell-prod-01 chronyd[12164]: CPU0: Package temperature normal
+Aug  9 03:19:48 log4shell-prod-01 systemd-logind[25695]: Time synchronised to time server
+Aug  9 03:20:23 log4shell-prod-01 sudo[27059]: pam_unix(cron:session): session opened for user root
+Aug  9 03:20:58 log4shell-prod-01 chronyd[3857]: CPU0: Package temperature normal
+Aug  9 03:21:26 log4shell-prod-01 sudo[4237]: CPU0: Package temperature normal
+Aug  9 03:21:53 log4shell-prod-01 dbus-daemon[4219]: pam_unix(cron:session): session opened for user root
+Aug  9 03:22:27 log4shell-prod-01 systemd[17453]: CPU0: Package temperature normal
+Aug  9 03:23:08 log4shell-prod-01 sshd[26828]: Started Session 566 of user webadmin.
+Aug  9 03:23:24 log4shell-prod-01 systemd[25531]: Time synchronised to time server
+Aug  9 03:23:55 log4shell-prod-01 systemd[3687]: pam_unix(cron:session): session opened for user root
+Aug  9 03:24:41 log4shell-prod-01 systemd[11289]: CPU0: Package temperature normal
+Aug  9 03:25:23 log4shell-prod-01 CRON[26260]: Received disconnect from 10.10.177.56 port 54761:11: disconnected by user
+Aug  9 03:25:24 log4shell-prod-01 sshd[24339]: Time synchronised to time server
+Aug  9 03:25:45 log4shell-prod-01 systemd-logind[374]: Received disconnect from 10.10.177.70 port 61166:11: disconnected by user
+Aug  9 03:25:48 log4shell-prod-01 sudo[11965]: pam_unix(cron:session): session opened for user root
+Aug  9 03:26:41 log4shell-prod-01 chronyd[22034]: Received disconnect from 10.10.177.33 port 42363:11: disconnected by user
+Aug  9 03:27:09 log4shell-prod-01 systemd[17622]: Received disconnect from 10.10.177.139 port 47605:11: disconnected by user
+Aug  9 03:28:01 log4shell-prod-01 sshd[18543]: CPU0: Package temperature normal
+Aug  9 03:28:40 log4shell-prod-01 systemd[11229]: CPU0: Package temperature normal
+Aug  9 03:28:41 log4shell-prod-01 sshd[10143]: pam_unix(cron:session): session opened for user root
+Aug  9 03:29:31 log4shell-prod-01 dbus-daemon[524]: Time synchronised to time server
+Aug  9 03:30:09 log4shell-prod-01 sshd[14829]: Received disconnect from 10.10.177.200 port 61249:11: disconnected by user
+Aug  9 03:30:33 log4shell-prod-01 CRON[24276]: pam_unix(cron:session): session opened for user root
+Aug  9 03:31:19 log4shell-prod-01 systemd[10006]: Started Session 683 of user devops.
+Aug  9 03:31:21 log4shell-prod-01 CRON[13543]: Started Session 124 of user root.
+Aug  9 03:31:46 log4shell-prod-01 chronyd[21668]: Time synchronised to time server
+Aug  9 03:32:26 log4shell-prod-01 dbus-daemon[28961]: CPU0: Package temperature normal
+Aug  9 03:33:10 log4shell-prod-01 systemd-logind[8615]: Time synchronised to time server
+Aug  9 03:33:20 log4shell-prod-01 dbus-daemon[350]: Started Session 259 of user postgres.
+Aug  9 03:33:40 log4shell-prod-01 systemd[27845]: CPU0: Package temperature normal
+Aug  9 03:34:29 log4shell-prod-01 CRON[25466]: Started Session 201 of user devops.
+Aug  9 03:35:03 log4shell-prod-01 dbus-daemon[531]: pam_unix(cron:session): session opened for user root
+Aug  9 03:35:10 log4shell-prod-01 chronyd[13904]: Started Session 875 of user svc-backup.
+Aug  9 03:35:54 log4shell-prod-01 kernel[21280]: Started Session 749 of user devops.
+Aug  9 03:36:14 log4shell-prod-01 sudo[24456]: Started Session 854 of user root.
+Aug  9 03:36:54 log4shell-prod-01 CRON[25388]: Time synchronised to time server
+Aug  9 03:37:19 log4shell-prod-01 kernel[1571]: pam_unix(cron:session): session opened for user root
+Aug  9 03:37:45 log4shell-prod-01 sshd[9196]: CPU0: Package temperature normal
+Aug  9 03:38:16 log4shell-prod-01 sshd[23421]: pam_unix(cron:session): session opened for user root
+Aug  9 03:38:33 log4shell-prod-01 systemd[20427]: pam_unix(cron:session): session opened for user root
+Aug  9 03:39:19 log4shell-prod-01 chronyd[11321]: Time synchronised to time server
+Aug  9 03:39:47 log4shell-prod-01 systemd-logind[8579]: Received disconnect from 10.10.177.125 port 50097:11: disconnected by user
+Aug  9 03:40:33 log4shell-prod-01 dbus-daemon[1536]: Received disconnect from 10.10.177.37 port 54311:11: disconnected by user
+Aug  9 03:40:41 log4shell-prod-01 CRON[6465]: Time synchronised to time server
+Aug  9 03:41:04 log4shell-prod-01 systemd-logind[22775]: CPU0: Package temperature normal
+Aug  9 03:41:44 log4shell-prod-01 kernel[12239]: Started Session 614 of user postgres.
+Aug  9 03:42:04 log4shell-prod-01 kernel[27424]: Time synchronised to time server
+Aug  9 03:42:49 log4shell-prod-01 dbus-daemon[27392]: CPU0: Package temperature normal
+Aug  9 03:42:51 log4shell-prod-01 sshd[17495]: Time synchronised to time server
+Aug  9 03:43:20 log4shell-prod-01 systemd[2025]: CPU0: Package temperature normal
+Aug  9 03:43:22 log4shell-prod-01 dbus-daemon[7638]: pam_unix(cron:session): session opened for user root
+Aug  9 03:43:29 log4shell-prod-01 CRON[27342]: Received disconnect from 10.10.177.163 port 52469:11: disconnected by user
+Aug  9 03:43:40 log4shell-prod-01 CRON[6467]: Started Session 519 of user webadmin.
+Aug  9 03:44:26 log4shell-prod-01 CRON[1303]: Time synchronised to time server
+Aug  9 03:45:12 log4shell-prod-01 systemd-logind[26694]: CPU0: Package temperature normal
+Aug  9 03:45:21 log4shell-prod-01 sudo[25729]: pam_unix(cron:session): session opened for user root
+Aug  9 03:45:45 log4shell-prod-01 chronyd[9151]: pam_unix(cron:session): session opened for user root
+Aug  9 03:45:56 log4shell-prod-01 dbus-daemon[11865]: pam_unix(cron:session): session opened for user root
+Aug  9 03:46:13 log4shell-prod-01 chronyd[29044]: Time synchronised to time server
+Aug  9 03:46:59 log4shell-prod-01 systemd[20951]: CPU0: Package temperature normal
+Aug  9 03:47:50 log4shell-prod-01 dbus-daemon[20229]: Received disconnect from 10.10.177.182 port 55252:11: disconnected by user
+Aug  9 03:48:07 log4shell-prod-01 systemd[23230]: CPU0: Package temperature normal
+Aug  9 03:48:46 log4shell-prod-01 sudo[5258]: Time synchronised to time server
+Aug  9 03:49:38 log4shell-prod-01 CRON[10945]: Started Session 843 of user jenkins.
+Aug  9 03:49:48 log4shell-prod-01 CRON[24842]: Started Session 731 of user postgres.
+Aug  9 03:50:05 log4shell-prod-01 sudo[14666]: pam_unix(cron:session): session opened for user root
+Aug  9 03:50:12 log4shell-prod-01 kernel[9107]: Received disconnect from 10.10.177.244 port 46806:11: disconnected by user
+Aug  9 03:51:00 log4shell-prod-01 kernel[6025]: CPU0: Package temperature normal
+Aug  9 03:51:54 log4shell-prod-01 chronyd[15217]: Time synchronised to time server
+Aug  9 03:52:35 log4shell-prod-01 kernel[9395]: Started Session 997 of user devops.
+Aug  9 03:53:14 log4shell-prod-01 dbus-daemon[27058]: pam_unix(cron:session): session opened for user root
+Aug  9 03:54:05 log4shell-prod-01 CRON[27594]: CPU0: Package temperature normal
+Aug  9 03:54:30 log4shell-prod-01 sshd[21169]: pam_unix(cron:session): session opened for user root
+Aug  9 03:54:41 log4shell-prod-01 sshd[16176]: Time synchronised to time server
+Aug  9 03:55:22 log4shell-prod-01 CRON[14678]: pam_unix(cron:session): session opened for user root
+Aug  9 03:55:42 log4shell-prod-01 systemd-logind[25034]: pam_unix(cron:session): session opened for user root
+Aug  9 03:55:52 log4shell-prod-01 systemd[20916]: pam_unix(cron:session): session opened for user root
+Aug  9 03:56:45 log4shell-prod-01 systemd[20998]: Time synchronised to time server
+Aug  9 03:57:07 log4shell-prod-01 sudo[20168]: Time synchronised to time server
+Aug  9 03:57:15 log4shell-prod-01 dbus-daemon[28992]: pam_unix(cron:session): session opened for user root
+Aug  9 03:57:25 log4shell-prod-01 kernel[4304]: Received disconnect from 10.10.177.68 port 45156:11: disconnected by user
+Aug  9 03:57:31 log4shell-prod-01 chronyd[18888]: Time synchronised to time server
+Aug  9 03:57:38 log4shell-prod-01 dbus-daemon[7362]: Started Session 217 of user webadmin.
+Aug  9 03:58:19 log4shell-prod-01 sudo[16617]: Received disconnect from 10.10.177.224 port 54724:11: disconnected by user
+Aug  9 03:58:40 log4shell-prod-01 dbus-daemon[21861]: pam_unix(cron:session): session opened for user root
+Aug  9 03:59:33 log4shell-prod-01 chronyd[1210]: Time synchronised to time server
+Aug  9 04:00:04 log4shell-prod-01 CRON[10339]: CPU0: Package temperature normal
+Aug  9 04:00:11 log4shell-prod-01 systemd-logind[9994]: pam_unix(cron:session): session opened for user root
+Aug  9 04:00:14 log4shell-prod-01 chronyd[8683]: pam_unix(cron:session): session opened for user root
+Aug  9 04:00:42 log4shell-prod-01 dbus-daemon[4276]: CPU0: Package temperature normal
+Aug  9 04:00:47 log4shell-prod-01 chronyd[3813]: pam_unix(cron:session): session opened for user root
+Aug  9 04:01:41 log4shell-prod-01 sudo[27905]: pam_unix(cron:session): session opened for user root
+Aug  9 04:02:22 log4shell-prod-01 systemd[7270]: CPU0: Package temperature normal
+Aug  9 04:02:46 log4shell-prod-01 dbus-daemon[3150]: CPU0: Package temperature normal
+Aug  9 04:03:06 log4shell-prod-01 sshd[19245]: Time synchronised to time server
+Aug  9 04:03:56 log4shell-prod-01 CRON[8156]: Time synchronised to time server
+Aug  9 04:04:38 log4shell-prod-01 sshd[497]: Time synchronised to time server

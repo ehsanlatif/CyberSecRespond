@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "miner-process",
+    "path": "/tmp/.redis/kdevtmpfsi",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /tmp/.redis/kdevtmpfsi"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "cron",
+    "path": "/var/spool/cron/crontabs/root",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/crontabs/root"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "redis-baseline",
+    "path": "/etc/redis/redis.conf",
+    "capability": "BAS-01",
+    "summary": "redis-baseline observed at /etc/redis/redis.conf"
+  }
+]

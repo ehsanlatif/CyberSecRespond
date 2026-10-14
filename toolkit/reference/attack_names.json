@@ -1,0 +1,138 @@
+{
+  "T1003.001": {
+    "name": "LSASS Memory",
+    "tactic": "credential-access"
+  },
+  "T1021.001": {
+    "name": "Remote Desktop Protocol",
+    "tactic": "lateral-movement"
+  },
+  "T1021.004": {
+    "name": "SSH",
+    "tactic": "lateral-movement"
+  },
+  "T1037.004": {
+    "name": "RC Scripts",
+    "tactic": "persistence"
+  },
+  "T1048": {
+    "name": "Exfiltration Over Alternative Protocol",
+    "tactic": "exfiltration"
+  },
+  "T1048.003": {
+    "name": "Exfiltration Over Unencrypted Non-C2 Protocol",
+    "tactic": "exfiltration"
+  },
+  "T1053.003": {
+    "name": "Cron",
+    "tactic": "execution"
+  },
+  "T1053.005": {
+    "name": "Scheduled Task",
+    "tactic": "execution"
+  },
+  "T1059.001": {
+    "name": "PowerShell",
+    "tactic": "execution"
+  },
+  "T1059.004": {
+    "name": "Unix Shell",
+    "tactic": "execution"
+  },
+  "T1070.001": {
+    "name": "Clear Windows Event Logs",
+    "tactic": "defense-evasion"
+  },
+  "T1070.002": {
+    "name": "Clear Linux or Mac System Logs",
+    "tactic": "defense-evasion"
+  },
+  "T1070.006": {
+    "name": "Timestomp",
+    "tactic": "stealth"
+  },
+  "T1078": {
+    "name": "Valid Accounts",
+    "tactic": "stealth"
+  },
+  "T1098.004": {
+    "name": "SSH Authorized Keys",
+    "tactic": "persistence"
+  },
+  "T1110": {
+    "name": "Brute Force",
+    "tactic": "credential-access"
+  },
+  "T1133": {
+    "name": "External Remote Services",
+    "tactic": "persistence"
+  },
+  "T1190": {
+    "name": "Exploit Public-Facing Application",
+    "tactic": "initial-access"
+  },
+  "T1210": {
+    "name": "Exploitation of Remote Services",
+    "tactic": "lateral-movement"
+  },
+  "T1486": {
+    "name": "Data Encrypted for Impact",
+    "tactic": "impact"
+  },
+  "T1491.001": {
+    "name": "Internal Defacement",
+    "tactic": "impact"
+  },
+  "T1496": {
+    "name": "Resource Hijacking",
+    "tactic": "impact"
+  },
+  "T1505.003": {
+    "name": "Web Shell",
+    "tactic": "persistence"
+  },
+  "T1543.002": {
+    "name": "Systemd Service",
+    "tactic": "persistence"
+  },
+  "T1543.003": {
+    "name": "Windows Service",
+    "tactic": "persistence"
+  },
+  "T1546.003": {
+    "name": "Windows Management Instrumentation Event Subscription",
+    "tactic": "privilege-escalation"
+  },
+  "T1546.004": {
+    "name": "Unix Shell Configuration Modification",
+    "tactic": "privilege-escalation"
+  },
+  "T1547.001": {
+    "name": "Registry Run Keys / Startup Folder",
+    "tactic": "persistence"
+  },
+  "T1548.003": {
+    "name": "Sudo and Sudo Caching",
+    "tactic": "privilege-escalation"
+  },
+  "T1560.001": {
+    "name": "Archive via Utility",
+    "tactic": "collection"
+  },
+  "T1574.001": {
+    "name": "DLL",
+    "tactic": "stealth"
+  },
+  "T1574.006": {
+    "name": "Dynamic Linker Hijacking",
+    "tactic": "stealth"
+  },
+  "T1610": {
+    "name": "Deploy Container",
+    "tactic": "execution"
+  },
+  "T1611": {
+    "name": "Escape to Host",
+    "tactic": "privilege-escalation"
+  }
+}

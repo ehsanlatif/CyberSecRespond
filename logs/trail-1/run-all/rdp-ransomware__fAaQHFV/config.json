@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/rdp-ransomware"
+    },
+    "trial_name": "rdp-ransomware__fAaQHFV",
+    "trials_dir": "jobs/2026-08-16__08-02-53",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "7882fed5-9788-4f34-bba8-41ed149ea21c"
+}

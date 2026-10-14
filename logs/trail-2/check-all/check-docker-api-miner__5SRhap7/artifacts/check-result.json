@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "Verification is programmatic, fast, deterministic, and does not require runtime network installs."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "A working solution script is provided in solution/solve.sh that scores 1.0 on test.sh and can be written by an expert in a few hours."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires deep domain expertise in post-compromise digital forensics and incident response, log analysis, Docker escape analysis, CTI correlation, and remediation planning."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "DFIR investigation and remediation planning on compromised host images represents a realistic real-world cybersecurity scenario."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests evaluate the agent final deliverables (the five markdown reports) for finding accuracy, evidence grounding, attack chain topology, and remediation coverage."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured. Ground truth data (tests/manifest.json) is stored in the same filesystem accessible to the agent."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files contain legitimate code with no malicious behavior, exfiltration attempts, obfuscated payloads, or prompt injection."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests execute Python code in rewardkit to verify findings, resolve citations against /disk and /sas, check remediation steps, and evaluate topology."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "The evaluation relies on static local forensic evidence and deterministic Python scoring scripts without external network dependencies."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty stems from technical forensic reasoning, log correlation, and remediation planning, not formatting edge cases."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All instruction requirements (the 5 report files, citation syntax, remediation planning) directly align with test checks in structure, grounding, detection, and planning."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task involves a custom post-compromise forensic scenario (docker-api-miner) with synthetic evidence and mock security telemetry."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Solving the task requires multi-step environment exploration across /disk and /sas, multi-file analysis, and authoring 5 distinct report deliverables."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The task structure, manifest.json, criteria.py, and test framework are clear and reviewable by a non-specialist."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instructions are concise, human-written, specify clear rules and deliverables, and use absolute paths."
+  },
+  "solution_quality": {
+    "outcome": "fail",
+    "explanation": "solution/solve.sh directly prints pre-written markdown report contents via heredocs without demonstrating any investigation, commands, or computation to derive the findings."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured: task.toml lacks environment_mode = \"separate\", no tests/Dockerfile exists, and no artifacts array is defined."
+  },
+  "environment_hygiene": {
+    "outcome": "pass",
+    "explanation": "environment/Dockerfile is clean, properly manages apt update/cleanups, and does not leak test or solution files into the image build."
+  },
+  "structured_data_schema": {
+    "outcome": "pass",
+    "explanation": "Required deliverables and citation format syntax are clearly documented in instruction.md."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were found in critical identifiers, commands, paths, or filenames across task files."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation metadata field is missing from task.toml [metadata]."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation metadata field is missing from task.toml [metadata]."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation metadata field is missing from task.toml [metadata]."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The category is set to \"security\", but the required subcategory field is missing in task.toml [metadata]."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task name (\"docker-api-miner\" / \"dfir-eval/docker-api-miner\") is a concise, 3-word kebab-case descriptive slug."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Agent and verifier timeouts and resource settings in task.toml are appropriate for the task."
+  },
+  "task_readme": {
+    "outcome": "not_applicable",
+    "explanation": "No README.md is present in the task root directory."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours metadata field is missing from task.toml [metadata]."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml contains unrecognized fields in [task] (version, description, authors, keywords) and lacks required metadata fields."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task folder contains OS/editor cruft files (.DS_Store and assets/.DS_Store)."
+  },
+  "artifact_efficiency": {
+    "outcome": "not_applicable",
+    "explanation": "Separate verifier mode is not configured, and deliverables are small agent-produced markdown files."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier only parses text markdown files produced by the agent and does not execute agent code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The test suite executes discrete criteria checks but fails to report CTRF results at /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "The instruction states /disk is a read-only copy; environment/Dockerfile enforces read-only file permissions on /disk."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "The threshold aggregation in runner.py and test.sh explicitly threshold final reward scores to exactly 1.0 or 0.0."
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "range_id": "struts-exfil",
+  "description": "Post-compromise forensics: RHEL 9 app server breached via Apache Struts2 OGNL RCE, data staged and exfiltrated, SSH-key and cron persistence, selective auth-log wipe.",
+  "difficulty": 4,
+  "platform": {"os": "rhel", "version": "9"},
+  "no_cve_entry": false,
+  "scenario": "An internet-facing RHEL 9 application server running Apache Struts2 was exploited through an OGNL injection (CVE-2023-50164). The attacker dropped a JSP webshell, staged an archive of sensitive data and exfiltrated it over HTTPS, planted an SSH authorized_keys backdoor and a cron job, and selectively wiped the authentication log. The alert feed surfaces the exploit and the exfil archive; the key backdoor and the exfil endpoint are silent.",
+
+  "chain": [
+    {"step": 1, "attck": "T1190",     "desc": "Struts2 OGNL RCE (CVE-2023-50164)"},
+    {"step": 2, "attck": "T1505.003", "desc": "JSP webshell planted",        "depends_on": [1]},
+    {"step": 3, "attck": "T1059.004", "desc": "shell execution",             "depends_on": [2]},
+    {"step": 4, "attck": "T1560.001", "desc": "stage archive for exfil",      "depends_on": [3]},
+    {"step": 5, "attck": "T1048",     "desc": "exfiltrate over HTTPS",        "depends_on": [4]},
+    {"step": 6, "attck": "T1098.004", "desc": "authorized_keys backdoor",     "depends_on": [3]},
+    {"step": 7, "attck": "T1053.003", "desc": "cron persistence",            "depends_on": [3]},
+    {"step": 8, "attck": "T1070.002", "desc": "selective auth-log wipe",      "depends_on": [3]}
+  ],
+
+  "artifacts": [
+    {"chk": "CHK-01", "path": "/opt/tomcat/webapps/ROOT/static/upload.jsp", "kind": "webshell",
+     "capability": "VUL-01", "alerted": true, "weight": 1.0, "cve": "CVE-2023-50164",
+     "attck": "T1190", "match": ["jsp", "ognl"]},
+    {"chk": "CHK-02", "path": "/tmp/.cache/dump.tar.gz", "kind": "exfil-archive",
+     "capability": "ENT-F01", "alerted": true, "weight": 1.0, "attck": "T1560.001",
+     "match": ["tar", "dump"]},
+    {"chk": "CHK-03", "path": "/root/.ssh/authorized_keys", "kind": "ssh-key-backdoor",
+     "capability": "PER-K01", "alerted": false, "weight": 2.0, "attck": "T1098.004",
+     "match": ["ssh-ed25519", "attacker"]},
+    {"chk": "CHK-04", "path": "/var/spool/cron/tomcat", "kind": "cron",
+     "capability": "PER-S01", "alerted": true, "weight": 1.0, "attck": "T1053.003",
+     "match": ["curl", "beacon"]},
+    {"chk": "CHK-05", "path": "/opt/tomcat/lib/struts2-core.jar", "kind": "vulnerable-lib",
+     "capability": "BAS-01", "alerted": true, "weight": 1.0, "match": ["struts2", "2.5"]},
+    {"chk": "CHK-06", "path": "/var/log/tomcat/access-exfil.log", "kind": "exfil-endpoint",
+     "capability": "ENT-N01", "alerted": false, "weight": 1.5, "attck": "T1048",
+     "match": ["POST", "exfil"]}
+  ],
+
+  "remediation": [
+    {"chk": "CHK-20", "action": "block the exfil destination and attacker IP at the egress firewall",
+     "verify": "iptables -L OUTPUT -n | grep <ip>", "phase": "contain", "risk_class": "network"},
+    {"chk": "CHK-01", "action": "quarantine upload.jsp and its drop directory",
+     "verify": "! test -f /opt/tomcat/webapps/ROOT/static/upload.jsp", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-02", "action": "remove the staged exfil archive",
+     "verify": "! test -f /tmp/.cache/dump.tar.gz", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-03", "action": "remove the attacker key from /root/.ssh/authorized_keys",
+     "verify": "! grep -q attacker /root/.ssh/authorized_keys", "phase": "eradicate", "risk_class": "auth"},
+    {"chk": "CHK-04", "action": "remove the tomcat cron entry",
+     "verify": "! test -f /var/spool/cron/tomcat", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-05", "action": "upgrade struts2 past the fixed release",
+     "verify": "rpm -q struts2 shows a patched version", "phase": "harden", "risk_class": "service"},
+    {"chk": "CHK-07", "action": "rotate application, root, and any exfiltrated credentials",
+     "verify": "credential rotation timestamps are recent", "phase": "rotate", "risk_class": "auth"},
+    {"chk": "CHK-21", "action": "confirm the OGNL exploit path no longer executes",
+     "verify": "replay a benign probe and confirm it is rejected", "phase": "verify", "risk_class": "service"},
+    {"chk": "CHK-22", "action": "restart tomcat and confirm service health",
+     "verify": "systemctl is-active tomcat and HTTP 200 on /", "phase": "verify", "risk_class": "service"}
+  ],
+
+  "precedence": ["contain", "eradicate", "harden", "rotate", "verify"],
+  "decoys": [{"path": "/tmp/.cache/backup.tar.gz", "looks_malicious": true, "benign": true}],
+  "judge": {"attribution": true, "quality": true}
+}

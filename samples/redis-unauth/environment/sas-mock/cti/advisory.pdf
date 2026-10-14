@@ -1,0 +1,65 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1727 >>
+stream
+BT
+/F1 10 Tf
+12 TL
+54 740 Td
+(THREAT INTELLIGENCE ADVISORY ? Redis Unauth campaign) Tj T*
+(====================================================) Tj T*
+() Tj T*
+(Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   \(IOCs are defanged\)) Tj T*
+(Affected host: redis-prod-01   Suspected origin IP: 198.51.100.170) Tj T*
+() Tj T*
+(1. EXECUTIVE SUMMARY) Tj T*
+(An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered) Tj T*
+(only part of it; several persistence and anti-forensic actions were silent. Map every on-disk) Tj T*
+(finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.) Tj T*
+() Tj T*
+(2. ATT&CK TECHNIQUE MAPPING \(MITRE ATT&CK Enterprise\)) Tj T*
+(   T1133      External Remote Services                   [persistence]  step 1:) Tj T*
+(unauthenticated Redis access \(external service\)) Tj T*
+(   T1059.004  Unix Shell                                 [execution]  step 2: shell execution) Tj T*
+(via CONFIG SET) Tj T*
+(   T1496      Resource Hijacking                         [impact]  step 3: cryptomining) Tj T*
+(   T1053.003  Cron                                       [execution]  step 4: cron persistence) Tj T*
+(   T1574.006  Dynamic Linker Hijacking                   [stealth]  step 5: LD_PRELOAD hijack) Tj T*
+() Tj T*
+(4. INDICATORS OF COMPROMISE \(defanged\)) Tj T*
+(   ip     198.51.100.170) Tj T*
+(   c2     update-redis[.]example[.]cn) Tj T*
+(   pool   stratum+tcp[:]//xmr[.]redis[.]evil[:]3333) Tj T*
+(   wallet 4A00000000000000000031c7d95fb9f3) Tj T*
+() Tj T*
+(Attribution: MITRE ATT&CK\(R\) \(C\) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.) Tj T*
+(National Vulnerability Database \(public domain\).) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002026 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2096
+%%EOF

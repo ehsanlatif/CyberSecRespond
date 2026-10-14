@@ -1,0 +1,504 @@
+Aug  8 00:33:37 struts-prod-01 sshd[2136]: Accepted publickey for root from 10.10.246.30 port 40699 ssh2: RSA SHA256:44672937
+Aug  8 00:33:40 struts-prod-01 sshd[1557]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug  8 00:34:18 struts-prod-01 sshd[7683]: Accepted publickey for webadmin from 10.10.246.36 port 46310 ssh2: RSA SHA256:75cf9cc6
+Aug  8 00:34:42 struts-prod-01 sshd[3056]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 00:34:55 struts-prod-01 sshd[5095]: Accepted publickey for root from 10.10.246.168 port 40609 ssh2: RSA SHA256:2bdc5b53
+Aug  8 00:35:33 struts-prod-01 sshd[7711]: Accepted publickey for jenkins from 10.10.246.54 port 54332 ssh2: RSA SHA256:49e923df
+Aug  8 00:35:50 struts-prod-01 sshd[2126]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug  8 00:36:01 struts-prod-01 sshd[3571]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  8 00:36:03 struts-prod-01 sshd[2613]: Received disconnect from 10.10.246.175 port 40310:11: disconnected by user
+Aug  8 00:36:19 struts-prod-01 sshd[6368]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 00:37:02 struts-prod-01 sshd[3875]: Received disconnect from 10.10.246.176 port 57423:11: disconnected by user
+Aug  8 00:37:07 struts-prod-01 sshd[2908]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:37:34 struts-prod-01 sshd[6866]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 00:38:06 struts-prod-01 sshd[3489]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug  8 00:38:22 struts-prod-01 sshd[7396]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 00:38:55 struts-prod-01 sshd[8034]: Accepted publickey for svc-backup from 10.10.246.58 port 41022 ssh2: RSA SHA256:1d6577fc
+Aug  8 00:39:05 struts-prod-01 sshd[6786]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 00:39:41 struts-prod-01 sshd[5060]: Received disconnect from 10.10.246.89 port 40493:11: disconnected by user
+Aug  8 00:40:17 struts-prod-01 sshd[8388]: Accepted publickey for webadmin from 10.10.246.224 port 56716 ssh2: RSA SHA256:3fc79445
+Aug  8 00:40:46 struts-prod-01 sshd[3524]: Received disconnect from 10.10.246.143 port 59828:11: disconnected by user
+Aug  8 00:40:53 struts-prod-01 sshd[6060]: Received disconnect from 10.10.246.58 port 49365:11: disconnected by user
+Aug  8 00:40:58 struts-prod-01 sshd[5827]: Received disconnect from 10.10.246.209 port 52922:11: disconnected by user
+Aug  8 00:41:28 struts-prod-01 sshd[2559]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:42:09 struts-prod-01 sshd[6812]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 00:42:54 struts-prod-01 sshd[1548]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  8 00:43:25 struts-prod-01 sshd[7301]: Accepted publickey for svc-backup from 10.10.246.131 port 59579 ssh2: RSA SHA256:79497d36
+Aug  8 00:43:47 struts-prod-01 sshd[1366]: Received disconnect from 10.10.246.15 port 59876:11: disconnected by user
+Aug  8 00:44:02 struts-prod-01 sshd[7836]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:44:12 struts-prod-01 sshd[4806]: Accepted publickey for postgres from 10.10.246.188 port 57197 ssh2: RSA SHA256:26de586e
+Aug  8 00:44:45 struts-prod-01 sshd[8848]: Accepted publickey for postgres from 10.10.246.157 port 51262 ssh2: RSA SHA256:025b7802
+Aug  8 00:45:01 struts-prod-01 sshd[3437]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 00:45:30 struts-prod-01 sshd[3445]: Received disconnect from 10.10.246.12 port 57012:11: disconnected by user
+Aug  8 00:45:37 struts-prod-01 sshd[2667]: Accepted publickey for devops from 10.10.246.229 port 57232 ssh2: RSA SHA256:30636e18
+Aug  8 00:45:41 struts-prod-01 sshd[7434]: Received disconnect from 10.10.246.117 port 51063:11: disconnected by user
+Aug  8 00:46:24 struts-prod-01 sshd[5960]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 00:46:56 struts-prod-01 sshd[6991]: Received disconnect from 10.10.246.219 port 49132:11: disconnected by user
+Aug  8 00:47:28 struts-prod-01 sshd[1696]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 00:47:38 struts-prod-01 sshd[5366]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:48:02 struts-prod-01 sshd[4677]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:48:06 struts-prod-01 sshd[2340]: Accepted publickey for svc-backup from 10.10.246.62 port 57373 ssh2: RSA SHA256:2880dacc
+Aug  8 00:48:18 struts-prod-01 sshd[1008]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug  8 00:48:41 struts-prod-01 sshd[3916]: Accepted publickey for svc-backup from 10.10.246.89 port 47828 ssh2: RSA SHA256:147809bd
+Aug  8 00:49:13 struts-prod-01 sshd[2432]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 00:49:50 struts-prod-01 sshd[7160]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  8 00:50:26 struts-prod-01 sshd[8487]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug  8 00:51:07 struts-prod-01 sshd[3401]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug  8 00:51:15 struts-prod-01 sshd[5857]: Received disconnect from 10.10.246.14 port 61771:11: disconnected by user
+Aug  8 00:51:20 struts-prod-01 sshd[8665]: Received disconnect from 10.10.246.135 port 41366:11: disconnected by user
+Aug  8 00:51:36 struts-prod-01 sshd[7472]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 00:52:07 struts-prod-01 sshd[5871]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 00:52:08 struts-prod-01 sshd[8053]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 00:52:53 struts-prod-01 sshd[2641]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  8 00:53:24 struts-prod-01 sshd[4339]: Received disconnect from 10.10.246.217 port 49055:11: disconnected by user
+Aug  8 00:53:47 struts-prod-01 sshd[2601]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 00:54:27 struts-prod-01 sshd[8394]: Received disconnect from 10.10.246.199 port 64540:11: disconnected by user
+Aug  8 00:54:37 struts-prod-01 sshd[8766]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 00:54:58 struts-prod-01 sshd[6960]: Received disconnect from 10.10.246.188 port 61018:11: disconnected by user
+Aug  8 00:55:00 struts-prod-01 sshd[3213]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:55:05 struts-prod-01 sshd[4443]: Accepted publickey for root from 10.10.246.219 port 61300 ssh2: RSA SHA256:45a38e84
+Aug  8 00:55:40 struts-prod-01 sshd[2762]: Received disconnect from 10.10.246.213 port 60228:11: disconnected by user
+Aug  8 00:55:57 struts-prod-01 sshd[7074]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  8 00:56:42 struts-prod-01 sshd[3286]: Accepted publickey for root from 10.10.246.221 port 63119 ssh2: RSA SHA256:1dad673f
+Aug  8 00:57:18 struts-prod-01 sshd[7144]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 00:57:26 struts-prod-01 sshd[1144]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 00:57:30 struts-prod-01 sshd[6802]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1002)
+Aug  8 00:57:33 struts-prod-01 sshd[7050]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 00:57:51 struts-prod-01 sshd[2900]: Received disconnect from 10.10.246.245 port 59295:11: disconnected by user
+Aug  8 00:57:57 struts-prod-01 sshd[6250]: Received disconnect from 10.10.246.95 port 45567:11: disconnected by user
+Aug  8 00:58:41 struts-prod-01 sshd[5169]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 00:59:09 struts-prod-01 sshd[1722]: Accepted publickey for postgres from 10.10.246.75 port 41334 ssh2: RSA SHA256:00b9fd10
+Aug  8 00:59:13 struts-prod-01 sshd[6912]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 00:59:46 struts-prod-01 sshd[8365]: Accepted publickey for root from 10.10.246.110 port 64993 ssh2: RSA SHA256:0850feaa
+Aug  8 00:59:47 struts-prod-01 sshd[8754]: Accepted publickey for webadmin from 10.10.246.151 port 57569 ssh2: RSA SHA256:09e761ba
+Aug  8 01:00:05 struts-prod-01 sshd[6858]: Accepted publickey for root from 10.10.246.33 port 64845 ssh2: RSA SHA256:15261cc2
+Aug  8 01:00:38 struts-prod-01 sshd[6451]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  8 01:00:51 struts-prod-01 sshd[8222]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  8 01:01:36 struts-prod-01 sshd[8232]: Received disconnect from 10.10.246.128 port 49056:11: disconnected by user
+Aug  8 01:02:06 struts-prod-01 sshd[5995]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:02:19 struts-prod-01 sshd[2380]: Received disconnect from 10.10.246.68 port 47788:11: disconnected by user
+Aug  8 01:02:59 struts-prod-01 sshd[1297]: Received disconnect from 10.10.246.215 port 49485:11: disconnected by user
+Aug  8 01:03:19 struts-prod-01 sshd[6664]: Received disconnect from 10.10.246.206 port 49106:11: disconnected by user
+Aug  8 01:03:41 struts-prod-01 sshd[5374]: Accepted publickey for svc-backup from 10.10.246.18 port 52025 ssh2: RSA SHA256:53a8d7f9
+Aug  8 01:04:10 struts-prod-01 sshd[4659]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  8 01:04:12 struts-prod-01 sshd[3504]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  8 01:04:52 struts-prod-01 sshd[4326]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug  8 01:05:00 struts-prod-01 sshd[7802]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  8 01:05:17 struts-prod-01 sshd[1775]: Accepted publickey for svc-backup from 10.10.246.116 port 62799 ssh2: RSA SHA256:71c18ece
+Aug  8 01:05:47 struts-prod-01 sshd[6479]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 01:05:48 struts-prod-01 sshd[3700]: Accepted publickey for jenkins from 10.10.246.125 port 60101 ssh2: RSA SHA256:2bcc4ee8
+Aug  8 01:06:27 struts-prod-01 sshd[6294]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  8 01:07:08 struts-prod-01 sshd[1896]: Accepted publickey for postgres from 10.10.246.107 port 54013 ssh2: RSA SHA256:25dff0b8
+Aug  8 01:07:16 struts-prod-01 sshd[6851]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:07:43 struts-prod-01 sshd[2518]: Accepted publickey for svc-backup from 10.10.246.174 port 43763 ssh2: RSA SHA256:157503d3
+Aug  8 01:08:17 struts-prod-01 sshd[7733]: Accepted publickey for devops from 10.10.246.203 port 56489 ssh2: RSA SHA256:003b94a7
+Aug  8 01:08:37 struts-prod-01 sshd[8259]: Accepted publickey for jenkins from 10.10.246.241 port 47211 ssh2: RSA SHA256:07ca1ee7
+Aug  8 01:08:43 struts-prod-01 sshd[7471]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  8 01:08:48 struts-prod-01 sshd[3718]: Accepted publickey for devops from 10.10.246.249 port 54563 ssh2: RSA SHA256:0b2a2ed5
+Aug  8 01:09:30 struts-prod-01 sshd[5337]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug  8 01:09:49 struts-prod-01 sshd[6858]: Accepted publickey for root from 10.10.246.90 port 61261 ssh2: RSA SHA256:77799c70
+Aug  8 01:09:50 struts-prod-01 sshd[1347]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 01:09:54 struts-prod-01 sshd[1510]: Received disconnect from 10.10.246.216 port 61654:11: disconnected by user
+Aug  8 01:10:21 struts-prod-01 sshd[8908]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 01:10:33 struts-prod-01 sshd[5600]: Accepted publickey for jenkins from 10.10.246.17 port 54728 ssh2: RSA SHA256:3bceea77
+Aug  8 01:11:06 struts-prod-01 sshd[7519]: Accepted publickey for root from 10.10.246.6 port 62711 ssh2: RSA SHA256:5461eefe
+Aug  8 01:11:51 struts-prod-01 sshd[6903]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 01:12:31 struts-prod-01 sshd[7612]: Received disconnect from 10.10.246.147 port 56872:11: disconnected by user
+Aug  8 01:12:54 struts-prod-01 sshd[2843]: Accepted publickey for webadmin from 10.10.246.31 port 51259 ssh2: RSA SHA256:4067267a
+Aug  8 01:13:22 struts-prod-01 sshd[3259]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:13:35 struts-prod-01 sshd[3723]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 01:13:47 struts-prod-01 sshd[8763]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1002)
+Aug  8 01:14:05 struts-prod-01 sshd[2820]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:14:10 struts-prod-01 sshd[8776]: Accepted publickey for svc-backup from 10.10.246.114 port 41306 ssh2: RSA SHA256:38e9b475
+Aug  8 01:14:32 struts-prod-01 sshd[5376]: Accepted publickey for devops from 10.10.246.53 port 59489 ssh2: RSA SHA256:4b01df25
+Aug  8 01:14:41 struts-prod-01 sshd[8764]: Received disconnect from 10.10.246.19 port 60115:11: disconnected by user
+Aug  8 01:15:12 struts-prod-01 sshd[7014]: Received disconnect from 10.10.246.89 port 47564:11: disconnected by user
+Aug  8 01:15:31 struts-prod-01 sshd[1125]: Received disconnect from 10.10.246.30 port 45079:11: disconnected by user
+Aug  8 01:16:16 struts-prod-01 sshd[7414]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:16:47 struts-prod-01 sshd[6294]: Accepted publickey for webadmin from 10.10.246.216 port 63685 ssh2: RSA SHA256:3501955d
+Aug  8 01:17:29 struts-prod-01 sshd[2666]: Received disconnect from 10.10.246.109 port 47241:11: disconnected by user
+Aug  8 01:17:34 struts-prod-01 sshd[5572]: Received disconnect from 10.10.246.177 port 45752:11: disconnected by user
+Aug  8 01:17:51 struts-prod-01 sshd[8093]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug  8 01:18:25 struts-prod-01 sshd[7661]: Received disconnect from 10.10.246.93 port 55575:11: disconnected by user
+Aug  8 01:18:28 struts-prod-01 sshd[1264]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:19:06 struts-prod-01 sshd[8222]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:19:49 struts-prod-01 sshd[7770]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug  8 01:20:13 struts-prod-01 sshd[3397]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:20:53 struts-prod-01 sshd[8123]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  8 01:21:28 struts-prod-01 sshd[3305]: Received disconnect from 10.10.246.228 port 52175:11: disconnected by user
+Aug  8 01:21:51 struts-prod-01 sshd[5050]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 01:21:54 struts-prod-01 sshd[3300]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug  8 01:22:32 struts-prod-01 sshd[2109]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:23:17 struts-prod-01 sshd[5329]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  8 01:23:20 struts-prod-01 sshd[8634]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:23:59 struts-prod-01 sshd[1041]: Received disconnect from 10.10.246.11 port 51932:11: disconnected by user
+Aug  8 01:24:01 struts-prod-01 sshd[5167]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  8 01:24:02 struts-prod-01 sshd[6308]: Accepted publickey for svc-backup from 10.10.246.206 port 64741 ssh2: RSA SHA256:6cbbe231
+Aug  8 01:24:18 struts-prod-01 sshd[8110]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug  8 01:24:48 struts-prod-01 sshd[3574]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1005)
+Aug  8 01:25:26 struts-prod-01 sshd[1393]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:25:56 struts-prod-01 sshd[8977]: Received disconnect from 10.10.246.208 port 63303:11: disconnected by user
+Aug  8 01:26:13 struts-prod-01 sshd[3796]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 01:26:49 struts-prod-01 sshd[2620]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:27:34 struts-prod-01 sshd[4071]: Accepted publickey for jenkins from 10.10.246.212 port 57276 ssh2: RSA SHA256:3c624092
+Aug  8 01:28:13 struts-prod-01 sshd[1291]: Accepted publickey for root from 10.10.246.121 port 50694 ssh2: RSA SHA256:51f6c5b0
+Aug  8 01:28:49 struts-prod-01 sshd[8554]: Accepted publickey for devops from 10.10.246.202 port 62808 ssh2: RSA SHA256:4f66012e
+Aug  8 01:29:19 struts-prod-01 sshd[4485]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:29:52 struts-prod-01 sshd[6163]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  8 01:30:16 struts-prod-01 sshd[1521]: Accepted publickey for svc-backup from 10.10.246.120 port 63468 ssh2: RSA SHA256:5af3e93f
+Aug  8 01:30:43 struts-prod-01 sshd[7826]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  8 01:31:08 struts-prod-01 sshd[8386]: Accepted publickey for svc-backup from 10.10.246.118 port 42869 ssh2: RSA SHA256:424801d7
+Aug  8 01:31:30 struts-prod-01 sshd[8350]: Received disconnect from 10.10.246.245 port 59857:11: disconnected by user
+Aug  8 01:32:14 struts-prod-01 sshd[3060]: Received disconnect from 10.10.246.18 port 60536:11: disconnected by user
+Aug  8 00:53:22 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 56019 ssh2
+Aug  8 00:53:24 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 43622 ssh2
+Aug  8 00:53:25 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 42421 ssh2
+Aug  8 00:53:29 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 50096 ssh2
+Aug  8 00:53:32 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 41178 ssh2
+Aug  8 00:53:36 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 40644 ssh2
+Aug  8 00:53:40 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 59931 ssh2
+Aug  8 00:53:43 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 41549 ssh2
+Aug  8 00:53:47 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 54986 ssh2
+Aug  8 00:53:49 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 53264 ssh2
+Aug  8 00:53:53 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 55265 ssh2
+Aug  8 00:53:56 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 42325 ssh2
+Aug  8 00:53:57 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 59138 ssh2
+Aug  8 00:53:59 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 41180 ssh2
+Aug  8 00:54:02 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 57266 ssh2
+Aug  8 00:54:06 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 49459 ssh2
+Aug  8 00:54:10 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 54187 ssh2
+Aug  8 00:54:14 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 55964 ssh2
+Aug  8 00:54:15 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 64631 ssh2
+Aug  8 00:54:18 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 56338 ssh2
+Aug  8 00:54:21 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 40787 ssh2
+Aug  8 00:54:22 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 61296 ssh2
+Aug  8 00:54:23 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 48477 ssh2
+Aug  8 00:54:26 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 40795 ssh2
+Aug  8 00:54:29 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 59965 ssh2
+Aug  8 00:54:31 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 55180 ssh2
+Aug  8 00:54:32 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 51257 ssh2
+Aug  8 00:54:34 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 57356 ssh2
+Aug  8 00:54:36 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 47377 ssh2
+Aug  8 00:54:37 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 64800 ssh2
+Aug  8 00:54:38 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 57582 ssh2
+Aug  8 00:54:42 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 46462 ssh2
+Aug  8 00:54:43 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 62577 ssh2
+Aug  8 00:54:47 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 46391 ssh2
+Aug  8 00:54:51 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 49159 ssh2
+Aug  8 00:54:54 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 40532 ssh2
+Aug  8 00:54:56 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 57049 ssh2
+Aug  8 00:54:58 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 50419 ssh2
+Aug  8 00:55:00 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 57692 ssh2
+Aug  8 00:55:04 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 54949 ssh2
+Aug  8 00:55:05 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 43019 ssh2
+Aug  8 00:55:09 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 48402 ssh2
+Aug  8 00:55:10 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 54682 ssh2
+Aug  8 00:55:14 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 57537 ssh2
+Aug  8 00:55:18 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 57978 ssh2
+Aug  8 00:55:21 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 49008 ssh2
+Aug  8 00:55:25 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 53526 ssh2
+Aug  8 00:55:27 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 56731 ssh2
+Aug  8 00:55:28 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 64729 ssh2
+Aug  8 00:55:32 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 40763 ssh2
+Aug  8 00:55:36 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 64411 ssh2
+Aug  8 00:55:39 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 50890 ssh2
+Aug  8 00:55:40 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 54981 ssh2
+Aug  8 00:55:41 struts-prod-01 sshd[1201]: Failed password for test from 198.51.100.167 port 51634 ssh2
+Aug  8 00:55:42 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 42845 ssh2
+Aug  8 00:55:44 struts-prod-01 sshd[1201]: Failed password for oracle from 198.51.100.167 port 46014 ssh2
+Aug  8 00:55:48 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 63994 ssh2
+Aug  8 00:55:51 struts-prod-01 sshd[1201]: Failed password for postgres from 198.51.100.167 port 44895 ssh2
+Aug  8 00:55:54 struts-prod-01 sshd[1201]: Failed password for admin from 198.51.100.167 port 44741 ssh2
+Aug  8 00:55:57 struts-prod-01 sshd[1201]: Failed password for root from 198.51.100.167 port 43234 ssh2
+Aug  8 00:56:00 struts-prod-01 sshd[1201]: Accepted password for root from 198.51.100.167 port 51900 ssh2
+Aug  8 01:32:50 struts-prod-01 sshd[5688]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  8 01:33:24 struts-prod-01 sshd[4608]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  8 01:33:31 struts-prod-01 sshd[2580]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:33:47 struts-prod-01 sshd[2834]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:34:22 struts-prod-01 sshd[1005]: Received disconnect from 10.10.246.213 port 56488:11: disconnected by user
+Aug  8 01:35:05 struts-prod-01 sshd[3657]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 01:35:47 struts-prod-01 sshd[6222]: Accepted publickey for devops from 10.10.246.108 port 58478 ssh2: RSA SHA256:672e4dbc
+Aug  8 01:36:09 struts-prod-01 sshd[1451]: Received disconnect from 10.10.246.70 port 54694:11: disconnected by user
+Aug  8 01:36:32 struts-prod-01 sshd[8698]: Accepted publickey for root from 10.10.246.139 port 54561 ssh2: RSA SHA256:2744dcbf
+Aug  8 01:36:51 struts-prod-01 sshd[8274]: Accepted publickey for root from 10.10.246.188 port 60622 ssh2: RSA SHA256:144cfae0
+Aug  8 01:37:19 struts-prod-01 sshd[1987]: Accepted publickey for root from 10.10.246.15 port 41121 ssh2: RSA SHA256:0c3560b9
+Aug  8 01:37:50 struts-prod-01 sshd[1666]: Received disconnect from 10.10.246.71 port 62265:11: disconnected by user
+Aug  8 01:38:27 struts-prod-01 sshd[4079]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:38:40 struts-prod-01 sshd[8534]: Accepted publickey for jenkins from 10.10.246.165 port 41062 ssh2: RSA SHA256:683c2e99
+Aug  8 01:39:06 struts-prod-01 sshd[6707]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug  8 01:39:48 struts-prod-01 sshd[8888]: Received disconnect from 10.10.246.177 port 58545:11: disconnected by user
+Aug  8 01:39:58 struts-prod-01 sshd[2464]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  8 01:40:08 struts-prod-01 sshd[7463]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1000)
+Aug  8 01:40:40 struts-prod-01 sshd[2809]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  8 01:40:44 struts-prod-01 sshd[4682]: Accepted publickey for root from 10.10.246.200 port 56162 ssh2: RSA SHA256:325f537f
+Aug  8 01:41:28 struts-prod-01 sshd[1861]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1004)
+Aug  8 01:41:29 struts-prod-01 sshd[1073]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug  8 01:41:32 struts-prod-01 sshd[5318]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:41:57 struts-prod-01 sshd[6263]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  8 01:42:31 struts-prod-01 sshd[2959]: Accepted publickey for jenkins from 10.10.246.54 port 51743 ssh2: RSA SHA256:707f60e0
+Aug  8 01:43:07 struts-prod-01 sshd[3052]: Received disconnect from 10.10.246.61 port 44075:11: disconnected by user
+Aug  8 01:43:41 struts-prod-01 sshd[6688]: pam_unix(sudo:session): session opened for user root by root(uid=1005)
+Aug  8 01:44:06 struts-prod-01 sshd[4719]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug  8 01:44:39 struts-prod-01 sshd[5202]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  8 01:45:13 struts-prod-01 sshd[4550]: Received disconnect from 10.10.246.195 port 61714:11: disconnected by user
+Aug  8 01:45:22 struts-prod-01 sshd[4600]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 01:45:40 struts-prod-01 sshd[1542]: Accepted publickey for webadmin from 10.10.246.221 port 56357 ssh2: RSA SHA256:7bae510b
+Aug  8 01:46:07 struts-prod-01 sshd[8782]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:46:51 struts-prod-01 sshd[5461]: pam_unix(sudo:session): session opened for user root by root(uid=1002)
+Aug  8 01:47:19 struts-prod-01 sshd[1020]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:47:22 struts-prod-01 sshd[4270]: Accepted publickey for devops from 10.10.246.50 port 57974 ssh2: RSA SHA256:2b8ed9ba
+Aug  8 01:47:46 struts-prod-01 sshd[5352]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:47:55 struts-prod-01 sshd[6355]: Accepted publickey for svc-backup from 10.10.246.178 port 46715 ssh2: RSA SHA256:08194bc0
+Aug  8 01:47:58 struts-prod-01 sshd[1883]: Accepted publickey for svc-backup from 10.10.246.69 port 49770 ssh2: RSA SHA256:4812b173
+Aug  8 01:48:15 struts-prod-01 sshd[3345]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:48:52 struts-prod-01 sshd[4491]: Accepted publickey for jenkins from 10.10.246.122 port 57807 ssh2: RSA SHA256:6ce9adb2
+Aug  8 01:49:08 struts-prod-01 sshd[5628]: Accepted publickey for postgres from 10.10.246.51 port 64954 ssh2: RSA SHA256:3ea8b486
+Aug  8 01:49:20 struts-prod-01 sshd[5995]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  8 01:49:43 struts-prod-01 sshd[4100]: pam_unix(sudo:session): session opened for user root by root(uid=1000)
+Aug  8 01:50:19 struts-prod-01 sshd[7402]: Received disconnect from 10.10.246.235 port 49389:11: disconnected by user
+Aug  8 01:50:38 struts-prod-01 sshd[7990]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 03:03:00 struts-prod-01 systemd[1]: --- 15 authentication lines cleared here (T1070.002 log tampering) ---
+Aug  8 01:56:06 struts-prod-01 sshd[4267]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 01:56:35 struts-prod-01 sshd[1095]: Accepted publickey for jenkins from 10.10.246.207 port 58883 ssh2: RSA SHA256:613aaabc
+Aug  8 01:56:48 struts-prod-01 sshd[3405]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 01:57:15 struts-prod-01 sshd[2858]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 01:57:40 struts-prod-01 sshd[4007]: Received disconnect from 10.10.246.225 port 47417:11: disconnected by user
+Aug  8 01:58:06 struts-prod-01 sshd[5925]: Received disconnect from 10.10.246.30 port 49112:11: disconnected by user
+Aug  8 01:58:42 struts-prod-01 sshd[4794]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  8 01:59:18 struts-prod-01 sshd[7798]: Received disconnect from 10.10.246.199 port 53511:11: disconnected by user
+Aug  8 01:59:40 struts-prod-01 sshd[7859]: Accepted publickey for jenkins from 10.10.246.224 port 57958 ssh2: RSA SHA256:65ce9e38
+Aug  8 01:59:48 struts-prod-01 sshd[7838]: Received disconnect from 10.10.246.191 port 60049:11: disconnected by user
+Aug  8 02:00:09 struts-prod-01 sshd[5193]: Accepted publickey for root from 10.10.246.223 port 43245 ssh2: RSA SHA256:483fcf3e
+Aug  8 02:00:33 struts-prod-01 sshd[4947]: Received disconnect from 10.10.246.84 port 62641:11: disconnected by user
+Aug  8 02:01:12 struts-prod-01 sshd[2341]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 02:01:27 struts-prod-01 sshd[1745]: Accepted publickey for svc-backup from 10.10.246.166 port 41129 ssh2: RSA SHA256:72ed8532
+Aug  8 02:02:04 struts-prod-01 sshd[5075]: Accepted publickey for webadmin from 10.10.246.28 port 50631 ssh2: RSA SHA256:367cb006
+Aug  8 02:02:34 struts-prod-01 sshd[4026]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  8 02:02:45 struts-prod-01 sshd[5744]: Received disconnect from 10.10.246.76 port 42129:11: disconnected by user
+Aug  8 02:03:00 struts-prod-01 sshd[2524]: Received disconnect from 10.10.246.195 port 50722:11: disconnected by user
+Aug  8 02:03:17 struts-prod-01 sshd[3089]: Accepted publickey for webadmin from 10.10.246.13 port 53703 ssh2: RSA SHA256:7a9c6859
+Aug  8 02:03:52 struts-prod-01 sshd[6769]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 02:03:58 struts-prod-01 sshd[8248]: Accepted publickey for svc-backup from 10.10.246.19 port 53384 ssh2: RSA SHA256:4e5b3491
+Aug  8 02:04:13 struts-prod-01 sshd[5826]: Received disconnect from 10.10.246.220 port 49711:11: disconnected by user
+Aug  8 02:04:14 struts-prod-01 sshd[2471]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  8 02:04:21 struts-prod-01 sshd[1872]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug  8 02:04:59 struts-prod-01 sshd[5760]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:05:26 struts-prod-01 sshd[5630]: Accepted publickey for devops from 10.10.246.198 port 55738 ssh2: RSA SHA256:69018f4a
+Aug  8 02:05:57 struts-prod-01 sshd[6916]: Accepted publickey for postgres from 10.10.246.33 port 49138 ssh2: RSA SHA256:38254972
+Aug  8 02:06:30 struts-prod-01 sshd[1410]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:07:11 struts-prod-01 sshd[1184]: Received disconnect from 10.10.246.43 port 55179:11: disconnected by user
+Aug  8 02:07:35 struts-prod-01 sshd[4540]: Received disconnect from 10.10.246.185 port 49444:11: disconnected by user
+Aug  8 02:08:02 struts-prod-01 sshd[1279]: Received disconnect from 10.10.246.57 port 46542:11: disconnected by user
+Aug  8 02:08:27 struts-prod-01 sshd[3900]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1003)
+Aug  8 02:08:57 struts-prod-01 sshd[2482]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:09:34 struts-prod-01 sshd[7944]: Accepted publickey for root from 10.10.246.63 port 49719 ssh2: RSA SHA256:5278d601
+Aug  8 02:10:00 struts-prod-01 sshd[3610]: Received disconnect from 10.10.246.178 port 45259:11: disconnected by user
+Aug  8 02:10:07 struts-prod-01 sshd[1954]: Accepted publickey for postgres from 10.10.246.155 port 54243 ssh2: RSA SHA256:29f19376
+Aug  8 02:10:42 struts-prod-01 sshd[6024]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug  8 02:10:55 struts-prod-01 sshd[2613]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:11:34 struts-prod-01 sshd[7109]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  8 02:11:52 struts-prod-01 sshd[8177]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:12:12 struts-prod-01 sshd[7820]: Received disconnect from 10.10.246.91 port 49211:11: disconnected by user
+Aug  8 02:12:19 struts-prod-01 sshd[7666]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  8 02:12:54 struts-prod-01 sshd[5148]: Accepted publickey for jenkins from 10.10.246.170 port 54283 ssh2: RSA SHA256:7df00449
+Aug  8 02:12:56 struts-prod-01 sshd[8488]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 02:12:57 struts-prod-01 sshd[7189]: Accepted publickey for root from 10.10.246.191 port 48102 ssh2: RSA SHA256:03013799
+Aug  8 02:13:35 struts-prod-01 sshd[8863]: Received disconnect from 10.10.246.205 port 47229:11: disconnected by user
+Aug  8 02:14:08 struts-prod-01 sshd[6219]: Accepted publickey for svc-backup from 10.10.246.81 port 63903 ssh2: RSA SHA256:31bc5b52
+Aug  8 02:14:43 struts-prod-01 sshd[1933]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:15:02 struts-prod-01 sshd[1207]: Accepted publickey for svc-backup from 10.10.246.100 port 53027 ssh2: RSA SHA256:0e187b4b
+Aug  8 02:15:16 struts-prod-01 sshd[3759]: Accepted publickey for root from 10.10.246.24 port 60336 ssh2: RSA SHA256:2fd726c1
+Aug  8 02:15:42 struts-prod-01 sshd[1656]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 02:16:12 struts-prod-01 sshd[5026]: Received disconnect from 10.10.246.104 port 58235:11: disconnected by user
+Aug  8 02:16:56 struts-prod-01 sshd[3085]: Accepted publickey for webadmin from 10.10.246.68 port 40147 ssh2: RSA SHA256:38d3ef02
+Aug  8 02:17:29 struts-prod-01 sshd[6655]: Received disconnect from 10.10.246.145 port 59414:11: disconnected by user
+Aug  8 02:17:38 struts-prod-01 sshd[1693]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:17:41 struts-prod-01 sshd[2097]: Received disconnect from 10.10.246.213 port 62007:11: disconnected by user
+Aug  8 02:18:24 struts-prod-01 sshd[1804]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  8 02:18:42 struts-prod-01 sshd[7054]: Accepted publickey for postgres from 10.10.246.51 port 42313 ssh2: RSA SHA256:09940972
+Aug  8 02:19:20 struts-prod-01 sshd[2887]: Received disconnect from 10.10.246.51 port 56351:11: disconnected by user
+Aug  8 02:19:41 struts-prod-01 sshd[8670]: Accepted publickey for webadmin from 10.10.246.199 port 53642 ssh2: RSA SHA256:700b8b1f
+Aug  8 02:20:00 struts-prod-01 sshd[5434]: Accepted publickey for root from 10.10.246.153 port 40768 ssh2: RSA SHA256:2ae2bd51
+Aug  8 02:20:33 struts-prod-01 sshd[1425]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  8 02:21:01 struts-prod-01 sshd[8505]: Accepted publickey for devops from 10.10.246.200 port 56580 ssh2: RSA SHA256:520869f7
+Aug  8 02:21:42 struts-prod-01 sshd[8463]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1003)
+Aug  8 02:22:24 struts-prod-01 sshd[7877]: Accepted publickey for root from 10.10.246.55 port 57819 ssh2: RSA SHA256:53d1f288
+Aug  8 02:22:37 struts-prod-01 sshd[6470]: Received disconnect from 10.10.246.173 port 51854:11: disconnected by user
+Aug  8 02:22:39 struts-prod-01 sshd[7451]: Accepted publickey for devops from 10.10.246.24 port 61572 ssh2: RSA SHA256:03e3da33
+Aug  8 02:23:07 struts-prod-01 sshd[1557]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:23:43 struts-prod-01 sshd[7002]: Accepted publickey for jenkins from 10.10.246.186 port 63584 ssh2: RSA SHA256:298a992e
+Aug  8 02:24:16 struts-prod-01 sshd[5540]: Accepted publickey for svc-backup from 10.10.246.208 port 42259 ssh2: RSA SHA256:720c2e25
+Aug  8 02:24:31 struts-prod-01 sshd[8498]: Received disconnect from 10.10.246.47 port 50453:11: disconnected by user
+Aug  8 02:25:09 struts-prod-01 sshd[6164]: Received disconnect from 10.10.246.87 port 40928:11: disconnected by user
+Aug  8 02:25:41 struts-prod-01 sshd[3568]: Accepted publickey for root from 10.10.246.240 port 58448 ssh2: RSA SHA256:3b29aad8
+Aug  8 02:26:03 struts-prod-01 sshd[1963]: Accepted publickey for devops from 10.10.246.244 port 61511 ssh2: RSA SHA256:302336f4
+Aug  8 02:26:10 struts-prod-01 sshd[7894]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  8 02:26:31 struts-prod-01 sshd[3058]: Received disconnect from 10.10.246.102 port 43687:11: disconnected by user
+Aug  8 02:26:58 struts-prod-01 sshd[3953]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  8 02:27:00 struts-prod-01 sshd[2014]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:27:18 struts-prod-01 sshd[1912]: Accepted publickey for svc-backup from 10.10.246.121 port 61507 ssh2: RSA SHA256:00e5d9a6
+Aug  8 02:27:42 struts-prod-01 sshd[7601]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 02:28:07 struts-prod-01 sshd[2076]: Received disconnect from 10.10.246.84 port 48179:11: disconnected by user
+Aug  8 02:28:44 struts-prod-01 sshd[3060]: Received disconnect from 10.10.246.10 port 61615:11: disconnected by user
+Aug  8 02:28:50 struts-prod-01 sshd[1180]: Received disconnect from 10.10.246.188 port 53986:11: disconnected by user
+Aug  8 02:29:33 struts-prod-01 sshd[8167]: Accepted publickey for root from 10.10.246.65 port 61191 ssh2: RSA SHA256:584bb141
+Aug  8 02:29:48 struts-prod-01 sshd[8557]: Received disconnect from 10.10.246.233 port 48089:11: disconnected by user
+Aug  8 02:29:55 struts-prod-01 sshd[3422]: Received disconnect from 10.10.246.182 port 51067:11: disconnected by user
+Aug  8 02:30:04 struts-prod-01 sshd[6500]: Accepted publickey for devops from 10.10.246.248 port 58362 ssh2: RSA SHA256:472a41f3
+Aug  8 02:30:06 struts-prod-01 sshd[3261]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  8 02:30:31 struts-prod-01 sshd[6151]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  8 02:30:35 struts-prod-01 sshd[1846]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1001)
+Aug  8 02:31:10 struts-prod-01 sshd[6555]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 02:31:24 struts-prod-01 sshd[8542]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 02:31:41 struts-prod-01 sshd[8531]: Accepted publickey for root from 10.10.246.46 port 58573 ssh2: RSA SHA256:0cc55866
+Aug  8 02:31:49 struts-prod-01 sshd[2775]: Accepted publickey for jenkins from 10.10.246.68 port 43773 ssh2: RSA SHA256:1db3da5c
+Aug  8 02:32:07 struts-prod-01 sshd[1468]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug  8 02:32:52 struts-prod-01 sshd[7884]: Accepted publickey for jenkins from 10.10.246.147 port 50683 ssh2: RSA SHA256:114498a5
+Aug  8 02:33:20 struts-prod-01 sshd[7714]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 02:33:26 struts-prod-01 sshd[7716]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:33:46 struts-prod-01 sshd[3052]: Accepted publickey for svc-backup from 10.10.246.158 port 41615 ssh2: RSA SHA256:4b1c487b
+Aug  8 02:34:03 struts-prod-01 sshd[5845]: Received disconnect from 10.10.246.151 port 46913:11: disconnected by user
+Aug  8 02:34:08 struts-prod-01 sshd[2055]: Received disconnect from 10.10.246.94 port 50091:11: disconnected by user
+Aug  8 02:34:40 struts-prod-01 sshd[8882]: Received disconnect from 10.10.246.152 port 55550:11: disconnected by user
+Aug  8 02:35:10 struts-prod-01 sshd[1163]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 02:35:25 struts-prod-01 sshd[1827]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  8 02:35:54 struts-prod-01 sshd[2633]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  8 02:36:39 struts-prod-01 sshd[3713]: Received disconnect from 10.10.246.242 port 53333:11: disconnected by user
+Aug  8 02:36:59 struts-prod-01 sshd[7350]: Received disconnect from 10.10.246.236 port 62899:11: disconnected by user
+Aug  8 02:37:37 struts-prod-01 sshd[7024]: Received disconnect from 10.10.246.62 port 41227:11: disconnected by user
+Aug  8 02:37:59 struts-prod-01 sshd[3795]: Received disconnect from 10.10.246.173 port 58167:11: disconnected by user
+Aug  8 02:38:00 struts-prod-01 sshd[5159]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:38:01 struts-prod-01 sshd[3051]: Accepted publickey for postgres from 10.10.246.141 port 58121 ssh2: RSA SHA256:2c6ea2ed
+Aug  8 02:38:13 struts-prod-01 sshd[3077]: Accepted publickey for devops from 10.10.246.15 port 58949 ssh2: RSA SHA256:735bf94c
+Aug  8 02:38:37 struts-prod-01 sshd[2122]: Accepted publickey for devops from 10.10.246.136 port 41311 ssh2: RSA SHA256:3e899866
+Aug  8 02:38:44 struts-prod-01 sshd[4141]: Received disconnect from 10.10.246.205 port 63324:11: disconnected by user
+Aug  8 02:39:15 struts-prod-01 sshd[8390]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:39:37 struts-prod-01 sshd[4036]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:39:46 struts-prod-01 sshd[1772]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1005)
+Aug  8 02:39:51 struts-prod-01 sshd[2474]: Received disconnect from 10.10.246.188 port 41079:11: disconnected by user
+Aug  8 02:39:52 struts-prod-01 sshd[8108]: Accepted publickey for devops from 10.10.246.213 port 43362 ssh2: RSA SHA256:1b70f989
+Aug  8 02:40:31 struts-prod-01 sshd[8012]: Received disconnect from 10.10.246.226 port 55006:11: disconnected by user
+Aug  8 02:41:14 struts-prod-01 sshd[1475]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug  8 02:41:21 struts-prod-01 sshd[8189]: Received disconnect from 10.10.246.182 port 41739:11: disconnected by user
+Aug  8 02:41:43 struts-prod-01 sshd[1786]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:42:26 struts-prod-01 sshd[4049]: Received disconnect from 10.10.246.222 port 45332:11: disconnected by user
+Aug  8 02:42:48 struts-prod-01 sshd[5599]: Accepted publickey for webadmin from 10.10.246.35 port 50025 ssh2: RSA SHA256:0b2cfb0d
+Aug  8 02:42:55 struts-prod-01 sshd[8890]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  8 02:43:33 struts-prod-01 sshd[1555]: Received disconnect from 10.10.246.35 port 40417:11: disconnected by user
+Aug  8 02:44:09 struts-prod-01 sshd[4755]: pam_unix(sudo:session): session opened for user root by postgres(uid=1002)
+Aug  8 02:44:27 struts-prod-01 sshd[6743]: Accepted publickey for webadmin from 10.10.246.16 port 53815 ssh2: RSA SHA256:373bd3b2
+Aug  8 02:44:52 struts-prod-01 sshd[5822]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 02:45:07 struts-prod-01 sshd[8086]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1001)
+Aug  8 02:45:24 struts-prod-01 sshd[6244]: Accepted publickey for webadmin from 10.10.246.242 port 64578 ssh2: RSA SHA256:5cd77f6f
+Aug  8 02:45:40 struts-prod-01 sshd[2934]: pam_unix(sudo:session): session opened for user root by devops(uid=1001)
+Aug  8 02:46:14 struts-prod-01 sshd[8139]: Received disconnect from 10.10.246.21 port 59729:11: disconnected by user
+Aug  8 02:46:58 struts-prod-01 sshd[2296]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 02:47:20 struts-prod-01 sshd[7350]: Received disconnect from 10.10.246.46 port 59877:11: disconnected by user
+Aug  8 02:47:42 struts-prod-01 sshd[2201]: Received disconnect from 10.10.246.37 port 61741:11: disconnected by user
+Aug  8 02:48:20 struts-prod-01 sshd[6280]: Accepted publickey for webadmin from 10.10.246.175 port 46005 ssh2: RSA SHA256:6b295c17
+Aug  8 02:49:00 struts-prod-01 sshd[7748]: Accepted publickey for webadmin from 10.10.246.166 port 43816 ssh2: RSA SHA256:67029a85
+Aug  8 02:49:22 struts-prod-01 sshd[2145]: Received disconnect from 10.10.246.119 port 60671:11: disconnected by user
+Aug  8 02:49:44 struts-prod-01 sshd[8154]: pam_unix(sudo:session): session opened for user root by postgres(uid=1005)
+Aug  8 02:49:46 struts-prod-01 sshd[7679]: Accepted publickey for webadmin from 10.10.246.232 port 58639 ssh2: RSA SHA256:320b696a
+Aug  8 02:50:10 struts-prod-01 sshd[6012]: Accepted publickey for svc-backup from 10.10.246.222 port 40939 ssh2: RSA SHA256:07c4fa2c
+Aug  8 02:50:32 struts-prod-01 sshd[1705]: Received disconnect from 10.10.246.19 port 59348:11: disconnected by user
+Aug  8 02:50:45 struts-prod-01 sshd[8736]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  8 02:51:27 struts-prod-01 sshd[5950]: pam_unix(sudo:session): session opened for user root by devops(uid=1002)
+Aug  8 02:52:04 struts-prod-01 sshd[6740]: Received disconnect from 10.10.246.145 port 55548:11: disconnected by user
+Aug  8 02:52:18 struts-prod-01 sshd[7622]: Received disconnect from 10.10.246.176 port 64992:11: disconnected by user
+Aug  8 02:52:57 struts-prod-01 sshd[3940]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 02:53:18 struts-prod-01 sshd[3897]: Received disconnect from 10.10.246.138 port 43126:11: disconnected by user
+Aug  8 02:53:44 struts-prod-01 sshd[6692]: Accepted publickey for postgres from 10.10.246.14 port 53525 ssh2: RSA SHA256:4c82ff3a
+Aug  8 02:54:02 struts-prod-01 sshd[8286]: Received disconnect from 10.10.246.54 port 47376:11: disconnected by user
+Aug  8 02:54:11 struts-prod-01 sshd[8318]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 02:54:44 struts-prod-01 sshd[7295]: Accepted publickey for webadmin from 10.10.246.77 port 62851 ssh2: RSA SHA256:20d9f411
+Aug  8 02:55:02 struts-prod-01 sshd[7848]: Received disconnect from 10.10.246.83 port 40924:11: disconnected by user
+Aug  8 02:55:24 struts-prod-01 sshd[2887]: Received disconnect from 10.10.246.34 port 56006:11: disconnected by user
+Aug  8 02:55:50 struts-prod-01 sshd[7179]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 02:56:23 struts-prod-01 sshd[5253]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:56:37 struts-prod-01 sshd[3117]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 02:57:06 struts-prod-01 sshd[8237]: Accepted publickey for jenkins from 10.10.246.191 port 63228 ssh2: RSA SHA256:6474db45
+Aug  8 02:57:11 struts-prod-01 sshd[3088]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  8 02:57:32 struts-prod-01 sshd[8463]: Received disconnect from 10.10.246.97 port 61721:11: disconnected by user
+Aug  8 02:58:09 struts-prod-01 sshd[7512]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 02:58:36 struts-prod-01 sshd[1883]: Received disconnect from 10.10.246.214 port 47895:11: disconnected by user
+Aug  8 02:59:09 struts-prod-01 sshd[4958]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 02:59:41 struts-prod-01 sshd[6004]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  8 03:00:22 struts-prod-01 sshd[8639]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 03:00:24 struts-prod-01 sshd[6851]: Received disconnect from 10.10.246.95 port 42924:11: disconnected by user
+Aug  8 03:00:45 struts-prod-01 sshd[7348]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 03:01:29 struts-prod-01 sshd[8981]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 03:02:01 struts-prod-01 sshd[6056]: pam_unix(sshd:session): session opened for user devops by (uid=0)
+Aug  8 03:02:16 struts-prod-01 sshd[6838]: Accepted publickey for jenkins from 10.10.246.64 port 60760 ssh2: RSA SHA256:096d82e2
+Aug  8 03:03:01 struts-prod-01 sshd[3364]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug  8 03:03:26 struts-prod-01 sshd[4896]: Received disconnect from 10.10.246.34 port 61622:11: disconnected by user
+Aug  8 03:03:28 struts-prod-01 sshd[2726]: pam_unix(sudo:session): session opened for user root by postgres(uid=1000)
+Aug  8 03:03:30 struts-prod-01 sshd[6661]: pam_unix(sudo:session): session opened for user root by devops(uid=1004)
+Aug  8 03:04:13 struts-prod-01 sshd[8136]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  8 03:04:48 struts-prod-01 sshd[3461]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  8 03:05:03 struts-prod-01 sshd[8678]: Accepted publickey for webadmin from 10.10.246.76 port 61960 ssh2: RSA SHA256:2aa7b830
+Aug  8 03:05:04 struts-prod-01 sshd[1156]: Received disconnect from 10.10.246.48 port 57893:11: disconnected by user
+Aug  8 03:05:06 struts-prod-01 sshd[5869]: pam_unix(sudo:session): session opened for user root by root(uid=1004)
+Aug  8 03:05:32 struts-prod-01 sshd[8399]: Received disconnect from 10.10.246.238 port 48412:11: disconnected by user
+Aug  8 03:06:10 struts-prod-01 sshd[8704]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 03:06:52 struts-prod-01 sshd[6595]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 03:07:05 struts-prod-01 sshd[7459]: Received disconnect from 10.10.246.199 port 45862:11: disconnected by user
+Aug  8 03:07:27 struts-prod-01 sshd[5053]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1004)
+Aug  8 03:07:54 struts-prod-01 sshd[4012]: Received disconnect from 10.10.246.187 port 40365:11: disconnected by user
+Aug  8 03:08:08 struts-prod-01 sshd[7417]: Accepted publickey for jenkins from 10.10.246.148 port 43603 ssh2: RSA SHA256:1c16f84d
+Aug  8 03:08:15 struts-prod-01 sshd[7520]: Accepted publickey for devops from 10.10.246.178 port 62415 ssh2: RSA SHA256:62ad9ff7
+Aug  8 03:08:25 struts-prod-01 sshd[6040]: Received disconnect from 10.10.246.129 port 52813:11: disconnected by user
+Aug  8 03:08:26 struts-prod-01 sshd[7216]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 03:09:11 struts-prod-01 sshd[3911]: Accepted publickey for webadmin from 10.10.246.73 port 63622 ssh2: RSA SHA256:53e80bca
+Aug  8 03:09:18 struts-prod-01 sshd[1755]: Received disconnect from 10.10.246.109 port 61655:11: disconnected by user
+Aug  8 03:09:26 struts-prod-01 sshd[4807]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 03:09:42 struts-prod-01 sshd[3637]: Accepted publickey for svc-backup from 10.10.246.21 port 57116 ssh2: RSA SHA256:05d36635
+Aug  8 03:09:45 struts-prod-01 sshd[2780]: Accepted publickey for webadmin from 10.10.246.164 port 51859 ssh2: RSA SHA256:143e3c86
+Aug  8 03:10:12 struts-prod-01 sshd[4046]: Accepted publickey for devops from 10.10.246.176 port 64369 ssh2: RSA SHA256:60e255e3
+Aug  8 03:10:28 struts-prod-01 sshd[7372]: Accepted publickey for root from 10.10.246.82 port 43008 ssh2: RSA SHA256:693a2ef0
+Aug  8 03:10:53 struts-prod-01 sshd[1023]: Accepted publickey for devops from 10.10.246.48 port 60997 ssh2: RSA SHA256:0e005d80
+Aug  8 03:11:15 struts-prod-01 sshd[5282]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 03:11:22 struts-prod-01 sshd[1428]: Received disconnect from 10.10.246.216 port 62636:11: disconnected by user
+Aug  8 03:11:51 struts-prod-01 sshd[8561]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 03:11:54 struts-prod-01 sshd[6438]: pam_unix(sudo:session): session opened for user root by postgres(uid=1003)
+Aug  8 03:12:09 struts-prod-01 sshd[8447]: Accepted publickey for postgres from 10.10.246.184 port 50689 ssh2: RSA SHA256:75231dc5
+Aug  8 03:12:35 struts-prod-01 sshd[8673]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 03:13:13 struts-prod-01 sshd[8701]: Received disconnect from 10.10.246.5 port 46642:11: disconnected by user
+Aug  8 03:13:18 struts-prod-01 sshd[3775]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 03:13:31 struts-prod-01 sshd[4127]: Accepted publickey for webadmin from 10.10.246.240 port 53675 ssh2: RSA SHA256:5920dbe2
+Aug  8 03:14:09 struts-prod-01 sshd[4483]: Accepted publickey for svc-backup from 10.10.246.153 port 64960 ssh2: RSA SHA256:42fb9162
+Aug  8 03:14:43 struts-prod-01 sshd[3156]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 03:15:22 struts-prod-01 sshd[7818]: Accepted publickey for devops from 10.10.246.17 port 64749 ssh2: RSA SHA256:3d1e0d21
+Aug  8 03:15:33 struts-prod-01 sshd[5192]: Received disconnect from 10.10.246.51 port 63515:11: disconnected by user
+Aug  8 03:15:44 struts-prod-01 sshd[6348]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 03:16:00 struts-prod-01 sshd[4652]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 03:16:05 struts-prod-01 sshd[7214]: Accepted publickey for webadmin from 10.10.246.145 port 44156 ssh2: RSA SHA256:77481828
+Aug  8 03:16:49 struts-prod-01 sshd[5443]: pam_unix(sudo:session): session opened for user root by webadmin(uid=1004)
+Aug  8 03:17:23 struts-prod-01 sshd[5683]: Received disconnect from 10.10.246.212 port 58611:11: disconnected by user
+Aug  8 03:17:39 struts-prod-01 sshd[6533]: pam_unix(sudo:session): session opened for user root by postgres(uid=1004)
+Aug  8 03:17:43 struts-prod-01 sshd[8890]: Accepted publickey for svc-backup from 10.10.246.92 port 43480 ssh2: RSA SHA256:13b948b7
+Aug  8 03:18:23 struts-prod-01 sshd[1329]: Accepted publickey for jenkins from 10.10.246.125 port 54180 ssh2: RSA SHA256:7b296bc7
+Aug  8 03:18:30 struts-prod-01 sshd[7625]: pam_unix(sshd:session): session opened for user webadmin by (uid=0)
+Aug  8 03:18:58 struts-prod-01 sshd[2610]: Accepted publickey for postgres from 10.10.246.21 port 64362 ssh2: RSA SHA256:53f01013
+Aug  8 03:19:04 struts-prod-01 sshd[8284]: Received disconnect from 10.10.246.127 port 51961:11: disconnected by user
+Aug  8 03:19:27 struts-prod-01 sshd[2592]: pam_unix(sudo:session): session opened for user root by devops(uid=1000)
+Aug  8 03:19:49 struts-prod-01 sshd[1792]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1000)
+Aug  8 03:20:32 struts-prod-01 sshd[1663]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 03:21:15 struts-prod-01 sshd[8950]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1001)
+Aug  8 03:21:59 struts-prod-01 sshd[4052]: Received disconnect from 10.10.246.23 port 49796:11: disconnected by user
+Aug  8 03:22:27 struts-prod-01 sshd[7741]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1003)
+Aug  8 03:22:42 struts-prod-01 sshd[8866]: pam_unix(sshd:session): session opened for user root by (uid=0)
+Aug  8 03:23:20 struts-prod-01 sshd[7944]: Accepted publickey for jenkins from 10.10.246.119 port 56930 ssh2: RSA SHA256:6819d7b3
+Aug  8 03:23:36 struts-prod-01 sshd[7246]: Received disconnect from 10.10.246.124 port 50466:11: disconnected by user
+Aug  8 03:24:01 struts-prod-01 sshd[2564]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 03:24:33 struts-prod-01 sshd[1892]: Accepted publickey for webadmin from 10.10.246.156 port 59286 ssh2: RSA SHA256:61ac7376
+Aug  8 03:24:45 struts-prod-01 sshd[6683]: pam_unix(sshd:session): session opened for user jenkins by (uid=0)
+Aug  8 03:25:15 struts-prod-01 sshd[5923]: Received disconnect from 10.10.246.81 port 58302:11: disconnected by user
+Aug  8 03:25:46 struts-prod-01 sshd[1276]: pam_unix(sudo:session): session opened for user root by svc-backup(uid=1000)
+Aug  8 03:26:20 struts-prod-01 sshd[8220]: pam_unix(sudo:session): session opened for user root by root(uid=1001)
+Aug  8 03:27:01 struts-prod-01 sshd[7085]: pam_unix(sudo:session): session opened for user root by jenkins(uid=1005)
+Aug  8 03:27:10 struts-prod-01 sshd[3214]: pam_unix(sshd:session): session opened for user postgres by (uid=0)
+Aug  8 03:27:38 struts-prod-01 sshd[3085]: Received disconnect from 10.10.246.24 port 54277:11: disconnected by user
+Aug  8 03:27:50 struts-prod-01 sshd[7158]: pam_unix(sshd:session): session opened for user svc-backup by (uid=0)
+Aug  8 03:28:32 struts-prod-01 sshd[6185]: Received disconnect from 10.10.246.196 port 40376:11: disconnected by user
+Aug  8 03:29:11 struts-prod-01 sshd[4729]: pam_unix(sshd:session): session opened for user dev

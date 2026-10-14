@@ -1,0 +1,8 @@
+{
+    "task": {
+        "path": "tasks/jenkins-groovy"
+    },
+    "trial_name": "jenkins-groovy__A9rsQmB",
+    "trials_dir": "jobs/oracle-all",
+    "job_id": "8dc2a62a-60c3-4293-a133-5728b965b0c4"
+}

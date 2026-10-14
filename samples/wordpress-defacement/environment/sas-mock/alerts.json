@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "php-webshell",
+    "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+    "capability": "VUL-01",
+    "summary": "php-webshell observed at /var/www/html/wp-content/plugins/contact/inc.php"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "defaced-page",
+    "path": "/var/www/html/index.html",
+    "capability": "ENT-F01",
+    "summary": "defaced-page observed at /var/www/html/index.html"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "wordpress-baseline",
+    "path": "/var/www/html/wp-config.php",
+    "capability": "BAS-01",
+    "summary": "wordpress-baseline observed at /var/www/html/wp-config.php"
+  }
+]

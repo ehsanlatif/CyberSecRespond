@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/postgres-copyprogram"
+    },
+    "trial_name": "postgres-copyprogram__stQyyVv",
+    "trials_dir": "jobs/2026-08-16__09-21-12",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "138aa15e-fce1-41f7-bc26-e4846c0c84c6"
+}

@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The verifier is deterministic, programmatic, reliable, and executes quickly without network calls during test execution."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "A reference solution script solution/solve.sh is provided and passes tests with reward 1.0 when evaluated against the forensic environment."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires domain expertise in cybersecurity and post-compromise digital forensics, including log analysis, web shell analysis, persistence detection, and CTI mapping."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "The scenario represents a realistic incident response task for an enterprise compromise investigation."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify final report deliverables in /app for ground truth findings, citations, topology, and remediation steps without enforcing specific tools or procedures."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured (tests/Dockerfile is missing), allowing tests and ground truth in /tests to be co-located or accessible during development, and artifacts are not properly isolated."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "No malicious code, credential exfiltration, obfuscated payloads, or destructive commands were found in any task files."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests parse report markdown content, extract backticked citations, check path resolution on /disk and /sas, and verify chain topology and remediation order."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Verification is completely deterministic and reproducible across runs without live external dependencies."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty stems directly from forensic analysis and Incident Response reasoning rather than formatting minutiae."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All instruction requirements (the 5 markdown deliverables, backticked citations, remediation plan phases) directly align with test checks."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task presents a custom multi-step synthetic forensic investigation environment."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment exploration, searching through logs, configs, web roots, and CTI files across /disk and /sas."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The task files, ground-truth manifest, and scoring logic in rewardkit are clearly structured and understandable."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instructions are clear, concise, use absolute paths (/disk, /sas, /app), and describe what to achieve without unnecessary fluff."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "The solution script solution/solve.sh writes out complete, valid report deliverables that pass all verifier checks."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "tests/Dockerfile is missing, task.toml lacks an environment_mode setting under [verifier], and no top-level artifacts mapping is defined."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "Because separate-verifier mode is not configured (tests/Dockerfile is missing), test harness code and ground-truth manifests are not isolated in a dedicated verifier container image."
+  },
+  "structured_data_schema": {
+    "outcome": "pass",
+    "explanation": "The citation format and report schemas are explicitly documented in instruction.md."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were found in critical identifiers, filenames, paths, or code variables."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation field in task.toml metadata is missing."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation field in task.toml metadata is missing."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation field in task.toml metadata is missing."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The subcategory field is missing from task.toml metadata."
+  },
+  "task_name": {
+    "outcome": "fail",
+    "explanation": "The task name in task.toml \"dfir-eval/log4shell-webshell\" contains a forward slash rather than being a 1-3 word kebab-case slug."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeouts (agent 3600s, verifier 900s, build 900s) are appropriate for the task complexity."
+  },
+  "task_readme": {
+    "outcome": "not_applicable",
+    "explanation": "No task-level README.md is present."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours field is missing from task.toml metadata."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml is missing expected metadata fields (difficulty_explanation, solution_explanation, verification_explanation, subcategory, expert_time_estimate_hours)."
+  },
+  "no_extraneous_files": {
+    "outcome": "pass",
+    "explanation": "All files in the task directory are relevant and required for building, running, or evaluating the task."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured, so artifact transfer definitions are absent."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier only parses markdown text deliverables written by the agent and does not execute any agent-produced code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier script tests/test.sh does not generate or emit CTRF test results to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "The instruction states /disk is read-only, and the Dockerfile sets read-only file permissions (chmod -R a-w /disk /sas) preventing modification."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "The verifier thresholds all sub-scores and outputs exactly 1.0 or 0.0 to /logs/verifier/reward.txt."
+  }
+}

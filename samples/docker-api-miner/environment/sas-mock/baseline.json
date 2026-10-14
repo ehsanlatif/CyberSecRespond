@@ -1,0 +1,8 @@
+[
+  {
+    "chk": "CHK-05",
+    "path": "/etc/docker/daemon.json",
+    "check": "docker-baseline",
+    "capability": "BAS-01"
+  }
+]

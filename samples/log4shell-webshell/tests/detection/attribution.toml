@@ -1,0 +1,24 @@
+# tests/quality/attribution.toml  (Tier 3 — attribution; T1190 → T1505.003 → {T1059.004, T1070.006} filled by the generator)
+# The prompt is templated over manifest fields, not literal artifacts, so it transfers to
+# any range unchanged (doc 02 §3.5).
+[judge]
+judge  = "${REWARDKIT_JUDGE}"    # env-driven; family MUST differ from the policy
+files  = ["/app/intrusion-report.md", "/tests/manifest.json"]
+weight = 1.0
+
+[[criterion]]
+description = """Given the ground-truth attack chain T1190 → T1505.003 → {T1059.004, T1070.006}, is each attacker artifact
+correctly attributed to its upstream cause (its depends_on step), rather than to an
+unrelated cause or left unattributed? Award only where the report states the causal link
+explicitly. Do not award credit for links the report does not state."""
+type = "binary"
+weight = 1.0
+
+[[criterion]]
+description = """Does the report distinguish attacker-caused artifacts from coincidental or
+pre-existing host state? Penalise any attacker attribution of benign artifacts."""
+type = "likert"
+points = 3
+
+[scoring]
+aggregation = "weighted_mean"

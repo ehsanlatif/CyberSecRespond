@@ -1,0 +1,23 @@
+THREAT INTELLIGENCE ADVISORY — Redis Unauth campaign
+====================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: redis-prod-01   Suspected origin IP: 198.51.100.170
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1133      External Remote Services                   [persistence]  step 1: unauthenticated Redis access (external service)
+   T1059.004  Unix Shell                                 [execution]  step 2: shell execution via CONFIG SET
+   T1496      Resource Hijacking                         [impact]  step 3: cryptomining
+   T1053.003  Cron                                       [execution]  step 4: cron persistence
+   T1574.006  Dynamic Linker Hijacking                   [stealth]  step 5: LD_PRELOAD hijack
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.170
+   c2     update-redis[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]redis[.]evil[:]3333
+   wallet 4A00000000000000000031c7d95fb9f3
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).

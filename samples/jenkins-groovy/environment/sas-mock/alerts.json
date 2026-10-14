@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "rce-artifact",
+    "path": "/var/lib/jenkins/jobs/.tmp/config.xml",
+    "capability": "VUL-01",
+    "summary": "rce-artifact observed at /var/lib/jenkins/jobs/.tmp/config.xml"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "miner-process",
+    "path": "/opt/jenkins/.xmr/xmrig",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /opt/jenkins/.xmr/xmrig"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "cron",
+    "path": "/var/spool/cron/crontabs/jenkins",
+    "capability": "PER-S01",
+    "summary": "cron observed at /var/spool/cron/crontabs/jenkins"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-06",
+    "kind": "jenkins-baseline",
+    "path": "/var/lib/jenkins/config.xml",
+    "capability": "BAS-01",
+    "summary": "jenkins-baseline observed at /var/lib/jenkins/config.xml"
+  }
+]

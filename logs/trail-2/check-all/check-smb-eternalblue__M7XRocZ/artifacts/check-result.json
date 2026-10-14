@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The verifier is programmatic, deterministic, and reliable, executing locally without runtime network dependencies."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "The reference solution solve.sh generates all required reports and achieves reward 1.0 against the verifier."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "Requires genuine DFIR domain expertise to analyze multi-format evidence and build a complete incident reconstruction and remediation plan."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Represents a realistic enterprise post-compromise forensic investigation and incident response scenario."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify only the end deliverables (/app/*.md) without restricting agent tools or workflow."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Ground-truth oracle manifest.json is present in the agent filesystem at /app/task/tests/manifest.json, allowing the agent to inspect answers."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files contain safe code strictly related to the DFIR scenario and testing."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests parse claims and citations from report files and verify them against actual forensic evidence files."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Execution and test evaluation are fully deterministic with no external service dependencies."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty comes from core technical DFIR analysis rather than output formatting minutiae."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All test checks directly trace to requirements stated in instruction.md."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "Uses a custom synthetic forensic environment requiring genuine evidence investigation."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment exploration and file analysis across CLI tools."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "Ground truth manifest and test structure clearly define expected artifacts and scoring logic."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instruction is clear, concise, uses absolute paths, and avoids fluff or step-by-step handholding."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "solve.sh directly derives and renders the required deliverable reports."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured: tests/Dockerfile is missing and environment_mode is not set in task.toml."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "The agent image contains /tests and /solution directories in the workspace."
+  },
+  "structured_data_schema": {
+    "outcome": "not_applicable",
+    "explanation": "Deliverables are Markdown reports rather than structured schemas."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No critical typos found in paths, code, or commands."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "difficulty_explanation is missing from task.toml [metadata]."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "solution_explanation is missing from task.toml [metadata]."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "verification_explanation is missing from task.toml [metadata]."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "subcategory is missing from task.toml [metadata]."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "Task slug smb-eternalblue is concise, lower kebab-case, and under 3 words."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeouts are appropriate for a long-horizon DFIR task."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "No optional top-level README.md is present."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "expert_time_estimate_hours is missing from task.toml [metadata]."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml contains unrecognized fields (version, description, authors, keywords in [task], difficulty in [metadata], os in [environment]) and lacks required metadata fields."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "Contains extraneous directories assets/ and baselines/ that are not referenced by environment, solution, or tests."
+  },
+  "artifact_efficiency": {
+    "outcome": "not_applicable",
+    "explanation": "Task deliverables are small text reports and separate verifier mode is not enabled."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier does not execute agent-produced code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "test.sh does not generate or output CTRF report to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "Forensic image and CTI paths are set read-only."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "test.sh outputs exactly 1.0 or 0.0 to /logs/verifier/reward.txt."
+  }
+}

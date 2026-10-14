@@ -1,0 +1,24 @@
+THREAT INTELLIGENCE ADVISORY — Docker Api Miner campaign
+========================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: docker-prod-01   Suspected origin IP: 198.51.100.102
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1133      External Remote Services                   [persistence]  step 1: exposed Docker API (external service)
+   T1610      Deploy Container                           [execution]  step 2: deploy privileged container
+   T1611      Escape to Host                             [privilege-escalation]  step 3: container escape to host
+   T1496      Resource Hijacking                         [impact]  step 4: cryptomining
+   T1053.003  Cron                                       [execution]  step 5: cron persistence
+   T1543.002  Systemd Service                            [persistence]  step 6: systemd persistence
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.102
+   c2     update-docker[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]docker[.]evil[:]3333
+   wallet 4A0000000000000000009e202e3a533f
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).

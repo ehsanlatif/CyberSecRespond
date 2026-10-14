@@ -1,0 +1,24 @@
+Skipping image OS validation for hb__e12421b98236192e1236bfd76679b257: docker inspect returned 1
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Trajectory dumped to jobs/run-all/ssh-miner__XXmx8zf/agent/trajectory.json
+Collecting main service artifacts
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

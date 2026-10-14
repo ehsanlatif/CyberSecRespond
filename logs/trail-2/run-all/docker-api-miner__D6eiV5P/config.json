@@ -1,0 +1,12 @@
+{
+    "task": {
+        "path": "tasks/docker-api-miner"
+    },
+    "trial_name": "docker-api-miner__D6eiV5P",
+    "trials_dir": "jobs/2026-08-16__09-23-08",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash"
+    },
+    "job_id": "2ba818a2-0d27-488f-9846-65875d116259"
+}

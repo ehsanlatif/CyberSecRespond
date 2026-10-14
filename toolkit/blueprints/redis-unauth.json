@@ -1,0 +1,56 @@
+{
+  "range_id": "redis-unauth",
+  "description": "Post-compromise forensics: Debian 12 host with an unauthenticated, internet-exposed Redis abused for RCE, cryptominer dropped, cron and LD_PRELOAD persistence.",
+  "difficulty": 2,
+  "platform": {"os": "debian", "version": "12"},
+  "no_cve_entry": true,
+  "scenario": "A Debian 12 host ran Redis bound to 0.0.0.0 with protected-mode off and no auth. An attacker used CONFIG SET to write a cron reverse shell, dropped a cryptominer, and installed an LD_PRELOAD hook. Alerts surface the miner and the cron job; the LD_PRELOAD hook and the loadable module are silent.",
+
+  "chain": [
+    {"step": 1, "attck": "T1133",     "desc": "unauthenticated Redis access (external service)"},
+    {"step": 2, "attck": "T1059.004", "desc": "shell execution via CONFIG SET", "depends_on": [1]},
+    {"step": 3, "attck": "T1496",     "desc": "cryptomining",                   "depends_on": [2]},
+    {"step": 4, "attck": "T1053.003", "desc": "cron persistence",               "depends_on": [2]},
+    {"step": 5, "attck": "T1574.006", "desc": "LD_PRELOAD hijack",              "depends_on": [2]}
+  ],
+
+  "artifacts": [
+    {"chk": "CHK-01", "path": "/tmp/.redis/kdevtmpfsi", "kind": "miner-process",
+     "capability": "ENT-P01", "alerted": true, "weight": 1.0, "attck": "T1496",
+     "match": ["miner", "pool"]},
+    {"chk": "CHK-02", "path": "/var/spool/cron/crontabs/root", "kind": "cron",
+     "capability": "PER-S01", "alerted": true, "weight": 1.0, "attck": "T1053.003",
+     "match": ["curl", "redis"]},
+    {"chk": "CHK-03", "path": "/etc/ld.so.preload", "kind": "ld-preload-hook",
+     "capability": "PER-I01", "alerted": false, "weight": 2.0, "attck": "T1574.006",
+     "match": ["preload", ".so"]},
+    {"chk": "CHK-04", "path": "/tmp/.redis/exp.so", "kind": "loadable-module",
+     "capability": "ENT-F02", "alerted": false, "weight": 1.5, "attck": "T1059.004",
+     "match": ["module", "exp.so"]},
+    {"chk": "CHK-05", "path": "/etc/redis/redis.conf", "kind": "redis-baseline",
+     "capability": "BAS-01", "alerted": true, "weight": 1.0, "match": ["0.0.0.0", "protected-mode"]}
+  ],
+
+  "remediation": [
+    {"chk": "CHK-20", "action": "firewall the Redis port to localhost and block the attacker IP",
+     "verify": "ss -ltn shows redis bound to 127.0.0.1 only", "phase": "contain", "risk_class": "network"},
+    {"chk": "CHK-01", "action": "quarantine the miner binary and terminate the process",
+     "verify": "pgrep -f kdevtmpfsi returns empty", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-02", "action": "remove the injected root cron entry",
+     "verify": "grep -c redis /var/spool/cron/crontabs/root == 0", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-03", "action": "remove the LD_PRELOAD hook from /etc/ld.so.preload",
+     "verify": "! test -s /etc/ld.so.preload", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-04", "action": "remove the attacker Redis module",
+     "verify": "! test -f /tmp/.redis/exp.so", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-05", "action": "bind Redis to localhost, enable protected-mode and require auth",
+     "verify": "redis-cli CONFIG GET requirepass is set", "phase": "harden", "risk_class": "service"},
+    {"chk": "CHK-07", "action": "rotate any credentials reachable from the compromised host",
+     "verify": "credential rotation timestamps are recent", "phase": "rotate", "risk_class": "auth"},
+    {"chk": "CHK-22", "action": "restart redis and confirm the host has no miner activity",
+     "verify": "systemctl is-active redis and CPU baseline normal", "phase": "verify", "risk_class": "service"}
+  ],
+
+  "precedence": ["contain", "eradicate", "harden", "rotate", "verify"],
+  "decoys": [],
+  "judge": {"attribution": true, "quality": true}
+}

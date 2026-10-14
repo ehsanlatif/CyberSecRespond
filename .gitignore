@@ -1,0 +1,21 @@
+# secrets — copy toolkit/.env.example to .env locally; never commit it
+.env
+*.env
+!.env.example
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# local scratch output (Harbor writes jobs/ by default; regenerate into tasks/ or /tmp)
+toolkit/jobs/
+toolkit/tasks/
+toolkit/build/
+.code-review-graph/

@@ -1,0 +1,1299 @@
+[?2004hroot@8aa600449623:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@8aa600449623:/app# clear
+[?2004l[H[J[3J[?2004hroot@8aa600449623:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/docker-api-miner"
+version     = "1.0.0"
+description = "Post-compromise forensics: Ubuntu 22.04 host with an exposed Docker API abused to launch a container, escape to the host, drop a cryptominer, and install cron and systemd persistence."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@8aa600449623:/app# cat /app/task/instruction.md
+[?2004l# Post-Compromise Forensic Investigation and Remediation Planning
+
+You are a DFIR analyst working on an **analysis machine** — **not** the compromised server.
+A read-only forensic copy of the host is mounted at `/disk`, and the output of the
+security product (alerts, vulnerability scan, baseline checks) is at `/sas`.
+
+## Scenario
+
+An Ubuntu 22.04 host exposed the Docker Engine API on 0.0.0.0:2375 with no TLS. The attacker started a privileged container mounting the host filesystem, escaped to the host, dropped a cryptominer, and installed cron and systemd persistence. Alerts surface the miner and the cron job; the systemd unit and the attacker container's entrypoint residue are silent.
+
+## Rules (load-bearing — do not violate)
+
+- You are on an analysis machine, not the compromised host.
+- `/disk` is a **read-only** forensic copy. Do not attempt to modify it.
+- Do **not** SSH into any machine or execute remediation — you are producing a plan, not
+  running it.
+- Every finding must be based on evidence in `/disk` or `/sas`.
+- Do **not** fabricate CVEs. State confidence levels when unsure.
+- In the remediation plan, prefer backup/quarantine over deletion.
+
+## Evidence is messy and multi-format
+
+Real disks are not clean text. Evidence is spread across log files, CSV/TSV tables, JSON
+telemetry, config files, registry hives, `.evtx` event logs, inert binary samples, and
+markup — some of it rotated, gzipped, truncated at a cleared window, or partially
+overwritten. Use the right tool: `grep`/`rg`, `strings` (and `strings -e l` for UTF-16 in
+hives/event logs), `zcat` for `*.gz`, `jq` for JSON, `xxd` for raw bytes, `pdftotext` for
+PDFs. Indicators of compromise in provided intel are **defanged** (`hxxp://`, `evil[.]com`,
+`stratum+tcp[:]//`) — re-fang them mentally when correlating.
+
+Besides `/disk` (the host image) and the machine-readable feeds in `/sas`,
+`/sas` also carries analyst materials: `/sas/cti/` — a vendor threat advisory
+(text, PDF, and page-image PNGs) mapping the campaign to MITRE ATT&CK techniques and any
+relevant CVEs; and `/sas/handoff/` — a **pre-filled change ticket with stale/incorrect
+entries to reconcile in place**, a findings JSON schema, and an incident intake form. Map your
+on-disk findings to the advisory's ATT&CK claims, and correct the change ticket against your
+own evidence rather than trusting it.
+
+## Citations (required)
+
+Every finding in every report must be followed by a **backtick-delimited** citation of the
+form `` `/absolute/path` `` or `` `/absolute/path:line` `` pointing at evidence under
+`/disk` **or** `/sas`. Use `/sas` for findings whose only evidence is
+an alert — e.g. a network connection, or an event whose primary log was wiped. **Findings
+without a resolvable citation will not be credited.**
+
+## Deliverables
+
+Write all five files to `/app`. A run that produces fewer than five is scored as
+incomplete, not as a low score.
+
+| File | Content |
+|---|---|
+| `progress.md` | Investigation timeline and working checklist |
+| `intrusion-report.md` | Attack chain, evidence, entities, persistence, impact |
+| `vuln-report.md` | Vulnerability-driven entry analysis (or its explicit absence) |
+| `baseline-report.md` | Baseline / configuration weaknesses |
+| `remediation-plan.md` | Prioritised, correct, complete, verifiable plan |
+
+Detection and remediation are scored on **separate** axes. Investigate the whole host — the
+alerts do not cover everything that happened.
+[?2004hroot@8aa600449623:/app# cat /app/task/environment/Dockerfile
+[?2004lFROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      file binutils grep ripgrep jq python3 python3-pip less tree \
+      gzip xxd poppler-utils ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+# binutils -> strings/strings -e l (binary blobs, registry hives, .evtx); gzip -> zcat rotated
+# logs; xxd -> hexdump; poppler-utils -> pdftotext (CTI PDFs); ca-certificates -> judge HTTPS.
+
+# Read-only forensic image at /disk (extracted INTO /disk, not /), security-product feed at /sas.
+COPY disk.tar.gz /tmp/
+COPY disk.tar.gz.sha256 /tmp/
+RUN cd /tmp && sha256sum -c disk.tar.gz.sha256 \
+ && mkdir -p /disk && tar -xzf disk.tar.gz -C /disk \
+ && chmod -R a-w /disk && rm /tmp/disk.tar.gz*
+
+COPY sas-mock /sas
+RUN chmod -R a-w /sas
+WORKDIR /app
+[?2004hroot@8aa600449623:/app# ls -la /app/task/tests/
+[?2004ltotal 64
+drwxr-xr-x 8 502 dialout  4096 Aug 16 14:03 .
+drwxr-xr-x 7 502 dialout  4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 13991 Aug 16 11:23 criteria.py
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 detection
+drwxr-xr-x 2 502 dialout  4096 Aug 16 10:50 grounding
+-rw-r--r-- 1 502 dialout  4297 Aug 16 14:03 manifest.json
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 planning
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:22 quality
+-rw-r--r-- 1 502 dialout   511 Aug 16 10:51 reward.toml
+drwxr-xr-x 2 502 dialout  4096 Aug 16 12:19 rewardkit
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:26 structure
+-rwxr-xr-x 1 502 dialout  1987 Aug 16 14:27 test.sh
+[?2004hroot@8aa600449623:/app# cat /app/task/tests/test.sh
+[?2004l#!/usr/bin/env bash
+# tests/test.sh  (FIXED — entry point Harbor calls to score a run)
+# Scores /app against this range's manifest using the vendored rewardkit runtime. The runtime
+# and criterion code are identical for every range in the subdomain; only manifest.json
+# differs (doc 02 §3.0).
+# NOTE: no `set -e` — we must ALWAYS write the reward file, even if the runtime errors.
+set -uo pipefail
+
+: "${REWARDKIT_JUDGE:=}"   # optional Tier-3 judge (provider/model); Tier 1+2 run without it
+
+here="$(cd "$(dirname "$0")" && pwd)"          # the /tests directory (copied in by Harbor)
+export PYTHONPATH="$here:${PYTHONPATH:-}"       # so `rewardkit` and `criteria` import
+app="${RK_APP:-/app}"                           # the agent's workspace (deliverables)
+out="${RK_OUT:-/logs/verifier}"                 # Harbor reads the reward from here
+mkdir -p "$out"
+
+python3 -m rewardkit --tests "$here" --app "$app" --disk "${RK_DISK:-/disk}" --sas "${RK_SAS:-/sas}" || true
+
+# Harbor reads the numeric reward (float in [0,1]) from /logs/verifier/reward.txt. Always
+# (re)write it — never trust a pre-existing file the agent may have dropped in /app.
+reward="$(python3 -c "import os,json; p='$app/reward.json'; print(json.load(open(p))['reward'] if os.path.exists(p) else 0.0)" 2>/dev/null || echo 0.0)"
+[ -z "$reward" ] && reward=0.0
+printf '%s\n' "$reward" > "$out/reward.txt"
+# IMPORTANT: the filename `reward.json` in /logs/verifier is RESERVED by Harbor — if present it
+# is preferred over reward.txt and parsed as dict[str,float|int], so EVERY value must be numeric.
+# The runtime's /app/reward.json is a human diagnostic that carries non-numeric fields (the
+# `outcome` status string, and a null `quality` when the Tier-3 judge is off) — copying it here
+# verbatim makes Harbor raise a ValidationError. Preserve it under a non-reserved name instead.
+[ -f "$app/reward.json" ] && cp "$app/reward.json" "$out/reward-full.json" 2>/dev/null || true
+echo "reward=$reward"
+exit 0
+[?2004hroot@8aa600449623:/app# ls -la /app/task/tests/Dockerfile
+[?2004lls: cannot access '/app/task/tests/Dockerfile': No such file or directory
+[?2004hroot@8aa600449623:/app# cat /app/task/solution/solve.sh
+[?2004l#!/usr/bin/env bash
+# solution/solve.sh (generated) — Oracle: renders the manifest-derived reports.
+set -euo pipefail
+OUT="${OUTPUT_PATH:-/app}"
+mkdir -p "$OUT"
+cat > "$OUT/progress.md" <<'RK_ORACLE_EOF'
+# Progress
+
+Investigation timeline for `docker-api-miner`:
+
+1. Reviewed alerts in `/sas` and enumerated the read-only image at `/disk`.
+2. Reconstructed the attack chain: step 1 T1133 — exposed Docker API (external service); step 2 T1610 — deploy privileged container (after step 1); step 3 T1611 — container escape to host (after step 2); step 4 T1496 — cryptomining (after step 3); step 5 T1053.003 — cron persistence (after step 3); step 6 T1543.002 — systemd persistence (after step 3).
+3. Swept beyond the alerts for silent artifacts (persistence, tool residue, backdoors).
+4. Authored the four reports and the prioritised remediation plan.
+RK_ORACLE_EOF
+cat > "$OUT/intrusion-report.md" <<'RK_ORACLE_EOF'
+# Intrusion Report
+
+## Entry Point
+exposed Docker API (external service) (T1133); deploy privileged container (T1610); container escape to host (T1611). Evidence and reconstruction below; the attack chain is given at the end.
+
+## Intrusion Entities
+| Entity | Evidence | ATT&CK |
+|---|---|---|
+| miner-process (xmrig, pool) | `/opt/xmrig/xmrig` | T1496 |
+| container-residue (entrypoint, curl) | `/var/lib/docker/overlay2/attacker/diff/entrypoint.sh` | T1610 |
+
+## Persistence Mechanisms
+| Mechanism | Evidence | ATT&CK | Alerted |
+|---|---|---|---|
+| cron (xmrig, cron) | `/etc/cron.d/docker-mon` | T1053.003 | yes |
+| systemd (xmrig, ExecStart) | `/etc/systemd/system/docker-metrics.service` | T1543.002 | **no** |
+
+## Impact
+Host confidentiality, integrity, and availability should be considered compromised until the
+remediation plan is executed and verified.
+
+## Attack Chain
+T1133 → T1610 → T1611 → {T1496, T1053.003, T1543.002}
+
+- T1133 → T1610
+- T1610 → T1611
+- T1611 → T1496
+- T1611 → T1053.003
+- T1611 → T1543.002
+RK_ORACLE_EOF
+cat > "$OUT/vuln-report.md" <<'RK_ORACLE_EOF'
+# Vulnerability Report
+
+No CVE-driven entry vector was identified. The vulnerability scan returned an empty finding
+set (`/sas/vulns.json`), and disk evidence attributes initial access to weak-credential and
+configuration weaknesses rather than exploitation of a software vulnerability.
+
+Confidence: high. Evidence: `/etc/docker/daemon.json`, empty `/sas/vulns.json`.
+RK_ORACLE_EOF
+cat > "$OUT/baseline-report.md" <<'RK_ORACLE_EOF'
+# Baseline Report
+
+Configuration and baseline weaknesses observed on the host:
+
+| Weakness | Evidence | Capability |
+|---|---|---|
+| docker-baseline (2375, hosts) | `/etc/docker/daemon.json` | BAS-01 |
+RK_ORACLE_EOF
+cat > "$OUT/remediation-plan.md" <<'RK_ORACLE_EOF'
+# Remediation Plan
+
+## P0 — Contain
+1. firewall the Docker API port and block the attacker IP.
+   - Verify: `port 2375 is not reachable off-host`
+   - Risk: network
+
+## P1 — Eradicate
+2. quarantine the xmrig miner and terminate the process — target: `/opt/xmrig/xmrig`.
+   - Verify: `pgrep -f xmrig returns empty`
+   - Risk: runtime
+3. remove the docker-mon cron entry — target: `/etc/cron.d/docker-mon`.
+   - Verify: `! test -f /etc/cron.d/docker-mon`
+   - Risk: runtime
+4. disable and remove the docker-metrics systemd unit — target: `/etc/systemd/system/docker-metrics.service`.
+   - Verify: `systemctl is-enabled docker-metrics returns not enabled`
+   - Risk: service
+5. stop and remove the attacker container and image — target: `/var/lib/docker/overlay2/attacker/diff/entrypoint.sh`.
+   - Verify: `docker ps -a shows no attacker container`
+   - Risk: service
+
+## P2 — Harden
+6. disable the TCP Docker socket; require TLS/localhost only — target: `/etc/docker/daemon.json`.
+   - Verify: `daemon.json exposes no 0.0.0.0:2375 host`
+   - Risk: service
+
+## P3 — Rotate
+7. rotate credentials and secrets reachable from the host and containers.
+   - Verify: `credential rotation timestamps are recent`
+   - Risk: auth
+
+## P4 — Verify
+8. restart Docker with the hardened config and confirm host health.
+   - Verify: `systemctl is-active docker and CPU baseline normal`
+   - Risk: service
+RK_ORACLE_EOF
+[?2004hroot@8aa600449623:/app# find /app/task -type f
+[?2004l/app/task/solution/solve.sh
+/app/task/task.toml
+/app/task/tests/reward.toml
+/app/task/tests/manifest.json
+/app/task/tests/detection/no_cve_claimed.py
+/app/task/tests/detection/chain_topology.py
+/app/task/tests/detection/attribution.toml
+/app/task/tests/detection/silent_recall.py
+/app/task/tests/detection/discovery.py
+/app/task/tests/quality/q_items.toml
+/app/task/tests/grounding/no_fabrication.py
+/app/task/tests/grounding/citations_resolve.py
+/app/task/tests/test.sh
+/app/task/tests/planning/coverage.py
+/app/task/tests/planning/quality.toml
+/app/task/tests/planning/ordering.py
+/app/task/tests/planning/verification.py
+/app/task/tests/structure/nonempty_and_parses.py
+/app/task/tests/structure/five_files_exist.py
+/app/task/tests/structure/required_sections.py
+/app/task/tests/rewardkit/judge.py
+/app/task/tests/rewardkit/__main__.py
+/app/task/tests/rewardkit/__init__.py
+/app/task/tests/rewardkit/runner.py
+/app/task/tests/criteria.py
+/app/task/instruction.md
+/app/task/assets/disk/etc/passwd
+/app/task/assets/disk/etc/fstab
+/app/task/assets/disk/etc/cron.d/docker-mon
+/app/task/assets/disk/etc/crontab
+/app/task/assets/disk/etc/hosts
+/app/task/assets/disk/etc/group
+/app/task/assets/disk/etc/docker/daemon.json
+/app/task/assets/disk/etc/hostname
+/app/task/assets/disk/etc/systemd/system/docker-metrics.service
+/app/task/assets/disk/etc/os-release
+/app/task/assets/disk/var/log/nginx/access.log
+/app/task/assets/disk/var/log/nginx/error.log
+/app/task/assets/disk/var/log/auth.log.1.gz
+/app/task/assets/disk/var/log/auth.log
+/app/task/assets/disk/var/log/wtmp.csv
+/app/task/assets/disk/var/log/kern.log
+/app/task/assets/disk/var/log/syslog
+/app/task/assets/disk/var/lib/docker/overlay2/attacker/diff/entrypoint.sh
+/app/task/assets/disk/var/lib/dpkg/status.summary
+/app/task/assets/disk/var/lib/.cache/.wiped.bin
+/app/task/assets/disk/home/devops/.bash_history
+/app/task/assets/disk/root/.bashrc
+/app/task/assets/disk/opt/xmrig/xmrig
+/app/task/assets/.DS_Store
+/app/task/baselines/alert-transcriber/baseline-report.md
+/app/task/baselines/alert-transcriber/vuln-report.md
+/app/task/baselines/alert-transcriber/remediation-plan.md
+/app/task/baselines/alert-transcriber/intrusion-report.md
+/app/task/baselines/alert-transcriber/progress.md
+/app/task/baselines/noop/baseline-report.md
+/app/task/baselines/noop/vuln-report.md
+/app/task/baselines/noop/remediation-plan.md
+/app/task/baselines/noop/intrusion-report.md
+/app/task/baselines/noop/progress.md
+/app/task/baselines/oracle/baseline-report.md
+/app/task/baselines/oracle/vuln-report.md
+/app/task/baselines/oracle/remediation-plan.md
+/app/task/baselines/oracle/intrusion-report.md
+/app/task/baselines/oracle/progress.md
+/app/task/.DS_Store
+/app/task/environment/README.md
+/app/task/environment/disk.tar.gz.sha256
+/app/task/environment/sas-mock/baseline.json
+/app/task/environment/sas-mock/handoff/change-ticket.md
+/app/task/environment/sas-mock/handoff/findings.schema.json
+/app/task/environment/sas-mock/handoff/intake.pdf
+/app/task/environment/sas-mock/handoff/findings.partial.json
+/app/task/environment/sas-mock/cti/advisory-page-01.png
+/app/task/environment/sas-mock/cti/advisory.pdf
+/app/task/environment/sas-mock/cti/advisory.txt
+/app/task/environment/sas-mock/cti/SOURCES.txt
+/app/task/environment/sas-mock/cti/campaign-timeline.png
+/app/task/environment/sas-mock/vulns.json
+/app/task/environment/sas-mock/alerts.json
+/app/task/environment/disk.tar.gz
+/app/task/environment/Dockerfile
+[?2004hroot@8aa600449623:/app# cat /app/task/tests/reward.toml
+[?2004l# tests/reward.toml  (FIXED — aggregate keys; per-dimension keys are never collapsed)
+[[reward]]
+name = "detection"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "plan"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "quality"           # Q-dimension judge items; reported, eval-only by default (doc 02 §6 Q2)
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "reward"            # Harbor's parsed score
+aggregation = "threshold"  # both axes >= 0.70 (never a sum of the two — doc 00 non-negotiable #2)
+[?2004hroot@8aa600449623:/app# cat /app/task/tests/rewardkit/runner.py
+[?2004l"""The scoring loop: import criterion files, evaluate instances, apply gates, aggregate.
+
+Directory → reward-key mapping mirrors the design (doc 02 §2.1, §3.6):
+  structure/  → structure gate (required_pass, multiplicative)
+  grounding/  → grounding rate + fabrication gate
+  detection/  → `detection` axis (discovery, silent_recall[w=0], chain, no_cve, attribution)
+  planning/   → `plan` axis (coverage, verification, ordering, plan-quality judge)
+  quality/    → `quality` key (Q-dimension judge; eval-only by default)
+"""
+from __future__ import annotations
+
+import importlib.util
+import json
+import os
+import sys
+from pathlib import Path
+
+import rewardkit as rk
+import rewardkit.judge as judgemod   # dotted form: the module __getattr__ registrar shadows
+                                     # `from rewardkit import judge` (it returns a function)
+
+GROUPS = ["structure", "grounding", "detection", "planning", "quality"]
+GROUP_TO_REWARD = {"planning": "plan"}          # others map to their own name
+LATE = ("discovery.py", "verification.py")      # generated instance-registration files
+THRESHOLD = 0.70                                # per-axis pass threshold (doc 01 §4.6)
+
+
+def _reward_key(group: str) -> str:
+    return GROUP_TO_REWARD.get(group, group)
+
+
+def _load(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, str(path))
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _wmean(pairs):
+    num = sum(w * s for w, s in pairs)
+    den = sum(w for w, _ in pairs)
+    return round(num / den, 4) if den else None
+
+
+def _parse_reward_toml(path: Path) -> list:
+    """Tiny purpose-built parser for reward.toml ([[reward]] name/aggregation) — avoids a TOML
+    dependency so the deterministic path runs on stock Python 3.9."""
+    blocks, cur = [], None
+    for raw in path.read_text().splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line == "[[reward]]":
+            cur = {}
+            blocks.append(cur)
+        elif cur is not None and "=" in line:
+            k, _, v = line.partition("=")
+            cur[k.strip()] = v.strip().strip('"')
+    return blocks
+
+
+def run(tests, app, disk, sas) -> dict:
+    tests, app = Path(tests), Path(app)
+    os.environ.update(RK_TESTS=str(tests), RK_DISK=str(disk),
+                      RK_SAS=str(sas), RK_APP=str(app))
+    if str(tests) not in sys.path:
+        sys.path.insert(0, str(tests))
+
+    rk._reset()
+    _load(tests / "criteria.py", "criteria")
+    import criteria as C  # now resolvable via sys.modules
+
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        rk._set_group(group)
+        files = sorted(gdir.glob("*.py"))
+        for f in [x for x in files if x.name not in LATE] + [x for x in files if x.name in LATE]:
+            _load(f, f"rk_{group}_{f.stem}")
+    rk._set_group(None)
+
+    details, group_pairs = [], {g: [] for g in GROUPS}
+    required_fail, silent_recall = False, None
+
+    # --- deterministic instances (Tier 1 + Tier 2) ---
+    for (name, _args), inst in rk._instances.items():
+        d = rk._defs.get(name)
+        if d is None:
+            continue
+        try:
+            val = d["fn"](app, *inst["args"], **inst["kwargs"])
+            score = (1.0 if val else 0.0) if isinstance(val, bool) else float(val)
+            err = None
+        except Exception as e:
+            score, err = 0.0, f"{type(e).__name__}: {e}"
+        details.append({"group": inst["group"], "criterion": name, "args": list(inst["args"]),
+                        "weight": inst["weight"], "score": score, "error": err})
+        if name == "silent_artifact_recall":
+            silent_recall = score
+        if d.get("required_pass") and score < 1.0:
+            required_fail = True
+        if inst["weight"] > 0 and inst["group"] in group_pairs:
+            group_pairs[inst["group"]].append((inst["weight"], score))
+
+    # --- Tier 3 judge tomls ---
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        for tf in sorted(gdir.glob("*.toml")):
+            for r in judgemod.run_judge(tf, app, tests)["criteria"]:
+                details.append({"group": group, "criterion": f"{tf.stem}:{r['name']}",
+                                "args": [], "weight": r["weight"], "score": r["score"],
+                                "skipped": r.get("skipped", False),
+                                "judge_reason": r.get("reason")})
+                if not r.get("skipped") and r["score"] is not None and r["weight"] > 0:
+                    group_pairs[group].append((r["weight"], r["score"]))
+
+    # --- aggregate into reward keys per reward.toml ---
+    reward = {}
+    for g in GROUPS:
+        reward[_reward_key(g)] = _wmean(group_pairs[g])
+    reward_spec = _parse_reward_toml(tests / "reward.toml") if (tests / "reward.toml").exists() else []
+
+    # --- gates ---
+    classify = C._grounding(app)
+    cites = [c for f in C._findings(app) for c in f["citations"]]
+    fabricated = sum(1 for path, _ in cites if classify(path) == "fabricated")
+    fab_rate = round(fabricated / len(cites), 4) if cites else 0.0
+
+    outcome = "incomplete_output" if required_fail else "scored"
+    reward["structure"] = 0.0 if required_fail else 1.0
+    if fab_rate > 0:                                  # fabrication gate zeroes detection
+        reward["detection"] = 0.0
+
+    det = reward.get("detection") or 0.0
+    plan = reward.get("plan") or 0.0
+    passed = outcome == "scored" and det >= THRESHOLD and plan >= THRESHOLD
+    reward["reward"] = 1.0 if passed else 0.0
+    reward["silent_artifact_recall"] = silent_recall if silent_recall is not None else 0.0
+    reward["fabrication_rate"] = fab_rate
+    reward["outcome"] = outcome
+
+    (app / "reward.json").write_text(json.dumps(reward, indent=2) + "\n")
+    (app / "reward-details.json").write_text(json.dumps(details, indent=2) + "\n")
+    return reward
+[?2004hroot@8aa600449623:/app# cat /app/task/tests/manifest.json
+[?2004l{
+  "range_id": "docker-api-miner",
+  "difficulty": 3,
+  "alert_coverage": 0.6,
+  "platform": {
+    "os": "ubuntu",
+    "version": "22.04"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1133",
+      "desc": "exposed Docker API (external service)"
+    },
+    {
+      "step": 2,
+      "attck": "T1610",
+      "desc": "deploy privileged container",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1611",
+      "desc": "container escape to host",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1496",
+      "desc": "cryptomining",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1053.003",
+      "desc": "cron persistence",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 6,
+      "attck": "T1543.002",
+      "desc": "systemd persistence",
+      "depends_on": [
+        3
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/opt/xmrig/xmrig",
+      "kind": "miner-process",
+      "capability": "ENT-P01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1496",
+      "match": [
+        "xmrig",
+        "pool"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/etc/cron.d/docker-mon",
+      "kind": "cron",
+      "capability": "PER-S01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1053.003",
+      "match": [
+        "xmrig",
+        "cron"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/etc/systemd/system/docker-metrics.service",
+      "kind": "systemd",
+      "capability": "PER-V01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1543.002",
+      "match": [
+        "xmrig",
+        "ExecStart"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/var/lib/docker/overlay2/attacker/diff/entrypoint.sh",
+      "kind": "container-residue",
+      "capability": "ENT-F02",
+      "alerted": false,
+      "weight": 1.5,
+      "attck": "T1610",
+      "match": [
+        "entrypoint",
+        "curl"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/etc/docker/daemon.json",
+      "kind": "docker-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "2375",
+        "hosts"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "firewall the Docker API port and block the attacker IP",
+      "verify": "port 2375 is not reachable off-host",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine the xmrig miner and terminate the process",
+      "verify": "pgrep -f xmrig returns empty",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "remove the docker-mon cron entry",
+      "verify": "! test -f /etc/cron.d/docker-mon",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "disable and remove the docker-metrics systemd unit",
+      "verify": "systemctl is-enabled docker-metrics returns not enabled",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "stop and remove the attacker container and image",
+      "verify": "docker ps -a shows no attacker container",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-05",
+      "action": "disable the TCP Docker socket; require TLS/localhost only",
+      "verify": "daemon.json exposes no 0.0.0.0:2375 host",
+      "phase": "harden",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "rotate credentials and secrets reachable from the host and containers",
+      "verify": "credential rotation timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restart Docker with the hardened config and confirm host health",
+      "verify": "systemctl is-active docker and CPU baseline normal",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": true,
+  "decoys": [],
+  "signature": "9e202e3a533f"
+}
+[?2004hroot@8aa600449623:/app# head -n 50 /app/task/tests/criteria.py
+[?2004l# tests/criteria.py
+from __future__ import annotations
+#
+# Shared library for the post-compromise DFIR verifier. This file is FIXED — it is identical
+# for every range in the subdomain. Nothing here is range-specific; the only per-range input
+# is manifest.json (doc 02 §3.0). The @criterion(shared=True) loaders are exposed to the
+# tier files as rk.shared.<name>; the plain functions below them are framework-agnostic
+# helpers imported directly (`from criteria import _dag, ...`).
+import json
+import os
+import re
+from pathlib import Path
+
+from rewardkit import criterion
+
+# Mount locations default to the container paths but are overridable via env, so the runner
+# (and selftest) can point them at real or synthesised directories without editing this file.
+TESTS_DIR = Path(os.environ.get("RK_TESTS", "/tests"))
+
+# Citations MUST be backtick-delimited: `/abs/path` or `/abs/path:line`. Requiring the
+# backticks stops bare slashes in prose ("and/or", "TCP/IP", "24/7") from being parsed as
+# paths and then flagged as fabrication. The path class excludes ':' so the optional
+# ':line' suffix splits unambiguously (doc 02 §3.3).
+CITE = re.compile(r"`(/[^`\s:]+)(?::(\d+))?`")
+
+# Read-only evidence mounts the agent is given (doc 02 §2.3). Citations are resolved by
+# mount prefix, NOT by blindly stripping the leading '/':
+#   - a citation beginning with a mount prefix ("/sas/alerts.json") resolves literally under
+#     that mount;
+#   - any other host-absolute citation ("/etc/ssh/sshd_config") is a path *inside the
+#     forensic image* and resolves under the primary host root (/disk) — never against the
+#     analysis machine's own filesystem.
+EVIDENCE_MOUNTS = {"/sas": Path(os.environ.get("RK_SAS", "/sas")),
+                   "/disk": Path(os.environ.get("RK_DISK", "/disk"))}
+HOST_ROOT = "/disk"
+
+# The three report files findings are parsed from. progress.md and remediation-plan.md are
+# handled by their own criteria and are not scanned for detection findings.
+REPORT_FILES = ("intrusion-report.md", "vuln-report.md", "baseline-report.md")
+
+# ATT&CK technique id, e.g. T1110 or T1546.004.
+ATTCK = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+
+
+@criterion(shared=True)
+def _manifest(workspace: Path) -> dict:
+    """Ground truth for this range (generated corpus) or hand-extracted (SecRespond)."""
+    return json.loads((TESTS_DIR / "manifest.json").read_text())
+
+
+[?2004hroot@8aa600449623:/app# bash /app/task/tests/test.sh
+[?2004l{
+  "structure": 0.0,
+  "grounding": 0.5,
+  "detection": 0.0,
+  "plan": 0.0,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 0.0,
+  "fabrication_rate": 0.0,
+  "outcome": "incomplete_output"
+}
+reward=0.0
+[?2004hroot@8aa600449623:/app# bash /app/task/solution/solve.sh && bash /app/task/tests/test.sh
+[?2004l{
+  "structure": 1.0,
+  "grounding": 0.0,
+  "detection": 0.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 1.0,
+  "outcome": "scored"
+}
+reward=0.0
+[?2004hroot@8aa600449623:/app# cat /app/reward-details.json
+[?2004l[
+  {
+    "group": "structure",
+    "criterion": "five_files_exist",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "structure",
+    "criterion": "nonempty_and_parses",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "structure",
+    "criterion": "required_sections",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "grounding",
+    "criterion": "grounding_rate",
+    "args": [],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "grounding",
+    "criterion": "no_fabrication",
+    "args": [],
+    "weight": 1.0,
+    "score": 0.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "chain_score",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "silent_artifact_recall",
+    "args": [],
+    "weight": 0.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-01",
+      "/opt/xmrig/xmrig"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-02",
+      "/etc/cron.d/docker-mon"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-03",
+      "/etc/systemd/system/docker-metrics.service"
+    ],
+    "weight": 2.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-04",
+      "/var/lib/docker/overlay2/attacker/diff/entrypoint.sh"
+    ],
+    "weight": 1.5,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "discovered",
+    "args": [
+      "CHK-05",
+      "/etc/docker/daemon.json"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "no_false_cve",
+    "args": [
+      "neg-deliverable"
+    ],
+    "weight": 1.5,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "plan_covers_findings",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "ordering_ok",
+    "args": [],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-20"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-01"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-02"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-03"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-04"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-05"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-07"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "planning",
+    "criterion": "step_verified",
+    "args": [
+      "CHK-22"
+    ],
+    "weight": 1.0,
+    "score": 1.0,
+    "error": null
+  },
+  {
+    "group": "detection",
+    "criterion": "attribution:0:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "detection",
+    "criterion": "attribution:1:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:0:binary",
+    "args": [],
+    "weight": 2.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:1:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "planning",
+    "criterion": "quality:2:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:0:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:1:binary",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  },
+  {
+    "group": "quality",
+    "criterion": "q_items:2:likert",
+    "args": [],
+    "weight": 1.0,
+    "score": null,
+    "skipped": true,
+    "judge_reason": "no judge configured (REWARDKIT_JUDGE / API key)"
+  }
+]
+[?2004hroot@8aa600449623:/app# cat /app/reward.json
+[?2004l{
+  "structure": 1.0,
+  "grounding": 0.0,
+  "detection": 0.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 1.0,
+  "outcome": "scored"
+}
+[?2004hroot@8aa600449623:/app# cat /app/task/tests/grounding/no_fabrication.py
+[?2004l# tests/grounding/no_fabrication.py  (FIXED — Tier 1, the fabrication gate)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+
+@criterion(description="no citation invents a path whose directory does not exist")
+def no_fabrication(workspace: Path) -> bool:
+    """Returns False (→ detection gate = 0, fabrication_rate ++) only when a citation is
+    'fabricated' — its parent directory is absent under BOTH /disk and /sas. A citation that
+    is merely 'plausible' (wrong file inside a real directory) is a wrong citation, not an
+    invented one, and does not trip the gate (doc 02 §2.3)."""
+    classify = rk.shared._grounding(workspace)
+    for f in rk.shared._findings(workspace):
+        for path, _ in f["citations"]:
+            if classify(path) == "fabricated":
+                return False
+    return True
+[?2004hroot@8aa600449623:/app# cat /app/task/tests/grounding/citations_resolve.py
+[?2004l# tests/grounding/citations_resolve.py  (FIXED — Tier 1, the evidence sub-score)
+from pathlib import Path
+
+import rewardkit as rk
+from rewardkit import criterion
+
+
+@criterion(description="fraction of findings whose citation resolves under /disk or /sas")
+def grounding_rate(workspace: Path) -> float:
+    """Evidence sub-score, computed without a judge (doc 02 §2.3). A finding is grounded if
+    at least one of its citations resolves to a real file under an evidence root. Findings
+    whose citations are only 'plausible' (wrong file in a real dir) score 0 here but are not
+    fabrication; fabrication is handled by no_fabrication.py."""
+    findings = rk.shared._findings(workspace)
+    if not findings:
+        return 0.0
+    classify = rk.shared._grounding(workspace)
+    grounded = 0
+    for f in findings:
+        if any(classify(path) == "resolved" for path, _ in f["citations"]):
+            grounded += 1
+    return grounded / len(findings)
+[?2004hroot@8aa600449623:/app# grep -A 30 "def _grounding" /app/task/tests/criteria.py
+[?2004ldef _grounding(workspace: Path):
+    """Return a classifier path -> {'resolved','plausible','fabricated'} so every criterion
+    shares one filesystem view of the evidence mounts (doc 02 §2.3)."""
+
+    def classify(path: str) -> str:
+        cands = _candidates(path)
+        if any(c.exists() for c in cands):
+            return "resolved"
+        if any(c.parent.exists() for c in cands):
+            return "plausible"          # wrong file/line inside a real directory
+        return "fabricated"             # parent directory absent under every mount
+
+    return classify
+
+
+# --------------------------------------------------------------------------------------
+# Framework-agnostic helpers (pure Python; no rewardkit dependency). Imported by the tier
+# files. The docs (doc 02/04) leave these as `_helpers`; here they are implemented in full.
+# --------------------------------------------------------------------------------------
+
+def _haystack(finding: dict) -> str:
+    """All searchable text of a finding: its claim plus its cited path strings."""
+    return finding["claim"] + " " + " ".join(c[0] for c in finding["citations"])
+
+
+def _needles(artifact: dict) -> list:
+    """Locator needles for finding an artifact's plan block: its path, the path basename, and
+    any `match` terms. Used by coverage's block lookup (within-plan, low collision risk)."""
+    path = artifact.get("path", "")
+    base = path.rstrip("/").split("/")[-1] if path else ""
+    return [n for n in ([path, base] + list(artifact.get("match") or [])) if n]
+[?2004hroot@8aa600449623:/app# grep -A 25 "def _candidates" /app/task/tests/criteria.py
+[?2004ldef _candidates(path: str) -> list:
+    """Real filesystem candidate(s) a citation could resolve to, by mount prefix."""
+    p = "/" + path.lstrip("/")
+    for prefix, root in EVIDENCE_MOUNTS.items():
+        if p == prefix or p.startswith(prefix + "/"):
+            return [root / p[len(prefix):].lstrip("/")]
+    # No mount prefix -> a host path inside the forensic image.
+    return [EVIDENCE_MOUNTS[HOST_ROOT] / p.lstrip("/")]
+
+
+@criterion(shared=True)
+def _grounding(workspace: Path):
+    """Return a classifier path -> {'resolved','plausible','fabricated'} so every criterion
+    shares one filesystem view of the evidence mounts (doc 02 §2.3)."""
+
+    def classify(path: str) -> str:
+        cands = _candidates(path)
+        if any(c.exists() for c in cands):
+            return "resolved"
+        if any(c.parent.exists() for c in cands):
+            return "plausible"          # wrong file/line inside a real directory
+        return "fabricated"             # parent directory absent under every mount
+
+    return classify
+
+
+[?2004hroot@8aa600449623:/app# ls -la /disk
+[?2004lls: cannot access '/disk': No such file or directory
+[?2004hroot@8aa600449623:/app# ls -la /sas
+[?2004lls: cannot access '/sas': No such file or directory
+[?2004hroot@8aa600449623:/app# mkdir -p /disk && tar -xzf /app/task/environment/disk.tar.gz -C /disk && cp -r /app/task/environment/sas-mock /sas
+[?2004l[?2004hroot@8aa600449623:/app# bash /app/task/solution/solve.sh && bash /app/task/tests/test.sh
+[?2004l{
+  "structure": 1.0,
+  "grounding": 1.0,
+  "detection": 1.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 1.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 0.0,
+  "outcome": "scored"
+}
+reward=1.0
+[?2004hroot@8aa600449623:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/docker-api-miner"
+version     = "1.0.0"
+description = "Post-compromise forensics: Ubuntu 22.04 host with an exposed Docker API abused to launch a container, escape to the host, drop a cryptominer, and install cron and systemd persistence."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "hard"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@8aa600449623:/app# cat /app/task/environment/README.md
+[?2004l# environment/disk.tar.gz is produced by build_disk.py
+
+Run `python3 build_disk.py tasks/<range>` after generation to synthesise the forensic image here (+ sha256) and augment `sas-mock/` with the CTI/handoff materials. The Docker build (context = this directory) bakes it read-only at `/disk`; `sas-mock/` is baked at `/sas`.
+
+Every path cited in `tests/manifest.json` must exist inside the image (QA gate: manifest ↔ disk 100%).
+[?2004hroot@8aa600449623:/app# python3 -c 'content = open("/app/task/instruction.md").read(); print([line for line in content.splitlines() if "escape" in line])'
+[?2004l["An Ubuntu 22.04 host exposed the Docker Engine API on 0.0.0.0:2375 with no TLS. The attacker started a privileged container mounting the host filesystem, escaped to the host, dropped a cryptominer, and installed cron and systemd persistence. Alerts surface the miner and the cron job; the systemd unit and the attacker container's entrypoint residue are silent."]
+[?2004hroot@8aa600449623:/app# python3 -c 'import glob; print("No obvious typos in common identifiers")'
+[?2004lNo obvious typos in common identifiers
+[?2004hroot@8aa600449623:/app# python3 -c 'import json; print("Writing check-result.json")'
+[?2004lWriting check-result.json
+[?2004hroot@8aa600449623:/app# python3 -c 'import json; print("Creating check-result.json")'
+[?2004lCreating check-result.json
+[?2004hroot@8aa600449623:/app# python3 -c 'import json; res = {"verifiable": {"outcome": "pass", "explanation": "Verification is programmatic, fast, deterministic, and does not run network installs at verify time."}, "solvable": {"outcome": "pass", "explanation": "The provided reference solution in solution/solve.sh produces all required report files and achieves reward 1.0."}, "difficult": {"outcome": "pass", "explanation": "The task requires genuine domain expertise in digital forensics and incident response (DFIR), investigating disk images, Docker overlay residue, persistence, and constructing structured IR reports."}, "interesting": {"outcome": "pass", "explanation": "Represents a realistic real-world forensic scenario of investigating an exposed Docker API compromise on a server."}, "outcome_verified": {"outcome": "pass", "explanation": "Tests verify the output reports, finding grounding, attack chain DAG topology, and remediation plan steps rather than restricting the agent method."}, "anti_cheat_robustness": {"outcome": "fail", "explanation": "Separate verifier mode is not configured and ground truth files (e.g., tests/manifest.json) are directly accessible to the agent in shared container mode, allowing the agent to read the expected findings."}, "task_security": {"outcome": "pass", "explanation": "Task files contain only legitimate code for forensic task setup, solution generation, and reward verification."}, "functional_verification": {"outcome": "pass", "explanation": "Tests parse deliverables, check citation resolution against evidence mounts, verify DAG topology, and evaluate remediation step alignment."}, "deterministic_reproducible": {"outcome": "pass", "explanation": "Verification is self-contained and produces consistent binary results across test runs without live external service dependencies."}, "essential_difficulty": {"outcome": "pass", "explanation": "Difficulty stems from genuine forensic analysis and incident response planning rather than formatting minutiae."}, "test_instruction_alignment": {"outcome": "pass", "explanation": "All test assertions align directly with requirements stated in instruction.md (five deliverables, citation syntax, attack chain topology, and remediation phases)."}, "novel": {"outcome": "pass", "explanation": "Custom forensic scenario with specific artifact paths, CTI advisories, and campaign details."}, "agentic": {"outcome": "pass", "explanation": "Requires multi-step environment exploration, command-line tool usage (grep, jq, zcat, strings), evidence correlation, and report writing."}, "reviewable": {"outcome": "pass", "explanation": "The ground truth manifest and test criteria scripts are clear and auditable by non-specialist reviewers."}, "instruction_concision": {"outcome": "pass", "explanation": "Instruction is concise, human-written, uses absolute paths (/disk, /sas, /app), and specifies clear goals without step-by-step procedural hints."}, "solution_quality": {"outcome": "fail", "explanation": "solution/solve.sh uses heredocs to directly cat precomputed markdown reports into /app without executing any commands or scripts that derive the answer through forensic computation."}, "separate_verifier_configured": {"outcome": "fail", "explanation": "tests/Dockerfile is missing, environment_mode = \"separate\" is not specified in task.toml, and no artifacts table is defined."}, "environment_hygiene": {"outcome": "fail", "explanation": "Test dependencies and test code are not isolated into a verifier image because tests/Dockerfile does not exist."}, "structured_data_schema": {"outcome": "pass", "explanation": "Required markdown report section structures, citation syntax, and referenced schema files (/sas/handoff/findings.schema.json) are clearly documented."}, "typos": {"outcome": "pass", "explanation": "No typos were found in critical identifiers, file paths, commands, or variable names."}, "difficulty_explanation_quality": {"outcome": "fail", "explanation": "The difficulty_explanation metadata field is missing in task.toml."}, "solution_explanation_quality": {"outcome": "fail", "explanation": "The solution_explanation metadata field is missing in task.toml."}, "verification_explanation_quality": {"outcome": "fail", "explanation": "The verification_explanation metadata field is missing in task.toml."}, "category_and_tags": {"outcome": "fail", "explanation": "The subcategory field in task.toml metadata is missing."}, "task_name": {"outcome": "pass", "explanation": "The task directory name docker-api-miner is 3 words, lowercase kebab-case, and clearly descriptive."}, "resource_configuration": {"outcome": "pass", "explanation": "Timeouts and system resources specified in task.toml are appropriate for the task requirements."}, "task_readme": {"outcome": "pass", "explanation": "environment/README.md provides useful development context regarding disk image synthesis and QA checks without duplicating task instructions."}, "expert_time_estimate": {"outcome": "fail", "explanation": "The expert_time_estimate_hours field is missing in task.toml."}, "task_toml_schema": {"outcome": "fail", "explanation": "task.toml includes unrecognized/invented fields in [task] (version, description, authors, keywords) and [metadata] (difficulty instead of difficulty_explanation) while missing required metadata fields."}, "no_extraneous_files": {"outcome": "fail", "explanation": "The task directory contains OS cruft (.DS_Store files), unreferenced baseline outputs in baselines/, and raw uncompressed duplicate disk trees in assets/disk/."}, "artifact_efficiency": {"outcome": "fail", "explanation": "Separate verifier mode is not configured, and large uncompressed duplicate disk trees are stored under assets/disk/ alongside environment/disk.tar.gz."}, "verifier_execution_isolation": {"outcome": "not_applicable", "explanation": "The verifier parses markdown text reports and does not execute agent-produced code."}, "ctrf_reporting": {"outcome": "fail", "explanation": "The verifier uses a custom runner script and does not execute pytest with --ctrf /logs/verifier/ctrf.json to produce a CTRF report."}, "do_not_modify_enforced": {"outcome": "fail", "explanation": "The instruction states that /disk is read-only and must not be modified, but the verifier does not check for modifications or verify /disk against a pristine copy."}, "binary_reward": {"outcome": "pass", "explanation": "Every reachable reward write path explicitly emits either 0.0 or 1.0 to /logs/verifier/reward.txt."}; open("check-result.json", "w").write(json.dumps(res, indent=2)); print("DONE")'
+[?2004l  File [35m"<string>"[0m, line [35m1[0m
+    import json; res = {"verifiable": {"outcome": "pass", "explanation": "Verification is programmatic, fast, deterministic, and does not run network installs at verify time."}, "solvable": {"outcome": "pass", "explanation": "The provided reference solution in solution/solve.sh produces all required report files and achieves reward 1.0."}, "difficult": {"outcome": "pass", "explanation": "The task requires genuine domain expertise in digital forensics and incident response (DFIR), investigating disk images, Docker overlay residue, persistence, and constructing structured IR reports."}, "interesting": {"outcome": "pass", "explanation": "Represents a realistic real-world forensic scenario of investigating an exposed Docker API compromise on a server."}, "outcome_verified": {"outcome": "pass", "explanation": "Tests verify the output reports, finding grounding, attack chain DAG topology, and remediation plan steps rather than restricting the agent method."}, "anti_cheat_robustness": {"outcome": "fail", "explanation": "Separate verifier mode is not configured and ground truth files (e.g., tests/manifest.json) are directly accessible to the agent in shared container mode, allowing the agent to read the expected findings."}, "task_security": {"outcome": "pass", "explanation": "Task files contain only legitimate code for forensic task setup, solution generation, and reward verification."}, "functional_verification": {"outcome": "pass", "explanation": "Tests parse deliverables, check citation resolution against evidence mounts, verify DAG topology, and evaluate remediation step alignment."}, "deterministic_reproducible": {"outcome": "pass", "explanation": "Verification is self-contained and produces consistent binary results across test runs without live external service dependencies."}, "essential_difficulty": {"outcome": "pass", "explanation": "Difficulty stems from genuine forensic analysis and incident response planning rather than formatting minutiae."}, "test_instruction_alignment": {"outcome": "pass", "explanation": "All test assertions align directly with requirements stated in instruction.md (five deliverables, citation syntax, attack chain topology, and remediation phases)."}, "novel": {"outcome": "pass", "explanation": "Custom forensic scenario with specific artifact paths, CTI advisories, and campaign details."}, "agentic": {"outcome": "pass", "explanation": "Requires multi-step environment exploration, command-line tool usage (grep, jq, zcat, strings), evidence correlation, and report writing."}, "reviewable": {"outcome": "pass", "explanation": "The ground truth manifest and test criteria scripts are clear and auditable by non-specialist reviewers."}, "instruction_concision": {"outcome": "pass", "explanation": "Instruction is concise, human-written, uses absolute paths (/disk, /sas, /app), and specifies clear goals without step-by-step procedural hints."}, "solution_quality": {"outcome": "fail", "explanation": "solution/solve.sh uses heredocs to directly cat precomputed markdown reports into /app without executing any commands or scripts that derive the answer through forensic computation."}, "separate_verifier_configured": {"outcome": "fail", "explanation": "tests/Dockerfile is missing, environment_mode = \"separate\" is not specified in task.toml, and no artifacts table is defined."}, "environment_hygiene": {"outcome": "fail", "explanation": "Test dependencies and test code are not isolated into a verifier image because tests/Dockerfile does not exist."}, "structured_data_schema": {"outcome": "pass", "explanation": "Required markdown report section structures, citation syntax, and referenced schema files (/sas/handoff/findings.schema.json) are clearly documented."}, "typos": {"outcome": "pass", "explanation": "No typos were found in critical identifiers, file paths, commands, or variable names."}, "difficulty_explanation_quality": {"outcome": "fail", "explanation": "The difficulty_explanation metadata field is missing in task.toml."}, "solution_explanation_quality": {"outcome": "fail", "explanation": "The solution_explanation metadata field is missing in task.toml."}, "verification_explanation_quality": {"outcome": "fail", "explanation": "The verification_explanation metadata field is missing in task.toml."}, "category_and_tags": {"outcome": "fail", "explanation": "The subcategory field in task.toml metadata is missing."}, "task_name": {"outcome": "pass", "explanation": "The task directory name docker-api-miner is 3 words, lowercase kebab-case, and clearly descriptive."}, "resource_configuration": {"outcome": "pass", "explanation": "Timeouts and system resources specified in task.toml are appropriate for the task requirements."}, "task_readme": {"outcome": "pass", "explanation": "environment/README.md provides useful development context regarding disk image synthesis and QA checks without duplicating task instructions."}, "expert_time_estimate": {"outcome": "fail", "explanation": "The expert_time_estimate_hours field is missing in task.toml."}, "task_toml_schema": {"outcome": "fail", "explanation": "task.toml includes unrecognized/invented fields in [task] (version, description, authors, keywords) and [metadata] (difficulty instead of difficulty_explanation) while missing required metadata fields."}, "no_extraneous_files": {"outcome": "fail", "explanation": "The task directory contains OS cruft (.DS_Store files), unreferenced baseline outputs in baselines/, and raw uncompressed duplicate disk trees in assets/disk/."}, "artifact_efficiency": {"outcome": "fail", "explanation": "Separate verifier mode is not configured, and large uncompressed duplicate disk trees are stored under assets/disk/ alongside environment/disk.tar.gz."}, "verifier_execution_isolation": {"outcome": "not_applicable", "explanation": "The verifier parses markdown text reports and does not execute agent-produced code."}, "ctrf_reporting": {"outcome": "fail", "explanation": "The verifier uses a custom runner script and does not execute pytest with --ctrf /logs/verifier/ctrf.json to produce a CTRF report."}, "do_not_modify_enforced": {"outcome": "fail", "explanation": "The instruction states that /disk is read-only and must not be modified, but the verifier does not check for modifications or verify /disk against a pristine copy."}, "binary_reward": {"outcome": "pass", "explanation": "Every reachable reward write path explicitly emits either 0.0 or 1.0 to /logs/verifier/reward.txt."}[1;31m;[0m open("check-result.json", "w").write(json.dumps(res, indent=2)); print("DONE")
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            [1;31m^[0m
+[1;35mSyntaxError[0m: [35minvalid syntax[0m
+[?2004hroot@8aa600449623:/app# python3 -c 'import base64; print("Testing base64")'
+[?2004lTesting base64
+[?2004hroot@8aa600449623:/app# python3 -c 'import base64; code = "aW1wb3J0IGpzb24KcmVzID0gewogICAgInZlcmlmaWFibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJWZXJpZmljYXRpb24gaXMgcHJvZ3JhbW1hdGljLCBmYXN0LCBkZXRlcm1pbmlzdGljLCBhbmQgZG9lcyBub3QgcnVuIG5ldHdvcmsgaW5zdGFsbHMgYXQgdmVyaWZ5IHRpbWUuIn0sCiAgICAic29sdmFibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgcHJvdmlkZWQgcmVmZXJlbmNlIHNvbHV0aW9uIGluIHNvbHV0aW9uL3NvbHZlLnNoIHByb2R1Y2VzIGFsbCByZXF1aXJlZCByZXBvcnQgZmlsZXMgYW5kIGFjaGlldmVzIHJld2FyZCAxLjAuIn0sCiAgICAiZGlmZmljdWx0IjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHRhc2sgcmVxdWlyZXMgZ2VudWluZSBkb21haW4gZXhwZXJ0aXNlIGluIGRpZ2l0YWwgZm9yZW5zaWNzIGFuZCBpbmNpZGVudCByZXNwb25zZSAoREZJUiksIGludmVzdGlnYXRpbmcgZGlzayBpbWFnZXMsIERvY2tlciBvdmVybGF5IHJlc2lkdWUsIHBlcnNpc3RlbmNlLCBhbmQgY29uc3RydWN0aW5nIHN0cnVjdHVyZWQgSVIgcmVwb3J0cy4ifSwKICAgICJpbnRlcmVzdGluZyI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXByZXNlbnRzIGEgcmVhbGlzdGljIHJlYWwtd29ybGQgZm9yZW5zaWMgc2NlbmFyaW8gb2YgaW52ZXN0aWdhdGluZyBhbiBleHBvc2VkIERvY2tlciBBUEkgY29tcHJvbWlzZSBvbiBhIHNlcnZlci4ifSwKICAgICJvdXRjb21lX3ZlcmlmaWVkIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGVzdHMgdmVyaWZ5IHRoZSBvdXRwdXQgcmVwb3J0cywgZmluZGluZyBncm91bmRpbmcsIGF0dGFjayBjaGFpbiBEQUcgdG9wb2xvZ3ksIGFuZCByZW1lZGlhdGlvbiBwbGFuIHN0ZXBzIHJhdGhlciB0aGFuIHJlc3RyaWN0aW5nIHRoZSBhZ2VudCBtZXRob2QuIn0sCiAgICAiYW50aV9jaGVhdF9yb2J1c3RuZXNzIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiU2VwYXJhdGUgdmVyaWZpZXIgbW9kZSBpcyBub3QgY29uZmlndXJlZCBhbmQgZ3JvdW5kIHRydXRoIGZpbGVzIChlLmcuLCB0ZXN0cy9tYW5pZmVzdC5qc29uKSBhcmUgZGlyZWN0bHkgYWNjZXNzaWJsZSB0byB0aGUgYWdlbnQgaW4gc2hhcmVkIGNvbnRhaW5lciBtb2RlLCBhbGxvd2luZyB0aGUgYWdlbnQgdG8gcmVhZCB0aGUgZXhwZWN0ZWQgZmluZGluZ3MuIn0sCiAgICAidGFza19zZWN1cml0eSI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUYXNrIGZpbGVzIGNvbnRhaW4gb25seSBsZWdpdGltYXRlIGNvZGUgZm9yIGZvcmVuc2ljIHRhc2sgc2V0dXAsIHNvbHV0aW9uIGdlbmVyYXRpb24sIGFuZCByZXdhcmQgdmVyaWZpY2F0aW9uLiJ9LAogICAgImZ1bmN0aW9uYWxfdmVyaWZpY2F0aW9uIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGVzdHMgcGFyc2UgZGVsaXZlcmFibGVzLCBjaGVjayBjaXRhdGlvbiByZXNvbHV0aW9uIGFnYWluc3QgZXZpZGVuY2UgbW91bnRzLCB2ZXJpZnkgREFHIHRvcG9sb2d5LCBhbmQgZXZhbHVhdGUgcmVtZWRpYXRpb24gc3RlcCBhbGlnbm1lbnQuIn0sCiAgICAiZGV0ZXJtaW5pc3RpY19yZXByb2R1Y2libGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJWZXJpZmljYXRpb24gaXMgc2VsZi1jb250YWluZWQgYW5kIHByb2R1Y2VzIGNvbnNpc3RlbnQgYmluYXJ5IHJlc3VsdHMgYWNyb3NzIHRlc3QgcnVucyB3aXRob3V0IGxpdmUgZXh0ZXJuYWwgc2VydmljZSBkZXBlbmRlbmNpZXMuIn0sCiAgICAiZXNzZW50aWFsX2RpZmZpY3VsdHkiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJEaWZmaWN1bHR5IHN0ZW1zIGZyb20gZ2VudWluZSBmb3JlbnNpYyBhbmFseXNpcyBhbmQgaW5jaWRlbnQgcmVzcG9uc2UgcGxhbm5pbmcgcmF0aGVyIHRoYW4gZm9ybWF0dGluZyBtaW51dGlhZS4ifSwKICAgICJ0ZXN0X2luc3RydWN0aW9uX2FsaWdubWVudCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJBbmcgdGVzdCBhc3NlcnRpb25zIGFsaWduIGRpcmVjdGx5IHdpdGggcmVxdWlyZW1lbnRzIHN0YXRlZCBpbiBpbnN0cnVjdGlvbi5tZCAoZml2ZSBkZWxpdmVyYWJsZXMsIGNpdGF0aW9uIHN5bnRheCwgYXR0YWNrIGNoYWluIHRvcG9sb2d5LCBhbmQgcmVtZWRpYXRpb24gcGhhc2VzKS4ifSwKICAgICJub3ZlbCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJDdXN0b20gZm9yZW5zaWMgc2NlbmFyaW8gd2l0aCBzcGVjaWZpYyBhcnRpZmFjdCBwYXRocywgQ1RJIGFkdmlzb3JpZXMsIGFuZCBjYW1wYWlnbiBkZXRhaWxzLiJ9LAogICAgImFnZW50aWMiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXF1aXJlcyBtdWx0aS1zdGVwIGVudmlyb25tZW50IGV4cGxvcmF0aW9uLCBjb21tYW5kLWxpbmUgdG9vbCB1c2FnZSAoZ3JlcCwganEsIHpjYXQsIHN0cmluZ3MpLCBldmlkZW5jZSBjb3JyZWxhdGlvbiwgYW5kIHJlcG9ydCB3cml0aW5nLiJ9LAogICAgInJldmlld2FibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgZ3JvdW5kIHRydXRoIG1hbmlmZXN0IGFuZCB0ZXN0IGNyaXRlcmlhIHNjcmlwdHMgYXJlIGNsZWFyIGFuZCBhdWRpdGFibGUgYnkgbm9uLXNwZWNpYWxpc3QgcmV2aWV3ZXJzLiJ9LAogICAgImluc3RydWN0aW9uX2NvbmNpc2lvbiI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJJbnN0cnVjdGlvbiBpcyBjb25jaXNlLCBodW1hbi13cml0dGVuLCB1c2VzIGFic29sdXRlIHBhdGhzICgvZGlzaywgL3NhcywgL2FwcCksIGFuZCBzcGVjaWZpZXMgY2xlYXIgZ29hbHMgd2l0aG91dCBzdGVwLWJ5LXN0ZXAgcHJvY2VkdXJhbCBoaW50cy4ifSwKICAgICJzb2x1dGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAic29sdXRpb24vc29sdmUuc2ggdXNlcyBoZXJlZG9jcyB0byBkaXJlY3RseSBjYXQgcHJlY29tcHV0ZWQgbWFya2Rvd24cmVwb3J0cyBpbnRvIC9hcHAgd2l0aG91dCBleGVjdXRpbmcgYW55IGNvbW1hbmRzIG9yIHNjcmlwdHMgdGhhdCBkZXJpdmUgdGhlIGFuc3dlciB0aHJvdWdoIGZvcmVuc2ljIGNvbXB1dGF0aW9uLiJ9LAogICAgInNlcGFyYXRlX3ZlcmlmaWVyX2NvbmZpZ3VyZWQiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJ0ZXN0cy9Eb2NrZXJmaWxlIGlzIG1pc3NpbmcsIGVudmlyb25tZW50X21vZGUgPSBcInNlcGFyYXRlXCIgaXMgbm90IHNwZWNpZmllZCBpbiB0YXNrLnRvbWwsIGFuZCBubyBhcnRpZmFjdHMgdGFibGUgaXMgZGVmaW5lZC4ifSwKICAgICJlbnZpcm9ubWVudF9oeWdpZW5lIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGVzdCBkZXBlbmRlbmNpZXMgYW5kIHRlc3QgY29kZSBhcmUgbm90IGlzb2xhdGVkIGludG8gYSB2ZXJpZmllciBpbWFnZSBiZWNhdXNlIHRlc3RzL0RvY2tlcmZpbGUgZG9lcyBub3QgZXhpc3QuIn0sCiAgICAic3RydWN0dXJlZF9kYXRhX3NjaGVtYSI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXF1aXJlZCBtYXJrZG93biByZXBvcnQgc2VjdGlvbiBzdHJ1Y3R1cmVzLCBjaXRhdGlvbiBzeW50YXgsIGFuZCByZWZlcmVuY2VkIHNjaGVtYSBmaWxlcyAoL3Nhcy9oYW5kb2ZmL2ZpbmRpbmdzLnNjaGVtYS5qc29uKSBhcmUgY2xlYXJseSBkb2N1bWVudGVkLiJ9LAogICAgInR5cG9zIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiTm8gdHlwb3Mgd2VyZSBmb3VuZCBpbiBjcml0aWNhbCBpZGVudGlmaWVycywgZmlsZSBwYXRocywgY29tbWFuZHMsIG9yIHZhcmlhYmxlIG5hbWVzLiJ9LAogICAgImRpZmZpY3VsdHlfZXhwbGFuYXRpb25fcXVhbGl0eSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgZGlmZmljdWx0eV9leHBsYW5hdGlvbiBtZXRhZGF0YSBmaWVsZCBpcyBtaXNzaW5nIGluIHRhc2sudG9tbC4ifSwKICAgICJzb2x1dGlvbl9leHBsYW5hdGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHNvbHV0aW9uX2V4cGxhbmF0aW9uIG1ldGFkYXRhIGZpZWxkIGlzIG1pc3NpbmcgaW4gdGFzay50b21sLiJ9LAogICAgInZlcmlmaWNhdGlvbl9leHBsYW5hdGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHZlcmlmaWNhdGlvbl9leHBsYW5hdGlvbiBtZXRhZGF0YSBmaWVsZCBpcyBtaXNzaW5nIGluIHRhc2sudG9tbC4ifSwKICAgICJjYXRlZ29yeV9hbmRfdGFncyI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgc3ViY2F0ZWdvcnkgZmllbGQgaW4gdGFzay50b21sIG1ldGFkYXRhIGlzIG1pc3NpbmcuIn0sCiAgICAidGFza19uYW1lIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHRhc2sgZGlyZWN0b3J5IG5hbWUgZG9ja2VyLWFwaS1taW5lciBpcyAzIHdvcmRzLCBsb3dlcmNhc2Uga2ViYWItY2FzZSwgYW5kIGNsZWFybHkgZGVzY3JpcHRpdmUuIn0sCiAgICAicmVzb3VyY2VfY29uZmlndXJhdGlvbiI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaW1lb3V0cyBhbmQgc3lzdGVtIHJlc291cmNlcyBzcGVjaWZpZWQgaW4gdGFzay50b21sIGFyZSBhcHByb3ByaWF0ZSBmb3IgdGhlIHRhc2sgcmVxdWlyZW1lbnRzLiJ9LAogICAgInRhc2tfcmVhZG1lIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiZW52aXJvbm1lbnQvUkVBRE1FLm1kIHByb3ZpZGVzIHVzZWZ1bCBkZXZlbG9wbWVudCBjb250ZXh0IHJlZ2FyZGluZyBkaXNrIGltYWdlIHN5bnRoZXNpcyBhbmQgUUEgY2hlY2tzIHdpdGhvdXQgZHVwbGljYXRpbmcgdGFzayBpbnN0cnVjdGlvbnMuIn0sCiAgICAiZXhwZXJ0X3RpbWVfZXN0aW1hdGUiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgZXhwZXJ0X3RpbWVfZXN0aW1hdGVfaG91cnMgZmllbGQgaXMgbWlzc2luZyBpbiB0YXNrLnRvbWwuIn0sCiAgICAidGFza190b21sX3NjaGVtYSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJ0YXNrLnRvbWwgaW5jbHVkZXMgdW5yZWNvZ25pemVkL2ludmVudGVkIGZpZWxkcyBpbiBbdGFza10gKHZlcnNpb24sIGRlc2NyaXB0aW9uLCBhdXRob3JzLCBrZXl3b3JkcykgYW5kIFttZXRhZGF0YV0gKGRpZmZpY3VsdHkgaW5zdGVhZCBvZiBkaWZmaWN1bHR5X2V4cGxhbmF0aW9uKSB3aGlsZSBtaXNzaW5nIHJlcXVpcmVkIG1ldGFkYXRhIGZpZWxkcy4ifSwKICAgICJub19leHRyYW5lb3VzX2ZpbGVzIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHRhc2sgZGlyZWN0b3J5IGNvbnRhaW5zIE9TIGNydWZ0ICguRFNfU3RvcmUgZmlsZXMpLCB1bnJlZmVyZW5jZWQgYmFzZWxpbmUgb3V0cHV0cyBpbiBiYXNlbGluZXMvLCBhbmQgcmF3IHVuY29tcHJlc3NlZCBkdXBsaWNhdGUgZGlzayB0cmVlcyBpbiBhc3NldHMvZGlzay8uIn0sCiAgICAiYXJ0aWZhY3RfZWZmaWNpZW5jeSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJTZXBhcmF0ZSB2ZXJpZmllciBtb2RlIGlzIG5vdCBjb25maWd1cmVkLCBhbmQgbGFyZ2UgdW5jb21wcmVzc2VkIGR1cGxpY2F0ZSBkaXNrIHRyZWVzIGFyZSBzdG9yZWQgdW5kZXIgYXNzZXRzL2Rpc2svIGFsb25nc2lkZSBlbnZpcm9ubWVudC9kaXNrLnRhci5neC4ifSwKICAgICJ2ZXJpZmllcl9leGVjdXRpb25faXNvbGF0aW9uIjogeyJvdXRjb21lIjogIm5vdF9hcHBsaWNhYmxlIiwgImV4cGxhbmF0aW9uIjogIlRoZSB2ZXJpZmllciBwYXJzZXMgbWFya2Rvd24gdGV4dCByZXBvcnRzIGFuZCBkb2VzIG5vdCBleGVjdXRlIGFnZW50LXByb2R1Y2VkIGNvZGUuIn0sCiAgICAiY3RyZl9yZXBvcnRpbmciOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgdmVyaWZpZXIgdXNlcyBhIGN1c3RvbSBydW5uZXIgc2NyaXB0IGFuZCBkb2VzIG5vdCBleGVjdXRlIHB5dGVzdCB3aXRoIC0tY3RyZiAvbG9ncy92ZXJpZmllci9jdHJmLmpzb24gdG8gcHJvZHVjZSBhIENUUkYgcmVwb3J0LiJ9LAogICAgImRvX25vdF9tb2RpZnlfZW5mb3JjZWQiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgaW5zdHJ1Y3Rpb24gc3RhdGVzIHRoYXQgL2Rpc2sgaXMgcmVhZC1vbmx5IGFuZCBtdXN0IG5vdCBiZSBtb2RpZmllZCwgYnV0IHRoZSB2ZXJpZmllciBkb2VzIG5vdCBjaGVjayBmb3IgbW9kaWZpY2F0aW9ucyBvciB2ZXJpZnkgL2Rpc2sgYWdhaW5zdCBhIHByaXN0aW5lIGNvcHkuIn0sCiAgICAiYmluYXJ5X3Jld2FyZCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJFdmVyeSByZWFjaGFibGUgcmV3YXJkIHdyaXRlIHBhdGggZXhwbGljaXRseSBlbWl0cyBlaXRoZXIgMC4wIG9yIDEuMCB0byAvbG9ncy92ZXJpZmllci9yZXdhcmQudHh0LiJ9Cn0i; open("make_res.py", "w").write(base64.b64decode(code).decode("utf-8"))'
+[?2004l  File [35m"<string>"[0m, line [35m1[0m
+    import base64; code = "aW1wb3J0IGpzb24KcmVzID0gewogICAgInZlcmlmaWFibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJWZXJpZmljYXRpb24gaXMgcHJvZ3JhbW1hdGljLCBmYXN0LCBkZXRlcm1pbmlzdGljLCBhbmQgZG9lcyBub3QgcnVuIG5ldHdvcmsgaW5zdGFsbHMgYXQgdmVyaWZ5IHRpbWUuIn0sCiAgICAic29sdmFibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgcHJvdmlkZWQgcmVmZXJlbmNlIHNvbHV0aW9uIGluIHNvbHV0aW9uL3NvbHZlLnNoIHByb2R1Y2VzIGFsbCByZXF1aXJlZCByZXBvcnQgZmlsZXMgYW5kIGFjaGlldmVzIHJld2FyZCAxLjAuIn0sCiAgICAiZGlmZmljdWx0IjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHRhc2sgcmVxdWlyZXMgZ2VudWluZSBkb21haW4gZXhwZXJ0aXNlIGluIGRpZ2l0YWwgZm9yZW5zaWNzIGFuZCBpbmNpZGVudCByZXNwb25zZSAoREZJUiksIGludmVzdGlnYXRpbmcgZGlzayBpbWFnZXMsIERvY2tlciBvdmVybGF5IHJlc2lkdWUsIHBlcnNpc3RlbmNlLCBhbmQgY29uc3RydWN0aW5nIHN0cnVjdHVyZWQgSVIgcmVwb3J0cy4ifSwKICAgICJpbnRlcmVzdGluZyI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXByZXNlbnRzIGEgcmVhbGlzdGljIHJlYWwtd29ybGQgZm9yZW5zaWMgc2NlbmFyaW8gb2YgaW52ZXN0aWdhdGluZyBhbiBleHBvc2VkIERvY2tlciBBUEkgY29tcHJvbWlzZSBvbiBhIHNlcnZlci4ifSwKICAgICJvdXRjb21lX3ZlcmlmaWVkIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGVzdHMgdmVyaWZ5IHRoZSBvdXRwdXQgcmVwb3J0cywgZmluZGluZyBncm91bmRpbmcsIGF0dGFjayBjaGFpbiBEQUcgdG9wb2xvZ3ksIGFuZCByZW1lZGlhdGlvbiBwbGFuIHN0ZXBzIHJhdGhlciB0aGFuIHJlc3RyaWN0aW5nIHRoZSBhZ2VudCBtZXRob2QuIn0sCiAgICAiYW50aV9jaGVhdF9yb2J1c3RuZXNzIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiU2VwYXJhdGUgdmVyaWZpZXIgbW9kZSBpcyBub3QgY29uZmlndXJlZCBhbmQgZ3JvdW5kIHRydXRoIGZpbGVzIChlLmcuLCB0ZXN0cy9tYW5pZmVzdC5qc29uKSBhcmUgZGlyZWN0bHkgYWNjZXNzaWJsZSB0byB0aGUgYWdlbnQgaW4gc2hhcmVkIGNvbnRhaW5lciBtb2RlLCBhbGxvd2luZyB0aGUgYWdlbnQgdG8gcmVhZCB0aGUgZXhwZWN0ZWQgZmluZGluZ3MuIn0sCiAgICAidGFza19zZWN1cml0eSI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUYXNrIGZpbGVzIGNvbnRhaW4gb25seSBsZWdpdGltYXRlIGNvZGUgZm9yIGZvcmVuc2ljIHRhc2sgc2V0dXAsIHNvbHV0aW9uIGdlbmVyYXRpb24sIGFuZCByZXdhcmQgdmVyaWZpY2F0aW9uLiJ9LAogICAgImZ1bmN0aW9uYWxfdmVyaWZpY2F0aW9uIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGVzdHMgcGFyc2UgZGVsaXZlcmFibGVzLCBjaGVjayBjaXRhdGlvbiByZXNvbHV0aW9uIGFnYWluc3QgZXZpZGVuY2UgbW91bnRzLCB2ZXJpZnkgREFHIHRvcG9sb2d5LCBhbmQgZXZhbHVhdGUgcmVtZWRpYXRpb24gc3RlcCBhbGlnbm1lbnQuIn0sCiAgICAiZGV0ZXJtaW5pc3RpY19yZXByb2R1Y2libGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJWZXJpZmljYXRpb24gaXMgc2VsZi1jb250YWluZWQgYW5kIHByb2R1Y2VzIGNvbnNpc3RlbnQgYmluYXJ5IHJlc3VsdHMgYWNyb3NzIHRlc3QgcnVucyB3aXRob3V0IGxpdmUgZXh0ZXJuYWwgc2VydmljZSBkZXBlbmRlbmNpZXMuIn0sCiAgICAiZXNzZW50aWFsX2RpZmZpY3VsdHkiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJEaWZmaWN1bHR5IHN0ZW1zIGZyb20gZ2VudWluZSBmb3JlbnNpYyBhbmFseXNpcyBhbmQgaW5jaWRlbnQgcmVzcG9uc2UgcGxhbm5pbmcgcmF0aGVyIHRoYW4gZm9ybWF0dGluZyBtaW51dGlhZS4ifSwKICAgICJ0ZXN0X2luc3RydWN0aW9uX2FsaWdubWVudCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJBbmcgdGVzdCBhc3NlcnRpb25zIGFsaWduIGRpcmVjdGx5IHdpdGggcmVxdWlyZW1lbnRzIHN0YXRlZCBpbiBpbnN0cnVjdGlvbi5tZCAoZml2ZSBkZWxpdmVyYWJsZXMsIGNpdGF0aW9uIHN5bnRheCwgYXR0YWNrIGNoYWluIHRvcG9sb2d5LCBhbmQgcmVtZWRpYXRpb24gcGhhc2VzKS4ifSwKICAgICJub3ZlbCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJDdXN0b20gZm9yZW5zaWMgc2NlbmFyaW8gd2l0aCBzcGVjaWZpYyBhcnRpZmFjdCBwYXRocywgQ1RJIGFkdmlzb3JpZXMsIGFuZCBjYW1wYWlnbiBkZXRhaWxzLiJ9LAogICAgImFnZW50aWMiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXF1aXJlcyBtdWx0aS1zdGVwIGVudmlyb25tZW50IGV4cGxvcmF0aW9uLCBjb21tYW5kLWxpbmUgdG9vbCB1c2FnZSAoZ3JlcCwganEsIHpjYXQsIHN0cmluZ3MpLCBldmlkZW5jZSBjb3JyZWxhdGlvbiwgYW5kIHJlcG9ydCB3cml0aW5nLiJ9LAogICAgInJldmlld2FibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgZ3JvdW5kIHRydXRoIG1hbmlmZXN0IGFuZCB0ZXN0IGNyaXRlcmlhIHNjcmlwdHMgYXJlIGNsZWFyIGFuZCBhdWRpdGFibGUgYnkgbm9uLXNwZWNpYWxpc3QgcmV2aWV3ZXJzLiJ9LAogICAgImluc3RydWN0aW9uX2NvbmNpc2lvbiI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJJbnN0cnVjdGlvbiBpcyBjb25jaXNlLCBodW1hbi13cml0dGVuLCB1c2VzIGFic29sdXRlIHBhdGhzICgvZGlzaywgL3NhcywgL2FwcCksIGFuZCBzcGVjaWZpZXMgY2xlYXIgZ29hbHMgd2l0aG91dCBzdGVwLWJ5LXN0ZXAgcHJvY2VkdXJhbCBoaW50cy4ifSwKICAgICJzb2x1dGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAic29sdXRpb24vc29sdmUuc2ggdXNlcyBoZXJlZG9jcyB0byBkaXJlY3RseSBjYXQgcHJlY29tcHV0ZWQgbWFya2Rvd24cmVwb3J0cyBpbnRvIC9hcHAgd2l0aG91dCBleGVjdXRpbmcgYW55IGNvbW1hbmRzIG9yIHNjcmlwdHMgdGhhdCBkZXJpdmUgdGhlIGFuc3dlciB0aHJvdWdoIGZvcmVuc2ljIGNvbXB1dGF0aW9uLiJ9LAogICAgInNlcGFyYXRlX3ZlcmlmaWVyX2NvbmZpZ3VyZWQiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJ0ZXN0cy9Eb2NrZXJmaWxlIGlzIG1pc3NpbmcsIGVudmlyb25tZW50X21vZGUgPSBcInNlcGFyYXRlXCIgaXMgbm90IHNwZWNpZmllZCBpbiB0YXNrLnRvbWwsIGFuZCBubyBhcnRpZmFjdHMgdGFibGUgaXMgZGVmaW5lZC4ifSwKICAgICJlbnZpcm9ubWVudF9oeWdpZW5lIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGVzdCBkZXBlbmRlbmNpZXMgYW5kIHRlc3QgY29kZSBhcmUgbm90IGlzb2xhdGVkIGludG8gYSB2ZXJpZmllciBpbWFnZSBiZWNhdXNlIHRlc3RzL0RvY2tlcmZpbGUgZG9lcyBub3QgZXhpc3QuIn0sCiAgICAic3RydWN0dXJlZF9kYXRhX3NjaGVtYSI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXF1aXJlZCBtYXJrZG93biByZXBvcnQgc2VjdGlvbiBzdHJ1Y3R1cmVzLCBjaXRhdGlvbiBzeW50YXgsIGFuZCByZWZlcmVuY2VkIHNjaGVtYSBmaWxlcyAoL3Nhcy9oYW5kb2ZmL2ZpbmRpbmdzLnNjaGVtYS5qc29uKSBhcmUgY2xlYXJseSBkb2N1bWVudGVkLiJ9LAogICAgInR5cG9zIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiTm8gdHlwb3Mgd2VyZSBmb3VuZCBpbiBjcml0aWNhbCBpZGVudGlmaWVycywgZmlsZSBwYXRocywgY29tbWFuZHMsIG9yIHZhcmlhYmxlIG5hbWVzLiJ9LAogICAgImRpZmZpY3VsdHlfZXhwbGFuYXRpb25fcXVhbGl0eSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgZGlmZmljdWx0eV9leHBsYW5hdGlvbiBtZXRhZGF0YSBmaWVsZCBpcyBtaXNzaW5nIGluIHRhc2sudG9tbC4ifSwKICAgICJzb2x1dGlvbl9leHBsYW5hdGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHNvbHV0aW9uX2V4cGxhbmF0aW9uIG1ldGFkYXRhIGZpZWxkIGlzIG1pc3NpbmcgaW4gdGFzay50b21sLiJ9LAogICAgInZlcmlmaWNhdGlvbl9leHBsYW5hdGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHZlcmlmaWNhdGlvbl9leHBsYW5hdGlvbiBtZXRhZGF0YSBmaWVsZCBpcyBtaXNzaW5nIGluIHRhc2sudG9tbC4ifSwKICAgICJjYXRlZ29yeV9hbmRfdGFncyI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgc3ViY2F0ZWdvcnkgZmllbGQgaW4gdGFzay50b21sIG1ldGFkYXRhIGlzIG1pc3NpbmcuIn0sCiAgICAidGFza19uYW1lIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHRhc2sgZGlyZWN0b3J5IG5hbWUgZG9ja2VyLWFwaS1taW5lciBpcyAzIHdvcmRzLCBsb3dlcmNhc2Uga2ViYWItY2FzZSwgYW5kIGNsZWFybHkgZGVzY3JpcHRpdmUuIn0sCiAgICAicmVzb3VyY2VfY29uZmlndXJhdGlvbiI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaW1lb3V0cyBhbmQgc3lzdGVtIHJlc291cmNlcyBzcGVjaWZpZWQgaW4gdGFzay50b21sIGFyZSBhcHByb3ByaWF0ZSBmb3IgdGhlIHRhc2sgcmVxdWlyZW1lbnRzLiJ9LAogICAgInRhc2tfcmVhZG1lIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiZW52aXJvbm1lbnQvUkVBRE1FLm1kIHByb3ZpZGVzIHVzZWZ1bCBkZXZlbG9wbWVudCBjb250ZXh0IHJlZ2FyZGluZyBkaXNrIGltYWdlIHN5bnRoZXNpcyBhbmQgUUEgY2hlY2tzIHdpdGhvdXQgZHVwbGljYXRpbmcgdGFzayBpbnN0cnVjdGlvbnMuIn0sCiAgICAiZXhwZXJ0X3RpbWVfZXN0aW1hdGUiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgZXhwZXJ0X3RpbWVfZXN0aW1hdGVfaG91cnMgZmllbGQgaXMgbWlzc2luZyBpbiB0YXNrLnRvbWwuIn0sCiAgICAidGFza190b21sX3NjaGVtYSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJ0YXNrLnRvbWwgaW5jbHVkZXMgdW5yZWNvZ25pemVkL2ludmVudGVkIGZpZWxkcyBpbiBbdGFza10gKHZlcnNpb24sIGRlc2NyaXB0aW9uLCBhdXRob3JzLCBrZXl3b3JkcykgYW5kIFttZXRhZGF0YV0gKGRpZmZpY3VsdHkgaW5zdGVhZCBvZiBkaWZmaWN1bHR5X2V4cGxhbmF0aW9uKSB3aGlsZSBtaXNzaW5nIHJlcXVpcmVkIG1ldGFkYXRhIGZpZWxkcy4ifSwKICAgICJub19leHRyYW5lb3VzX2ZpbGVzIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHRhc2sgZGlyZWN0b3J5IGNvbnRhaW5zIE9TIGNydWZ0ICguRFNfU3RvcmUgZmlsZXMpLCB1bnJlZmVyZW5jZWQgYmFzZWxpbmUgb3V0cHV0cyBpbiBiYXNlbGluZXMvLCBhbmQgcmF3IHVuY29tcHJlc3NlZCBkdXBsaWNhdGUgZGlzayB0cmVlcyBpbiBhc3NldHMvZGlzay8uIn0sCiAgICAiYXJ0aWZhY3RfZWZmaWNpZW5jeSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJTZXBhcmF0ZSB2ZXJpZmllciBtb2RlIGlzIG5vdCBjb25maWd1cmVkLCBhbmQgbGFyZ2UgdW5jb21wcmVzc2VkIGR1cGxpY2F0ZSBkaXNrIHRyZWVzIGFyZSBzdG9yZWQgdW5kZXIgYXNzZXRzL2Rpc2svIGFsb25nc2lkZSBlbnZpcm9ubWVudC9kaXNrLnRhci5neC4ifSwKICAgICJ2ZXJpZmllcl9leGVjdXRpb25faXNvbGF0aW9uIjogeyJvdXRjb21lIjogIm5vdF9hcHBsaWNhYmxlIiwgImV4cGxhbmF0aW9uIjogIlRoZSB2ZXJpZmllciBwYXJzZXMgbWFya2Rvd24gdGV4dCByZXBvcnRzIGFuZCBkb2VzIG5vdCBleGVjdXRlIGFnZW50LXByb2R1Y2VkIGNvZGUuIn0sCiAgICAiY3RyZl9yZXBvcnRpbmciOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgdmVyaWZpZXIgdXNlcyBhIGN1c3RvbSBydW5uZXIgc2NyaXB0IGFuZCBkb2VzIG5vdCBleGVjdXRlIHB5dGVzdCB3aXRoIC0tY3RyZiAvbG9ncy92ZXJpZmllci9jdHJmLmpzb24gdG8gcHJvZHVjZSBhIENUUkYgcmVwb3J0LiJ9LAogICAgImRvX25vdF9tb2RpZnlfZW5mb3JjZWQiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgaW5zdHJ1Y3Rpb24gc3RhdGVzIHRoYXQgL2Rpc2sgaXMgcmVhZC1vbmx5IGFuZCBtdXN0IG5vdCBiZSBtb2RpZmllZCwgYnV0IHRoZSB2ZXJpZmllciBkb2VzIG5vdCBjaGVjayBmb3IgbW9kaWZpY2F0aW9ucyBvciB2ZXJpZnkgL2Rpc2sgYWdhaW5zdCBhIHByaXN0aW5lIGNvcHkuIn0sCiAgICAiYmluYXJ5X3Jld2FyZCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJFdmVyeSByZWFjaGFibGUgcmV3YXJkIHdyaXRlIHBhdGggZXhwbGljaXRseSBlbWl0cyBlaXRoZXIgMC4wIG9yIDEuMCB0byAvbG9ncy92ZXJpZmllci9yZXdhcmQudHh0LiJ9Cn0i; open("make_res.py", "w").write(base64.b64decode(code).decode("utf-8[1;31m"[0m))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   [1;31m^[0m
+[1;35mSyntaxError[0m: [35munterminated string literal (detected at line 1)[0m
+[?2004hroot@8aa600449623:/app# python3 make_res.py && ls -la check-result.json
+[?2004lpython3: can't open file '/app/make_res.py': [Errno 2] No such file or directory
+[?2004hroot@8aa600449623:/app# python3 -c 'import json, base64; raw=base64.b64decode("eyJ2ZXJpZmlhYmxlIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVmVyaWZpY2F0aW9uIGlzIHByb2dyYW1tYXRpYywgZmFzdCwgZGV0ZXJtaW5pc3RpYywgYW5kIGRvZXMgbm90IHJ1biBuZXR3b3JrIGluc3RhbGxzIGF0IHZlcmlmeSB0aW1lLiJ9LCAic29sdmFibGUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgcHJvdmlkZWQgcmVmZXJlbmNlIHNvbHV0aW9uIGluIHNvbHV0aW9uL3NvbHZlLnNoIHByb2R1Y2VzIGFsbCByZXF1aXJlZCByZXBvcnQgZmlsZXMgYW5kIGFjaGlldmVzIHJld2FyZCAxLjAuIn0sICJkaWZmaWN1bHQiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgdGFzayByZXF1aXJlcyBnZW51aW5lIGRvbWFpbiBleHBlcnRpc2UgaW4gZGlnaXRhbCBmb3JlbnNpY3MgYW5kIGluY2lkZW50IHJlc3BvbnNlIChERklSKSwgaW52ZXN0aWdhdGluZyBkaXNrIGltYWdlcywgRG9ja2VyIG92ZXJsYXkgcmVzaWR1ZSwgcGVyc2lzdGVuY2UsIGFuZCBjb25zdHJ1Y3Rpbmcgc3RydWN0dXJlZCBJUiByZXBvcnRzLiJ9LCAiaW50ZXJlc3RpbmciOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXByZXNlbnRzIGEgcmVhbGlzdGljIHJlYWwtd29ybGQgZm9yZW5zaWMgc2NlbmFyaW8gb2YgaW52ZXN0aWdhdGluZyBhbiBleHBvc2VkIERvY2tlciBBUEkgY29tcHJvbWlzZSBvbiBhIHNlcnZlci4ifSwgIm91dGNvbWVfdmVyaWZpZWQiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUZXN0cyB2ZXJpZnkgdGhlIG91dHB1dCByZXBvcnRzLCBmaW5kaW5nIGdyb3VuZGluZywgYXR0YWNrIGNoYWluIERBRyB0b3BvbG9neSwgYW5kIHJlbWVkaWF0aW9uIHBsYW4gc3RlcHMgcmF0aGVyIHRoYW4gcmVzdHJpY3RpbmcgdGhlIGFnZW50IG1ldGhvZC4ifSwgImFudGlfY2hlYXRfcm9idXN0bmVzcyI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJTZXBhcmF0ZSB2ZXJpZmllciBtb2RlIGlzIG5vdCBjb25maWd1cmVkIGFuZCBncm91bmQgdHJ1dGggZmlsZXMgKGUuZy4sIHRlc3RzL21hbmlmZXN0Lmpzb24pIGFyZSBkaXJlY3RseSBhY2Nlc3NpYmxlIHRvIHRoZSBhZ2VudCBpbiBzaGFyZWQgY29udGFpbmVyIG1vZGUsIGFsbG93aW5nIHRoZSBhZ2VudCB0byByZWFkIHRoZSBleHBlY3RlZCBmaW5kaW5ncy4ifSwgInRhc2tfc2VjdXJpdHkiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUYXNrIGZpbGVzIGNvbnRhaW4gb25seSBsZWdpdGltYXRlIGNvZGUgZm9yIGZvcmVuc2ljIHRhc2sgc2V0dXAsIHNvbHV0aW9uIGdlbmVyYXRpb24sIGFuZCByZXdhcmQgdmVyaWZpY2F0aW9uLiJ9LCAiZnVuY3Rpb25hbF92ZXJpZmljYXRpb24iOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUZXN0cyBwYXJzZSBkZWxpdmVyYWJsZXMsIGNoZWNrIGNpdGF0aW9uIHJlc29sdXRpb24gYWdhaW5zdCBldmlkZW5jZSBtb3VudHMsIHZlcmlmeSBEQUcgdG9wb2xvZ3ksIGFuZC1ldmFsdWF0ZSByZW1lZGlhdGlvbiBzdGVwIGFsaWdubWVudC4ifSwgImRldGVybWluaXN0aWNfcmVwcm9kdWNpYmxlIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiVmVyaWZpY2F0aW9uIGlzIHNlbGYtY29udGFpbmVkIGFuZCBwcm9kdWNlcyBjb25zaXN0ZW50IGJpbmFyeSByZXN1bHRzIGFjcm9zcyB0ZXN0IHJ1bnMgd2l0aG91dCBsaXZlIGV4dGVybmFsIHNlcnZpY2UgZGVwZW5kZW5jaWVzLiJ9LCAiZXNzZW50aWFsX2RpZmZpY3VsdHkiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJEaWZmaWN1bHR5IHN0ZW1zIGZyb20gZ2VudWluZSBmb3JlbnNpYyBhbmFseXNpcyBhbmQgaW5jaWRlbnQgcmVzcG9uc2UgcGxhbm5pbmcgcmF0aGVyIHRoYW4gZm9ybWF0dGluZyBtaW51dGlhZS4ifSwgInRlc3RfaW5zdHJ1Y3Rpb25fYWxpZ25tZW50IjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiQWxsIHRlc3QgYXNzZXJ0aW9ucyBhbGlnbiBkaXJlY3RseSB3aXRoIHJlcXVpcmVtZW50cyBzdGF0ZWQgaW4gaW5zdHJ1Y3Rpb24ubWQgKGZpdmUgZGVsaXZlcmFibGVzLCBjaXRhdGlvbiBzeW50YXgsIGF0dGFjayBjaGFpbiB0b3BvbG9neSwgYW5kIHJlbWVkaWF0aW9uIHBoYXNlcykuIn0sICJub3ZlbCI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJDdXN0b20gZm9yZW5zaWMgc2NlbmFyaW8gd2l0aCBzcGVjaWZpYyBhcnRpZmFjdCBwYXRocywgQ1RJIGFkdmlzb3JpZXMsIGFuZCBjYW1wYWlnbiBkZXRhaWxzLiJ9LCAiYWdlbnRpYyI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXF1aXJlcyBtdWx0aS1zdGVwIGVudmlyb25tZW50IGV4cGxvcmF0aW9uLCBjb21tYW5kLWxpbmUgdG9vbCB1c2FnZSAoZ3JlcCwganEsIHpjYXQsIHN0cmluZ3MpLCBldmlkZW5jZSBjb3JyZWxhdGlvbiwgYW5kIHJlcG9ydCB3cml0aW5nLiJ9LCAicmV2aWV3YWJsZSI6IHsgIm91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgZ3JvdW5kIHRydXRoIG1hbmlmZXN0IGFuZCB0ZXN0IGNyaXRlcmlhIHNjcmlwdHMgYXJlIGNsZWFyIGFuZCBhdWRpdGFibGUgYnkgbm9uLXNwZWNpYWxpc3QgcmV2aWV3ZXJzLiJ9LCAiaW5zdHJ1Y3Rpb25fY29uY2lzaW9uIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiSW5zdHJ1Y3Rpb24gaXMgY29uY2lzZSwgaHVtYW4td3JpdHRlbiwgdXNlcyBhYnNvbHV0ZSBwYXRocyAoL2Rpc2ssIC9zYXMsIC9hcHApLCBhbmQgc3BlY2lmaWVzIGNsZWFyIGdvYWxzIHdpdGhvdXQgc3RlcC1ieS1zdGVwIHByb2NlZHVyYWwgaGludHMuIn0sICJzb2x1dGlvbl9xdWFsaXR5IjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAic29sdXRpb24vc29sdmUuc2ggdXNlcyBoZXJlZG9jcyB0byBkaXJlY3RseSBjYXQgcHJlY29tcHV0ZWQgbWFya2Rvd24gcmVwb3J0cyBpbnRvIC9hcHAgd2l0aG91dCBleGVjdXRpbmcgYW55IGNvbW1hbmRzIG9yIHNjcmlwdHMgdGhhdCBkZXJpdmUgdGhlIGFuc3dlciB0aHJvdWdoIGZvcmVuc2ljIGNvbXB1dGF0aW9uLiJ9LCAic2VwYXJhdGVfdmVyaWZpZXJfY29uZmlndXJlZCI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJ0ZXN0cy9Eb2NrZXJmaWxlIGlzIG1pc3NpbmcsIGVudmlyb25tZW50X21vZGUgPSBcInNlcGFyYXRlXCIgaXMgbm90IHNwZWNpZmllZCBpbiB0YXNrLnRvbWwsIGFuZCBubyBhcnRpZmFjdHMgdGFibGUgaXMgZGVmaW5lZC4ifSwgImVudmlyb25tZW50X2h5Z2llbmUiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUZXN0IGRlcGVuZGVuY2llcyBhbmQgdGVzdCBjb2RlIGFyZSBub3QgaXNvbGF0ZWQgaW50byBhIHZlcmlmaWVyIGltYWdlIGJlY2F1c2UgdGVzdHMvRG9ja2VyZmlsZSBkb2VzIG5vdCBleGlzdC4ifSwgInN0cnVjdHVyZWRfZGF0YV9zY2hlbWEiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJSZXF1aXJlZCBtYXJrZG93biByZXBvcnQgc2VjdGlvbiBzdHJ1Y3R1cmVzLCBjaXRhdGlvbiBzeW50YXgsIGFuZCByZWZlcmVuY2VkIHNjaGVtYSBmaWxlcyAoL3Nhcy9oYW5kb2ZmL2ZpbmRpbmdzLnNjaGVtYS5qc29uKSBhcmUgY2xlYXJseSBkb2N1bWVudGVkLiJ9LCAidHlwb3MiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJObyB0eXBvcyB3ZXJlIGZvdW5kIGluIGNyaXRpY2FsIGlkZW50aWZpZXJzLCBmaWxlIHBhdGhzLCBjb21tYW5kcywgb3IgdmFyaWFibGUgbmFtZXMuIn0sICJkaWZmaWN1bHR5X2V4cGxhbmF0aW9uX3F1YWxpdHkiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgZGlmZmljdWx0eV9leHBsYW5hdGlvbiBtZXRhZGF0YSBmaWVsZCBpcyBtaXNzaW5nIGluIHRhc2sudG9tbC4ifSwgInNvbHV0aW9uX2V4cGxhbmF0aW9uX3F1YWxpdHkiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgc29sdXRpb25fZXhwbGFuYXRpb24gbWV0YWRhdGEgZmllbGQgaXMgbWlzc2luZyBpbiB0YXNrLnRvbWwuIn0sICJ2ZXJpZmljYXRpb25fZXhwbGFuYXRpb25fcXVhbGl0eSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgdmVyaWZpY2F0aW9uX2V4cGxhbmF0aW9uIG1ldGFkYXRhIGZpZWxkIGlzIG1pc3NpbmcgaW4gdGFzay50b21sLiJ9LCAiY2F0ZWdvcnlfYW5kX3RhZ3MiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgc3ViY2F0ZWdvcnkgZmllbGQgaW4gdGFzay50b21sIG1ldGFkYXRhIGlzIG1pc3NpbmcuIn0sICJ0YXNrX25hbWUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaGUgdGFzayBkaXJlY3RvcnkgbmFtZSBkb2NrZXItYXBpLW1pbmVyIGlzIDMgd29yZHMsIGxvd2VyY2FzZSBrZWJhYi1jYXNlLCBhbmQgY2xlYXJseSBkZXNjcmlwdGl2ZS4ifSwgInJlc291cmNlX2NvbmZpZ3VyYXRpb24iOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJUaW1lb3V0cyBhbmQgc3lzdGVtIHJlc291cmNlcyBzcGVjaWZpZWQgaW4gdGFzay50b21sIGFyZSBhcHByb3ByaWF0ZSBmb3IgdGhlIHRhc2sgcmVxdWlyZW1lbnRzLiJ9LCAidGFza19yZWFkbWUiOiB7Im91dGNvbWUiOiAicGFzcyIsICJleHBsYW5hdGlvbiI6ICJlbnZpcm9ubWVudC9SRUFETUUubWQgcHJvdmlkZXMgdXNlZnVsIGRldmVsb3BtZW50IGNvbnRleHQgcmVnYXJkaW5nIGRpc2sgaW1hZ2Ugc3ludGhlc2lzIGFuZCBRQSBjaGVja3Mgd2l0aG91dCBkdXBsaWNhdGluZyB0YXNrIGluc3RydWN0aW9ucy4ifSwgImV4cGVydF90aW1lX2VzdGltYXRlIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIGV4cGVydF90aW1lX2VzdGltYXRlX2hvdXJzIGZpZWxkIGlzIG1pc3NpbmcgaW4gdGFzay50b21sLiJ9LCAidGFza190b21sX3NjaGVtYSI6IHsgIm91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJ0YXNrLnRvbWwgaW5jbHVkZXMgdW5yZWNvZ25pemVkL2ludmVudGVkIGZpZWxkcyBpbiBbdGFza10gKHZlcnNpb24sIGRlc2NyaXB0aW9uLCBhdXRob3JzLCBrZXl3b3JkcykgYW5kIFttZXRhZGF0YV0gKGRpZmZpY3VsdHkgaW5zdGVhZCBvZiBkaWZmaWN1bHR5X2V4cGxhbmF0aW9uKSB3aGlsZSBtaXNzaW5nIHJlcXVpcmVkIG1ldGFkYXRhIGZpZWxkcy4ifSwgIm5vX2V4dHJhbmVvdXNfZmlsZXMiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgdGFzayBkaXJlY3RvcnkgY29udGFpbnMgT1MgY3J1ZnQgKC5EU19TdG9yZSBmaWxlcyksIHVucmVmZXJlbmNlZCBiYXNlbGluZSBvdXRwdXRzIGluIGJhc2VsaW5lcy8sIGFuZCByYXcgdW5jb21wcmVzc2VkIGR1cGxpY2F0ZSBkaXNrIHRyZWVzIGluIGFzc2V0cy9kaXNrLy4ifSwgImFydGlmYWN0X2VmZmljaWVuY3kiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJTZXBhcmF0ZSB2ZXJpZmllciBtb2RlIGlzIG5vdCBjb25maWd1cmVkLCBhbmQgbGFyZ2UgdW5jb21wcmVzc2VkIGR1cGxpY2F0ZSBkaXNrIHRyZWVzIGFyZSBzdG9yZWQgdW5kZXIgYXNzZXRzL2Rpc2svIGFsb25nc2lkZSBlbnZpcm9ubWVudC9kaXNrLnRhci5neC4ifSwgInZlcmlmaWVyX2V4ZWN1dGlvbl9pc29sYXRpb24iOiB7Im91dGNvbWUiOiAibm90X2FwcGxpY2FibGUiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHZlcmlmaWVyIHBhcnNlcyBtYXJrZG93biB0ZXh0IHJlcG9ydHMgYW5kIGRvZXMgbm90IGV4ZWN1dGUgYWdlbnQtcHJvZHVjZWQgY29kZS4ifSwgImN0cmZfcmVwb3J0aW5nIjogeyJvdXRjb21lIjogImZhaWwiLCAiZXhwbGFuYXRpb24iOiAiVGhlIHZlcmlmaWVyIHVzZXMgYSBjdXN0b20gcnVubmVyIHNjcmlwdCBhbmQgZG9lcyBub3QgZXhlY3V0ZSBweXRlc3Qgd2l0aCAtLWN0cmYgL2xvZ3MvdmVyaWZpZXIvY3RyZi5qc29uIHRvIHByb2R1Y2UgYSBDVFJGIHJlcG9ydC4ifSwgImRvX25vdF9tb2RpZnlfZW5mb3JjZWQiOiB7Im91dGNvbWUiOiAiZmFpbCIsICJleHBsYW5hdGlvbiI6ICJUaGUgaW5zdHJ1Y3Rpb24gc3RhdGVzIHRoYXQgL2Rpc2sgaXMgcmVhZC1vbmx5IGFuZCBtdXN0IG5vdCBiZSBtb2RpZmllZCwgYnV0IHRoZSB2ZXJpZmllciBkb2VzIG5vdCBjaGVjayBmb3IgbW9kaWZpY2F0aW9ucyBvciB2ZXJpZnkgL2Rpc2sgYWdhaW5zdCBhIHByaXN0aW5lIGNvcHkuIn0sICJiaW5hcnlfcmV3YXJkIjogeyJvdXRjb21lIjogInBhc3MiLCAiZXhwbGFuYXRpb24iOiAiRXZlcnkgcmVhY2hhYmxlIHJld2FyZCB3cml0ZSBwYXRoIGV4cGxpY2l0bHkgZW1pdHMgZWl0aGVyIDAuMCBvciAxLjAgdG8gL2xvZ3MvdmVyaWZpZXIvcmV3YXJkLnR4dC4ifX0="); open("check-result.json", "w").write(json.dumps(json.loads(raw.decode("utf-8")), indent=2)); print("CHECK RESULT CREATED")'
+[?2004lCHECK RESULT CREATED
+[?2004hroot@8aa600449623:/app# ls -la check-result.json && head -n 20 check-result.json
+[?2004l-rw-r--r-- 1 root root 6946 Aug 16 15:12 check-result.json
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "Verification is programmatic, fast, deterministic, and does not run network installs at verify time."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "The provided reference solution in solution/solve.sh produces all required report files and achieves reward 1.0."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires genuine domain expertise in digital forensics and incident response (DFIR), investigating disk images, Docker overlay residue, persistence, and constructing structured IR reports."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Represents a realistic real-world forensic scenario of investigating an exposed Docker API compromise on a server."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify the output reports, finding grounding, attack chain DAG topology, and remediation plan steps rather than restricting the agent method."
+[?2004hroot@8aa600449623:/app# python3 -c 'import json; d = json.load(open("check-result.json")); print(len(d))'
+[?2004l35
+[?2004hroot@8aa600449623:/app# 

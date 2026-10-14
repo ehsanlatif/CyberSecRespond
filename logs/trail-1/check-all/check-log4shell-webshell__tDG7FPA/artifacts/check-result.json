@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The verifier is programmatic, deterministic, and reliable. Running test.sh executes rewardkit locally with preinstalled Python dependencies without any network calls at verify time."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "A working oracle solution is provided in solution/solve.sh that achieves a 1.0 reward score against the verifier."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task involves deep digital forensics and incident response (DFIR) analysis across system logs, webshells, cron/systemd persistence, defanged CTI, and timestomping."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "The task represents a highly realistic real-world incident response scenario involving Log4Shell exploitation and post-compromise persistence."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Verification checks only the final deliverable markdown reports in /app and does not enforce specific commands or step-by-step procedures."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Ground-truth information resides in /tests/manifest.json inside the agent image environment, allowing an agent running as root to read the ground-truth manifest directly."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files contain legitimate inspection, test, and setup code with no malicious payloads or credential exfiltration attempts."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests perform functional verification by parsing report claims, resolving citations against actual evidence files on disk, and evaluating topology matching."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "The task uses self-contained forensic images and static feed files without reliance on dynamic external network services."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "The difficulty comes from core technical reasoning in forensic log correlation and incident response planning rather than arbitrary formatting constraints."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "Every test assertion traces directly to requirements stated in instruction.md and all requirements in the instruction are tested."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task features a multi-step custom forensic scenario and synthetic evidence corpus unlikely to be memorized from training data."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Solving the task requires multi-step environment exploration, command-line tool usage (zcat, grep, jq, strings), and evidence synthesis."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The task structure, manifest, and test criteria are clear and straightforward for a reviewer to examine."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instructions are concise, human-written, use absolute paths, and describe what needs to be achieved without solution hints."
+  },
+  "solution_quality": {
+    "outcome": "fail",
+    "explanation": "solution/solve.sh uses heredocs to write pre-crafted report contents directly to /app without executing any actual forensic analysis or computation commands."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured: tests/Dockerfile does not exist, environment_mode = 'separate' is omitted from task.toml, and artifacts are undeclared."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "The task lacks a verifier image (tests/Dockerfile) so verifier dependencies and tests are not properly isolated into a separate verifier container."
+  },
+  "structured_data_schema": {
+    "outcome": "not_applicable",
+    "explanation": "The task deliverables are standard markdown reports rather than structured output requiring a normative JSON/CSV schema."
+  },
+  "typos": {
+    "outcome": "fail",
+    "explanation": "instruction.md contains a typographical line-wrapping artifact breaking the word 'dropped' into 'dr\\nopped' in the Scenario section."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation metadata field is missing from task.toml."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation metadata field is missing from task.toml."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation metadata field is missing from task.toml."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The category is set to 'security', but subcategory is missing from task.toml metadata."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task name 'dfir-eval/log4shell-webshell' is descriptive, specific, and follows kebab-case naming conventions."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeout configurations and environment resource limits are reasonable and appropriate for the task."
+  },
+  "task_readme": {
+    "outcome": "not_applicable",
+    "explanation": "No top-level README.md file is present in the task directory."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours metadata field is missing from task.toml."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml contains invalid fields under [metadata] (difficulty) and [environment] (os) while omitting required metadata fields."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task directory contains unreferenced leftover files in assets/disk/ and baselines/ that are not used by the Dockerfile, solution, or tests."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode and artifacts are not configured for this task."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier inspects static text files produced by the agent and does not execute any agent-provided code or binaries."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier does not emit per-test CTRF results to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "The forensic image /disk is protected via read-only filesystem mounts."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "All test scoring logic thresholding in runner.py and test.sh writes strictly 0.0 or 1.0 to /logs/verifier/reward.txt."
+  }
+}

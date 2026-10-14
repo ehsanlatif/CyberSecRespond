@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/lib/tomcat9/webapps/ROOT/static/status.jsp",
+      "attck": "T1190",
+      "confidence": "high",
+      "evidence": "`/var/lib/tomcat9/webapps/ROOT/static/status.jsp`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

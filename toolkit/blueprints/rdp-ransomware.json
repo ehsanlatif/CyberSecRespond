@@ -1,0 +1,64 @@
+{
+  "range_id": "rdp-ransomware",
+  "description": "Post-compromise forensics: Windows Server 2022 breached via RDP brute force, ransomware deployed, scheduled-task / Run-key / service persistence, Security event log cleared.",
+  "difficulty": 3,
+  "platform": {"os": "windows", "version": "server-2022"},
+  "no_cve_entry": true,
+  "scenario": "A Windows Server 2022 host with RDP exposed and NLA disabled was brute-forced. The attacker deployed ransomware, established scheduled-task, registry Run-key, and malicious-service persistence, and cleared the Security event log. Alerts surface the ransomware binary, the scheduled task, and the service; the Run-key and the cleared log are silent.",
+
+  "chain": [
+    {"step": 1, "attck": "T1110",     "desc": "RDP brute force"},
+    {"step": 2, "attck": "T1021.001", "desc": "RDP logon",                  "depends_on": [1]},
+    {"step": 3, "attck": "T1059.001", "desc": "PowerShell execution",       "depends_on": [2]},
+    {"step": 4, "attck": "T1486",     "desc": "ransomware encryption",       "depends_on": [3]},
+    {"step": 5, "attck": "T1053.005", "desc": "scheduled task persistence",  "depends_on": [3]},
+    {"step": 6, "attck": "T1547.001", "desc": "Run key persistence",         "depends_on": [3]},
+    {"step": 7, "attck": "T1543.003", "desc": "malicious service",           "depends_on": [3]},
+    {"step": 8, "attck": "T1070.001", "desc": "Windows event log clear",     "depends_on": [3]}
+  ],
+
+  "artifacts": [
+    {"chk": "CHK-01", "path": "/Users/Public/svc.exe", "kind": "ransomware-binary",
+     "capability": "ENT-F02", "alerted": true, "weight": 1.0, "attck": "T1486",
+     "match": ["encrypt", "locked"]},
+    {"chk": "CHK-02", "path": "/Windows/System32/Tasks/UpdateHelper", "kind": "scheduled-task",
+     "capability": "PER-S01", "alerted": true, "weight": 1.0, "attck": "T1053.005",
+     "match": ["schtasks", "svc.exe"]},
+    {"chk": "CHK-03", "path": "/Windows/System32/config/SOFTWARE", "kind": "run-key",
+     "capability": "PER-R01", "alerted": false, "weight": 2.0, "attck": "T1547.001",
+     "match": ["Run", "svc"]},
+    {"chk": "CHK-04", "path": "/Windows/System32/svc-helper.sys", "kind": "malicious-service",
+     "capability": "PER-V01", "alerted": true, "weight": 1.0, "attck": "T1543.003",
+     "match": ["service", "helper"]},
+    {"chk": "CHK-05", "path": "/Windows/System32/winevt/Logs/Security.evtx", "kind": "cleared-eventlog",
+     "capability": "ENT-F04", "alerted": false, "weight": 2.0, "attck": "T1070.001",
+     "match": ["cleared", "1102"]},
+    {"chk": "CHK-06", "path": "/Windows/System32/config/RDP-Tcp.reg", "kind": "rdp-baseline",
+     "capability": "BAS-01", "alerted": true, "weight": 1.0, "match": ["UserAuthentication", "0"]}
+  ],
+
+  "remediation": [
+    {"chk": "CHK-20", "action": "isolate the host from the network and block the attacker IP",
+     "verify": "host shows no inbound RDP from <ip>", "phase": "contain", "risk_class": "network"},
+    {"chk": "CHK-01", "action": "quarantine svc.exe and terminate the ransomware process",
+     "verify": "no running process references svc.exe", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-02", "action": "delete the UpdateHelper scheduled task",
+     "verify": "schtasks /query has no UpdateHelper", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-03", "action": "remove the malicious Run-key value",
+     "verify": "reg query ...\\Run has no svc value", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-04", "action": "stop and remove the svc-helper service",
+     "verify": "sc query svc-helper returns not found", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-06", "action": "enable NLA and restrict RDP to VPN/allowlisted sources",
+     "verify": "UserAuthentication == 1 and RDP is firewalled", "phase": "harden", "risk_class": "auth"},
+    {"chk": "CHK-07", "action": "reset all local and domain credentials used on this host",
+     "verify": "credential reset timestamps are recent", "phase": "rotate", "risk_class": "auth"},
+    {"chk": "CHK-21", "action": "confirm RDP no longer accepts unauthenticated sessions",
+     "verify": "RDP probe is refused without NLA", "phase": "verify", "risk_class": "auth"},
+    {"chk": "CHK-22", "action": "restore encrypted data from backup and confirm services healthy",
+     "verify": "critical services running and files restored", "phase": "verify", "risk_class": "service"}
+  ],
+
+  "precedence": ["contain", "eradicate", "harden", "rotate", "verify"],
+  "decoys": [],
+  "judge": {"attribution": true, "quality": true}
+}

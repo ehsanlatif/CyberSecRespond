@@ -1,0 +1,23 @@
+Skipping image OS validation for hb__9de9ec03c4ac3dd1f80e49b57d4a0f76: docker inspect returned 1
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Parser warnings: - Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Trajectory dumped to jobs/run-all/wordpress-defacement__qy2tdFK/agent/trajectory.json
+Collecting main service artifacts
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

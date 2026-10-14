@@ -1,0 +1,7 @@
+[
+  {
+    "chk": "CHK-01",
+    "cve": "CVE-2024-23897",
+    "path": "/var/lib/jenkins/jobs/.tmp/config.xml"
+  }
+]

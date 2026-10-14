@@ -1,0 +1,15 @@
+{
+    "task": {
+        "path": "/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/harbor-check-tm3g1x_6/check-postgres-copyprogram"
+    },
+    "trial_name": "check-postgres-copyprogram__Xtmfzdr",
+    "trials_dir": "jobs/check-all",
+    "agent": {
+        "name": "terminus-2",
+        "model_name": "gemini/gemini-3.6-flash",
+        "env": {
+            "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+        }
+    },
+    "job_id": "6f54a4f9-6844-4878-aa16-954e6691e434"
+}

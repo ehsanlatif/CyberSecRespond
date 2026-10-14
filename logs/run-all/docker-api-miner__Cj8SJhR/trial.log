@@ -1,0 +1,41 @@
+Skipping image OS validation for hb__f0b93c72ba27e21134211f371ace976a: docker inspect returned 1
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Parser warnings: - Extra text detected before JSON object
+- Extra text detected after JSON object
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Parser warnings: - No valid JSON object found
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Trajectory dumped to jobs/run-all/docker-api-miner__Cj8SJhR/agent/trajectory.json
+Collecting main service artifacts
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.

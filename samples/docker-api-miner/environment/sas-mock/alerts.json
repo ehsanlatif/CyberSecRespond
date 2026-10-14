@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "miner-process",
+    "path": "/opt/xmrig/xmrig",
+    "capability": "ENT-P01",
+    "summary": "miner-process observed at /opt/xmrig/xmrig"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "cron",
+    "path": "/etc/cron.d/docker-mon",
+    "capability": "PER-S01",
+    "summary": "cron observed at /etc/cron.d/docker-mon"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-05",
+    "kind": "docker-baseline",
+    "path": "/etc/docker/daemon.json",
+    "capability": "BAS-01",
+    "summary": "docker-baseline observed at /etc/docker/daemon.json"
+  }
+]

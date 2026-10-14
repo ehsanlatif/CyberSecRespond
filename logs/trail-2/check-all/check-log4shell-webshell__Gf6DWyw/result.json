@@ -1,0 +1,151 @@
+{
+    "id": "18bb2a0b-deb7-4261-998d-47d8cbed662f",
+    "task_name": "check-log4shell-webshell",
+    "trial_name": "check-log4shell-webshell__Gf6DWyw",
+    "trial_uri": "file:///Users/983414/Desktop/miscProjects/KnowledgeWordAgenticTasks/implementation/jobs/check-all/check-log4shell-webshell__Gf6DWyw",
+    "task_id": {
+        "path": "/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/harbor-check-tm3g1x_6/check-log4shell-webshell"
+    },
+    "source": null,
+    "task_checksum": "cf45351377af8a7a6752f970fe18cf51729439291b0989c32f2108ea4139538e",
+    "config": {
+        "task": {
+            "path": "/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/harbor-check-tm3g1x_6/check-log4shell-webshell",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "check-log4shell-webshell__Gf6DWyw",
+        "trials_dir": "jobs/check-all",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "terminus-2",
+            "import_path": null,
+            "model_name": "gemini/gemini-3.6-flash",
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "env": {
+                "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "6f54a4f9-6844-4878-aa16-954e6691e434",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "terminus-2",
+        "version": "2.0.0",
+        "model_info": {
+            "name": "gemini-3.6-flash",
+            "provider": "gemini"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 918664,
+        "n_cache_tokens": 742213,
+        "n_output_tokens": 10646,
+        "cost_usd": 0.45585345,
+        "rollout_details": [],
+        "metadata": {
+            "n_episodes": 28,
+            "api_request_times_msec": [
+                3165.961980819702,
+                5704.576015472412,
+                7530.816078186035,
+                5803.112983703613,
+                5804.461717605591,
+                5292.383909225464,
+                4948.040246963501,
+                1802.2727966308594,
+                5315.542697906494,
+                6035.9978675842285,
+                7667.831182479858,
+                5221.642971038818,
+                4822.522163391113,
+                6765.634059906006,
+                5296.180009841919,
+                6567.881107330322,
+                5072.855710983276,
+                5183.349132537842,
+                2232.7871322631836,
+                7813.173055648804,
+                2307.116985321045,
+                19075.300693511963,
+                9154.855966567993,
+                7994.656085968018,
+                6770.828723907471,
+                5235.317945480347,
+                1877.371072769165,
+                1627.0058155059814
+            ],
+            "summarization_count": 0
+        }
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 1.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-08-16T16:07:07.925257Z",
+    "finished_at": "2026-08-16T16:10:34.223515Z",
+    "environment_setup": {
+        "started_at": "2026-08-16T16:07:08.057849Z",
+        "finished_at": "2026-08-16T16:07:09.209047Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-16T16:07:09.209086Z",
+        "finished_at": "2026-08-16T16:07:25.784586Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-16T16:07:25.784735Z",
+        "finished_at": "2026-08-16T16:10:23.170209Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-16T16:10:23.558508Z",
+        "finished_at": "2026-08-16T16:10:23.763708Z"
+    },
+    "step_results": null
+}

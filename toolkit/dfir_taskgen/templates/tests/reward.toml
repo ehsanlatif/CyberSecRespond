@@ -1,0 +1,16 @@
+# tests/reward.toml  (FIXED — aggregate keys; per-dimension keys are never collapsed)
+[[reward]]
+name = "detection"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "plan"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "quality"           # Q-dimension judge items; reported, eval-only by default (doc 02 §6 Q2)
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "reward"            # Harbor's parsed score
+aggregation = "threshold"  # both axes >= 0.70 (never a sum of the two — doc 00 non-negotiable #2)

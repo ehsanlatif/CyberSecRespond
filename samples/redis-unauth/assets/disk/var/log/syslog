@@ -1,0 +1,346 @@
+Aug 11 01:07:05 redis-prod-01 kernel[2940]: pam_unix(cron:session): session opened for user root
+Aug 11 01:07:38 redis-prod-01 CRON[19678]: Time synchronised to time server
+Aug 11 01:08:07 redis-prod-01 chronyd[24826]: CPU0: Package temperature normal
+Aug 11 01:08:40 redis-prod-01 systemd[2481]: Received disconnect from 10.10.115.15 port 49797:11: disconnected by user
+Aug 11 01:09:32 redis-prod-01 CRON[8201]: Time synchronised to time server
+Aug 11 01:09:52 redis-prod-01 sshd[1421]: Started Session 698 of user jenkins.
+Aug 11 01:10:25 redis-prod-01 dbus-daemon[25562]: Received disconnect from 10.10.115.39 port 54464:11: disconnected by user
+Aug 11 01:11:11 redis-prod-01 chronyd[27356]: Time synchronised to time server
+Aug 11 01:11:55 redis-prod-01 systemd[9071]: Started Session 89 of user devops.
+Aug 11 01:12:15 redis-prod-01 systemd-logind[7892]: Started Session 598 of user svc-backup.
+Aug 11 01:12:53 redis-prod-01 systemd[4348]: Started Session 535 of user postgres.
+Aug 11 01:12:56 redis-prod-01 CRON[4274]: pam_unix(cron:session): session opened for user root
+Aug 11 01:13:44 redis-prod-01 sshd[27124]: pam_unix(cron:session): session opened for user root
+Aug 11 01:14:34 redis-prod-01 sshd[11579]: pam_unix(cron:session): session opened for user root
+Aug 11 01:14:41 redis-prod-01 CRON[1222]: Received disconnect from 10.10.115.198 port 41749:11: disconnected by user
+Aug 11 01:15:27 redis-prod-01 systemd[6208]: Started Session 755 of user webadmin.
+Aug 11 01:15:54 redis-prod-01 kernel[15368]: pam_unix(cron:session): session opened for user root
+Aug 11 01:16:31 redis-prod-01 dbus-daemon[29061]: Time synchronised to time server
+Aug 11 01:16:54 redis-prod-01 sudo[20695]: CPU0: Package temperature normal
+Aug 11 01:17:23 redis-prod-01 dbus-daemon[7849]: Started Session 54 of user postgres.
+Aug 11 01:17:27 redis-prod-01 chronyd[24760]: CPU0: Package temperature normal
+Aug 11 01:17:34 redis-prod-01 sudo[27018]: Started Session 240 of user devops.
+Aug 11 01:18:11 redis-prod-01 kernel[9367]: Started Session 92 of user postgres.
+Aug 11 01:18:44 redis-prod-01 sudo[25790]: Received disconnect from 10.10.115.21 port 61133:11: disconnected by user
+Aug 11 01:19:08 redis-prod-01 CRON[28854]: Started Session 56 of user svc-backup.
+Aug 11 01:19:53 redis-prod-01 CRON[4816]: pam_unix(cron:session): session opened for user root
+Aug 11 01:20:48 redis-prod-01 sshd[14479]: Time synchronised to time server
+Aug 11 01:20:54 redis-prod-01 systemd-logind[29187]: Started Session 984 of user devops.
+Aug 11 01:20:59 redis-prod-01 CRON[10639]: Time synchronised to time server
+Aug 11 01:21:11 redis-prod-01 CRON[24653]: pam_unix(cron:session): session opened for user root
+Aug 11 01:21:21 redis-prod-01 chronyd[9375]: pam_unix(cron:session): session opened for user root
+Aug 11 01:22:06 redis-prod-01 systemd[21860]: Started Session 19 of user root.
+Aug 11 01:22:46 redis-prod-01 systemd[7791]: pam_unix(cron:session): session opened for user root
+Aug 11 01:23:32 redis-prod-01 systemd-logind[7675]: Started Session 572 of user svc-backup.
+Aug 11 01:24:10 redis-prod-01 systemd-logind[8051]: CPU0: Package temperature normal
+Aug 11 01:24:53 redis-prod-01 CRON[18998]: pam_unix(cron:session): session opened for user root
+Aug 11 01:25:05 redis-prod-01 chronyd[24524]: Started Session 644 of user devops.
+Aug 11 01:25:42 redis-prod-01 CRON[20677]: pam_unix(cron:session): session opened for user root
+Aug 11 01:25:51 redis-prod-01 CRON[11003]: Time synchronised to time server
+Aug 11 01:26:33 redis-prod-01 systemd-logind[27809]: Received disconnect from 10.10.115.102 port 49418:11: disconnected by user
+Aug 11 01:27:19 redis-prod-01 kernel[18976]: pam_unix(cron:session): session opened for user root
+Aug 11 01:27:43 redis-prod-01 systemd[29077]: CPU0: Package temperature normal
+Aug 11 01:27:53 redis-prod-01 sudo[10062]: CPU0: Package temperature normal
+Aug 11 01:28:00 redis-prod-01 CRON[1540]: Started Session 407 of user jenkins.
+Aug 11 01:28:01 redis-prod-01 sshd[9912]: Started Session 946 of user jenkins.
+Aug 11 01:28:26 redis-prod-01 sshd[20502]: Received disconnect from 10.10.115.157 port 54457:11: disconnected by user
+Aug 11 01:29:03 redis-prod-01 chronyd[24214]: Time synchronised to time server
+Aug 11 01:29:16 redis-prod-01 kernel[6499]: CPU0: Package temperature normal
+Aug 11 01:29:51 redis-prod-01 CRON[15088]: Received disconnect from 10.10.115.66 port 53488:11: disconnected by user
+Aug 11 01:30:06 redis-prod-01 systemd[8678]: Time synchronised to time server
+Aug 11 01:30:41 redis-prod-01 kernel[11220]: pam_unix(cron:session): session opened for user root
+Aug 11 01:31:15 redis-prod-01 sshd[3715]: CPU0: Package temperature normal
+Aug 11 01:31:16 redis-prod-01 sshd[3684]: CPU0: Package temperature normal
+Aug 11 01:31:35 redis-prod-01 kernel[10040]: Started Session 604 of user jenkins.
+Aug 11 01:31:52 redis-prod-01 sudo[29437]: pam_unix(cron:session): session opened for user root
+Aug 11 01:32:46 redis-prod-01 sshd[26931]: Started Session 995 of user jenkins.
+Aug 11 01:33:09 redis-prod-01 CRON[22815]: pam_unix(cron:session): session opened for user root
+Aug 11 01:33:58 redis-prod-01 dbus-daemon[26856]: CPU0: Package temperature normal
+Aug 11 01:34:40 redis-prod-01 systemd[1814]: Started Session 90 of user root.
+Aug 11 01:35:35 redis-prod-01 sudo[28550]: pam_unix(cron:session): session opened for user root
+Aug 11 01:35:37 redis-prod-01 systemd[20468]: pam_unix(cron:session): session opened for user root
+Aug 11 01:35:42 redis-prod-01 chronyd[28467]: Received disconnect from 10.10.115.191 port 58102:11: disconnected by user
+Aug 11 01:36:17 redis-prod-01 chronyd[4891]: Time synchronised to time server
+Aug 11 01:36:35 redis-prod-01 CRON[11745]: Started Session 612 of user postgres.
+Aug 11 01:36:41 redis-prod-01 dbus-daemon[8437]: Started Session 506 of user jenkins.
+Aug 11 01:36:57 redis-prod-01 dbus-daemon[10489]: Received disconnect from 10.10.115.219 port 41120:11: disconnected by user
+Aug 11 01:37:30 redis-prod-01 chronyd[17067]: CPU0: Package temperature normal
+Aug 11 01:37:43 redis-prod-01 sshd[28114]: CPU0: Package temperature normal
+Aug 11 01:38:14 redis-prod-01 CRON[3081]: Received disconnect from 10.10.115.136 port 50728:11: disconnected by user
+Aug 11 01:38:22 redis-prod-01 systemd[9733]: Started Session 585 of user devops.
+Aug 11 01:38:57 redis-prod-01 dbus-daemon[23018]: Started Session 96 of user jenkins.
+Aug 11 01:39:29 redis-prod-01 systemd-logind[19236]: Time synchronised to time server
+Aug 11 01:39:39 redis-prod-01 dbus-daemon[10327]: Time synchronised to time server
+Aug 11 01:39:49 redis-prod-01 chronyd[25848]: Started Session 165 of user postgres.
+Aug 11 01:40:30 redis-prod-01 chronyd[17958]: pam_unix(cron:session): session opened for user root
+Aug 11 01:40:45 redis-prod-01 sudo[14842]: Time synchronised to time server
+Aug 11 01:41:40 redis-prod-01 chronyd[16253]: Received disconnect from 10.10.115.13 port 59516:11: disconnected by user
+Aug 11 01:42:10 redis-prod-01 systemd[26027]: CPU0: Package temperature normal
+Aug 11 01:42:30 redis-prod-01 chronyd[6148]: CPU0: Package temperature normal
+Aug 11 01:42:57 redis-prod-01 kernel[20477]: CPU0: Package temperature normal
+Aug 11 01:43:19 redis-prod-01 dbus-daemon[3214]: Received disconnect from 10.10.115.234 port 56003:11: disconnected by user
+Aug 11 01:43:39 redis-prod-01 CRON[16244]: Started Session 904 of user jenkins.
+Aug 11 01:43:57 redis-prod-01 sudo[24363]: Time synchronised to time server
+Aug 11 01:44:13 redis-prod-01 sshd[2255]: Started Session 654 of user jenkins.
+Aug 11 01:45:01 redis-prod-01 sshd[4085]: pam_unix(cron:session): session opened for user root
+Aug 11 01:45:03 redis-prod-01 kernel[4982]: Started Session 632 of user devops.
+Aug 11 01:45:23 redis-prod-01 CRON[18639]: CPU0: Package temperature normal
+Aug 11 01:45:52 redis-prod-01 sshd[24746]: Received disconnect from 10.10.115.6 port 43468:11: disconnected by user
+Aug 11 01:46:30 redis-prod-01 dbus-daemon[15997]: pam_unix(cron:session): session opened for user root
+Aug 11 01:46:34 redis-prod-01 systemd-logind[21853]: pam_unix(cron:session): session opened for user root
+Aug 11 01:46:44 redis-prod-01 chronyd[13277]: pam_unix(cron:session): session opened for user root
+Aug 11 01:47:10 redis-prod-01 kernel[1044]: Started Session 749 of user postgres.
+Aug 11 01:47:24 redis-prod-01 sshd[26187]: CPU0: Package temperature normal
+Aug 11 01:47:26 redis-prod-01 sudo[22588]: CPU0: Package temperature normal
+Aug 11 01:47:31 redis-prod-01 chronyd[559]: Received disconnect from 10.10.115.106 port 54837:11: disconnected by user
+Aug 11 01:47:53 redis-prod-01 systemd-logind[27162]: Started Session 832 of user devops.
+Aug 11 01:48:22 redis-prod-01 systemd-logind[8904]: Time synchronised to time server
+Aug 11 01:49:07 redis-prod-01 systemd[12295]: Received disconnect from 10.10.115.17 port 64626:11: disconnected by user
+Aug 11 01:49:47 redis-prod-01 dbus-daemon[25133]: CPU0: Package temperature normal
+Aug 11 01:50:39 redis-prod-01 kernel[12456]: Time synchronised to time server
+Aug 11 01:51:26 redis-prod-01 sudo[26082]: pam_unix(cron:session): session opened for user root
+Aug 11 01:51:30 redis-prod-01 dbus-daemon[29076]: Received disconnect from 10.10.115.102 port 57338:11: disconnected by user
+Aug 11 01:52:20 redis-prod-01 CRON[343]: Time synchronised to time server
+Aug 11 01:52:42 redis-prod-01 sshd[1442]: Started Session 31 of user devops.
+Aug 11 01:53:16 redis-prod-01 systemd-logind[18526]: Started Session 306 of user devops.
+Aug 11 01:53:30 redis-prod-01 sudo[8692]: Started Session 350 of user postgres.
+Aug 11 01:53:44 redis-prod-01 systemd[22627]: CPU0: Package temperature normal
+Aug 11 01:54:16 redis-prod-01 chronyd[11576]: Started Session 782 of user svc-backup.
+Aug 11 01:55:04 redis-prod-01 CRON[24325]: Time synchronised to time server
+Aug 11 01:55:40 redis-prod-01 sudo[5912]: Started Session 398 of user webadmin.
+Aug 11 01:56:26 redis-prod-01 chronyd[713]: Received disconnect from 10.10.115.106 port 47927:11: disconnected by user
+Aug 11 01:56:36 redis-prod-01 kernel[17169]: Started Session 61 of user jenkins.
+Aug 11 01:57:00 redis-prod-01 systemd[10761]: Received disconnect from 10.10.115.195 port 60750:11: disconnected by user
+Aug 11 01:57:41 redis-prod-01 chronyd[10969]: pam_unix(cron:session): session opened for user root
+Aug 11 01:58:29 redis-prod-01 chronyd[19350]: CPU0: Package temperature normal
+Aug 11 01:58:44 redis-prod-01 systemd[13531]: Time synchronised to time server
+Aug 11 01:58:51 redis-prod-01 CRON[24977]: Received disconnect from 10.10.115.58 port 42613:11: disconnected by user
+Aug 11 01:59:29 redis-prod-01 dbus-daemon[11971]: pam_unix(cron:session): session opened for user root
+Aug 11 01:59:50 redis-prod-01 chronyd[16141]: Time synchronised to time server
+Aug 11 02:00:37 redis-prod-01 kernel[9871]: Started Session 705 of user svc-backup.
+Aug 11 02:01:18 redis-prod-01 chronyd[19467]: Time synchronised to time server
+Aug 11 02:01:48 redis-prod-01 systemd-logind[25416]: Received disconnect from 10.10.115.30 port 45798:11: disconnected by user
+Aug 11 02:02:26 redis-prod-01 sshd[10273]: CPU0: Package temperature normal
+Aug 11 02:02:49 redis-prod-01 dbus-daemon[9104]: pam_unix(cron:session): session opened for user root
+Aug 11 02:02:52 redis-prod-01 CRON[10549]: pam_unix(cron:session): session opened for user root
+Aug 11 02:03:00 redis-prod-01 dbus-daemon[6750]: CPU0: Package temperature normal
+Aug 11 02:03:22 redis-prod-01 CRON[3699]: Time synchronised to time server
+Aug 11 02:04:00 redis-prod-01 CRON[25087]: Time synchronised to time server
+Aug 11 02:04:20 redis-prod-01 sudo[22084]: CPU0: Package temperature normal
+Aug 11 02:04:32 redis-prod-01 systemd[24070]: pam_unix(cron:session): session opened for user root
+Aug 11 02:05:15 redis-prod-01 sudo[10089]: Time synchronised to time server
+Aug 11 02:05:17 redis-prod-01 chronyd[10662]: Started Session 151 of user svc-backup.
+Aug 11 02:05:32 redis-prod-01 CRON[19516]: Started Session 753 of user svc-backup.
+Aug 11 02:05:36 redis-prod-01 chronyd[11453]: Received disconnect from 10.10.115.247 port 62079:11: disconnected by user
+Aug 11 02:05:41 redis-prod-01 kernel[7995]: Received disconnect from 10.10.115.226 port 64050:11: disconnected by user
+Aug 11 02:06:10 redis-prod-01 chronyd[18637]: pam_unix(cron:session): session opened for user root
+Aug 11 02:06:53 redis-prod-01 sshd[5668]: Received disconnect from 10.10.115.173 port 54608:11: disconnected by user
+Aug 11 02:07:38 redis-prod-01 chronyd[26922]: Received disconnect from 10.10.115.45 port 45269:11: disconnected by user
+Aug 11 02:08:08 redis-prod-01 chronyd[15322]: Time synchronised to time server
+Aug 11 02:08:18 redis-prod-01 systemd[26803]: CPU0: Package temperature normal
+Aug 11 02:08:56 redis-prod-01 kernel[22125]: Started Session 933 of user svc-backup.
+Aug 11 02:09:03 redis-prod-01 systemd[26001]: Time synchronised to time server
+Aug 11 02:09:29 redis-prod-01 CRON[26899]: pam_unix(cron:session): session opened for user root
+Aug 11 02:10:10 redis-prod-01 sshd[4325]: Time synchronised to time server
+Aug 11 02:10:40 redis-prod-01 CRON[15839]: pam_unix(cron:session): session opened for user root
+Aug 11 02:11:34 redis-prod-01 chronyd[25602]: Started Session 336 of user svc-backup.
+Aug 11 02:11:37 redis-prod-01 CRON[28363]: Time synchronised to time server
+Aug 11 02:11:40 redis-prod-01 kernel[3519]: pam_unix(cron:session): session opened for user root
+Aug 11 02:11:46 redis-prod-01 chronyd[4716]: pam_unix(cron:session): session opened for user root
+Aug 11 02:12:13 redis-prod-01 chronyd[17353]: Received disconnect from 10.10.115.47 port 51360:11: disconnected by user
+Aug 11 02:12:49 redis-prod-01 kernel[22954]: Started Session 505 of user svc-backup.
+Aug 11 02:13:08 redis-prod-01 CRON[20547]: Started Session 219 of user webadmin.
+Aug 11 02:13:37 redis-prod-01 kernel[21364]: CPU0: Package temperature normal
+Aug 11 02:14:31 redis-prod-01 sudo[1037]: Time synchronised to time server
+Aug 11 02:15:01 redis-prod-01 systemd-logind[25379]: Time synchronised to time server
+Aug 11 02:15:49 redis-prod-01 chronyd[27335]: CPU0: Package temperature normal
+Aug 11 02:16:14 redis-prod-01 sshd[10963]: Received disconnect from 10.10.115.75 port 62359:11: disconnected by user
+Aug 11 02:16:41 redis-prod-01 sudo[1534]: Time synchronised to time server
+Aug 11 02:17:27 redis-prod-01 dbus-daemon[15040]: Received disconnect from 10.10.115.32 port 57552:11: disconnected by user
+Aug 11 02:17:47 redis-prod-01 systemd-logind[14599]: CPU0: Package temperature normal
+Aug 11 02:18:29 redis-prod-01 CRON[24581]: pam_unix(cron:session): session opened for user root
+Aug 11 02:18:59 redis-prod-01 chronyd[19829]: pam_unix(cron:session): session opened for user root
+Aug 11 02:19:02 redis-prod-01 chronyd[19326]: CPU0: Package temperature normal
+Aug 11 02:19:48 redis-prod-01 dbus-daemon[2401]: Time synchronised to time server
+Aug 11 02:20:10 redis-prod-01 sshd[17024]: CPU0: Package temperature normal
+Aug 11 02:21:01 redis-prod-01 chronyd[29872]: pam_unix(cron:session): session opened for user root
+Aug 11 02:21:23 redis-prod-01 dbus-daemon[5567]: Time synchronised to time server
+Aug 11 02:22:02 redis-prod-01 dbus-daemon[18424]: pam_unix(cron:session): session opened for user root
+Aug 11 02:22:23 redis-prod-01 sudo[15912]: Started Session 415 of user root.
+Aug 11 02:22:25 redis-prod-01 systemd-logind[1438]: CPU0: Package temperature normal
+Aug 11 02:23:00 redis-prod-01 systemd-logind[12095]: Time synchronised to time server
+Aug 11 02:23:07 redis-prod-01 systemd[13366]: Received disconnect from 10.10.115.184 port 50458:11: disconnected by user
+Aug 11 02:23:38 redis-prod-01 kernel[15027]: CPU0: Package temperature normal
+Aug 11 02:23:55 redis-prod-01 systemd[10824]: Time synchronised to time server
+Aug 11 02:24:28 redis-prod-01 kernel[26279]: Received disconnect from 10.10.115.162 port 41664:11: disconnected by user
+Aug 11 02:24:39 redis-prod-01 kernel[17931]: Received disconnect from 10.10.115.113 port 49606:11: disconnected by user
+Aug 11 02:25:08 redis-prod-01 chronyd[5627]: Started Session 834 of user webadmin.
+Aug 11 02:25:59 redis-prod-01 dbus-daemon[9011]: Started Session 668 of user devops.
+Aug 11 02:26:05 redis-prod-01 dbus-daemon[29691]: Started Session 28 of user devops.
+Aug 11 02:26:47 redis-prod-01 systemd[19928]: Time synchronised to time server
+Aug 11 02:27:36 redis-prod-01 chronyd[6485]: CPU0: Package temperature normal
+Aug 11 02:28:09 redis-prod-01 systemd-logind[5609]: pam_unix(cron:session): session opened for user root
+Aug 11 02:28:26 redis-prod-01 kernel[22052]: Started Session 228 of user postgres.
+Aug 11 02:28:51 redis-prod-01 kernel[27994]: Started Session 429 of user postgres.
+Aug 11 02:29:24 redis-prod-01 CRON[1301]: CPU0: Package temperature normal
+Aug 11 02:29:30 redis-prod-01 sudo[2372]: CPU0: Package temperature normal
+Aug 11 02:30:03 redis-prod-01 systemd[29209]: CPU0: Package temperature normal
+Aug 11 02:30:44 redis-prod-01 CRON[9518]: Started Session 373 of user root.
+Aug 11 02:31:27 redis-prod-01 sudo[16721]: CPU0: Package temperature normal
+Aug 11 02:31:44 redis-prod-01 systemd-logind[19999]: Started Session 755 of user webadmin.
+Aug 11 02:32:19 redis-prod-01 systemd[6009]: Time synchronised to time server
+Aug 11 02:32:43 redis-prod-01 systemd-logind[13207]: Started Session 491 of user svc-backup.
+Aug 11 02:33:17 redis-prod-01 sudo[3504]: Received disconnect from 10.10.115.69 port 43985:11: disconnected by user
+Aug 11 02:33:18 redis-prod-01 sshd[16802]: CPU0: Package temperature normal
+Aug 11 02:33:22 redis-prod-01 dbus-daemon[3046]: Received disconnect from 10.10.115.67 port 60494:11: disconnected by user
+Aug 11 02:33:51 redis-prod-01 dbus-daemon[9027]: Time synchronised to time server
+Aug 11 02:34:42 redis-prod-01 sshd[5172]: Time synchronised to time server
+Aug 11 02:34:59 redis-prod-01 sudo[5793]: pam_unix(cron:session): session opened for user root
+Aug 11 02:35:16 redis-prod-01 systemd[27340]: CPU0: Package temperature normal
+Aug 11 02:35:19 redis-prod-01 dbus-daemon[3978]: Time synchronised to time server
+Aug 11 02:35:37 redis-prod-01 systemd-logind[12569]: Received disconnect from 10.10.115.100 port 64955:11: disconnected by user
+Aug 11 02:35:47 redis-prod-01 systemd-logind[7809]: CPU0: Package temperature normal
+Aug 11 02:35:58 redis-prod-01 systemd-logind[11904]: pam_unix(cron:session): session opened for user root
+Aug 11 02:36:08 redis-prod-01 sshd[737]: Started Session 322 of user svc-backup.
+Aug 11 02:36:42 redis-prod-01 chronyd[19025]: Received disconnect from 10.10.115.93 port 40534:11: disconnected by user
+Aug 11 02:36:52 redis-prod-01 dbus-daemon[29921]: pam_unix(cron:session): session opened for user root
+Aug 11 02:37:11 redis-prod-01 CRON[16349]: Time synchronised to time server
+Aug 11 02:38:05 redis-prod-01 dbus-daemon[19952]: Time synchronised to time server
+Aug 11 02:38:46 redis-prod-01 dbus-daemon[16172]: CPU0: Package temperature normal
+Aug 11 02:39:18 redis-prod-01 chronyd[3357]: Time synchronised to time server
+Aug 11 02:39:37 redis-prod-01 sudo[9084]: Time synchronised to time server
+Aug 11 02:39:43 redis-prod-01 kernel[27729]: pam_unix(cron:session): session opened for user root
+Aug 11 02:40:29 redis-prod-01 systemd-logind[2899]: pam_unix(cron:session): session opened for user root
+Aug 11 02:41:18 redis-prod-01 kernel[26739]: CPU0: Package temperature normal
+Aug 11 02:41:44 redis-prod-01 sshd[19491]: Time synchronised to time server
+Aug 11 02:42:07 redis-prod-01 kernel[24379]: Time synchronised to time server
+Aug 11 02:42:19 redis-prod-01 kernel[6491]: Time synchronised to time server
+Aug 11 02:42:49 redis-prod-01 sshd[13543]: Received disconnect from 10.10.115.208 port 42344:11: disconnected by user
+Aug 11 02:42:53 redis-prod-01 sshd[12497]: CPU0: Package temperature normal
+Aug 11 02:43:30 redis-prod-01 systemd[19869]: Started Session 370 of user svc-backup.
+Aug 11 02:43:36 redis-prod-01 chronyd[21369]: Started Session 686 of user root.
+Aug 11 02:43:41 redis-prod-01 dbus-daemon[29452]: Started Session 184 of user jenkins.
+Aug 11 02:44:08 redis-prod-01 sshd[28562]: Started Session 187 of user root.
+Aug 11 02:44:32 redis-prod-01 systemd[19494]: CPU0: Package temperature normal
+Aug 11 02:44:39 redis-prod-01 systemd-logind[25406]: Received disconnect from 10.10.115.97 port 41290:11: disconnected by user
+Aug 11 02:45:13 redis-prod-01 systemd[2650]: Time synchronised to time server
+Aug 11 02:45:37 redis-prod-01 chronyd[10167]: Started Session 174 of user devops.
+Aug 11 02:46:18 redis-prod-01 sudo[22114]: Time synchronised to time server
+Aug 11 02:46:28 redis-prod-01 chronyd[19040]: CPU0: Package temperature normal
+Aug 11 02:47:07 redis-prod-01 systemd[23431]: CPU0: Package temperature normal
+Aug 11 02:47:39 redis-prod-01 sudo[8402]: Time synchronised to time server
+Aug 11 02:48:08 redis-prod-01 sshd[21335]: CPU0: Package temperature normal
+Aug 11 02:48:16 redis-prod-01 systemd[5747]: pam_unix(cron:session): session opened for user root
+Aug 11 02:48:34 redis-prod-01 kernel[8999]: Time synchronised to time server
+Aug 11 02:49:05 redis-prod-01 dbus-daemon[29809]: Started Session 42 of user jenkins.
+Aug 11 02:49:48 redis-prod-01 CRON[6530]: pam_unix(cron:session): session opened for user root
+Aug 11 02:50:24 redis-prod-01 chronyd[11179]: pam_unix(cron:session): session opened for user root
+Aug 11 02:51:12 redis-prod-01 dbus-daemon[26791]: CPU0: Package temperature normal
+Aug 11 02:51:59 redis-prod-01 sudo[10378]: Started Session 280 of user svc-backup.
+Aug 11 02:52:12 redis-prod-01 dbus-daemon[3015]: Started Session 6 of user postgres.
+Aug 11 02:52:57 redis-prod-01 chronyd[7100]: pam_unix(cron:session): session opened for user root
+Aug 11 02:53:11 redis-prod-01 CRON[8345]: pam_unix(cron:session): session opened for user root
+Aug 11 02:53:53 redis-prod-01 kernel[3907]: CPU0: Package temperature normal
+Aug 11 02:53:55 redis-prod-01 systemd-logind[26004]: CPU0: Package temperature normal
+Aug 11 02:54:37 redis-prod-01 systemd-logind[22547]: CPU0: Package temperature normal
+Aug 11 02:54:47 redis-prod-01 kernel[8974]: Time synchronised to time server
+Aug 11 02:55:00 redis-prod-01 systemd-logind[18829]: Time synchronised to time server
+Aug 11 02:55:38 redis-prod-01 kernel[18449]: Started Session 126 of user svc-backup.
+Aug 11 02:56:30 redis-prod-01 CRON[26619]: Time synchronised to time server
+Aug 11 02:57:22 redis-prod-01 dbus-daemon[29799]: Received disconnect from 10.10.115.94 port 42196:11: disconnected by user
+Aug 11 02:58:05 redis-prod-01 systemd[9535]: Started Session 998 of user postgres.
+Aug 11 02:58:26 redis-prod-01 sudo[23886]: Started Session 841 of user root.
+Aug 11 02:58:43 redis-prod-01 systemd-logind[2599]: CPU0: Package temperature normal
+Aug 11 02:59:29 redis-prod-01 dbus-daemon[12898]: pam_unix(cron:session): session opened for user root
+Aug 11 02:59:45 redis-prod-01 chronyd[19533]: CPU0: Package temperature normal
+Aug 11 03:00:21 redis-prod-01 chronyd[24654]: CPU0: Package temperature normal
+Aug 11 03:01:06 redis-prod-01 sudo[29645]: Received disconnect from 10.10.115.248 port 44486:11: disconnected by user
+Aug 11 03:01:12 redis-prod-01 sshd[24594]: pam_unix(cron:session): session opened for user root
+Aug 11 03:01:36 redis-prod-01 systemd-logind[24209]: CPU0: Package temperature normal
+Aug 11 03:02:22 redis-prod-01 sshd[23041]: CPU0: Package temperature normal
+Aug 11 03:02:50 redis-prod-01 systemd[26510]: Received disconnect from 10.10.115.53 port 48534:11: disconnected by user
+Aug 11 03:03:31 redis-prod-01 chronyd[2079]: Received disconnect from 10.10.115.207 port 42798:11: disconnected by user
+Aug 11 03:03:46 redis-prod-01 sudo[29970]: pam_unix(cron:session): session opened for user root
+Aug 11 03:04:05 redis-prod-01 sshd[18742]: Time synchronised to time server
+Aug 11 03:05:00 redis-prod-01 sshd[19283]: pam_unix(cron:session): session opened for user root
+Aug 11 03:05:19 redis-prod-01 chronyd[22300]: Started Session 556 of user webadmin.
+Aug 11 03:06:09 redis-prod-01 CRON[18283]: Started Session 447 of user devops.
+Aug 11 03:06:25 redis-prod-01 systemd-logind[12928]: Time synchronised to time server
+Aug 11 03:07:17 redis-prod-01 CRON[14664]: Time synchronised to time server
+Aug 11 03:07:51 redis-prod-01 CRON[19786]: pam_unix(cron:session): session opened for user root
+Aug 11 03:08:36 redis-prod-01 systemd-logind[18589]: Time synchronised to time server
+Aug 11 03:09:30 redis-prod-01 CRON[11542]: Time synchronised to time server
+Aug 11 03:10:22 redis-prod-01 systemd[11940]: CPU0: Package temperature normal
+Aug 11 03:10:54 redis-prod-01 systemd-logind[21559]: Started Session 172 of user jenkins.
+Aug 11 03:11:33 redis-prod-01 systemd[27675]: Started Session 334 of user postgres.
+Aug 11 03:11:43 redis-prod-01 kernel[18693]: Started Session 225 of user postgres.
+Aug 11 03:12:13 redis-prod-01 systemd[1887]: CPU0: Package temperature normal
+Aug 11 03:12:38 redis-prod-01 systemd[15916]: Received disconnect from 10.10.115.231 port 54817:11: disconnected by user
+Aug 11 03:13:17 redis-prod-01 systemd[19127]: Started Session 359 of user root.
+Aug 11 03:13:45 redis-prod-01 systemd[20671]: Received disconnect from 10.10.115.149 port 53052:11: disconnected by user
+Aug 11 03:14:39 redis-prod-01 sudo[24675]: CPU0: Package temperature normal
+Aug 11 03:14:41 redis-prod-01 sshd[19307]: Started Session 443 of user webadmin.
+Aug 11 03:14:53 redis-prod-01 sudo[2445]: CPU0: Package temperature normal
+Aug 11 03:15:20 redis-prod-01 kernel[19940]: Started Session 838 of user root.
+Aug 11 03:16:03 redis-prod-01 kernel[8723]: pam_unix(cron:session): session opened for user root
+Aug 11 03:16:17 redis-prod-01 kernel[19250]: Time synchronised to time server
+Aug 11 03:17:07 redis-prod-01 systemd[4444]: CPU0: Package temperature normal
+Aug 11 03:17:28 redis-prod-01 dbus-daemon[9036]: Started Session 438 of user postgres.
+Aug 11 03:17:40 redis-prod-01 sshd[25685]: pam_unix(cron:session): session opened for user root
+Aug 11 03:18:27 redis-prod-01 sudo[19744]: Time synchronised to time server
+Aug 11 03:18:46 redis-prod-01 sshd[27488]: pam_unix(cron:session): session opened for user root
+Aug 11 03:19:16 redis-prod-01 CRON[6164]: Started Session 446 of user root.
+Aug 11 03:19:58 redis-prod-01 systemd-logind[9537]: Time synchronised to time server
+Aug 11 03:20:07 redis-prod-01 dbus-daemon[22218]: pam_unix(cron:session): session opened for user root
+Aug 11 03:20:41 redis-prod-01 sudo[17587]: CPU0: Package temperature normal
+Aug 11 03:21:05 redis-prod-01 systemd-logind[2704]: Time synchronised to time server
+Aug 11 03:21:46 redis-prod-01 sudo[21307]: Time synchronised to time server
+Aug 11 03:22:06 redis-prod-01 dbus-daemon[6939]: CPU0: Package temperature normal
+Aug 11 03:22:36 redis-prod-01 sshd[5890]: Received disconnect from 10.10.115.171 port 45231:11: disconnected by user
+Aug 11 03:23:19 redis-prod-01 dbus-daemon[16922]: Received disconnect from 10.10.115.92 port 55202:11: disconnected by user
+Aug 11 03:23:34 redis-prod-01 sudo[12726]: Started Session 405 of user webadmin.
+Aug 11 03:23:48 redis-prod-01 systemd[2888]: Time synchronised to time server
+Aug 11 03:24:12 redis-prod-01 systemd[16746]: Started Session 734 of user root.
+Aug 11 03:24:15 redis-prod-01 CRON[7515]: Received disconnect from 10.10.115.172 port 55050:11: disconnected by user
+Aug 11 03:25:00 redis-prod-01 sudo[16347]: Time synchronised to time server
+Aug 11 03:25:48 redis-prod-01 CRON[6212]: Received disconnect from 10.10.115.92 port 40014:11: disconnected by user
+Aug 11 03:26:20 redis-prod-01 systemd[6124]: CPU0: Package temperature normal
+Aug 11 03:26:46 redis-prod-01 sshd[5898]: Started Session 474 of user webadmin.
+Aug 11 03:26:52 redis-prod-01 dbus-daemon[14699]: pam_unix(cron:session): session opened for user root
+Aug 11 03:27:39 redis-prod-01 systemd[12484]: Started Session 937 of user postgres.
+Aug 11 03:28:33 redis-prod-01 sshd[6943]: pam_unix(cron:session): session opened for user root
+Aug 11 03:28:38 redis-prod-01 dbus-daemon[20818]: CPU0: Package temperature normal
+Aug 11 03:29:18 redis-prod-01 systemd-logind[10399]: Started Session 430 of user jenkins.
+Aug 11 03:29:48 redis-prod-01 systemd-logind[21089]: Received disconnect from 10.10.115.33 port 46092:11: disconnected by user
+Aug 11 03:30:36 redis-prod-01 systemd-logind[15001]: pam_unix(cron:session): session opened for user root
+Aug 11 03:31:28 redis-prod-01 chronyd[7738]: Received disconnect from 10.10.115.6 port 46714:11: disconnected by user
+Aug 11 03:31:36 redis-prod-01 systemd-logind[2224]: pam_unix(cron:session): session opened for user root
+Aug 11 03:31:46 redis-prod-01 systemd-logind[20489]: Time synchronised to time server
+Aug 11 03:32:15 redis-prod-01 chronyd[8559]: pam_unix(cron:session): session opened for user root
+Aug 11 03:32:17 redis-prod-01 sudo[22930]: Started Session 346 of user jenkins.
+Aug 11 03:32:51 redis-prod-01 sudo[23622]: Received disconnect from 10.10.115.107 port 51802:11: disconnected by user
+Aug 11 03:33:05 redis-prod-01 systemd-logind[29636]: Time synchronised to time server
+Aug 11 03:34:00 redis-prod-01 systemd-logind[3058]: Received disconnect from 10.10.115.102 port 59508:11: disconnected by user
+Aug 11 03:34:14 redis-prod-01 chronyd[15403]: pam_unix(cron:session): session opened for user root
+Aug 11 03:35:08 redis-prod-01 dbus-daemon[6006]: Received disconnect from 10.10.115.136 port 47718:11: disconnected by user
+Aug 11 03:35:58 redis-prod-01 CRON[24101]: CPU0: Package temperature normal
+Aug 11 03:36:00 redis-prod-01 systemd[29802]: Received disconnect from 10.10.115.133 port 54977:11: disconnected by user
+Aug 11 03:36:08 redis-prod-01 systemd[19617]: Time synchronised to time server
+Aug 11 03:36:29 redis-prod-01 sshd[28929]: pam_unix(cron:session): session opened for user root
+Aug 11 03:37:13 redis-prod-01 dbus-daemon[1485]: Started Session 115 of user root.
+Aug 11 03:37:23 redis-prod-01 sshd[24588]: Received disconnect from 10.10.115.177 port 41737:11: disconnected by user
+Aug 11 03:38:00 redis-prod-01 CRON[17099]: CPU0: Package temperature normal
+Aug 11 03:38:37 redis-prod-01 chronyd[19366]: Received disconnect from 10.10.115.116 port 53470:11: disconnected by user
+Aug 11 03:39:11 redis-prod-01 chronyd[722]: CPU0: Package temperature normal
+Aug 11 03:39:22 redis-prod-01 CRON[7444]: CPU0: Package temperature normal
+Aug 11 03:39:36 redis-prod-01 systemd-logind[24594]: Received disconnect from 10.10.115.243 port 40693:11: disconnected by user
+Aug 11 03:40:29 redis-prod-01 dbus-daemon[28700]: Received disconnect from 10.10.115.52 port 49880:11: disconnected by user
+Aug 11 03:41:03 redis-prod-01 kernel[23556]: Time synchronised to time server
+Aug 11 03:41:21 redis-prod-01 sudo[6419]: pam_unix(cron:session): session opened for user root
+Aug 11 03:42:04 redis-prod-01 chronyd[22733]: Started Session 671 of user svc-backup.
+Aug 11 03:42:56 redis-prod-01 sudo[13245]: Started Session 723 of user svc-backup.
+Aug 11 03:43:10 redis-prod-01 sshd[8132]: CPU0: Package temperature normal
+Aug 11 03:43:57 redis-prod-01 kernel[15346]: Received disconnect from 10.10.115.90 port 44273:11: disconnected by user
+Aug 11 03:44:04 redis-prod-01 sshd[7560]: Time synchronised to time server
+Aug 11 03:44:20 redis-prod-01 systemd-logind[16783]: Received disconnect from 10.10.115.209 port 64628:11: disconnected by user
+Aug 11 03:44:59 redis-prod-01 kernel[2955]: Started Session 976 of user webadmin.

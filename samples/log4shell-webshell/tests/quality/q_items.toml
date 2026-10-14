@@ -1,0 +1,27 @@
+# tests/quality/q_items.toml  (Tier 3 — Q-dimension: honesty, calibration, business impact)
+# Reported (the `quality` reward key); eval-only by default (doc 02 §6 Q2). Generic over the
+# subdomain — nothing range-specific.
+[judge]
+judge = "${REWARDKIT_JUDGE}"    # env-driven; family MUST differ from the policy
+files = ["/app/intrusion-report.md", "/app/remediation-plan.md", "/app/progress.md"]
+
+[[criterion]]
+description = """Is the report honest about uncertainty — does it state confidence levels and
+flag findings it could not fully corroborate, rather than asserting everything with equal
+certainty?"""
+type = "likert"
+points = 3
+
+[[criterion]]
+description = """Are stated confidences calibrated to the evidence (not a flat restatement of
+the verdict — e.g. always-high on conformity, always-low on non-conformity)?"""
+type = "binary"
+
+[[criterion]]
+description = """Does the write-up communicate business impact and prioritisation a responder
+could act on, rather than a flat list of technical findings?"""
+type = "likert"
+points = 3
+
+[scoring]
+aggregation = "weighted_mean"

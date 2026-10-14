@@ -1,0 +1,69 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 1900 >>
+stream
+BT
+/F1 10 Tf
+12 TL
+54 740 Td
+(THREAT INTELLIGENCE ADVISORY ? Postgres Copyprogram campaign) Tj T*
+(============================================================) Tj T*
+() Tj T*
+(Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   \(IOCs are defanged\)) Tj T*
+(Affected host: postgres-prod-01   Suspected origin IP: 198.51.100.214) Tj T*
+() Tj T*
+(1. EXECUTIVE SUMMARY) Tj T*
+(An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered) Tj T*
+(only part of it; several persistence and anti-forensic actions were silent. Map every on-disk) Tj T*
+(finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.) Tj T*
+() Tj T*
+(2. ATT&CK TECHNIQUE MAPPING \(MITRE ATT&CK Enterprise\)) Tj T*
+(   T1078      Valid Accounts                             [stealth]  step 1: valid accounts) Tj T*
+(\(weak postgres superuser\)) Tj T*
+(   T1059.004  Unix Shell                                 [execution]  step 2: COPY TO PROGRAM) Tj T*
+(shell execution) Tj T*
+(   T1048.003  Exfiltration Over Unencrypted Non-C2 Protocol [exfiltration]  step 3: DNS-tunnel) Tj T*
+(exfiltration) Tj T*
+(   T1053.003  Cron                                       [execution]  step 4: cron persistence) Tj T*
+(   T1543.002  Systemd Service                            [persistence]  step 5: systemd) Tj T*
+(persistence) Tj T*
+(   T1070.006  Timestomp                                  [stealth]  step 6: timestomp dropped) Tj T*
+(files) Tj T*
+() Tj T*
+(4. INDICATORS OF COMPROMISE \(defanged\)) Tj T*
+(   ip     198.51.100.214) Tj T*
+(   c2     update-postgres[.]example[.]cn) Tj T*
+(   pool   stratum+tcp[:]//xmr[.]postgres[.]evil[:]3333) Tj T*
+(   wallet 4A000000000000000000c5f08041507f) Tj T*
+() Tj T*
+(Attribution: MITRE ATT&CK\(R\) \(C\) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.) Tj T*
+(National Vulnerability Database \(public domain\).) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002199 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2269
+%%EOF

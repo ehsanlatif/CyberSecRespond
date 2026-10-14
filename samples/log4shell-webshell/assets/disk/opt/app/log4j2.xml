@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config>
+log4j 2.14 vulnerable config (message-lookup JNDI enabled) — defanged
+</config>

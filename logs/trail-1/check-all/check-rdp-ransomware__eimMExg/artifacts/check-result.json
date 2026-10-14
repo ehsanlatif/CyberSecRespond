@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "Verification is fully automated and programmatic via tests/test.sh without runtime network installs."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh produces deliverables that pass tests/test.sh with reward=1.0."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "Requires post-compromise Windows forensic expertise across registry hives, event logs, binary samples, and threat intelligence feeds."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Represents a realistic incident response investigation scenario on Windows Server 2022."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests evaluate the produced report deliverables in /app rather than constraining the agent process or tooling."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate-verifier mode is not configured, so ground-truth tests/manifest.json is present in the workspace where the agent can inspect it."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files and scripts are clean of malicious logic, prompt injections, or unauthorized network calls."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests verify findings by parsing evidence citations against the filesystem and evaluating DAG graph edit distance for attack chains."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "Tests depend on static forensic files and deterministic python logic with pinned requirements."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty lies in DFIR investigation, root cause correlation, and remediation planning rather than output formatting minutiae."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All test assertions correspond directly to requirements stated in instruction.md."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task uses custom synthetic forensic artifacts and scenarios requiring multi-step investigation."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment interaction, log searching, file inspection, and report authoring."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The rewardkit test framework and manifest.json provide transparent scoring logic."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "instruction.md is clear, uses absolute paths, and avoids step-by-step handholding."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh generates comprehensive report deliverables detailing the attack chain and remediation plan."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "separate_verifier mode is not configured: task.toml lacks environment_mode = \"separate\" and artifacts, and tests/Dockerfile is missing."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "tests/Dockerfile is missing and ground-truth test files remain in the agent image workspace."
+  },
+  "structured_data_schema": {
+    "outcome": "not_applicable",
+    "explanation": "The task requires free-text Markdown reports rather than structured JSON/CSV data schemas."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were identified in file paths, identifiers, or commands."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "difficulty_explanation is missing from task.toml metadata."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "solution_explanation is missing from task.toml metadata."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "verification_explanation is missing from task.toml metadata."
+  },
+  "category_and_tags": {
+    "outcome": "pass",
+    "explanation": "Category is set to security and tags accurately describe DFIR incident response."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "rdp-ransomware is a concise, 2-word lower kebab-case slug."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Agent and verifier timeouts and resource allocations are appropriate."
+  },
+  "task_readme": {
+    "outcome": "not_applicable",
+    "explanation": "No optional top-level README.md is present."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "expert_time_estimate_hours is missing from task.toml metadata."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml contains extra unrecognized fields (difficulty in metadata, authors and keywords in task)."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task directory contains unused, unreferenced directories: assets/ and baselines/."
+  },
+  "artifact_efficiency": {
+    "outcome": "fail",
+    "explanation": "Artifacts are not configured in task.toml."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier parses markdown reports and does not execute agent code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The verifier does not write CTRF formatted test results to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "Read-only protection on /disk is set via file permissions and citation classification fails if files are missing."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "test.sh always writes either 1.0 or 0.0 to /logs/verifier/reward.txt."
+  }
+}

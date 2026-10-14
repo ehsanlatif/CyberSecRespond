@@ -1,0 +1,112 @@
+{
+    "id": "655c0c2b-8780-4725-95e7-bb2add71e9ea",
+    "task_name": "dfir-eval/struts-exfil",
+    "trial_name": "struts-exfil__2zm3BMP",
+    "trial_uri": "file:///Users/983414/Desktop/miscProjects/KnowledgeWordAgenticTasks/implementation/jobs/nop-all/struts-exfil__2zm3BMP",
+    "task_id": {
+        "path": "tasks/struts-exfil"
+    },
+    "source": null,
+    "task_checksum": "71db15a841bb2284bf93d0bab5499f733292f100d590332c01c7d7522ff4e890",
+    "config": {
+        "task": {
+            "path": "tasks/struts-exfil",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "struts-exfil__2zm3BMP",
+        "trials_dir": "jobs/nop-all",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": "nop",
+            "import_path": null,
+            "model_name": null,
+            "n_concurrent": null,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "resume_trajectory": false,
+            "load_trajectory": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {},
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "docker",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": null,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {},
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "96dd44b7-4368-4e59-96da-a682c1b069e2",
+        "source_trial": null
+    },
+    "agent_info": {
+        "name": "nop",
+        "version": "1.0.0",
+        "model_info": null
+    },
+    "agent_result": {
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0
+        }
+    },
+    "verifier_environment_mode": "shared",
+    "exception_info": null,
+    "started_at": "2026-08-16T16:07:07.761262Z",
+    "finished_at": "2026-08-16T16:07:20.364671Z",
+    "environment_setup": {
+        "started_at": "2026-08-16T16:07:07.775793Z",
+        "finished_at": "2026-08-16T16:07:09.374376Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-16T16:07:09.374415Z",
+        "finished_at": "2026-08-16T16:07:09.374456Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-16T16:07:09.374528Z",
+        "finished_at": "2026-08-16T16:07:09.374589Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-16T16:07:09.669303Z",
+        "finished_at": "2026-08-16T16:07:09.937206Z"
+    },
+    "step_results": null
+}

@@ -1,0 +1,3 @@
+# scheduled maintenance (BENIGN — legitimate ops job)
+0 3 * * * root /usr/local/bin/backup.sh --remote 10.10.31
+# looks unusual but is an approved change (see /sas/handoff)

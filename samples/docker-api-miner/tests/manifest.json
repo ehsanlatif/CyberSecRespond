@@ -1,0 +1,190 @@
+{
+  "range_id": "docker-api-miner",
+  "difficulty": 3,
+  "alert_coverage": 0.6,
+  "platform": {
+    "os": "ubuntu",
+    "version": "22.04"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1133",
+      "desc": "exposed Docker API (external service)"
+    },
+    {
+      "step": 2,
+      "attck": "T1610",
+      "desc": "deploy privileged container",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1611",
+      "desc": "container escape to host",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1496",
+      "desc": "cryptomining",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1053.003",
+      "desc": "cron persistence",
+      "depends_on": [
+        3
+      ]
+    },
+    {
+      "step": 6,
+      "attck": "T1543.002",
+      "desc": "systemd persistence",
+      "depends_on": [
+        3
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/opt/xmrig/xmrig",
+      "kind": "miner-process",
+      "capability": "ENT-P01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1496",
+      "match": [
+        "xmrig",
+        "pool"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/etc/cron.d/docker-mon",
+      "kind": "cron",
+      "capability": "PER-S01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1053.003",
+      "match": [
+        "xmrig",
+        "cron"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/etc/systemd/system/docker-metrics.service",
+      "kind": "systemd",
+      "capability": "PER-V01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1543.002",
+      "match": [
+        "xmrig",
+        "ExecStart"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/var/lib/docker/overlay2/attacker/diff/entrypoint.sh",
+      "kind": "container-residue",
+      "capability": "ENT-F02",
+      "alerted": false,
+      "weight": 1.5,
+      "attck": "T1610",
+      "match": [
+        "entrypoint",
+        "curl"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/etc/docker/daemon.json",
+      "kind": "docker-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "2375",
+        "hosts"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "firewall the Docker API port and block the attacker IP",
+      "verify": "port 2375 is not reachable off-host",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine the xmrig miner and terminate the process",
+      "verify": "pgrep -f xmrig returns empty",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "remove the docker-mon cron entry",
+      "verify": "! test -f /etc/cron.d/docker-mon",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "disable and remove the docker-metrics systemd unit",
+      "verify": "systemctl is-enabled docker-metrics returns not enabled",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "stop and remove the attacker container and image",
+      "verify": "docker ps -a shows no attacker container",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-05",
+      "action": "disable the TCP Docker socket; require TLS/localhost only",
+      "verify": "daemon.json exposes no 0.0.0.0:2375 host",
+      "phase": "harden",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "rotate credentials and secrets reachable from the host and containers",
+      "verify": "credential rotation timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restart Docker with the hardened config and confirm host health",
+      "verify": "systemctl is-active docker and CPU baseline normal",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": true,
+  "decoys": [],
+  "signature": "9e202e3a533f"
+}

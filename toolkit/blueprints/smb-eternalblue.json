@@ -1,0 +1,66 @@
+{
+  "range_id": "smb-eternalblue",
+  "description": "Post-compromise forensics: Windows 10 host exploited via EternalBlue (MS17-010), LSASS credential dump, ransomware, WMI-subscription and DLL-hijack persistence, event log clear.",
+  "difficulty": 4,
+  "platform": {"os": "windows", "version": "10"},
+  "no_cve_entry": false,
+  "scenario": "An unpatched Windows 10 host was exploited over SMBv1 using EternalBlue (CVE-2017-0144 / MS17-010). The attacker dumped LSASS, deployed ransomware, and established WMI event-subscription and DLL-hijack persistence, then cleared the System event log. Alerts surface the exploit implant, the LSASS dump, and the ransomware; the WMI subscription, the hijacked DLL, and the cleared log are silent.",
+
+  "chain": [
+    {"step": 1, "attck": "T1210",     "desc": "SMBv1 exploitation (CVE-2017-0144)"},
+    {"step": 2, "attck": "T1059.001", "desc": "PowerShell execution",        "depends_on": [1]},
+    {"step": 3, "attck": "T1003.001", "desc": "LSASS credential dump",        "depends_on": [2]},
+    {"step": 4, "attck": "T1486",     "desc": "ransomware encryption",        "depends_on": [2]},
+    {"step": 5, "attck": "T1546.003", "desc": "WMI event subscription",       "depends_on": [2]},
+    {"step": 6, "attck": "T1574.001", "desc": "DLL search-order hijack",      "depends_on": [2]},
+    {"step": 7, "attck": "T1070.001", "desc": "System event log clear",       "depends_on": [2]}
+  ],
+
+  "artifacts": [
+    {"chk": "CHK-01", "path": "/Windows/Temp/mssecsvc.exe", "kind": "exploit-implant",
+     "capability": "VUL-01", "alerted": true, "weight": 1.0, "cve": "CVE-2017-0144",
+     "attck": "T1210", "match": ["smb", "doublepulsar"]},
+    {"chk": "CHK-02", "path": "/Windows/Temp/lsass.dmp", "kind": "credential-dump",
+     "capability": "ENT-F01", "alerted": true, "weight": 1.0, "attck": "T1003.001",
+     "match": ["lsass", "dump"]},
+    {"chk": "CHK-03", "path": "/Users/Public/enc.exe", "kind": "ransomware-binary",
+     "capability": "ENT-F02", "alerted": true, "weight": 1.0, "attck": "T1486",
+     "match": ["encrypt", "ransom"]},
+    {"chk": "CHK-04", "path": "/Windows/System32/wbem/Repository/OBJECTS.DATA", "kind": "wmi-subscription",
+     "capability": "PER-W01", "alerted": false, "weight": 2.0, "attck": "T1546.003",
+     "match": ["EventFilter", "CommandLineEventConsumer"]},
+    {"chk": "CHK-05", "path": "/Windows/System32/wbem/wbemcomn.dll", "kind": "hijacked-dll",
+     "capability": "PER-V01", "alerted": false, "weight": 2.0, "attck": "T1574.001",
+     "match": ["hijack", "sideload"]},
+    {"chk": "CHK-06", "path": "/Windows/System32/winevt/Logs/System.evtx", "kind": "cleared-eventlog",
+     "capability": "ENT-F04", "alerted": false, "weight": 1.5, "attck": "T1070.001",
+     "match": ["cleared", "1102"]},
+    {"chk": "CHK-07", "path": "/Windows/System32/drivers/srv.sys", "kind": "smbv1-baseline",
+     "capability": "BAS-01", "alerted": true, "weight": 1.0, "match": ["SMBv1", "MS17-010"]}
+  ],
+
+  "remediation": [
+    {"chk": "CHK-20", "action": "isolate the host and block SMB from untrusted networks",
+     "verify": "port 445 is not reachable from outside the segment", "phase": "contain", "risk_class": "network"},
+    {"chk": "CHK-01", "action": "quarantine the EternalBlue implant",
+     "verify": "! test -f /Windows/Temp/mssecsvc.exe", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-03", "action": "quarantine the ransomware binary and terminate the process",
+     "verify": "no process references enc.exe", "phase": "eradicate", "risk_class": "runtime"},
+    {"chk": "CHK-04", "action": "remove the malicious WMI __EventFilter/consumer binding",
+     "verify": "Get-WmiObject __EventConsumer shows no attacker consumer", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-05", "action": "restore the legitimate wbemcomn.dll and remove the hijack",
+     "verify": "signed wbemcomn.dll is in place", "phase": "eradicate", "risk_class": "service"},
+    {"chk": "CHK-07", "action": "apply MS17-010 and disable SMBv1",
+     "verify": "SMBv1 disabled and patch present", "phase": "harden", "risk_class": "service"},
+    {"chk": "CHK-08", "action": "reset all credentials exposed in the LSASS dump (assume domain-wide)",
+     "verify": "credential reset timestamps are recent", "phase": "rotate", "risk_class": "auth"},
+    {"chk": "CHK-21", "action": "confirm the SMBv1 exploit path is closed",
+     "verify": "MS17-010 scanner reports not vulnerable", "phase": "verify", "risk_class": "service"},
+    {"chk": "CHK-22", "action": "restore encrypted data from backup and confirm host health",
+     "verify": "files restored and services running", "phase": "verify", "risk_class": "service"}
+  ],
+
+  "precedence": ["contain", "eradicate", "harden", "rotate", "verify"],
+  "decoys": [],
+  "judge": {"attribution": true, "quality": true}
+}

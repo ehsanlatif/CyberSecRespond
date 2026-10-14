@@ -1,0 +1,44 @@
+Uploading environment/ to /app
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Trajectory dumped to jobs/check-all/check-ssh-miner__jpvSLna/agent/trajectory.json
+Collecting main service artifacts
+Failed to download artifact '/app/check-result.json' from service 'main' (best-effort)
+Traceback (most recent call last):
+  File "/Users/983414/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/trial/artifact_handler.py", line 351, in _download_artifact
+    await source_env.service_download_file(
+    ...<3 lines>...
+    )
+  File "/Users/983414/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 1052, in service_download_file
+    await self.download_file(source_path, target_path)
+  File "/Users/983414/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 1037, in download_file
+    await self._platform.download_file(source_path, target_path)
+  File "/Users/983414/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker_unix.py", line 185, in download_file
+    await self._env._run_docker_compose_command(
+    ...<2 lines>...
+    )
+  File "/Users/983414/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker.py", line 656, in _run_docker_compose_command
+    raise RuntimeError(
+    ...<5 lines>...
+    )
+RuntimeError: Docker compose command failed for environment check-ssh-miner. Command: docker compose --project-name check-ssh-miner__jpvslna__env --project-directory /private/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/harbor-check-tm3g1x_6/check-ssh-miner/environment -f /private/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/tmpeuw3tewd/check-ssh-miner__jpvSLna__env-docker-compose-resources.json -f /Users/983414/.local/share/uv/tools/harbor/lib/python3.13/site-packages/harbor/environments/docker/docker-compose-prebuilt.yaml -f /private/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/tmprv0xhyke/docker-compose-environment.json -f /private/var/folders/ym/tr7pzz9114b1_h69mftjgk_m0000gp/T/tmphj97h71l/docker-compose-mounts.json cp main:/app/check-result.json jobs/check-all/check-ssh-miner__jpvSLna/artifacts/check-result.json. Return code: 1. Stdout:  check-ssh-miner__jpvslna__env-main-1 Copying check-ssh-miner__jpvslna__env-main-1:/app/check-result.json to jobs/check-all/check-ssh-miner__jpvSLna/artifacts/check-result.json
+Error response from daemon: Could not find the file /app/check-result.json in container 2c3cc1894a47a6ba3d96d2de9795f9875f7af28cc083334aa977993d7e17e03a
+. Stderr: None. 

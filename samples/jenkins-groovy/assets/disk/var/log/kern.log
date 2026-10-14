@@ -1,0 +1,149 @@
+Aug 19 01:06:41 jenkins-prod-01 systemd-logind[29136]: CPU0: Package temperature normal
+Aug 19 01:06:57 jenkins-prod-01 systemd[15126]: pam_unix(cron:session): session opened for user root
+Aug 19 01:07:15 jenkins-prod-01 systemd[21666]: CPU0: Package temperature normal
+Aug 19 01:07:54 jenkins-prod-01 systemd-logind[6706]: Time synchronised to time server
+Aug 19 01:08:18 jenkins-prod-01 kernel[7855]: Received disconnect from 10.10.71.48 port 49351:11: disconnected by user
+Aug 19 01:08:24 jenkins-prod-01 sshd[656]: Started Session 461 of user jenkins.
+Aug 19 01:09:10 jenkins-prod-01 systemd[27488]: Received disconnect from 10.10.71.222 port 43390:11: disconnected by user
+Aug 19 01:09:35 jenkins-prod-01 systemd-logind[3466]: Time synchronised to time server
+Aug 19 01:10:25 jenkins-prod-01 sudo[26565]: Started Session 641 of user jenkins.
+Aug 19 01:11:14 jenkins-prod-01 sudo[24048]: Time synchronised to time server
+Aug 19 01:11:35 jenkins-prod-01 sshd[19995]: Received disconnect from 10.10.71.123 port 45646:11: disconnected by user
+Aug 19 01:11:55 jenkins-prod-01 CRON[12799]: CPU0: Package temperature normal
+Aug 19 01:12:07 jenkins-prod-01 sudo[11898]: Time synchronised to time server
+Aug 19 01:12:24 jenkins-prod-01 sudo[28743]: Received disconnect from 10.10.71.222 port 56555:11: disconnected by user
+Aug 19 01:12:33 jenkins-prod-01 chronyd[3601]: Received disconnect from 10.10.71.150 port 54912:11: disconnected by user
+Aug 19 01:13:23 jenkins-prod-01 systemd[27972]: CPU0: Package temperature normal
+Aug 19 01:14:13 jenkins-prod-01 systemd-logind[8897]: Time synchronised to time server
+Aug 19 01:14:40 jenkins-prod-01 dbus-daemon[1542]: Time synchronised to time server
+Aug 19 01:14:56 jenkins-prod-01 systemd-logind[6260]: Time synchronised to time server
+Aug 19 01:15:28 jenkins-prod-01 CRON[20588]: CPU0: Package temperature normal
+Aug 19 01:15:29 jenkins-prod-01 chronyd[8222]: CPU0: Package temperature normal
+Aug 19 01:15:43 jenkins-prod-01 sshd[21073]: Received disconnect from 10.10.71.188 port 44218:11: disconnected by user
+Aug 19 01:15:58 jenkins-prod-01 CRON[27835]: Started Session 183 of user svc-backup.
+Aug 19 01:16:26 jenkins-prod-01 dbus-daemon[2162]: Time synchronised to time server
+Aug 19 01:16:27 jenkins-prod-01 chronyd[29945]: Started Session 909 of user root.
+Aug 19 01:16:34 jenkins-prod-01 sudo[27525]: CPU0: Package temperature normal
+Aug 19 01:16:54 jenkins-prod-01 kernel[24738]: Time synchronised to time server
+Aug 19 01:17:05 jenkins-prod-01 kernel[9674]: Time synchronised to time server
+Aug 19 01:17:46 jenkins-prod-01 sshd[1383]: CPU0: Package temperature normal
+Aug 19 01:18:17 jenkins-prod-01 sshd[14027]: CPU0: Package temperature normal
+Aug 19 01:18:46 jenkins-prod-01 systemd[23207]: CPU0: Package temperature normal
+Aug 19 01:19:24 jenkins-prod-01 systemd[9836]: Started Session 604 of user svc-backup.
+Aug 19 01:19:27 jenkins-prod-01 CRON[2630]: Time synchronised to time server
+Aug 19 01:20:15 jenkins-prod-01 dbus-daemon[11361]: CPU0: Package temperature normal
+Aug 19 01:20:35 jenkins-prod-01 CRON[26676]: pam_unix(cron:session): session opened for user root
+Aug 19 01:20:56 jenkins-prod-01 systemd[8835]: Received disconnect from 10.10.71.60 port 54144:11: disconnected by user
+Aug 19 01:21:06 jenkins-prod-01 systemd-logind[1911]: Received disconnect from 10.10.71.120 port 44370:11: disconnected by user
+Aug 19 01:21:16 jenkins-prod-01 chronyd[11133]: Received disconnect from 10.10.71.158 port 61085:11: disconnected by user
+Aug 19 01:21:20 jenkins-prod-01 systemd-logind[21312]: Started Session 324 of user jenkins.
+Aug 19 01:21:36 jenkins-prod-01 sshd[23001]: pam_unix(cron:session): session opened for user root
+Aug 19 01:21:58 jenkins-prod-01 CRON[13946]: Started Session 53 of user webadmin.
+Aug 19 01:22:07 jenkins-prod-01 sudo[7325]: CPU0: Package temperature normal
+Aug 19 01:22:55 jenkins-prod-01 CRON[9441]: Received disconnect from 10.10.71.140 port 46926:11: disconnected by user
+Aug 19 01:23:37 jenkins-prod-01 chronyd[15248]: Time synchronised to time server
+Aug 19 01:24:11 jenkins-prod-01 sudo[11740]: pam_unix(cron:session): session opened for user root
+Aug 19 01:24:20 jenkins-prod-01 dbus-daemon[15781]: Time synchronised to time server
+Aug 19 01:24:49 jenkins-prod-01 CRON[19765]: CPU0: Package temperature normal
+Aug 19 01:25:23 jenkins-prod-01 dbus-daemon[3253]: Time synchronised to time server
+Aug 19 01:25:40 jenkins-prod-01 chronyd[3983]: Started Session 509 of user devops.
+Aug 19 01:26:19 jenkins-prod-01 systemd[25520]: pam_unix(cron:session): session opened for user root
+Aug 19 01:26:58 jenkins-prod-01 chronyd[4125]: Received disconnect from 10.10.71.230 port 47135:11: disconnected by user
+Aug 19 01:27:08 jenkins-prod-01 sshd[29066]: Started Session 900 of user webadmin.
+Aug 19 01:28:00 jenkins-prod-01 sshd[7923]: Time synchronised to time server
+Aug 19 01:28:32 jenkins-prod-01 sshd[28507]: pam_unix(cron:session): session opened for user root
+Aug 19 01:29:17 jenkins-prod-01 dbus-daemon[23005]: CPU0: Package temperature normal
+Aug 19 01:29:30 jenkins-prod-01 systemd[8929]: Started Session 697 of user devops.
+Aug 19 01:30:05 jenkins-prod-01 chronyd[3277]: Received disconnect from 10.10.71.247 port 47614:11: disconnected by user
+Aug 19 01:30:39 jenkins-prod-01 CRON[15601]: pam_unix(cron:session): session opened for user root
+Aug 19 01:30:47 jenkins-prod-01 chronyd[9401]: CPU0: Package temperature normal
+Aug 19 01:31:15 jenkins-prod-01 sudo[27397]: Received disconnect from 10.10.71.101 port 49170:11: disconnected by user
+Aug 19 01:31:36 jenkins-prod-01 sudo[20641]: Started Session 620 of user svc-backup.
+Aug 19 01:31:37 jenkins-prod-01 sudo[19043]: Started Session 580 of user postgres.
+Aug 19 01:32:29 jenkins-prod-01 chronyd[25089]: pam_unix(cron:session): session opened for user root
+Aug 19 01:32:45 jenkins-prod-01 dbus-daemon[21879]: Started Session 968 of user webadmin.
+Aug 19 01:33:27 jenkins-prod-01 CRON[24178]: Received disconnect from 10.10.71.20 port 64639:11: disconnected by user
+Aug 19 01:33:33 jenkins-prod-01 kernel[14097]: Time synchronised to time server
+Aug 19 01:34:10 jenkins-prod-01 sshd[25923]: Time synchronised to time server
+Aug 19 01:34:35 jenkins-prod-01 sshd[26106]: CPU0: Package temperature normal
+Aug 19 01:35:22 jenkins-prod-01 kernel[10110]: CPU0: Package temperature normal
+Aug 19 01:35:52 jenkins-prod-01 CRON[6136]: Received disconnect from 10.10.71.140 port 62839:11: disconnected by user
+Aug 19 01:36:18 jenkins-prod-01 sshd[24839]: Received disconnect from 10.10.71.156 port 62235:11: disconnected by user
+Aug 19 01:36:28 jenkins-prod-01 dbus-daemon[26957]: CPU0: Package temperature normal
+Aug 19 01:37:10 jenkins-prod-01 systemd[6264]: pam_unix(cron:session): session opened for user root
+Aug 19 01:37:56 jenkins-prod-01 sudo[28881]: CPU0: Package temperature normal
+Aug 19 01:38:19 jenkins-prod-01 CRON[7236]: CPU0: Package temperature normal
+Aug 19 01:38:22 jenkins-prod-01 systemd[29091]: Received disconnect from 10.10.71.171 port 44219:11: disconnected by user
+Aug 19 01:39:06 jenkins-prod-01 sudo[7580]: pam_unix(cron:session): session opened for user root
+Aug 19 01:39:08 jenkins-prod-01 chronyd[7785]: pam_unix(cron:session): session opened for user root
+Aug 19 01:39:46 jenkins-prod-01 systemd[10063]: Received disconnect from 10.10.71.125 port 61922:11: disconnected by user
+Aug 19 01:39:54 jenkins-prod-01 sshd[468]: pam_unix(cron:session): session opened for user root
+Aug 19 01:40:47 jenkins-prod-01 systemd-logind[26814]: Received disconnect from 10.10.71.103 port 54828:11: disconnected by user
+Aug 19 01:41:21 jenkins-prod-01 dbus-daemon[19470]: Started Session 921 of user jenkins.
+Aug 19 01:41:55 jenkins-prod-01 sshd[14088]: Received disconnect from 10.10.71.13 port 48796:11: disconnected by user
+Aug 19 01:42:49 jenkins-prod-01 kernel[11689]: pam_unix(cron:session): session opened for user root
+Aug 19 01:43:02 jenkins-prod-01 chronyd[24257]: Received disconnect from 10.10.71.161 port 51097:11: disconnected by user
+Aug 19 01:43:18 jenkins-prod-01 systemd[4889]: Started Session 952 of user jenkins.
+Aug 19 01:43:32 jenkins-prod-01 kernel[22061]: CPU0: Package temperature normal
+Aug 19 01:43:41 jenkins-prod-01 kernel[18123]: Received disconnect from 10.10.71.73 port 40115:11: disconnected by user
+Aug 19 01:44:34 jenkins-prod-01 CRON[16621]: Started Session 373 of user devops.
+Aug 19 01:45:29 jenkins-prod-01 kernel[18911]: Received disconnect from 10.10.71.21 port 61111:11: disconnected by user
+Aug 19 01:45:32 jenkins-prod-01 sshd[8032]: Received disconnect from 10.10.71.108 port 50378:11: disconnected by user
+Aug 19 01:45:39 jenkins-prod-01 sshd[13668]: pam_unix(cron:session): session opened for user root
+Aug 19 01:46:14 jenkins-prod-01 chronyd[16881]: pam_unix(cron:session): session opened for user root
+Aug 19 01:47:02 jenkins-prod-01 systemd[28030]: Started Session 178 of user devops.
+Aug 19 01:47:16 jenkins-prod-01 kernel[19714]: Time synchronised to time server
+Aug 19 01:47:39 jenkins-prod-01 kernel[6687]: Started Session 682 of user root.
+Aug 19 01:48:25 jenkins-prod-01 sudo[5056]: pam_unix(cron:session): session opened for user root
+Aug 19 01:48:32 jenkins-prod-01 sshd[29330]: Received disconnect from 10.10.71.132 port 64282:11: disconnected by user
+Aug 19 01:48:51 jenkins-prod-01 systemd[22899]: Started Session 348 of user jenkins.
+Aug 19 01:49:36 jenkins-prod-01 sshd[7317]: Started Session 583 of user jenkins.
+Aug 19 01:50:18 jenkins-prod-01 systemd-logind[22183]: Started Session 452 of user webadmin.
+Aug 19 01:50:38 jenkins-prod-01 systemd[1483]: CPU0: Package temperature normal
+Aug 19 01:50:52 jenkins-prod-01 sshd[6182]: pam_unix(cron:session): session opened for user root
+Aug 19 01:51:26 jenkins-prod-01 sudo[7255]: Started Session 856 of user jenkins.
+Aug 19 01:52:19 jenkins-prod-01 sudo[10955]: Received disconnect from 10.10.71.117 port 62496:11: disconnected by user
+Aug 19 01:53:02 jenkins-prod-01 sudo[730]: Received disconnect from 10.10.71.9 port 46075:11: disconnected by user
+Aug 19 01:53:31 jenkins-prod-01 chronyd[26023]: Started Session 643 of user devops.
+Aug 19 01:54:12 jenkins-prod-01 kernel[10385]: Received disconnect from 10.10.71.58 port 63756:11: disconnected by user
+Aug 19 01:54:24 jenkins-prod-01 kernel[5255]: Started Session 202 of user webadmin.
+Aug 19 01:54:59 jenkins-prod-01 dbus-daemon[20218]: CPU0: Package temperature normal
+Aug 19 01:55:01 jenkins-prod-01 sudo[12922]: Time synchronised to time server
+Aug 19 01:55:02 jenkins-prod-01 chronyd[8339]: Time synchronised to time server
+Aug 19 01:55:32 jenkins-prod-01 systemd[16426]: Time synchronised to time server
+Aug 19 01:55:51 jenkins-prod-01 chronyd[26993]: Time synchronised to time server
+Aug 19 01:56:18 jenkins-prod-01 dbus-daemon[3170]: Time synchronised to time server
+Aug 19 01:56:25 jenkins-prod-01 systemd[5070]: Received disconnect from 10.10.71.249 port 59737:11: disconnected by user
+Aug 19 01:56:49 jenkins-prod-01 sshd[2011]: CPU0: Package temperature normal
+Aug 19 01:57:39 jenkins-prod-01 sudo[16663]: pam_unix(cron:session): session opened for user root
+Aug 19 01:57:45 jenkins-prod-01 sshd[21401]: Started Session 735 of user webadmin.
+Aug 19 01:58:12 jenkins-prod-01 sshd[27390]: pam_unix(cron:session): session opened for user root
+Aug 19 01:58:40 jenkins-prod-01 CRON[3302]: Received disconnect from 10.10.71.168 port 62928:11: disconnected by user
+Aug 19 01:58:49 jenkins-prod-01 chronyd[15286]: Time synchronised to time server
+Aug 19 01:59:30 jenkins-prod-01 dbus-daemon[23668]: CPU0: Package temperature normal
+Aug 19 02:00:02 jenkins-prod-01 CRON[25234]: CPU0: Package temperature normal
+Aug 19 02:00:39 jenkins-prod-01 kernel[16176]: Received disconnect from 10.10.71.116 port 62034:11: disconnected by user
+Aug 19 02:00:58 jenkins-prod-01 chronyd[29360]: Started Session 722 of user svc-backup.
+Aug 19 02:01:49 jenkins-prod-01 dbus-daemon[12003]: CPU0: Package temperature normal
+Aug 19 02:02:30 jenkins-prod-01 systemd-logind[2751]: CPU0: Package temperature normal
+Aug 19 02:02:37 jenkins-prod-01 kernel[23332]: Started Session 498 of user svc-backup.
+Aug 19 02:02:41 jenkins-prod-01 sshd[10144]: Received disconnect from 10.10.71.188 port 60404:11: disconnected by user
+Aug 19 02:03:10 jenkins-prod-01 sudo[4547]: Received disconnect from 10.10.71.68 port 63613:11: disconnected by user
+Aug 19 02:03:21 jenkins-prod-01 systemd-logind[19897]: Time synchronised to time server
+Aug 19 02:03:38 jenkins-prod-01 kernel[16514]: Time synchronised to time server
+Aug 19 02:04:23 jenkins-prod-01 sudo[28829]: Started Session 975 of user devops.
+Aug 19 02:05:06 jenkins-prod-01 dbus-daemon[15194]: pam_unix(cron:session): session opened for user root
+Aug 19 02:05:35 jenkins-prod-01 kernel[28050]: Started Session 806 of user devops.
+Aug 19 02:05:55 jenkins-prod-01 dbus-daemon[3138]: pam_unix(cron:session): session opened for user root
+Aug 19 02:06:28 jenkins-prod-01 sudo[12885]: pam_unix(cron:session): session opened for user root
+Aug 19 02:07:17 jenkins-prod-01 dbus-daemon[12997]: Time synchronised to time server
+Aug 19 02:07:25 jenkins-prod-01 dbus-daemon[29147]: Received disconnect from 10.10.71.54 port 41260:11: disconnected by user
+Aug 19 02:07:45 jenkins-prod-01 sudo[6529]: Started Session 73 of user svc-backup.
+Aug 19 02:08:13 jenkins-prod-01 dbus-daemon[10522]: Started Session 858 of user jenkins.
+Aug 19 02:08:33 jenkins-prod-01 kernel[20405]: Received disconnect from 10.10.71.215 port 48290:11: disconnected by user
+Aug 19 02:09:26 jenkins-prod-01 systemd[2093]: Received disconnect from 10.10.71.71 port 53883:11: disconnected by user
+Aug 19 02:10:17 jenkins-prod-01 sshd[22750]: pam_unix(cron:session): session opened for user root
+Aug 19 02:11:12 jenkins-prod-01 chronyd[28015]: pam_unix(cron:session): session opened for user root
+Aug 19 02:11:53 jenkins-prod-01 sudo[10651]: CPU0: Package temperature normal
+Aug 19 02:12:26 jenkins-prod-01 sshd[28501]: pam_unix(cron:session): session opened for user root
+Aug 19 02:12:50 jenkins-prod-01 systemd[23799]: CPU0: Package temperature normal

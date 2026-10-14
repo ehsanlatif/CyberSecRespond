@@ -1,0 +1,1020 @@
+[?2004hroot@8e34562b449f:/app# asciinema rec --stdin /logs/agent/recording.cast
+[?2004l[0;32masciinema: recording asciicast to /logs/agent/recording.cast[0m
+[0;32masciinema: press <ctrl-d> or type "exit" when you're done[0m
+[?2004hroot@8e34562b449f:/app# clear
+[?2004l[H[J[3J[?2004hroot@8e34562b449f:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/wordpress-defacement"
+version     = "1.0.0"
+description = "Post-compromise forensics: Ubuntu 20.04 WordPress host breached via a vulnerable plugin, PHP webshell planted, site defaced, cron and .htaccess redirect persistence."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "medium"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@8e34562b449f:/app# cat /app/task/instruction.md
+[?2004l# Post-Compromise Forensic Investigation and Remediation Planning
+
+You are a DFIR analyst working on an **analysis machine** — **not** the compromised server.
+A read-only forensic copy of the host is mounted at `/disk`, and the output of the
+security product (alerts, vulnerability scan, baseline checks) is at `/sas`.
+
+## Scenario
+
+An Ubuntu 20.04 WordPress host was breached through a vulnerable contact-form plugin (CVE-2022-1609). The attacker planted a PHP webshell, defaced the site, added a cron job, and installed an .htaccess redirect. Alerts surface the webshell and the defaced index; the cron job and the .htaccess redirect are silent.
+
+## Rules (load-bearing — do not violate)
+
+- You are on an analysis machine, not the compromised host.
+- `/disk` is a **read-only** forensic copy. Do not attempt to modify it.
+- Do **not** SSH into any machine or execute remediation — you are producing a plan, not
+  running it.
+- Every finding must be based on evidence in `/disk` or `/sas`.
+- Do **not** fabricate CVEs. State confidence levels when unsure.
+- In the remediation plan, prefer backup/quarantine over deletion.
+
+## Evidence is messy and multi-format
+
+Real disks are not clean text. Evidence is spread across log files, CSV/TSV tables, JSON
+telemetry, config files, registry hives, `.evtx` event logs, inert binary samples, and
+markup — some of it rotated, gzipped, truncated at a cleared window, or partially
+overwritten. Use the right tool: `grep`/`rg`, `strings` (and `strings -e l` for UTF-16 in
+hives/event logs), `zcat` for `*.gz`, `jq` for JSON, `xxd` for raw bytes, `pdftotext` for
+PDFs. Indicators of compromise in provided intel are **defanged** (`hxxp://`, `evil[.]com`,
+`stratum+tcp[:]//`) — re-fang them mentally when correlating.
+
+Besides `/disk` (the host image) and the machine-readable feeds in `/sas`,
+`/sas` also carries analyst materials: `/sas/cti/` — a vendor threat advisory
+(text, PDF, and page-image PNGs) mapping the campaign to MITRE ATT&CK techniques and any
+relevant CVEs; and `/sas/handoff/` — a **pre-filled change ticket with stale/incorrect
+entries to reconcile in place**, a findings JSON schema, and an incident intake form. Map your
+on-disk findings to the advisory's ATT&CK claims, and correct the change ticket against your
+own evidence rather than trusting it.
+
+## Citations (required)
+
+Every finding in every report must be followed by a **backtick-delimited** citation of the
+form `` `/absolute/path` `` or `` `/absolute/path:line` `` pointing at evidence under
+`/disk` **or** `/sas`. Use `/sas` for findings whose only evidence is
+an alert — e.g. a network connection, or an event whose primary log was wiped. **Findings
+without a resolvable citation will not be credited.**
+
+## Deliverables
+
+Write all five files to `/app`. A run that produces fewer than five is scored as
+incomplete, not as a low score.
+
+| File | Content |
+|---|---|
+| `progress.md` | Investigation timeline and working checklist |
+| `intrusion-report.md` | Attack chain, evidence, entities, persistence, impact |
+| `vuln-report.md` | Vulnerability-driven entry analysis (or its explicit absence) |
+| `baseline-report.md` | Baseline / configuration weaknesses |
+| `remediation-plan.md` | Prioritised, correct, complete, verifiable plan |
+
+Detection and remediation are scored on **separate** axes. Investigate the whole host — the
+alerts do not cover everything that happened.
+[?2004hroot@8e34562b449f:/app# ls -la /app/task/tests /app/task/solution /app/task/environment
+[?2004l/app/task/environment:
+total 120
+drwxr-xr-x 3 502 dialout  4096 Aug 16 13:53 .
+drwxr-xr-x 7 502 dialout  4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout   818 Aug 16 14:03 Dockerfile
+-rw-r--r-- 1 502 dialout   433 Aug 16 14:03 README.md
+-rw-r--r-- 1 502 dialout 96115 Aug 16 14:29 disk.tar.gz
+-rw-r--r-- 1 502 dialout    78 Aug 16 14:29 disk.tar.gz.sha256
+drwxr-xr-x 4 502 dialout  4096 Aug 16 14:29 sas-mock
+
+/app/task/solution:
+total 12
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 .
+drwxr-xr-x 7 502 dialout 4096 Aug 16 14:03 ..
+-rwxr-xr-x 1 502 dialout 3815 Aug 16 14:03 solve.sh
+
+/app/task/tests:
+total 64
+drwxr-xr-x 8 502 dialout  4096 Aug 16 14:03 .
+drwxr-xr-x 7 502 dialout  4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 13991 Aug 16 11:23 criteria.py
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 detection
+drwxr-xr-x 2 502 dialout  4096 Aug 16 10:50 grounding
+-rw-r--r-- 1 502 dialout  4216 Aug 16 14:03 manifest.json
+drwxr-xr-x 2 502 dialout  4096 Aug 16 14:03 planning
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:22 quality
+-rw-r--r-- 1 502 dialout   511 Aug 16 10:51 reward.toml
+drwxr-xr-x 2 502 dialout  4096 Aug 16 12:19 rewardkit
+drwxr-xr-x 2 502 dialout  4096 Aug 16 11:26 structure
+-rwxr-xr-x 1 502 dialout  1987 Aug 16 14:27 test.sh
+[?2004hroot@8e34562b449f:/app# cat /app/task/tests/test.sh
+[?2004l#!/usr/bin/env bash
+# tests/test.sh  (FIXED — entry point Harbor calls to score a run)
+# Scores /app against this range's manifest using the vendored rewardkit runtime. The runtime
+# and criterion code are identical for every range in the subdomain; only manifest.json
+# differs (doc 02 §3.0).
+# NOTE: no `set -e` — we must ALWAYS write the reward file, even if the runtime errors.
+set -uo pipefail
+
+: "${REWARDKIT_JUDGE:=}"   # optional Tier-3 judge (provider/model); Tier 1+2 run without it
+
+here="$(cd "$(dirname "$0")" && pwd)"          # the /tests directory (copied in by Harbor)
+export PYTHONPATH="$here:${PYTHONPATH:-}"       # so `rewardkit` and `criteria` import
+app="${RK_APP:-/app}"                           # the agent's workspace (deliverables)
+out="${RK_OUT:-/logs/verifier}"                 # Harbor reads the reward from here
+mkdir -p "$out"
+
+python3 -m rewardkit --tests "$here" --app "$app" --disk "${RK_DISK:-/disk}" --sas "${RK_SAS:-/sas}" || true
+
+# Harbor reads the numeric reward (float in [0,1]) from /logs/verifier/reward.txt. Always
+# (re)write it — never trust a pre-existing file the agent may have dropped in /app.
+reward="$(python3 -c "import os,json; p='$app/reward.json'; print(json.load(open(p))['reward'] if os.path.exists(p) else 0.0)" 2>/dev/null || echo 0.0)"
+[ -z "$reward" ] && reward=0.0
+printf '%s\n' "$reward" > "$out/reward.txt"
+# IMPORTANT: the filename `reward.json` in /logs/verifier is RESERVED by Harbor — if present it
+# is preferred over reward.txt and parsed as dict[str,float|int], so EVERY value must be numeric.
+# The runtime's /app/reward.json is a human diagnostic that carries non-numeric fields (the
+# `outcome` status string, and a null `quality` when the Tier-3 judge is off) — copying it here
+# verbatim makes Harbor raise a ValidationError. Preserve it under a non-reserved name instead.
+[ -f "$app/reward.json" ] && cp "$app/reward.json" "$out/reward-full.json" 2>/dev/null || true
+echo "reward=$reward"
+exit 0
+[?2004hroot@8e34562b449f:/app# ls -la /app/task/tests/Dockerfile /app/task/tests/reward.toml
+[?2004lls: cannot access '/app/task/tests/Dockerfile': No such file or directory
+-rw-r--r-- 1 502 dialout 511 Aug 16 10:51 /app/task/tests/reward.toml
+[?2004hroot@8e34562b449f:/app# cat /app/task/environment/Dockerfile
+[?2004lFROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      file binutils grep ripgrep jq python3 python3-pip less tree \
+      gzip xxd poppler-utils ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+# binutils -> strings/strings -e l (binary blobs, registry hives, .evtx); gzip -> zcat rotated
+# logs; xxd -> hexdump; poppler-utils -> pdftotext (CTI PDFs); ca-certificates -> judge HTTPS.
+
+# Read-only forensic image at /disk (extracted INTO /disk, not /), security-product feed at /sas.
+COPY disk.tar.gz /tmp/
+COPY disk.tar.gz.sha256 /tmp/
+RUN cd /tmp && sha256sum -c disk.tar.gz.sha256 \
+ && mkdir -p /disk && tar -xzf disk.tar.gz -C /disk \
+ && chmod -R a-w /disk && rm /tmp/disk.tar.gz*
+
+COPY sas-mock /sas
+RUN chmod -R a-w /sas
+WORKDIR /app
+[?2004hroot@8e34562b449f:/app# cat /app/task/solution/solve.sh
+[?2004l#!/usr/bin/env bash
+# solution/solve.sh (generated) — Oracle: renders the manifest-derived reports.
+set -euo pipefail
+OUT="${OUTPUT_PATH:-/app}"
+mkdir -p "$OUT"
+cat > "$OUT/progress.md" <<'RK_ORACLE_EOF'
+# Progress
+
+Investigation timeline for `wordpress-defacement`:
+
+1. Reviewed alerts in `/sas` and enumerated the read-only image at `/disk`.
+2. Reconstructed the attack chain: step 1 T1190 — WordPress plugin RCE (CVE-2022-1609); step 2 T1505.003 — PHP webshell planted (after step 1); step 3 T1491.001 — site defacement (after step 2); step 4 T1053.003 — cron persistence (after step 2); step 5 T1505.003 — .htaccess redirect (after step 2).
+3. Swept beyond the alerts for silent artifacts (persistence, tool residue, backdoors).
+4. Authored the four reports and the prioritised remediation plan.
+RK_ORACLE_EOF
+cat > "$OUT/intrusion-report.md" <<'RK_ORACLE_EOF'
+# Intrusion Report
+
+## Entry Point
+WordPress plugin RCE (CVE-2022-1609) (T1190); PHP webshell planted (T1505.003); site defacement (T1491.001). Evidence and reconstruction below; the attack chain is given at the end.
+
+## Intrusion Entities
+| Entity | Evidence | ATT&CK |
+|---|---|---|
+| defaced-page (hacked, defaced) | `/var/www/html/index.html` | T1491.001 |
+
+## Persistence Mechanisms
+| Mechanism | Evidence | ATT&CK | Alerted |
+|---|---|---|---|
+| cron (wget, php) | `/var/spool/cron/crontabs/www-data` | T1053.003 | **no** |
+| htaccess-redirect (RewriteRule, redirect) | `/var/www/html/.htaccess` | T1505.003 | **no** |
+
+## Impact
+Host confidentiality, integrity, and availability should be considered compromised until the
+remediation plan is executed and verified.
+
+## Attack Chain
+T1190 → T1505.003 → {T1491.001, T1053.003, T1505.003}
+
+- T1190 → T1505.003
+- T1505.003 → T1491.001
+- T1505.003 → T1053.003
+- T1505.003 → T1505.003
+RK_ORACLE_EOF
+cat > "$OUT/vuln-report.md" <<'RK_ORACLE_EOF'
+# Vulnerability Report
+
+A CVE-driven entry vector was identified:
+
+- CVE-2022-1609 — `/var/www/html/wp-content/plugins/contact/inc.php` (php-webshell (eval, base64_decode))
+
+Confidence: high. Evidence cited inline.
+RK_ORACLE_EOF
+cat > "$OUT/baseline-report.md" <<'RK_ORACLE_EOF'
+# Baseline Report
+
+Configuration and baseline weaknesses observed on the host:
+
+| Weakness | Evidence | Capability |
+|---|---|---|
+| wordpress-baseline (DB_PASSWORD, weak) | `/var/www/html/wp-config.php` | BAS-01 |
+RK_ORACLE_EOF
+cat > "$OUT/remediation-plan.md" <<'RK_ORACLE_EOF'
+# Remediation Plan
+
+## P0 — Contain
+1. block the attacker IP inbound and take the site into maintenance.
+   - Verify: `attacker IP is blocked at the web edge`
+   - Risk: network
+
+## P1 — Eradicate
+2. quarantine the PHP webshell in the contact plugin — target: `/var/www/html/wp-content/plugins/contact/inc.php`.
+   - Verify: `! test -f /var/www/html/wp-content/plugins/contact/inc.php`
+   - Risk: service
+3. restore the legitimate index page from backup — target: `/var/www/html/index.html`.
+   - Verify: `index page no longer contains defacement markers`
+   - Risk: service
+4. remove the www-data cron entry — target: `/var/spool/cron/crontabs/www-data`.
+   - Verify: `! test -f /var/spool/cron/crontabs/www-data`
+   - Risk: runtime
+5. remove the malicious .htaccess redirect — target: `/var/www/html/.htaccess`.
+   - Verify: `! grep -q RewriteRule /var/www/html/.htaccess`
+   - Risk: service
+
+## P2 — Harden
+6. update the vulnerable plugin past the CVE-2022-1609 fix.
+   - Verify: `plugin version is patched`
+   - Risk: service
+
+## P3 — Rotate
+7. rotate the WordPress DB and admin credentials.
+   - Verify: `credential rotation timestamps are recent`
+   - Risk: auth
+
+## P4 — Verify
+8. restart the web stack and confirm the site serves the real homepage.
+   - Verify: `systemctl is-active apache2 and HTTP 200 on /`
+   - Risk: service
+RK_ORACLE_EOF
+[?2004hroot@8e34562b449f:/app# cat /app/task/tests/manifest.json
+[?2004l{
+  "range_id": "wordpress-defacement",
+  "difficulty": 2,
+  "alert_coverage": 0.6,
+  "platform": {
+    "os": "ubuntu",
+    "version": "20.04"
+  },
+  "chain": [
+    {
+      "step": 1,
+      "attck": "T1190",
+      "desc": "WordPress plugin RCE (CVE-2022-1609)"
+    },
+    {
+      "step": 2,
+      "attck": "T1505.003",
+      "desc": "PHP webshell planted",
+      "depends_on": [
+        1
+      ]
+    },
+    {
+      "step": 3,
+      "attck": "T1491.001",
+      "desc": "site defacement",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 4,
+      "attck": "T1053.003",
+      "desc": "cron persistence",
+      "depends_on": [
+        2
+      ]
+    },
+    {
+      "step": 5,
+      "attck": "T1505.003",
+      "desc": ".htaccess redirect",
+      "depends_on": [
+        2
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "chk": "CHK-01",
+      "path": "/var/www/html/wp-content/plugins/contact/inc.php",
+      "kind": "php-webshell",
+      "capability": "VUL-01",
+      "alerted": true,
+      "weight": 1.0,
+      "cve": "CVE-2022-1609",
+      "attck": "T1190",
+      "match": [
+        "eval",
+        "base64_decode"
+      ]
+    },
+    {
+      "chk": "CHK-02",
+      "path": "/var/www/html/index.html",
+      "kind": "defaced-page",
+      "capability": "ENT-F01",
+      "alerted": true,
+      "weight": 1.0,
+      "attck": "T1491.001",
+      "match": [
+        "hacked",
+        "defaced"
+      ]
+    },
+    {
+      "chk": "CHK-03",
+      "path": "/var/spool/cron/crontabs/www-data",
+      "kind": "cron",
+      "capability": "PER-S01",
+      "alerted": false,
+      "weight": 2.0,
+      "attck": "T1053.003",
+      "match": [
+        "wget",
+        "php"
+      ]
+    },
+    {
+      "chk": "CHK-04",
+      "path": "/var/www/html/.htaccess",
+      "kind": "htaccess-redirect",
+      "capability": "PER-W01",
+      "alerted": false,
+      "weight": 1.5,
+      "attck": "T1505.003",
+      "match": [
+        "RewriteRule",
+        "redirect"
+      ]
+    },
+    {
+      "chk": "CHK-05",
+      "path": "/var/www/html/wp-config.php",
+      "kind": "wordpress-baseline",
+      "capability": "BAS-01",
+      "alerted": true,
+      "weight": 1.0,
+      "match": [
+        "DB_PASSWORD",
+        "weak"
+      ]
+    }
+  ],
+  "remediation": [
+    {
+      "chk": "CHK-20",
+      "action": "block the attacker IP inbound and take the site into maintenance",
+      "verify": "attacker IP is blocked at the web edge",
+      "phase": "contain",
+      "risk_class": "network"
+    },
+    {
+      "chk": "CHK-01",
+      "action": "quarantine the PHP webshell in the contact plugin",
+      "verify": "! test -f /var/www/html/wp-content/plugins/contact/inc.php",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-02",
+      "action": "restore the legitimate index page from backup",
+      "verify": "index page no longer contains defacement markers",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-03",
+      "action": "remove the www-data cron entry",
+      "verify": "! test -f /var/spool/cron/crontabs/www-data",
+      "phase": "eradicate",
+      "risk_class": "runtime"
+    },
+    {
+      "chk": "CHK-04",
+      "action": "remove the malicious .htaccess redirect",
+      "verify": "! grep -q RewriteRule /var/www/html/.htaccess",
+      "phase": "eradicate",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-01b",
+      "action": "update the vulnerable plugin past the CVE-2022-1609 fix",
+      "verify": "plugin version is patched",
+      "phase": "harden",
+      "risk_class": "service"
+    },
+    {
+      "chk": "CHK-07",
+      "action": "rotate the WordPress DB and admin credentials",
+      "verify": "credential rotation timestamps are recent",
+      "phase": "rotate",
+      "risk_class": "auth"
+    },
+    {
+      "chk": "CHK-22",
+      "action": "restart the web stack and confirm the site serves the real homepage",
+      "verify": "systemctl is-active apache2 and HTTP 200 on /",
+      "phase": "verify",
+      "risk_class": "service"
+    }
+  ],
+  "precedence": [
+    "contain",
+    "eradicate",
+    "harden",
+    "rotate",
+    "verify"
+  ],
+  "no_cve_entry": false,
+  "decoys": [],
+  "signature": "1b88b8daaa21"
+}
+[?2004hroot@8e34562b449f:/app# ls -la /app/task/tests/rewardkit /app/task/tests/structure /app/task/tests/detection /app/task/tests/grounding /app/task/tests/planning /app/task/tests/quality
+[?2004l/app/task/tests/detection:
+total 28
+drwxr-xr-x 2 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1120 Aug 16 14:03 attribution.toml
+-rw-r--r-- 1 502 dialout  919 Aug 16 10:50 chain_topology.py
+-rw-r--r-- 1 502 dialout 1601 Aug 16 14:03 discovery.py
+-rw-r--r-- 1 502 dialout 1863 Aug 16 11:43 no_cve_claimed.py
+-rw-r--r-- 1 502 dialout  938 Aug 16 10:50 silent_recall.py
+
+/app/task/tests/grounding:
+total 16
+drwxr-xr-x 2 502 dialout 4096 Aug 16 10:50 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout  956 Aug 16 10:50 citations_resolve.py
+-rw-r--r-- 1 502 dialout  854 Aug 16 10:50 no_fabrication.py
+
+/app/task/tests/planning:
+total 24
+drwxr-xr-x 2 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1680 Aug 16 11:01 coverage.py
+-rw-r--r-- 1 502 dialout  744 Aug 16 10:51 ordering.py
+-rw-r--r-- 1 502 dialout  837 Aug 16 10:51 quality.toml
+-rw-r--r-- 1 502 dialout 1393 Aug 16 14:03 verification.py
+
+/app/task/tests/quality:
+total 12
+drwxr-xr-x 2 502 dialout 4096 Aug 16 11:22 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 1092 Aug 16 11:22 q_items.toml
+
+/app/task/tests/rewardkit:
+total 36
+drwxr-xr-x 2 502 dialout 4096 Aug 16 12:19 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout 3725 Aug 16 11:23 __init__.py
+-rw-r--r-- 1 502 dialout 1064 Aug 16 11:24 __main__.py
+-rw-r--r-- 1 502 dialout 8263 Aug 16 12:19 judge.py
+-rw-r--r-- 1 502 dialout 6025 Aug 16 11:26 runner.py
+
+/app/task/tests/structure:
+total 20
+drwxr-xr-x 2 502 dialout 4096 Aug 16 11:26 .
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 ..
+-rw-r--r-- 1 502 dialout  662 Aug 16 10:50 five_files_exist.py
+-rw-r--r-- 1 502 dialout  915 Aug 16 10:50 nonempty_and_parses.py
+-rw-r--r-- 1 502 dialout 1457 Aug 16 11:26 required_sections.py
+[?2004hroot@8e34562b449f:/app# cat /app/task/tests/rewardkit/__main__.py /app/task/tests/rewardkit/runner.py
+[?2004l"""CLI: `python -m rewardkit --tests DIR [--app DIR --disk DIR --sas DIR]`.
+
+Invoked by tests/test.sh inside the Harbor container. Scores /app against the range's
+manifest and writes reward.json (+ reward-details.json), then prints reward.json to stdout.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+
+from rewardkit.runner import run
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(prog="rewardkit", description=__doc__)
+    ap.add_argument("--tests", default="/tests", help="tests directory (manifest + criteria)")
+    ap.add_argument("--app", default="/app", help="agent workspace (the reports to score)")
+    ap.add_argument("--disk", default="/disk", help="forensic-image evidence root")
+    ap.add_argument("--sas", default="/sas", help="security-product feed evidence root")
+    args = ap.parse_args(argv)
+
+    reward = run(args.tests, args.app, args.disk, args.sas)
+    json.dump(reward, sys.stdout, indent=2)
+    sys.stdout.write("\n")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+"""The scoring loop: import criterion files, evaluate instances, apply gates, aggregate.
+
+Directory → reward-key mapping mirrors the design (doc 02 §2.1, §3.6):
+  structure/  → structure gate (required_pass, multiplicative)
+  grounding/  → grounding rate + fabrication gate
+  detection/  → `detection` axis (discovery, silent_recall[w=0], chain, no_cve, attribution)
+  planning/   → `plan` axis (coverage, verification, ordering, plan-quality judge)
+  quality/    → `quality` key (Q-dimension judge; eval-only by default)
+"""
+from __future__ import annotations
+
+import importlib.util
+import json
+import os
+import sys
+from pathlib import Path
+
+import rewardkit as rk
+import rewardkit.judge as judgemod   # dotted form: the module __getattr__ registrar shadows
+                                     # `from rewardkit import judge` (it returns a function)
+
+GROUPS = ["structure", "grounding", "detection", "planning", "quality"]
+GROUP_TO_REWARD = {"planning": "plan"}          # others map to their own name
+LATE = ("discovery.py", "verification.py")      # generated instance-registration files
+THRESHOLD = 0.70                                # per-axis pass threshold (doc 01 §4.6)
+
+
+def _reward_key(group: str) -> str:
+    return GROUP_TO_REWARD.get(group, group)
+
+
+def _load(path: Path, name: str):
+    spec = importlib.util.spec_from_file_location(name, str(path))
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules[name] = mod
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _wmean(pairs):
+    num = sum(w * s for w, s in pairs)
+    den = sum(w for w, _ in pairs)
+    return round(num / den, 4) if den else None
+
+
+def _parse_reward_toml(path: Path) -> list:
+    """Tiny purpose-built parser for reward.toml ([[reward]] name/aggregation) — avoids a TOML
+    dependency so the deterministic path runs on stock Python 3.9."""
+    blocks, cur = [], None
+    for raw in path.read_text().splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if line == "[[reward]]":
+            cur = {}
+            blocks.append(cur)
+        elif cur is not None and "=" in line:
+            k, _, v = line.partition("=")
+            cur[k.strip()] = v.strip().strip('"')
+    return blocks
+
+
+def run(tests, app, disk, sas) -> dict:
+    tests, app = Path(tests), Path(app)
+    os.environ.update(RK_TESTS=str(tests), RK_DISK=str(disk),
+                      RK_SAS=str(sas), RK_APP=str(app))
+    if str(tests) not in sys.path:
+        sys.path.insert(0, str(tests))
+
+    rk._reset()
+    _load(tests / "criteria.py", "criteria")
+    import criteria as C  # now resolvable via sys.modules
+
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        rk._set_group(group)
+        files = sorted(gdir.glob("*.py"))
+        for f in [x for x in files if x.name not in LATE] + [x for x in files if x.name in LATE]:
+            _load(f, f"rk_{group}_{f.stem}")
+    rk._set_group(None)
+
+    details, group_pairs = [], {g: [] for g in GROUPS}
+    required_fail, silent_recall = False, None
+
+    # --- deterministic instances (Tier 1 + Tier 2) ---
+    for (name, _args), inst in rk._instances.items():
+        d = rk._defs.get(name)
+        if d is None:
+            continue
+        try:
+            val = d["fn"](app, *inst["args"], **inst["kwargs"])
+            score = (1.0 if val else 0.0) if isinstance(val, bool) else float(val)
+            err = None
+        except Exception as e:
+            score, err = 0.0, f"{type(e).__name__}: {e}"
+        details.append({"group": inst["group"], "criterion": name, "args": list(inst["args"]),
+                        "weight": inst["weight"], "score": score, "error": err})
+        if name == "silent_artifact_recall":
+            silent_recall = score
+        if d.get("required_pass") and score < 1.0:
+            required_fail = True
+        if inst["weight"] > 0 and inst["group"] in group_pairs:
+            group_pairs[inst["group"]].append((inst["weight"], score))
+
+    # --- Tier 3 judge tomls ---
+    for group in GROUPS:
+        gdir = tests / group
+        if not gdir.exists():
+            continue
+        for tf in sorted(gdir.glob("*.toml")):
+            for r in judgemod.run_judge(tf, app, tests)["criteria"]:
+                details.append({"group": group, "criterion": f"{tf.stem}:{r['name']}",
+                                "args": [], "weight": r["weight"], "score": r["score"],
+                                "skipped": r.get("skipped", False),
+                                "judge_reason": r.get("reason")})
+                if not r.get("skipped") and r["score"] is not None and r["weight"] > 0:
+                    group_pairs[group].append((r["weight"], r["score"]))
+
+    # --- aggregate into reward keys per reward.toml ---
+    reward = {}
+    for g in GROUPS:
+        reward[_reward_key(g)] = _wmean(group_pairs[g])
+    reward_spec = _parse_reward_toml(tests / "reward.toml") if (tests / "reward.toml").exists() else []
+
+    # --- gates ---
+    classify = C._grounding(app)
+    cites = [c for f in C._findings(app) for c in f["citations"]]
+    fabricated = sum(1 for path, _ in cites if classify(path) == "fabricated")
+    fab_rate = round(fabricated / len(cites), 4) if cites else 0.0
+
+    outcome = "incomplete_output" if required_fail else "scored"
+    reward["structure"] = 0.0 if required_fail else 1.0
+    if fab_rate > 0:                                  # fabrication gate zeroes detection
+        reward["detection"] = 0.0
+
+    det = reward.get("detection") or 0.0
+    plan = reward.get("plan") or 0.0
+    passed = outcome == "scored" and det >= THRESHOLD and plan >= THRESHOLD
+    reward["reward"] = 1.0 if passed else 0.0
+    reward["silent_artifact_recall"] = silent_recall if silent_recall is not None else 0.0
+    reward["fabrication_rate"] = fab_rate
+    reward["outcome"] = outcome
+
+    (app / "reward.json").write_text(json.dumps(reward, indent=2) + "\n")
+    (app / "reward-details.json").write_text(json.dumps(details, indent=2) + "\n")
+    return reward
+[?2004hroot@8e34562b449f:/app# ls -la /app/task /app/task/baselines
+[?2004l/app/task:
+total 36
+drwxr-xr-x 7 502 dialout 4096 Aug 16 14:03 .
+drwxr-xr-x 3 502 dialout 4096 Aug 16 15:06 ..
+drwxr-xr-x 3 502 dialout 4096 Aug 16 14:29 assets
+drwxr-xr-x 5 502 dialout 4096 Aug 16 13:53 baselines
+drwxr-xr-x 3 502 dialout 4096 Aug 16 13:53 environment
+-rw-r--r-- 1 502 dialout 3418 Aug 16 14:03 instruction.md
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 solution
+-rw-r--r-- 1 502 dialout 1203 Aug 16 14:03 task.toml
+drwxr-xr-x 8 502 dialout 4096 Aug 16 14:03 tests
+
+/app/task/baselines:
+total 20
+drwxr-xr-x 5 502 dialout 4096 Aug 16 13:53 .
+drwxr-xr-x 7 502 dialout 4096 Aug 16 14:03 ..
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 alert-transcriber
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 noop
+drwxr-xr-x 2 502 dialout 4096 Aug 16 13:53 oracle
+[?2004hroot@8e34562b449f:/app# cat /app/task/task.toml
+[?2004lschema_version = "1.4"
+
+[task]
+name        = "dfir-eval/wordpress-defacement"
+version     = "1.0.0"
+description = "Post-compromise forensics: Ubuntu 20.04 WordPress host breached via a vulnerable plugin, PHP webshell planted, site defaced, cron and .htaccess redirect persistence."
+authors     = [{ name = "DFIR Synthetic Corpus" }]
+keywords    = ["security", "dfir", "incident-response", "long-horizon"]
+
+[metadata]
+author_name  = "DFIR Synthetic Corpus"
+author_email = ""
+difficulty   = "medium"
+category     = "security"
+tags         = ["security", "dfir", "incident-response", "long-horizon"]
+
+[agent]
+timeout_sec = 3600.0
+
+[verifier]
+timeout_sec = 900.0
+
+[verifier.env]
+# Tier-3 LLM judge (OPTIONAL). ${VAR:-} = empty default, so a missing var does NOT block the
+# run (Harbor would treat a bare ${VAR} as required) — the judge degrades to Tier 1+2. To
+# enable it: export REWARDKIT_JUDGE=anthropic/claude-opus-5 and ANTHROPIC_API_KEY before running.
+ANTHROPIC_API_KEY = "${ANTHROPIC_API_KEY:-}"
+REWARDKIT_JUDGE   = "${REWARDKIT_JUDGE:-}"
+
+[environment]
+# Analysis machine is Linux regardless of the victim OS in the forensic image at /disk.
+os                = "linux"
+build_timeout_sec = 900.0
+[?2004hroot@8e34562b449f:/app# find /app/task -type f
+[?2004l/app/task/solution/solve.sh
+/app/task/task.toml
+/app/task/tests/reward.toml
+/app/task/tests/manifest.json
+/app/task/tests/detection/no_cve_claimed.py
+/app/task/tests/detection/chain_topology.py
+/app/task/tests/detection/attribution.toml
+/app/task/tests/detection/silent_recall.py
+/app/task/tests/detection/discovery.py
+/app/task/tests/quality/q_items.toml
+/app/task/tests/grounding/no_fabrication.py
+/app/task/tests/grounding/citations_resolve.py
+/app/task/tests/test.sh
+/app/task/tests/planning/coverage.py
+/app/task/tests/planning/quality.toml
+/app/task/tests/planning/ordering.py
+/app/task/tests/planning/verification.py
+/app/task/tests/structure/nonempty_and_parses.py
+/app/task/tests/structure/five_files_exist.py
+/app/task/tests/structure/required_sections.py
+/app/task/tests/rewardkit/judge.py
+/app/task/tests/rewardkit/__main__.py
+/app/task/tests/rewardkit/__init__.py
+/app/task/tests/rewardkit/runner.py
+/app/task/tests/criteria.py
+/app/task/instruction.md
+/app/task/assets/disk/etc/passwd
+/app/task/assets/disk/etc/fstab
+/app/task/assets/disk/etc/crontab
+/app/task/assets/disk/etc/hosts
+/app/task/assets/disk/etc/group
+/app/task/assets/disk/etc/hostname
+/app/task/assets/disk/etc/os-release
+/app/task/assets/disk/var/spool/cron/crontabs/www-data
+/app/task/assets/disk/var/www/html/.htaccess
+/app/task/assets/disk/var/www/html/index.html
+/app/task/assets/disk/var/www/html/wp-content/plugins/contact/inc.php
+/app/task/assets/disk/var/www/html/wp-config.php
+/app/task/assets/disk/var/log/nginx/access.log
+/app/task/assets/disk/var/log/nginx/error.log
+/app/task/assets/disk/var/log/auth.log.1.gz
+/app/task/assets/disk/var/log/auth.log
+/app/task/assets/disk/var/log/wtmp.csv
+/app/task/assets/disk/var/log/kern.log
+/app/task/assets/disk/var/log/syslog
+/app/task/assets/disk/var/lib/dpkg/status.summary
+/app/task/assets/disk/var/lib/.cache/.wiped.bin
+/app/task/assets/disk/home/devops/.bash_history
+/app/task/assets/disk/root/.bashrc
+/app/task/baselines/alert-transcriber/baseline-report.md
+/app/task/baselines/alert-transcriber/vuln-report.md
+/app/task/baselines/alert-transcriber/remediation-plan.md
+/app/task/baselines/alert-transcriber/intrusion-report.md
+/app/task/baselines/alert-transcriber/progress.md
+/app/task/baselines/noop/baseline-report.md
+/app/task/baselines/noop/vuln-report.md
+/app/task/baselines/noop/remediation-plan.md
+/app/task/baselines/noop/intrusion-report.md
+/app/task/baselines/noop/progress.md
+/app/task/baselines/oracle/baseline-report.md
+/app/task/baselines/oracle/vuln-report.md
+/app/task/baselines/oracle/remediation-plan.md
+/app/task/baselines/oracle/intrusion-report.md
+/app/task/baselines/oracle/progress.md
+/app/task/environment/README.md
+/app/task/environment/disk.tar.gz.sha256
+/app/task/environment/sas-mock/baseline.json
+/app/task/environment/sas-mock/handoff/change-ticket.md
+/app/task/environment/sas-mock/handoff/findings.schema.json
+/app/task/environment/sas-mock/handoff/intake.pdf
+/app/task/environment/sas-mock/handoff/findings.partial.json
+/app/task/environment/sas-mock/cti/advisory-page-01.png
+/app/task/environment/sas-mock/cti/advisory.pdf
+/app/task/environment/sas-mock/cti/advisory.txt
+/app/task/environment/sas-mock/cti/SOURCES.txt
+/app/task/environment/sas-mock/cti/campaign-timeline.png
+/app/task/environment/sas-mock/vulns.json
+/app/task/environment/sas-mock/alerts.json
+/app/task/environment/disk.tar.gz
+/app/task/environment/Dockerfile
+[?2004hroot@8e34562b449f:/app# grep -rn "assets" /app/task/tests /app/task/environment /app/task/solution /app/task/task.toml
+[?2004l[?2004hroot@8e34562b449f:/app# grep -rn "baselines" /app/task/tests /app/task/environment /app/task/solution /app/task/task.toml
+[?2004l[?2004hroot@8e34562b449f:/app# head -n 50 /app/task/tests/criteria.py
+[?2004l# tests/criteria.py
+from __future__ import annotations
+#
+# Shared library for the post-compromise DFIR verifier. This file is FIXED — it is identical
+# for every range in the subdomain. Nothing here is range-specific; the only per-range input
+# is manifest.json (doc 02 §3.0). The @criterion(shared=True) loaders are exposed to the
+# tier files as rk.shared.<name>; the plain functions below them are framework-agnostic
+# helpers imported directly (`from criteria import _dag, ...`).
+import json
+import os
+import re
+from pathlib import Path
+
+from rewardkit import criterion
+
+# Mount locations default to the container paths but are overridable via env, so the runner
+# (and selftest) can point them at real or synthesised directories without editing this file.
+TESTS_DIR = Path(os.environ.get("RK_TESTS", "/tests"))
+
+# Citations MUST be backtick-delimited: `/abs/path` or `/abs/path:line`. Requiring the
+# backticks stops bare slashes in prose ("and/or", "TCP/IP", "24/7") from being parsed as
+# paths and then flagged as fabrication. The path class excludes ':' so the optional
+# ':line' suffix splits unambiguously (doc 02 §3.3).
+CITE = re.compile(r"`(/[^`\s:]+)(?::(\d+))?`")
+
+# Read-only evidence mounts the agent is given (doc 02 §2.3). Citations are resolved by
+# mount prefix, NOT by blindly stripping the leading '/':
+#   - a citation beginning with a mount prefix ("/sas/alerts.json") resolves literally under
+#     that mount;
+#   - any other host-absolute citation ("/etc/ssh/sshd_config") is a path *inside the
+#     forensic image* and resolves under the primary host root (/disk) — never against the
+#     analysis machine's own filesystem.
+EVIDENCE_MOUNTS = {"/sas": Path(os.environ.get("RK_SAS", "/sas")),
+                   "/disk": Path(os.environ.get("RK_DISK", "/disk"))}
+HOST_ROOT = "/disk"
+
+# The three report files findings are parsed from. progress.md and remediation-plan.md are
+# handled by their own criteria and are not scanned for detection findings.
+REPORT_FILES = ("intrusion-report.md", "vuln-report.md", "baseline-report.md")
+
+# ATT&CK technique id, e.g. T1110 or T1546.004.
+ATTCK = re.compile(r"\bT\d{4}(?:\.\d{3})?\b")
+
+
+@criterion(shared=True)
+def _manifest(workspace: Path) -> dict:
+    """Ground truth for this range (generated corpus) or hand-extracted (SecRespond)."""
+    return json.loads((TESTS_DIR / "manifest.json").read_text())
+
+
+[?2004hroot@8e34562b449f:/app# cat /app/task/tests/reward.toml
+[?2004l# tests/reward.toml  (FIXED — aggregate keys; per-dimension keys are never collapsed)
+[[reward]]
+name = "detection"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "plan"
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "quality"           # Q-dimension judge items; reported, eval-only by default (doc 02 §6 Q2)
+aggregation = "weighted_mean"
+
+[[reward]]
+name = "reward"            # Harbor's parsed score
+aggregation = "threshold"  # both axes >= 0.70 (never a sum of the two — doc 00 non-negotiable #2)
+[?2004hroot@8e34562b449f:/app# grep -rn "ctrf" /app/task/tests
+[?2004l[?2004hroot@8e34562b449f:/app# grep -rn "checksum" /app/task/tests/
+[?2004l[?2004hroot@8e34562b449f:/app# mkdir -p /tmp/test_app && OUTPUT_PATH=/tmp/test_app /app/task/solution/solve.sh && RK_APP=/tmp/test_app RK_OUT=/tmp/test_out /app/task/tests/test.sh && cat /tmp/test_out/reward.txt
+[?2004l{
+  "structure": 1.0,
+  "grounding": 0.0,
+  "detection": 0.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 0.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 1.0,
+  "outcome": "scored"
+}
+reward=0.0
+0.0
+[?2004hroot@8e34562b449f:/app# grep -A 30 "def _grounding" /app/task/tests/criteria.py
+[?2004ldef _grounding(workspace: Path):
+    """Return a classifier path -> {'resolved','plausible','fabricated'} so every criterion
+    shares one filesystem view of the evidence mounts (doc 02 §2.3)."""
+
+    def classify(path: str) -> str:
+        cands = _candidates(path)
+        if any(c.exists() for c in cands):
+            return "resolved"
+        if any(c.parent.exists() for c in cands):
+            return "plausible"          # wrong file/line inside a real directory
+        return "fabricated"             # parent directory absent under every mount
+
+    return classify
+
+
+# --------------------------------------------------------------------------------------
+# Framework-agnostic helpers (pure Python; no rewardkit dependency). Imported by the tier
+# files. The docs (doc 02/04) leave these as `_helpers`; here they are implemented in full.
+# --------------------------------------------------------------------------------------
+
+def _haystack(finding: dict) -> str:
+    """All searchable text of a finding: its claim plus its cited path strings."""
+    return finding["claim"] + " " + " ".join(c[0] for c in finding["citations"])
+
+
+def _needles(artifact: dict) -> list:
+    """Locator needles for finding an artifact's plan block: its path, the path basename, and
+    any `match` terms. Used by coverage's block lookup (within-plan, low collision risk)."""
+    path = artifact.get("path", "")
+    base = path.rstrip("/").split("/")[-1] if path else ""
+    return [n for n in ([path, base] + list(artifact.get("match") or [])) if n]
+[?2004hroot@8e34562b449f:/app# grep -A 20 "def _candidates" /app/task/tests/criteria.py
+[?2004ldef _candidates(path: str) -> list:
+    """Real filesystem candidate(s) a citation could resolve to, by mount prefix."""
+    p = "/" + path.lstrip("/")
+    for prefix, root in EVIDENCE_MOUNTS.items():
+        if p == prefix or p.startswith(prefix + "/"):
+            return [root / p[len(prefix):].lstrip("/")]
+    # No mount prefix -> a host path inside the forensic image.
+    return [EVIDENCE_MOUNTS[HOST_ROOT] / p.lstrip("/")]
+
+
+@criterion(shared=True)
+def _grounding(workspace: Path):
+    """Return a classifier path -> {'resolved','plausible','fabricated'} so every criterion
+    shares one filesystem view of the evidence mounts (doc 02 §2.3)."""
+
+    def classify(path: str) -> str:
+        cands = _candidates(path)
+        if any(c.exists() for c in cands):
+            return "resolved"
+        if any(c.parent.exists() for c in cands):
+            return "plausible"          # wrong file/line inside a real directory
+[?2004hroot@8e34562b449f:/app# ls -la /disk /disk/var/www/html/index.html
+[?2004lls: cannot access '/disk': No such file or directory
+ls: cannot access '/disk/var/www/html/index.html': No such file or directory
+[?2004hroot@8e34562b449f:/app# ls -la /
+[?2004ltotal 76
+drwxr-xr-x   1 root root    4096 Aug 16 15:14 .
+drwxr-xr-x   1 root root    4096 Aug 16 15:14 ..
+-rwxr-xr-x   1 root root       0 Aug 16 15:14 .dockerenv
+drwxr-xr-x   3  502 dialout 4096 Aug 16 15:06 app
+lrwxrwxrwx   1 root root       7 Jul  4 09:05 bin -> usr/bin
+drwxr-xr-x   2 root root    4096 Jul  4 09:05 boot
+drwxr-xr-x   5 root root     340 Aug 16 15:14 dev
+drwxr-xr-x   1 root root    4096 Aug 16 15:14 etc
+drwxr-xr-x   2 root root    4096 Jul  4 09:05 home
+lrwxrwxrwx   1 root root       7 Jul  4 09:05 lib -> usr/lib
+drwxr-xr-x   5 root root    4096 Aug 16 15:14 logs
+drwxr-xr-x   2 root root    4096 Aug  3 00:00 media
+drwxr-xr-x   2 root root    4096 Aug  3 00:00 mnt
+drwxr-xr-x   2 root root    4096 Aug  3 00:00 opt
+dr-xr-xr-x 178 root root       0 Aug 16 15:14 proc
+drwx------   1 root root    4096 Aug 16 15:14 root
+drwxr-xr-x   3 root root    4096 Aug  3 00:00 run
+lrwxrwxrwx   1 root root       8 Jul  4 09:05 sbin -> usr/sbin
+drwxr-xr-x   2 root root    4096 Aug  3 00:00 srv
+dr-xr-xr-x  13 root root       0 Aug 16 14:50 sys
+drwxrwxrwt   1 root root    4096 Aug 16 15:16 tmp
+drwxr-xr-x   1 root root    4096 Aug  3 00:00 usr
+drwxr-xr-x   1 root root    4096 Aug  3 00:00 var
+[?2004hroot@8e34562b449f:/app# RK_APP=/tmp/test_app RK_OUT=/tmp/test_out RK_DISK=/app/task/assets/disk RK_SAS=/app/task/environment/sas-mock /app/task/tests/test.sh && cat /tmp/test_out/reward.txt
+[?2004l{
+  "structure": 1.0,
+  "grounding": 1.0,
+  "detection": 1.0,
+  "plan": 1.0,
+  "quality": null,
+  "reward": 1.0,
+  "silent_artifact_recall": 1.0,
+  "fabrication_rate": 0.0,
+  "outcome": "scored"
+}
+reward=1.0
+1.0
+[?2004hroot@8e34562b449f:/app# python3 -c 'print("ready to output check-result.json")'
+[?2004lready to output check-result.json
+[?2004hroot@8e34562b449f:/app# python3 -c 'import json; data={"verifiable":{"outcome":"pass","explanation":"The verifier programmatic scoring script rewardkit executes deterministically and reliably without network dependencies at verify time."},"solvable":{"outcome":"pass","explanation":"solution/solve.sh produces all five required markdown reports and passes all verifier checks with reward 1.0."},"difficult":{"outcome":"pass","explanation":"The task requires domain expertise in post-compromise digital forensics, incident response, WordPress exploit analysis, persistence mechanism identification, and MITRE ATT&CK mapping."},"interesting":{"outcome":"pass","explanation":"The scenario reflects a realistic forensic investigation and remediation planning workflow for a breached web server."},"outcome_verified":{"outcome":"pass","explanation":"Tests verify the content, citations, detection claims, and remediation steps in the final markdown reports rather than checking command history or tool usage."},"anti_cheat_robustness":{"outcome":"fail","explanation":"Separate verifier mode is not configured, leaving tests/manifest.json containing the exact ground truth findings accessible to the agent in the runtime container."},"task_security":{"outcome":"pass","explanation":"Task files contain no malicious payloads, network exfiltration, or credential scraping."},"functional_verification":{"outcome":"pass","explanation":"Verification parses report findings and validates citations against evidence mounts and expected attack chain topologies."},"deterministic_reproducible":{"outcome":"pass","explanation":"The host evidence image disk.tar.gz and sas-mock telemetry feeds are static and completely self-contained."},"essential_difficulty":{"outcome":"pass","explanation":"The primary challenge comes from thorough forensic analysis across host artifacts rather than clerical formatting details."},"test_instruction_alignment":{"outcome":"pass","explanation":"Every requirement in instruction.md (five deliverables, backtick citations, ATT&CK mapping, remediation plan) corresponds directly to test criteria."},"novel":{"outcome":"pass","explanation":"The task presents a custom synthetic forensic scenario combining plugin exploitation, web shell placement, cron jobs, and htaccess redirects."},"agentic":{"outcome":"pass","explanation":"Solving requires multi-step environment exploration across log files, web directories, cron jobs, and config files."},"reviewable":{"outcome":"pass","explanation":"The manifest.json file clearly defines expected artifacts and attack chain steps, making the task easy to audit."},"instruction_concision":{"outcome":"pass","explanation":"instruction.md is clear, concise, uses absolute paths, and avoids solution hints or unnecessary fluff."},"solution_quality":{"outcome":"pass","explanation":"solution/solve.sh correctly renders the complete reports needed to satisfy all verifier checks."},"separate_verifier_configured":{"outcome":"fail","explanation":"task.toml lacks environment_mode = \"container\", does not define an artifacts list, and tests/Dockerfile is missing."},"environment_hygiene":{"outcome":"fail","explanation":"Without separate verifier mode, test scripts and ground truth manifest.json are present in the agent container at start time."},"structured_data_schema":{"outcome":"pass","explanation":"Required report structures and citation formats are documented in instruction.md and findings.schema.json in /sas/handoff."},"typos":{"outcome":"pass","explanation":"No typos found in critical identifiers, filenames, paths, or commands."},"difficulty_explanation_quality":{"outcome":"fail","explanation":"The difficulty_explanation metadata field is missing from task.toml."},"solution_explanation_quality":{"outcome":"fail","explanation":"The solution_explanation metadata field is missing from task.toml."},"verification_explanation_quality":{"outcome":"fail","explanation":"The verification_explanation metadata field is missing from task.toml."},"category_and_tags":{"outcome":"fail","explanation":"The subcategory metadata field is missing from task.toml."},"task_name":{"outcome":"fail","explanation":"The task name dfir-eval/wordpress-defacement in task.toml contains a slash rather than being a single kebab-case folder slug."},"resource_configuration":{"outcome":"pass","explanation":"Timeouts and environment resource limits specified in task.toml are appropriate for the task."},"task_readme":{"outcome":"pass","explanation":"environment/README.md provides useful setup context without duplicating instructions."},"expert_time_estimate":{"outcome":"fail","explanation":"The expert_time_estimate_hours metadata field is missing from task.toml."},"task_toml_schema":{"outcome":"fail","explanation":"task.toml contains unrecognized field difficulty in [metadata] and missing standard metadata fields (difficulty_explanation, solution_explanation, verification_explanation, subcategory, expert_time_estimate_hours)."},"no_extraneous_files":{"outcome":"fail","explanation":"The task folder contains unused directories assets/ (duplicate uncompressed disk files) and baselines/ (reference report benchmarks) not referenced by build, test, or solution scripts."},"artifact_efficiency":{"outcome":"not_applicable","explanation":"Separate verifier mode is not configured for this task."},"verifier_execution_isolation":{"outcome":"not_applicable","explanation":"The verifier parses static markdown reports and does not execute untrusted agent code."},"ctrf_reporting":{"outcome":"fail","explanation":"The verifier does not write CTRF test results to /logs/verifier/ctrf.json."},"do_not_modify_enforced":{"outcome":"fail","explanation":"instruction.md instructs the agent not to modify /disk, but the verifier does not test or verify whether /disk was altered."},"binary_reward":{"outcome":"pass","explanation":"test.sh thresholds the aggregated score to write either 0.0 or 1.0 to /logs/verifier/reward.txt."}}; json.dump(data, open("check-result.json", "w"), indent=2)'
+[?2004l[?2004hroot@8e34562b449f:/app# python3 -c 'import json; d=json.load(open("check-result.json")); print(len(d), "keys")'
+[?2004l35 keys
+[?2004hroot@8e34562b449f:/app# 

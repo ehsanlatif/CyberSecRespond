@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "pass",
+    "explanation": "The task includes a fully programmatic, deterministic test suite (tests/test.sh calling rewardkit) that verifies deliverables without relying on subjective human grading."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "solution/solve.sh provides a working reference implementation that generates all 5 required reports and achieves a 1.0 reward score."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "The task requires genuine DFIR domain expertise to analyze raw forensic artifacts across a CentOS image (PostgreSQL COPY TO PROGRAM, DNS tunneling, timestomping, persistence mechanisms)."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "The task models a realistic post-compromise incident response investigation and remediation scenario."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests verify the final output files (markdown reports) and citations without constraining the agent choice of tools or steps."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "pass",
+    "explanation": "Ground-truth manifest is stored in tests/ and not baked into the agent image environment."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files, scripts, and test runners contain safe and legitimate DFIR evaluation code."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Tests dynamically evaluate report findings, citation resolutions against forensic evidence, attack chain graph topology, and remediation coverage."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "The verification logic and environment setup are fully deterministic and reproducible without external network dependencies."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty lies in forensic evidence extraction and reasoning rather than arbitrary precision formatting."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All test criteria directly verify requirements stated in instruction.md (five deliverables, intrusion findings, vulnerability analysis, baseline issues, remediation plan, citations)."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "The task uses a custom DFIR synthetic dataset and scenario."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Requires multi-step environment exploration, searching forensic disk images and security feeds, and synthesizing multiple report files."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The task structure, manifest, criteria, and solution script are clean, well-structured, and easy to review."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "instruction.md is concise, human-written, uses absolute paths, and specifies objectives clearly."
+  },
+  "solution_quality": {
+    "outcome": "pass",
+    "explanation": "solve.sh contains a clean reference script generating all required report deliverables."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured: tests/Dockerfile is missing, environment_mode is not set in task.toml, and artifacts are not declared in task.toml."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "tests/Dockerfile does not exist to own /tests/* and verifier dependencies in separate verifier mode."
+  },
+  "structured_data_schema": {
+    "outcome": "not_applicable",
+    "explanation": "No structured API, JSON, CSV, or DB schema deliverable is expected; deliverables are markdown report files."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos found in critical paths, filenames, or command identifiers."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "difficulty_explanation field is missing from metadata in task.toml."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "solution_explanation field is missing from metadata in task.toml."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "verification_explanation field is missing from metadata in task.toml."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "subcategory field is missing from metadata in task.toml."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task name postgres-copyprogram is concise, descriptive, and follows 3-word kebab-case naming."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Resource limits and timeouts in task.toml are appropriate for a long-horizon DFIR task."
+  },
+  "task_readme": {
+    "outcome": "not_applicable",
+    "explanation": "No task-level README.md is present."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "expert_time_estimate_hours field is missing from metadata in task.toml."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml contains an invalid metadata key difficulty and is missing required benchmark metadata fields."
+  },
+  "no_extraneous_files": {
+    "outcome": "pass",
+    "explanation": "The task directory contains only required source, test, baseline, asset, and environment files."
+  },
+  "artifact_efficiency": {
+    "outcome": "pass",
+    "explanation": "The task deliverables are 5 small markdown files."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier parses markdown text deliverables and does not execute agent-provided code or binaries."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The test suite performs discrete multi-check evaluations but does not emit a CTRF report to /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "pass",
+    "explanation": "The instruction requires keeping /disk read-only, which is enforced via read-only mount permissions in the environment and pristine evidence mounts during verification."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "test.sh and runner.py threshold all scores to output strictly 0.0 or 1.0 to /logs/verifier/reward.txt."
+  }
+}

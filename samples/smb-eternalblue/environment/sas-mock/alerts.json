@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ALERT-01",
+    "chk": "CHK-01",
+    "kind": "exploit-implant",
+    "path": "/Windows/Temp/mssecsvc.exe",
+    "capability": "VUL-01",
+    "summary": "exploit-implant observed at /Windows/Temp/mssecsvc.exe"
+  },
+  {
+    "id": "ALERT-02",
+    "chk": "CHK-02",
+    "kind": "credential-dump",
+    "path": "/Windows/Temp/lsass.dmp",
+    "capability": "ENT-F01",
+    "summary": "credential-dump observed at /Windows/Temp/lsass.dmp"
+  },
+  {
+    "id": "ALERT-03",
+    "chk": "CHK-03",
+    "kind": "ransomware-binary",
+    "path": "/Users/Public/enc.exe",
+    "capability": "ENT-F02",
+    "summary": "ransomware-binary observed at /Users/Public/enc.exe"
+  },
+  {
+    "id": "ALERT-04",
+    "chk": "CHK-07",
+    "kind": "smbv1-baseline",
+    "path": "/Windows/System32/drivers/srv.sys",
+    "capability": "BAS-01",
+    "summary": "smbv1-baseline observed at /Windows/System32/drivers/srv.sys"
+  }
+]

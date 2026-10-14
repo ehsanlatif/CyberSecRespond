@@ -1,0 +1,18 @@
+{
+  "findings": [
+    {
+      "chk": "CHK-01",
+      "path": "/opt/xmrig/xmrig",
+      "attck": "T1496",
+      "confidence": "high",
+      "evidence": "`/opt/xmrig/xmrig`"
+    },
+    {
+      "chk": "TODO",
+      "path": "TODO",
+      "attck": "TODO",
+      "confidence": "TODO",
+      "evidence": "TODO"
+    }
+  ]
+}

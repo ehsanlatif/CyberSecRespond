@@ -1,0 +1,26 @@
+THREAT INTELLIGENCE ADVISORY — Rdp Ransomware campaign
+======================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: rdp-prod-01   Suspected origin IP: 198.51.100.92
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1110      Brute Force                                [credential-access]  step 1: RDP brute force
+   T1021.001  Remote Desktop Protocol                    [lateral-movement]  step 2: RDP logon
+   T1059.001  PowerShell                                 [execution]  step 3: PowerShell execution
+   T1486      Data Encrypted for Impact                  [impact]  step 4: ransomware encryption
+   T1053.005  Scheduled Task                             [execution]  step 5: scheduled task persistence
+   T1547.001  Registry Run Keys / Startup Folder         [persistence]  step 6: Run key persistence
+   T1543.003  Windows Service                            [persistence]  step 7: malicious service
+   T1070.001  Clear Windows Event Logs                   [defense-evasion]  step 8: Windows event log clear
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.92
+   c2     update-rdp[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]rdp[.]evil[:]3333
+   wallet 4A0000000000000000000e4435cc95c5
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).

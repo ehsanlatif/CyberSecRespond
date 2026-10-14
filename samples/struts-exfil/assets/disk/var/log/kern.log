@@ -1,0 +1,192 @@
+Aug  8 01:06:46 struts-prod-01 chronyd[19313]: pam_unix(cron:session): session opened for user root
+Aug  8 01:07:25 struts-prod-01 kernel[8252]: Time synchronised to time server
+Aug  8 01:07:38 struts-prod-01 systemd[6693]: Started Session 129 of user webadmin.
+Aug  8 01:08:26 struts-prod-01 sshd[17966]: Started Session 457 of user svc-backup.
+Aug  8 01:08:31 struts-prod-01 systemd[12588]: Started Session 275 of user svc-backup.
+Aug  8 01:09:13 struts-prod-01 sshd[25333]: pam_unix(cron:session): session opened for user root
+Aug  8 01:09:15 struts-prod-01 systemd[13029]: CPU0: Package temperature normal
+Aug  8 01:09:51 struts-prod-01 kernel[14631]: Received disconnect from 10.10.246.143 port 63479:11: disconnected by user
+Aug  8 01:10:15 struts-prod-01 sshd[2187]: Started Session 304 of user webadmin.
+Aug  8 01:11:05 struts-prod-01 kernel[23916]: CPU0: Package temperature normal
+Aug  8 01:11:10 struts-prod-01 systemd[28764]: Received disconnect from 10.10.246.79 port 42414:11: disconnected by user
+Aug  8 01:11:58 struts-prod-01 CRON[15178]: Time synchronised to time server
+Aug  8 01:12:44 struts-prod-01 systemd[21254]: Received disconnect from 10.10.246.8 port 60970:11: disconnected by user
+Aug  8 01:13:09 struts-prod-01 dbus-daemon[15476]: Time synchronised to time server
+Aug  8 01:13:44 struts-prod-01 CRON[26745]: Received disconnect from 10.10.246.172 port 40669:11: disconnected by user
+Aug  8 01:13:54 struts-prod-01 sshd[16979]: Received disconnect from 10.10.246.182 port 55957:11: disconnected by user
+Aug  8 01:14:47 struts-prod-01 systemd-logind[15623]: Received disconnect from 10.10.246.133 port 63386:11: disconnected by user
+Aug  8 01:15:12 struts-prod-01 sudo[27179]: Started Session 844 of user svc-backup.
+Aug  8 01:15:58 struts-prod-01 chronyd[26505]: Started Session 186 of user postgres.
+Aug  8 01:16:18 struts-prod-01 systemd[7440]: CPU0: Package temperature normal
+Aug  8 01:16:42 struts-prod-01 dbus-daemon[28280]: Time synchronised to time server
+Aug  8 01:17:20 struts-prod-01 chronyd[20738]: Started Session 340 of user root.
+Aug  8 01:17:42 struts-prod-01 sudo[7308]: pam_unix(cron:session): session opened for user root
+Aug  8 01:18:27 struts-prod-01 systemd-logind[9471]: Received disconnect from 10.10.246.121 port 43271:11: disconnected by user
+Aug  8 01:19:03 struts-prod-01 dbus-daemon[9609]: pam_unix(cron:session): session opened for user root
+Aug  8 01:19:52 struts-prod-01 systemd-logind[28488]: Received disconnect from 10.10.246.66 port 40341:11: disconnected by user
+Aug  8 01:19:55 struts-prod-01 systemd-logind[11190]: pam_unix(cron:session): session opened for user root
+Aug  8 01:20:11 struts-prod-01 systemd[15264]: CPU0: Package temperature normal
+Aug  8 01:20:51 struts-prod-01 chronyd[6354]: Received disconnect from 10.10.246.146 port 64504:11: disconnected by user
+Aug  8 01:21:17 struts-prod-01 sudo[23578]: Received disconnect from 10.10.246.112 port 55354:11: disconnected by user
+Aug  8 01:21:57 struts-prod-01 systemd-logind[10117]: Started Session 758 of user webadmin.
+Aug  8 01:22:29 struts-prod-01 kernel[22000]: Received disconnect from 10.10.246.178 port 62485:11: disconnected by user
+Aug  8 01:22:51 struts-prod-01 kernel[7614]: pam_unix(cron:session): session opened for user root
+Aug  8 01:23:03 struts-prod-01 sshd[14913]: Time synchronised to time server
+Aug  8 01:23:15 struts-prod-01 chronyd[7052]: CPU0: Package temperature normal
+Aug  8 01:23:31 struts-prod-01 chronyd[29667]: Received disconnect from 10.10.246.248 port 53138:11: disconnected by user
+Aug  8 01:24:14 struts-prod-01 systemd[16816]: pam_unix(cron:session): session opened for user root
+Aug  8 01:24:57 struts-prod-01 systemd[12473]: Received disconnect from 10.10.246.206 port 52089:11: disconnected by user
+Aug  8 01:25:08 struts-prod-01 sshd[21679]: CPU0: Package temperature normal
+Aug  8 01:25:14 struts-prod-01 kernel[11555]: Time synchronised to time server
+Aug  8 01:25:25 struts-prod-01 systemd-logind[29384]: Started Session 88 of user jenkins.
+Aug  8 01:26:10 struts-prod-01 chronyd[27488]: pam_unix(cron:session): session opened for user root
+Aug  8 01:27:04 struts-prod-01 kernel[5623]: Received disconnect from 10.10.246.4 port 40405:11: disconnected by user
+Aug  8 01:27:49 struts-prod-01 sudo[11383]: Time synchronised to time server
+Aug  8 01:28:11 struts-prod-01 sshd[20745]: Time synchronised to time server
+Aug  8 01:28:58 struts-prod-01 dbus-daemon[17392]: pam_unix(cron:session): session opened for user root
+Aug  8 01:29:37 struts-prod-01 chronyd[14817]: CPU0: Package temperature normal
+Aug  8 01:30:15 struts-prod-01 kernel[6113]: Time synchronised to time server
+Aug  8 01:31:06 struts-prod-01 dbus-daemon[16748]: Started Session 621 of user root.
+Aug  8 01:31:39 struts-prod-01 systemd-logind[8444]: Received disconnect from 10.10.246.189 port 40474:11: disconnected by user
+Aug  8 01:32:06 struts-prod-01 chronyd[10172]: pam_unix(cron:session): session opened for user root
+Aug  8 01:32:41 struts-prod-01 CRON[29316]: Started Session 381 of user root.
+Aug  8 01:33:29 struts-prod-01 dbus-daemon[26604]: CPU0: Package temperature normal
+Aug  8 01:33:47 struts-prod-01 sshd[23418]: Started Session 35 of user jenkins.
+Aug  8 01:33:52 struts-prod-01 kernel[5007]: Received disconnect from 10.10.246.245 port 43718:11: disconnected by user
+Aug  8 01:34:21 struts-prod-01 sudo[4998]: CPU0: Package temperature normal
+Aug  8 01:34:59 struts-prod-01 systemd-logind[27197]: CPU0: Package temperature normal
+Aug  8 01:35:12 struts-prod-01 sshd[21685]: Received disconnect from 10.10.246.229 port 60559:11: disconnected by user
+Aug  8 01:35:21 struts-prod-01 kernel[14429]: Time synchronised to time server
+Aug  8 01:35:44 struts-prod-01 kernel[17112]: Received disconnect from 10.10.246.134 port 41540:11: disconnected by user
+Aug  8 01:36:29 struts-prod-01 systemd[20863]: Started Session 998 of user root.
+Aug  8 01:37:18 struts-prod-01 dbus-daemon[18999]: Time synchronised to time server
+Aug  8 01:37:25 struts-prod-01 systemd-logind[13219]: pam_unix(cron:session): session opened for user root
+Aug  8 01:38:04 struts-prod-01 systemd-logind[11784]: pam_unix(cron:session): session opened for user root
+Aug  8 01:38:47 struts-prod-01 chronyd[28496]: Time synchronised to time server
+Aug  8 01:39:40 struts-prod-01 chronyd[21528]: Time synchronised to time server
+Aug  8 01:40:07 struts-prod-01 chronyd[16554]: CPU0: Package temperature normal
+Aug  8 01:40:30 struts-prod-01 systemd[14844]: Received disconnect from 10.10.246.85 port 62797:11: disconnected by user
+Aug  8 01:40:50 struts-prod-01 systemd[12111]: Started Session 984 of user root.
+Aug  8 01:41:28 struts-prod-01 sshd[15173]: pam_unix(cron:session): session opened for user root
+Aug  8 01:41:29 struts-prod-01 systemd[23508]: Started Session 939 of user root.
+Aug  8 01:42:22 struts-prod-01 chronyd[17012]: Started Session 219 of user postgres.
+Aug  8 01:42:36 struts-prod-01 systemd[22833]: Received disconnect from 10.10.246.174 port 56345:11: disconnected by user
+Aug  8 01:42:43 struts-prod-01 sudo[12408]: pam_unix(cron:session): session opened for user root
+Aug  8 01:42:59 struts-prod-01 sshd[1952]: Time synchronised to time server
+Aug  8 01:43:25 struts-prod-01 chronyd[15276]: Started Session 874 of user jenkins.
+Aug  8 01:44:10 struts-prod-01 CRON[3128]: Received disconnect from 10.10.246.165 port 52687:11: disconnected by user
+Aug  8 01:44:15 struts-prod-01 systemd-logind[27622]: Started Session 323 of user devops.
+Aug  8 01:44:36 struts-prod-01 systemd-logind[14472]: Received disconnect from 10.10.246.137 port 64077:11: disconnected by user
+Aug  8 01:44:48 struts-prod-01 chronyd[10268]: Started Session 496 of user jenkins.
+Aug  8 01:45:16 struts-prod-01 systemd-logind[6744]: Received disconnect from 10.10.246.116 port 61303:11: disconnected by user
+Aug  8 01:45:58 struts-prod-01 dbus-daemon[21339]: Time synchronised to time server
+Aug  8 01:46:51 struts-prod-01 sshd[20293]: CPU0: Package temperature normal
+Aug  8 01:47:17 struts-prod-01 chronyd[17033]: Started Session 552 of user jenkins.
+Aug  8 01:47:28 struts-prod-01 chronyd[6960]: Received disconnect from 10.10.246.215 port 64957:11: disconnected by user
+Aug  8 01:47:53 struts-prod-01 sshd[11729]: Time synchronised to time server
+Aug  8 01:47:58 struts-prod-01 systemd-logind[4274]: Time synchronised to time server
+Aug  8 01:48:15 struts-prod-01 dbus-daemon[29423]: pam_unix(cron:session): session opened for user root
+Aug  8 01:48:20 struts-prod-01 chronyd[28105]: CPU0: Package temperature normal
+Aug  8 01:48:22 struts-prod-01 sshd[12918]: CPU0: Package temperature normal
+Aug  8 01:48:49 struts-prod-01 chronyd[13052]: Started Session 856 of user postgres.
+Aug  8 01:48:51 struts-prod-01 sshd[25510]: Time synchronised to time server
+Aug  8 01:48:55 struts-prod-01 sshd[18195]: pam_unix(cron:session): session opened for user root
+Aug  8 01:49:46 struts-prod-01 dbus-daemon[4579]: Time synchronised to time server
+Aug  8 01:50:34 struts-prod-01 systemd-logind[23786]: Started Session 367 of user root.
+Aug  8 01:50:55 struts-prod-01 sshd[14236]: Time synchronised to time server
+Aug  8 01:51:07 struts-prod-01 CRON[16782]: CPU0: Package temperature normal
+Aug  8 01:51:56 struts-prod-01 dbus-daemon[29637]: Received disconnect from 10.10.246.152 port 61064:11: disconnected by user
+Aug  8 01:51:59 struts-prod-01 kernel[15229]: pam_unix(cron:session): session opened for user root
+Aug  8 01:52:54 struts-prod-01 systemd-logind[28036]: CPU0: Package temperature normal
+Aug  8 01:53:44 struts-prod-01 CRON[28111]: Started Session 293 of user devops.
+Aug  8 01:53:45 struts-prod-01 systemd-logind[10845]: Started Session 821 of user svc-backup.
+Aug  8 01:54:29 struts-prod-01 sshd[15114]: Started Session 837 of user jenkins.
+Aug  8 01:54:41 struts-prod-01 kernel[6870]: Received disconnect from 10.10.246.116 port 61636:11: disconnected by user
+Aug  8 01:54:57 struts-prod-01 systemd[17723]: CPU0: Package temperature normal
+Aug  8 01:55:02 struts-prod-01 systemd[13302]: Time synchronised to time server
+Aug  8 01:55:08 struts-prod-01 sshd[22515]: Started Session 359 of user svc-backup.
+Aug  8 01:55:25 struts-prod-01 sudo[17139]: pam_unix(cron:session): session opened for user root
+Aug  8 01:55:28 struts-prod-01 systemd-logind[19458]: CPU0: Package temperature normal
+Aug  8 01:55:41 struts-prod-01 systemd[18359]: pam_unix(cron:session): session opened for user root
+Aug  8 01:56:13 struts-prod-01 kernel[10553]: CPU0: Package temperature normal
+Aug  8 01:56:58 struts-prod-01 sudo[12550]: Received disconnect from 10.10.246.136 port 40570:11: disconnected by user
+Aug  8 01:57:11 struts-prod-01 systemd[18229]: Started Session 102 of user devops.
+Aug  8 01:57:16 struts-prod-01 dbus-daemon[17174]: pam_unix(cron:session): session opened for user root
+Aug  8 01:57:38 struts-prod-01 kernel[16282]: Started Session 338 of user jenkins.
+Aug  8 01:57:40 struts-prod-01 chronyd[19792]: Received disconnect from 10.10.246.81 port 48204:11: disconnected by user
+Aug  8 01:57:45 struts-prod-01 systemd-logind[5097]: pam_unix(cron:session): session opened for user root
+Aug  8 01:58:34 struts-prod-01 sshd[4096]: Started Session 10 of user webadmin.
+Aug  8 01:59:06 struts-prod-01 sshd[5559]: Time synchronised to time server
+Aug  8 01:59:44 struts-prod-01 dbus-daemon[2739]: Received disconnect from 10.10.246.134 port 62133:11: disconnected by user
+Aug  8 02:00:32 struts-prod-01 dbus-daemon[3812]: Time synchronised to time server
+Aug  8 02:00:43 struts-prod-01 systemd[5685]: Received disconnect from 10.10.246.207 port 42453:11: disconnected by user
+Aug  8 02:00:48 struts-prod-01 dbus-daemon[5506]: Received disconnect from 10.10.246.222 port 40463:11: disconnected by user
+Aug  8 02:01:42 struts-prod-01 sshd[4395]: Started Session 927 of user postgres.
+Aug  8 02:02:13 struts-prod-01 sshd[25407]: Received disconnect from 10.10.246.96 port 43179:11: disconnected by user
+Aug  8 02:02:27 struts-prod-01 systemd-logind[28038]: Started Session 748 of user webadmin.
+Aug  8 02:03:16 struts-prod-01 chronyd[24927]: pam_unix(cron:session): session opened for user root
+Aug  8 02:03:29 struts-prod-01 systemd[27683]: Time synchronised to time server
+Aug  8 02:04:12 struts-prod-01 kernel[13665]: Started Session 403 of user svc-backup.
+Aug  8 02:04:41 struts-prod-01 kernel[16073]: pam_unix(cron:session): session opened for user root
+Aug  8 02:05:12 struts-prod-01 kernel[20176]: pam_unix(cron:session): session opened for user root
+Aug  8 02:05:13 struts-prod-01 dbus-daemon[10001]: Received disconnect from 10.10.246.197 port 42862:11: disconnected by user
+Aug  8 02:05:18 struts-prod-01 dbus-daemon[26790]: pam_unix(cron:session): session opened for user root
+Aug  8 02:05:50 struts-prod-01 systemd[8488]: Received disconnect from 10.10.246.53 port 60232:11: disconnected by user
+Aug  8 02:06:34 struts-prod-01 dbus-daemon[3979]: CPU0: Package temperature normal
+Aug  8 02:07:19 struts-prod-01 kernel[17905]: pam_unix(cron:session): session opened for user root
+Aug  8 02:07:40 struts-prod-01 chronyd[784]: Received disconnect from 10.10.246.114 port 58085:11: disconnected by user
+Aug  8 02:07:53 struts-prod-01 sshd[19795]: CPU0: Package temperature normal
+Aug  8 02:08:27 struts-prod-01 kernel[13597]: CPU0: Package temperature normal
+Aug  8 02:09:01 struts-prod-01 systemd-logind[25421]: Time synchronised to time server
+Aug  8 02:09:23 struts-prod-01 kernel[3453]: Received disconnect from 10.10.246.54 port 56257:11: disconnected by user
+Aug  8 02:10:14 struts-prod-01 systemd-logind[24751]: CPU0: Package temperature normal
+Aug  8 02:10:30 struts-prod-01 CRON[9033]: pam_unix(cron:session): session opened for user root
+Aug  8 02:10:32 struts-prod-01 chronyd[9843]: Time synchronised to time server
+Aug  8 02:10:50 struts-prod-01 dbus-daemon[9010]: Started Session 973 of user svc-backup.
+Aug  8 02:11:30 struts-prod-01 kernel[3617]: pam_unix(cron:session): session opened for user root
+Aug  8 02:11:43 struts-prod-01 systemd[5488]: Started Session 385 of user webadmin.
+Aug  8 02:12:26 struts-prod-01 sudo[21642]: Time synchronised to time server
+Aug  8 02:12:59 struts-prod-01 sudo[13508]: Time synchronised to time server
+Aug  8 02:13:07 struts-prod-01 systemd-logind[23420]: pam_unix(cron:session): session opened for user root
+Aug  8 02:13:10 struts-prod-01 sshd[2572]: Started Session 673 of user webadmin.
+Aug  8 02:13:26 struts-prod-01 systemd[6327]: CPU0: Package temperature normal
+Aug  8 02:14:13 struts-prod-01 dbus-daemon[19280]: CPU0: Package temperature normal
+Aug  8 02:14:21 struts-prod-01 sshd[27465]: CPU0: Package temperature normal
+Aug  8 02:15:00 struts-prod-01 chronyd[24038]: Started Session 657 of user postgres.
+Aug  8 02:15:24 struts-prod-01 CRON[21164]: Started Session 652 of user root.
+Aug  8 02:16:17 struts-prod-01 CRON[8156]: Time synchronised to time server
+Aug  8 02:17:12 struts-prod-01 chronyd[16594]: Received disconnect from 10.10.246.83 port 55197:11: disconnected by user
+Aug  8 02:18:04 struts-prod-01 CRON[23194]: pam_unix(cron:session): session opened for user root
+Aug  8 02:18:18 struts-prod-01 CRON[17286]: CPU0: Package temperature normal
+Aug  8 02:18:50 struts-prod-01 chronyd[7657]: Time synchronised to time server
+Aug  8 02:19:28 struts-prod-01 sshd[5442]: pam_unix(cron:session): session opened for user root
+Aug  8 02:19:37 struts-prod-01 CRON[15279]: Received disconnect from 10.10.246.116 port 50396:11: disconnected by user
+Aug  8 02:20:24 struts-prod-01 sshd[7148]: Time synchronised to time server
+Aug  8 02:21:06 struts-prod-01 dbus-daemon[17190]: CPU0: Package temperature normal
+Aug  8 02:21:32 struts-prod-01 sudo[19744]: Time synchronised to time server
+Aug  8 02:21:48 struts-prod-01 systemd-logind[18801]: pam_unix(cron:session): session opened for user root
+Aug  8 02:22:22 struts-prod-01 systemd-logind[7511]: Started Session 642 of user svc-backup.
+Aug  8 02:23:02 struts-prod-01 sshd[399]: Started Session 701 of user postgres.
+Aug  8 02:23:07 struts-prod-01 dbus-daemon[23823]: Time synchronised to time server
+Aug  8 02:23:16 struts-prod-01 systemd[2450]: Started Session 826 of user postgres.
+Aug  8 02:23:35 struts-prod-01 sudo[17227]: pam_unix(cron:session): session opened for user root
+Aug  8 02:24:18 struts-prod-01 systemd-logind[3308]: Received disconnect from 10.10.246.64 port 58958:11: disconnected by user
+Aug  8 02:24:28 struts-prod-01 chronyd[14176]: Started Session 796 of user webadmin.
+Aug  8 02:24:42 struts-prod-01 CRON[13910]: Started Session 675 of user svc-backup.
+Aug  8 02:25:06 struts-prod-01 sudo[29673]: Time synchronised to time server
+Aug  8 02:25:51 struts-prod-01 kernel[13185]: Received disconnect from 10.10.246.66 port 40549:11: disconnected by user
+Aug  8 02:25:59 struts-prod-01 dbus-daemon[11409]: Received disconnect from 10.10.246.229 port 55415:11: disconnected by user
+Aug  8 02:26:42 struts-prod-01 sudo[6361]: Received disconnect from 10.10.246.181 port 55831:11: disconnected by user
+Aug  8 02:27:01 struts-prod-01 chronyd[8348]: Time synchronised to time server
+Aug  8 02:27:15 struts-prod-01 systemd[5899]: CPU0: Package temperature normal
+Aug  8 02:27:38 struts-prod-01 systemd[23742]: Received disconnect from 10.10.246.156 port 43477:11: disconnected by user
+Aug  8 02:27:48 struts-prod-01 sudo[9677]: Time synchronised to time server
+Aug  8 02:28:20 struts-prod-01 sshd[7104]: Time synchronised to time server
+Aug  8 02:29:04 struts-prod-01 sudo[28634]: Time synchronised to time server
+Aug  8 02:29:48 struts-prod-01 sudo[13406]: pam_unix(cron:session): session opened for user root
+Aug  8 02:29:53 struts-prod-01 systemd[6253]: CPU0: Package temperature normal
+Aug  8 02:30:18 struts-prod-01 sshd[14064]: CPU0: Package temperature normal
+Aug  8 02:30:42 struts-prod-01 systemd-logind[1785]: Time synchronised to time server
+Aug  8 02:31:28 struts-prod-01 sudo[5683]: pam_unix(cron:session): session opened for user root
+Aug  8 02:31:31 struts-prod-01 sudo[10514]: Started Session 576 of user postgres.
+Aug  8 02:31:49 struts-prod-01 kernel[3631]: Started Session 561 of user root.

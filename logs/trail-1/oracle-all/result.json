@@ -1,0 +1,48 @@
+{
+    "id": "8dc2a62a-60c3-4293-a133-5728b965b0c4",
+    "started_at": "2026-08-16T07:39:31.917230",
+    "updated_at": "2026-08-16T07:40:13.472110",
+    "finished_at": "2026-08-16T07:40:13.472110",
+    "n_total_trials": 10,
+    "stats": {
+        "n_completed_trials": 10,
+        "n_errored_trials": 0,
+        "n_running_trials": 0,
+        "n_pending_trials": 0,
+        "n_cancelled_trials": 0,
+        "n_retries": 0,
+        "evals": {
+            "oracle__adhoc": {
+                "n_trials": 10,
+                "n_errors": 0,
+                "metrics": [
+                    {
+                        "mean": 1.0
+                    }
+                ],
+                "pass_at_k": {},
+                "reward_stats": {
+                    "reward": {
+                        "1.0": [
+                            "docker-api-miner__Tc8MtRD",
+                            "jenkins-groovy__A9rsQmB",
+                            "log4shell-webshell__nmdBxdj",
+                            "postgres-copyprogram__g7VSRDZ",
+                            "rdp-ransomware__cHh3mbf",
+                            "redis-unauth__MPJtY39",
+                            "smb-eternalblue__UnjjeLh",
+                            "ssh-miner__bP2CtRG",
+                            "struts-exfil__uEPtppn",
+                            "wordpress-defacement__aPuvDK5"
+                        ]
+                    }
+                },
+                "exception_stats": {}
+            }
+        },
+        "n_input_tokens": null,
+        "n_cache_tokens": null,
+        "n_output_tokens": null,
+        "cost_usd": null
+    }
+}

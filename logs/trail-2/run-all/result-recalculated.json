@@ -1,0 +1,60 @@
+{
+  "note": "Recalculated from actual per-trial verifier outputs on disk. The harness result.json is stale (4 first-attempt agent-setup RuntimeErrors were retried under new IDs; it also captured a transient docker pass that a later re-run replaced).",
+  "job_id": "2b3b5270-8b82-492a-a1a9-c3a2b148a917",
+  "eval": "terminus-2__gemini-3.6-flash__adhoc",
+  "as_run": {
+    "verifier": "run-1 fixes (FM-01..FM-07); FM-02b NOT yet applied at run time",
+    "n_trials": 10,
+    "pass_at_1": 0,
+    "mean_reward": 0.0,
+    "mean_detection_post_gate": 0.59,
+    "mean_detection_pre_gate": 0.765,
+    "mean_plan": 0.563,
+    "detection_ge_0.70": 6,
+    "plan_ge_0.70": 0,
+    "reward_distribution": {
+      "0.0": [
+        "docker-api-miner__D6eiV5P",
+        "jenkins-groovy__7rg7LcW",
+        "log4shell-webshell__dTdhgKc",
+        "postgres-copyprogram__stQyyVv",
+        "rdp-ransomware__EoU8KAB",
+        "redis-unauth__umzshh6",
+        "smb-eternalblue__DbgFcRy",
+        "ssh-miner__WxwYxsr",
+        "struts-exfil__8iiJmi4",
+        "wordpress-defacement__JW5yook"
+      ]
+    },
+    "fabrication_gated": [
+      "log4shell-webshell",
+      "redis-unauth"
+    ],
+    "harness_errors_retried_clean": [
+      "jenkins-groovy",
+      "log4shell-webshell",
+      "postgres-copyprogram",
+      "wordpress-defacement"
+    ]
+  },
+  "after_FM02b_rescore": {
+    "note": "Same agent outputs, verifier corrected for remediation-only step matching. Re-scored offline; authoritative numbers require a re-run with FM-02b deployed. oracle=1.0/10, noop=0.0/10 (gate holds).",
+    "pass_at_1_gate_mode": 5,
+    "passing": [
+      "docker-api-miner",
+      "jenkins-groovy",
+      "postgres-copyprogram",
+      "rdp-ransomware",
+      "ssh-miner"
+    ],
+    "mean_reward_gate_mode": 0.5,
+    "mean_plan": 0.735,
+    "genuine_failures": {
+      "redis-unauth": "4 fabricated rootkit libs",
+      "log4shell-webshell": "1 malformed cite (path typo)",
+      "smb-eternalblue": "5/7 artifacts + thin plan",
+      "struts-exfil": "plan under-verification",
+      "wordpress-defacement": "1/5 artifacts, overconfident closure"
+    }
+  }
+}

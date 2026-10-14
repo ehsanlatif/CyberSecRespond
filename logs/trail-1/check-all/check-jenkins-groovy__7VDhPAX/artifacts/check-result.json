@@ -1,0 +1,142 @@
+{
+  "verifiable": {
+    "outcome": "fail",
+    "explanation": "The task incorporates LLM-as-a-judge criteria (judge.py with attribution.toml, quality.toml, and q_items.toml) without documented justification explaining why programmatic non-LLM verification is insufficient. Additionally, separate verifier mode is not configured."
+  },
+  "solvable": {
+    "outcome": "pass",
+    "explanation": "A working oracle solution is provided at solution/solve.sh which generates all five required reports and scores 1.0 when executed against the test suite."
+  },
+  "difficult": {
+    "outcome": "pass",
+    "explanation": "Requires domain expertise in digital forensics and incident response (DFIR), including correlating disk artifacts, log files, configuration weaknesses, unalerted persistence mechanisms, and reconstructing MITRE ATT&CK chain relationships."
+  },
+  "interesting": {
+    "outcome": "pass",
+    "explanation": "Realistic post-compromise investigation on an Ubuntu Jenkins controller breached via CVE-2024-23897, covering real-world threat hunting and incident response workflows."
+  },
+  "outcome_verified": {
+    "outcome": "pass",
+    "explanation": "Tests grade only the final markdown report deliverables in /app for required findings, citations, attack topology, and remediation coverage without constraining the agent investigation method."
+  },
+  "anti_cheat_robustness": {
+    "outcome": "fail",
+    "explanation": "Separate verifier mode is not configured (tests/Dockerfile is missing). The ground-truth file tests/manifest.json is accessible on the agent filesystem during execution."
+  },
+  "task_security": {
+    "outcome": "pass",
+    "explanation": "All task files, Dockerfiles, and test scripts contain standard, legitimate code related to setting up and evaluating the DFIR task without malicious constructs."
+  },
+  "functional_verification": {
+    "outcome": "pass",
+    "explanation": "Verification checks report findings against filesystem paths, calculates DAG graph edit distance for attack chain topology, and evaluates plan step coverage and precedence logic."
+  },
+  "deterministic_reproducible": {
+    "outcome": "pass",
+    "explanation": "All dependencies and mock forensic data are local and self-contained, producing consistent evaluation scores across runs."
+  },
+  "essential_difficulty": {
+    "outcome": "pass",
+    "explanation": "Difficulty derives from complex incident investigation, log/artifact correlation, and strategic remediation planning, not formatting edge cases."
+  },
+  "test_instruction_alignment": {
+    "outcome": "pass",
+    "explanation": "All five required report deliverables and citation requirements in instruction.md align directly with the criteria checked by the verifier."
+  },
+  "novel": {
+    "outcome": "pass",
+    "explanation": "Features a custom synthetic forensic scenario combining Jenkins CVE-2024-23897 exploitation, Groovy init hook persistence, SSH key backdoors, and log clearing."
+  },
+  "agentic": {
+    "outcome": "pass",
+    "explanation": "Solving the task requires multi-step environment exploration across system logs, config files, binaries, and mock security feeds."
+  },
+  "reviewable": {
+    "outcome": "pass",
+    "explanation": "The test framework in rewardkit/ and criteria.py is clean, readable, and clearly maps manifest.json ground truth to report checks."
+  },
+  "instruction_concision": {
+    "outcome": "pass",
+    "explanation": "Instructions in instruction.md are concise, use absolute paths (/disk, /sas, /app), and state objectives clearly without hand-holding or fluff."
+  },
+  "solution_quality": {
+    "outcome": "fail",
+    "explanation": "solution/solve.sh directly writes final report text via inline heredocs without performing any computation, and inlines over 100 lines of report text directly inside solve.sh."
+  },
+  "separate_verifier_configured": {
+    "outcome": "fail",
+    "explanation": "tests/Dockerfile does not exist, environment_mode is not set to separate_verifier in task.toml, and separate verifier mode is not configured."
+  },
+  "environment_hygiene": {
+    "outcome": "fail",
+    "explanation": "No verifier image exists. Test-only dependencies (such as poppler-utils for PDF text extraction) are installed directly in the agent image (environment/Dockerfile)."
+  },
+  "structured_data_schema": {
+    "outcome": "not_applicable",
+    "explanation": "Deliverables are freeform Markdown reports rather than structured API responses, JSON schemas, or database tables."
+  },
+  "typos": {
+    "outcome": "pass",
+    "explanation": "No typos were found in critical identifiers, file paths, commands, or variable names across task files."
+  },
+  "difficulty_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The difficulty_explanation field is missing from task.toml metadata."
+  },
+  "solution_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The solution_explanation field is missing from task.toml metadata."
+  },
+  "verification_explanation_quality": {
+    "outcome": "fail",
+    "explanation": "The verification_explanation field is missing from task.toml metadata."
+  },
+  "category_and_tags": {
+    "outcome": "fail",
+    "explanation": "The subcategory field is missing from task.toml metadata."
+  },
+  "task_name": {
+    "outcome": "pass",
+    "explanation": "The task folder name (jenkins-groovy) is a 2-word, descriptive, lower-case kebab-case slug."
+  },
+  "resource_configuration": {
+    "outcome": "pass",
+    "explanation": "Timeouts (agent.timeout_sec = 3600.0, verifier.timeout_sec = 900.0) are reasonable for a long-horizon DFIR task."
+  },
+  "task_readme": {
+    "outcome": "pass",
+    "explanation": "environment/README.md provides useful development context regarding disk image synthesis and QA checks."
+  },
+  "expert_time_estimate": {
+    "outcome": "fail",
+    "explanation": "The expert_time_estimate_hours field is missing from task.toml metadata."
+  },
+  "task_toml_schema": {
+    "outcome": "fail",
+    "explanation": "task.toml includes unrecognised keys under [task] (version, description, authors, keywords) that are not valid fields in the standard schema."
+  },
+  "no_extraneous_files": {
+    "outcome": "fail",
+    "explanation": "The task directory contains unreferenced development artifacts: assets/disk/ (uncompressed copy of disk.tar.gz) and baselines/ (development benchmark outputs)."
+  },
+  "artifact_efficiency": {
+    "outcome": "not_applicable",
+    "explanation": "Separate verifier mode is not configured, so no artifact collection rules are declared."
+  },
+  "verifier_execution_isolation": {
+    "outcome": "not_applicable",
+    "explanation": "The verifier only parses text markdown reports in /app and does not execute agent-produced code."
+  },
+  "ctrf_reporting": {
+    "outcome": "fail",
+    "explanation": "The test runner rewardkit outputs reward.json/reward-details.json rather than generating CTRF output at /logs/verifier/ctrf.json."
+  },
+  "do_not_modify_enforced": {
+    "outcome": "not_applicable",
+    "explanation": "Instruction notes that /disk is read-only, which is enforced via filesystem permissions (chmod -R a-w /disk). No other do-not-modify file constraints exist."
+  },
+  "binary_reward": {
+    "outcome": "pass",
+    "explanation": "The reward computation threshold-checks overall performance and explicitly writes 1.0 or 0.0 to /logs/verifier/reward.txt."
+  }
+}

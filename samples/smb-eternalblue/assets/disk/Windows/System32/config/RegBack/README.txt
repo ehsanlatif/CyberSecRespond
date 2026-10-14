@@ -1,0 +1,1 @@
+Registry backup hive location.

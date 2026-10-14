@@ -1,0 +1,24 @@
+THREAT INTELLIGENCE ADVISORY — Postgres Copyprogram campaign
+============================================================
+
+Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   (IOCs are defanged)
+Affected host: postgres-prod-01   Suspected origin IP: 198.51.100.214
+
+1. EXECUTIVE SUMMARY
+An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered only part of it; several persistence and anti-forensic actions were silent. Map every on-disk finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.
+
+2. ATT&CK TECHNIQUE MAPPING (MITRE ATT&CK Enterprise)
+   T1078      Valid Accounts                             [stealth]  step 1: valid accounts (weak postgres superuser)
+   T1059.004  Unix Shell                                 [execution]  step 2: COPY TO PROGRAM shell execution
+   T1048.003  Exfiltration Over Unencrypted Non-C2 Protocol [exfiltration]  step 3: DNS-tunnel exfiltration
+   T1053.003  Cron                                       [execution]  step 4: cron persistence
+   T1543.002  Systemd Service                            [persistence]  step 5: systemd persistence
+   T1070.006  Timestomp                                  [stealth]  step 6: timestomp dropped files
+
+4. INDICATORS OF COMPROMISE (defanged)
+   ip     198.51.100.214
+   c2     update-postgres[.]example[.]cn
+   pool   stratum+tcp[:]//xmr[.]postgres[.]evil[:]3333
+   wallet 4A000000000000000000c5f08041507f
+
+Attribution: MITRE ATT&CK(R) (C) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S. National Vulnerability Database (public domain).

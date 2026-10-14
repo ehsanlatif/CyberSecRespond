@@ -1,0 +1,427 @@
+Aug 15 01:06:51 ssh-prod-01 systemd-logind[23634]: Time synchronised to time server
+Aug 15 01:07:13 ssh-prod-01 CRON[14024]: pam_unix(cron:session): session opened for user root
+Aug 15 01:08:00 ssh-prod-01 sshd[17369]: Started Session 204 of user jenkins.
+Aug 15 01:08:37 ssh-prod-01 sudo[28129]: Received disconnect from 10.10.105.64 port 55013:11: disconnected by user
+Aug 15 01:09:20 ssh-prod-01 sudo[20991]: Time synchronised to time server
+Aug 15 01:09:30 ssh-prod-01 dbus-daemon[20607]: Time synchronised to time server
+Aug 15 01:10:16 ssh-prod-01 sshd[25642]: Time synchronised to time server
+Aug 15 01:10:42 ssh-prod-01 sudo[27950]: pam_unix(cron:session): session opened for user root
+Aug 15 01:11:14 ssh-prod-01 dbus-daemon[25952]: Started Session 683 of user devops.
+Aug 15 01:11:55 ssh-prod-01 chronyd[22956]: pam_unix(cron:session): session opened for user root
+Aug 15 01:12:38 ssh-prod-01 sshd[18753]: Received disconnect from 10.10.105.74 port 58228:11: disconnected by user
+Aug 15 01:13:20 ssh-prod-01 dbus-daemon[21024]: Received disconnect from 10.10.105.93 port 54112:11: disconnected by user
+Aug 15 01:13:34 ssh-prod-01 chronyd[2111]: Received disconnect from 10.10.105.56 port 62151:11: disconnected by user
+Aug 15 01:14:08 ssh-prod-01 sudo[15417]: CPU0: Package temperature normal
+Aug 15 01:14:53 ssh-prod-01 systemd[19181]: pam_unix(cron:session): session opened for user root
+Aug 15 01:14:54 ssh-prod-01 systemd-logind[17978]: CPU0: Package temperature normal
+Aug 15 01:15:45 ssh-prod-01 CRON[12695]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:16 ssh-prod-01 systemd-logind[18451]: pam_unix(cron:session): session opened for user root
+Aug 15 01:16:38 ssh-prod-01 systemd-logind[5332]: Time synchronised to time server
+Aug 15 01:17:27 ssh-prod-01 CRON[29561]: pam_unix(cron:session): session opened for user root
+Aug 15 01:18:14 ssh-prod-01 kernel[1219]: Time synchronised to time server
+Aug 15 01:18:26 ssh-prod-01 systemd[12709]: Started Session 476 of user postgres.
+Aug 15 01:18:45 ssh-prod-01 systemd[13628]: Received disconnect from 10.10.105.56 port 50215:11: disconnected by user
+Aug 15 01:19:07 ssh-prod-01 sudo[16291]: CPU0: Package temperature normal
+Aug 15 01:19:13 ssh-prod-01 sshd[16278]: Time synchronised to time server
+Aug 15 01:19:14 ssh-prod-01 kernel[23597]: CPU0: Package temperature normal
+Aug 15 01:19:50 ssh-prod-01 dbus-daemon[15516]: CPU0: Package temperature normal
+Aug 15 01:20:30 ssh-prod-01 CRON[23035]: Time synchronised to time server
+Aug 15 01:21:07 ssh-prod-01 CRON[20806]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:02 ssh-prod-01 sudo[25474]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:21 ssh-prod-01 kernel[13422]: Started Session 602 of user devops.
+Aug 15 01:22:44 ssh-prod-01 sudo[9646]: pam_unix(cron:session): session opened for user root
+Aug 15 01:22:48 ssh-prod-01 chronyd[28256]: Received disconnect from 10.10.105.113 port 48755:11: disconnected by user
+Aug 15 01:23:14 ssh-prod-01 CRON[14948]: Received disconnect from 10.10.105.204 port 53764:11: disconnected by user
+Aug 15 01:23:17 ssh-prod-01 CRON[19050]: pam_unix(cron:session): session opened for user root
+Aug 15 01:24:06 ssh-prod-01 sshd[18027]: Time synchronised to time server
+Aug 15 01:24:50 ssh-prod-01 dbus-daemon[10741]: Time synchronised to time server
+Aug 15 01:25:33 ssh-prod-01 sudo[29324]: Time synchronised to time server
+Aug 15 01:26:01 ssh-prod-01 CRON[3826]: pam_unix(cron:session): session opened for user root
+Aug 15 01:26:41 ssh-prod-01 dbus-daemon[27123]: CPU0: Package temperature normal
+Aug 15 01:26:43 ssh-prod-01 systemd[19598]: Received disconnect from 10.10.105.157 port 58919:11: disconnected by user
+Aug 15 01:27:07 ssh-prod-01 kernel[27285]: CPU0: Package temperature normal
+Aug 15 01:27:16 ssh-prod-01 dbus-daemon[11319]: pam_unix(cron:session): session opened for user root
+Aug 15 01:28:09 ssh-prod-01 sudo[19059]: Started Session 679 of user postgres.
+Aug 15 01:29:04 ssh-prod-01 systemd[18887]: pam_unix(cron:session): session opened for user root
+Aug 15 01:29:42 ssh-prod-01 dbus-daemon[11800]: pam_unix(cron:session): session opened for user root
+Aug 15 01:29:53 ssh-prod-01 sudo[20857]: CPU0: Package temperature normal
+Aug 15 01:30:09 ssh-prod-01 CRON[15150]: Received disconnect from 10.10.105.237 port 56339:11: disconnected by user
+Aug 15 01:30:17 ssh-prod-01 sshd[27709]: Time synchronised to time server
+Aug 15 01:31:00 ssh-prod-01 systemd[20417]: CPU0: Package temperature normal
+Aug 15 01:31:12 ssh-prod-01 systemd[13225]: Started Session 583 of user root.
+Aug 15 01:31:47 ssh-prod-01 CRON[24134]: Time synchronised to time server
+Aug 15 01:32:01 ssh-prod-01 CRON[12140]: Started Session 416 of user devops.
+Aug 15 01:32:07 ssh-prod-01 sudo[29604]: Started Session 367 of user postgres.
+Aug 15 01:32:41 ssh-prod-01 chronyd[346]: Time synchronised to time server
+Aug 15 01:33:29 ssh-prod-01 CRON[21853]: CPU0: Package temperature normal
+Aug 15 01:33:42 ssh-prod-01 sudo[25798]: pam_unix(cron:session): session opened for user root
+Aug 15 01:34:24 ssh-prod-01 sshd[19994]: Time synchronised to time server
+Aug 15 01:34:35 ssh-prod-01 dbus-daemon[907]: pam_unix(cron:session): session opened for user root
+Aug 15 01:35:08 ssh-prod-01 sshd[25704]: Time synchronised to time server
+Aug 15 01:35:36 ssh-prod-01 sshd[24388]: Time synchronised to time server
+Aug 15 01:35:58 ssh-prod-01 CRON[20453]: pam_unix(cron:session): session opened for user root
+Aug 15 01:36:10 ssh-prod-01 kernel[6718]: CPU0: Package temperature normal
+Aug 15 01:36:40 ssh-prod-01 CRON[7113]: Time synchronised to time server
+Aug 15 01:36:52 ssh-prod-01 systemd-logind[5479]: Time synchronised to time server
+Aug 15 01:37:44 ssh-prod-01 sudo[14324]: Started Session 818 of user webadmin.
+Aug 15 01:37:49 ssh-prod-01 systemd[12555]: pam_unix(cron:session): session opened for user root
+Aug 15 01:38:09 ssh-prod-01 CRON[11251]: CPU0: Package temperature normal
+Aug 15 01:38:46 ssh-prod-01 dbus-daemon[29340]: CPU0: Package temperature normal
+Aug 15 01:39:07 ssh-prod-01 sudo[3577]: pam_unix(cron:session): session opened for user root
+Aug 15 01:39:46 ssh-prod-01 CRON[12551]: pam_unix(cron:session): session opened for user root
+Aug 15 01:40:01 ssh-prod-01 CRON[15743]: CPU0: Package temperature normal
+Aug 15 01:40:07 ssh-prod-01 dbus-daemon[17948]: pam_unix(cron:session): session opened for user root
+Aug 15 01:40:41 ssh-prod-01 chronyd[15294]: Time synchronised to time server
+Aug 15 01:41:21 ssh-prod-01 sshd[17648]: Time synchronised to time server
+Aug 15 01:41:32 ssh-prod-01 sshd[27748]: Time synchronised to time server
+Aug 15 01:41:40 ssh-prod-01 CRON[3224]: Started Session 427 of user jenkins.
+Aug 15 01:42:09 ssh-prod-01 systemd[2144]: Received disconnect from 10.10.105.5 port 53547:11: disconnected by user
+Aug 15 01:42:13 ssh-prod-01 sudo[18852]: pam_unix(cron:session): session opened for user root
+Aug 15 01:42:49 ssh-prod-01 systemd-logind[26166]: pam_unix(cron:session): session opened for user root
+Aug 15 01:42:57 ssh-prod-01 dbus-daemon[845]: Received disconnect from 10.10.105.133 port 48579:11: disconnected by user
+Aug 15 01:43:23 ssh-prod-01 kernel[12428]: CPU0: Package temperature normal
+Aug 15 01:43:42 ssh-prod-01 chronyd[20536]: pam_unix(cron:session): session opened for user root
+Aug 15 01:43:57 ssh-prod-01 dbus-daemon[7380]: pam_unix(cron:session): session opened for user root
+Aug 15 01:43:58 ssh-prod-01 dbus-daemon[25583]: Received disconnect from 10.10.105.152 port 60237:11: disconnected by user
+Aug 15 01:44:42 ssh-prod-01 dbus-daemon[19598]: Started Session 647 of user devops.
+Aug 15 01:45:15 ssh-prod-01 sshd[5573]: Started Session 706 of user postgres.
+Aug 15 01:46:04 ssh-prod-01 dbus-daemon[920]: Received disconnect from 10.10.105.218 port 64436:11: disconnected by user
+Aug 15 01:46:39 ssh-prod-01 sshd[4964]: Started Session 476 of user svc-backup.
+Aug 15 01:47:27 ssh-prod-01 chronyd[13340]: pam_unix(cron:session): session opened for user root
+Aug 15 01:48:22 ssh-prod-01 sshd[27443]: pam_unix(cron:session): session opened for user root
+Aug 15 01:48:27 ssh-prod-01 chronyd[3991]: Started Session 675 of user svc-backup.
+Aug 15 01:48:31 ssh-prod-01 sudo[17693]: Started Session 952 of user jenkins.
+Aug 15 01:49:17 ssh-prod-01 chronyd[6903]: Started Session 530 of user postgres.
+Aug 15 01:50:01 ssh-prod-01 systemd[17456]: Received disconnect from 10.10.105.154 port 53725:11: disconnected by user
+Aug 15 01:50:15 ssh-prod-01 sshd[23623]: Received disconnect from 10.10.105.51 port 57244:11: disconnected by user
+Aug 15 01:50:45 ssh-prod-01 sshd[17299]: CPU0: Package temperature normal
+Aug 15 01:51:19 ssh-prod-01 CRON[10140]: Started Session 250 of user root.
+Aug 15 01:51:34 ssh-prod-01 CRON[6836]: pam_unix(cron:session): session opened for user root
+Aug 15 01:52:20 ssh-prod-01 chronyd[18310]: Started Session 432 of user svc-backup.
+Aug 15 01:53:10 ssh-prod-01 dbus-daemon[2468]: Started Session 309 of user postgres.
+Aug 15 01:53:44 ssh-prod-01 systemd-logind[14494]: Time synchronised to time server
+Aug 15 01:53:47 ssh-prod-01 systemd[1611]: Started Session 883 of user devops.
+Aug 15 01:54:42 ssh-prod-01 sudo[12871]: pam_unix(cron:session): session opened for user root
+Aug 15 01:54:52 ssh-prod-01 systemd[11456]: Time synchronised to time server
+Aug 15 01:55:27 ssh-prod-01 sudo[15467]: Time synchronised to time server
+Aug 15 01:55:51 ssh-prod-01 systemd[26808]: Time synchronised to time server
+Aug 15 01:56:34 ssh-prod-01 systemd[377]: Received disconnect from 10.10.105.206 port 63110:11: disconnected by user
+Aug 15 01:57:02 ssh-prod-01 CRON[23414]: Started Session 136 of user webadmin.
+Aug 15 01:57:24 ssh-prod-01 systemd-logind[348]: CPU0: Package temperature normal
+Aug 15 01:57:55 ssh-prod-01 kernel[11789]: pam_unix(cron:session): session opened for user root
+Aug 15 01:57:56 ssh-prod-01 CRON[27538]: pam_unix(cron:session): session opened for user root
+Aug 15 01:58:39 ssh-prod-01 chronyd[13479]: pam_unix(cron:session): session opened for user root
+Aug 15 01:58:59 ssh-prod-01 dbus-daemon[8427]: Time synchronised to time server
+Aug 15 01:59:30 ssh-prod-01 sshd[7328]: CPU0: Package temperature normal
+Aug 15 02:00:25 ssh-prod-01 kernel[5465]: pam_unix(cron:session): session opened for user root
+Aug 15 02:01:14 ssh-prod-01 CRON[4356]: Started Session 789 of user webadmin.
+Aug 15 02:01:55 ssh-prod-01 systemd-logind[29796]: CPU0: Package temperature normal
+Aug 15 02:02:25 ssh-prod-01 CRON[15623]: pam_unix(cron:session): session opened for user root
+Aug 15 02:02:44 ssh-prod-01 dbus-daemon[2852]: CPU0: Package temperature normal
+Aug 15 02:03:28 ssh-prod-01 CRON[29845]: CPU0: Package temperature normal
+Aug 15 02:04:19 ssh-prod-01 kernel[7521]: Started Session 849 of user postgres.
+Aug 15 02:05:11 ssh-prod-01 CRON[2712]: Time synchronised to time server
+Aug 15 02:05:38 ssh-prod-01 sudo[3449]: Time synchronised to time server
+Aug 15 02:05:47 ssh-prod-01 CRON[7801]: pam_unix(cron:session): session opened for user root
+Aug 15 02:06:04 ssh-prod-01 sshd[25515]: pam_unix(cron:session): session opened for user root
+Aug 15 02:06:19 ssh-prod-01 systemd[27481]: Time synchronised to time server
+Aug 15 02:07:09 ssh-prod-01 CRON[27501]: Started Session 623 of user webadmin.
+Aug 15 02:07:46 ssh-prod-01 sshd[24111]: Received disconnect from 10.10.105.105 port 46733:11: disconnected by user
+Aug 15 02:08:19 ssh-prod-01 systemd[19877]: CPU0: Package temperature normal
+Aug 15 02:08:33 ssh-prod-01 dbus-daemon[13126]: Started Session 380 of user jenkins.
+Aug 15 02:09:15 ssh-prod-01 dbus-daemon[14028]: Started Session 940 of user postgres.
+Aug 15 02:09:31 ssh-prod-01 kernel[7714]: Started Session 589 of user postgres.
+Aug 15 02:10:17 ssh-prod-01 sudo[604]: CPU0: Package temperature normal
+Aug 15 02:10:29 ssh-prod-01 CRON[22373]: Received disconnect from 10.10.105.68 port 62978:11: disconnected by user
+Aug 15 02:10:46 ssh-prod-01 systemd[12025]: pam_unix(cron:session): session opened for user root
+Aug 15 02:11:33 ssh-prod-01 CRON[5283]: pam_unix(cron:session): session opened for user root
+Aug 15 02:12:04 ssh-prod-01 dbus-daemon[830]: pam_unix(cron:session): session opened for user root
+Aug 15 02:12:57 ssh-prod-01 systemd-logind[11852]: CPU0: Package temperature normal
+Aug 15 02:13:15 ssh-prod-01 sshd[7670]: pam_unix(cron:session): session opened for user root
+Aug 15 02:13:58 ssh-prod-01 dbus-daemon[11460]: CPU0: Package temperature normal
+Aug 15 02:14:46 ssh-prod-01 sudo[17971]: CPU0: Package temperature normal
+Aug 15 02:15:13 ssh-prod-01 sshd[12431]: CPU0: Package temperature normal
+Aug 15 02:15:14 ssh-prod-01 dbus-daemon[19205]: pam_unix(cron:session): session opened for user root
+Aug 15 02:15:15 ssh-prod-01 dbus-daemon[1706]: CPU0: Package temperature normal
+Aug 15 02:15:37 ssh-prod-01 systemd[28659]: Time synchronised to time server
+Aug 15 02:16:00 ssh-prod-01 sudo[11228]: Received disconnect from 10.10.105.27 port 49304:11: disconnected by user
+Aug 15 02:16:16 ssh-prod-01 dbus-daemon[29315]: pam_unix(cron:session): session opened for user root
+Aug 15 02:16:35 ssh-prod-01 dbus-daemon[10775]: pam_unix(cron:session): session opened for user root
+Aug 15 02:16:55 ssh-prod-01 systemd-logind[10509]: Time synchronised to time server
+Aug 15 02:17:33 ssh-prod-01 sshd[28069]: Started Session 105 of user root.
+Aug 15 02:18:11 ssh-prod-01 dbus-daemon[1949]: Received disconnect from 10.10.105.216 port 48683:11: disconnected by user
+Aug 15 02:18:25 ssh-prod-01 kernel[13456]: Started Session 395 of user svc-backup.
+Aug 15 02:18:34 ssh-prod-01 dbus-daemon[6306]: CPU0: Package temperature normal
+Aug 15 02:18:56 ssh-prod-01 CRON[26290]: Started Session 441 of user postgres.
+Aug 15 02:19:25 ssh-prod-01 chronyd[28368]: CPU0: Package temperature normal
+Aug 15 02:19:54 ssh-prod-01 sshd[24924]: Time synchronised to time server
+Aug 15 02:20:24 ssh-prod-01 sudo[15844]: CPU0: Package temperature normal
+Aug 15 02:20:55 ssh-prod-01 dbus-daemon[23695]: Started Session 881 of user root.
+Aug 15 02:21:45 ssh-prod-01 systemd-logind[4653]: Started Session 765 of user webadmin.
+Aug 15 02:22:05 ssh-prod-01 chronyd[10155]: Time synchronised to time server
+Aug 15 02:22:12 ssh-prod-01 kernel[27332]: pam_unix(cron:session): session opened for user root
+Aug 15 02:22:18 ssh-prod-01 sshd[3733]: Received disconnect from 10.10.105.121 port 62559:11: disconnected by user
+Aug 15 02:22:33 ssh-prod-01 kernel[12747]: CPU0: Package temperature normal
+Aug 15 02:22:49 ssh-prod-01 chronyd[25666]: Time synchronised to time server
+Aug 15 02:23:16 ssh-prod-01 CRON[10643]: Time synchronised to time server
+Aug 15 02:24:08 ssh-prod-01 kernel[9132]: Time synchronised to time server
+Aug 15 02:24:19 ssh-prod-01 sudo[15782]: Started Session 612 of user root.
+Aug 15 02:24:41 ssh-prod-01 sshd[9411]: Time synchronised to time server
+Aug 15 02:24:46 ssh-prod-01 sshd[4785]: CPU0: Package temperature normal
+Aug 15 02:24:50 ssh-prod-01 sshd[13780]: pam_unix(cron:session): session opened for user root
+Aug 15 02:25:03 ssh-prod-01 CRON[19149]: Time synchronised to time server
+Aug 15 02:25:58 ssh-prod-01 chronyd[24526]: pam_unix(cron:session): session opened for user root
+Aug 15 02:26:23 ssh-prod-01 sudo[20992]: Received disconnect from 10.10.105.60 port 63760:11: disconnected by user
+Aug 15 02:26:30 ssh-prod-01 sudo[24205]: Received disconnect from 10.10.105.144 port 48767:11: disconnected by user
+Aug 15 02:27:09 ssh-prod-01 chronyd[7861]: Started Session 192 of user postgres.
+Aug 15 02:27:31 ssh-prod-01 systemd-logind[2439]: Time synchronised to time server
+Aug 15 02:27:41 ssh-prod-01 kernel[19997]: Received disconnect from 10.10.105.121 port 49486:11: disconnected by user
+Aug 15 02:28:21 ssh-prod-01 dbus-daemon[28002]: Received disconnect from 10.10.105.79 port 58937:11: disconnected by user
+Aug 15 02:29:04 ssh-prod-01 sudo[1040]: Received disconnect from 10.10.105.229 port 52478:11: disconnected by user
+Aug 15 02:29:27 ssh-prod-01 systemd[15280]: pam_unix(cron:session): session opened for user root
+Aug 15 02:29:33 ssh-prod-01 sshd[9775]: Started Session 525 of user postgres.
+Aug 15 02:30:24 ssh-prod-01 CRON[7440]: pam_unix(cron:session): session opened for user root
+Aug 15 02:31:01 ssh-prod-01 chronyd[13092]: pam_unix(cron:session): session opened for user root
+Aug 15 02:31:32 ssh-prod-01 dbus-daemon[1898]: Started Session 509 of user jenkins.
+Aug 15 02:32:23 ssh-prod-01 kernel[28885]: Received disconnect from 10.10.105.132 port 56675:11: disconnected by user
+Aug 15 02:32:53 ssh-prod-01 CRON[27632]: Time synchronised to time server
+Aug 15 02:33:23 ssh-prod-01 dbus-daemon[9657]: CPU0: Package temperature normal
+Aug 15 02:34:17 ssh-prod-01 sshd[1576]: Received disconnect from 10.10.105.65 port 53996:11: disconnected by user
+Aug 15 02:34:30 ssh-prod-01 sudo[22227]: Started Session 720 of user svc-backup.
+Aug 15 02:34:38 ssh-prod-01 sudo[11222]: CPU0: Package temperature normal
+Aug 15 02:34:43 ssh-prod-01 CRON[23932]: Received disconnect from 10.10.105.28 port 58942:11: disconnected by user
+Aug 15 02:35:38 ssh-prod-01 sshd[9564]: CPU0: Package temperature normal
+Aug 15 02:35:43 ssh-prod-01 systemd[11230]: CPU0: Package temperature normal
+Aug 15 02:36:17 ssh-prod-01 chronyd[12997]: Time synchronised to time server
+Aug 15 02:36:57 ssh-prod-01 sudo[21536]: Started Session 392 of user jenkins.
+Aug 15 02:37:48 ssh-prod-01 CRON[12239]: CPU0: Package temperature normal
+Aug 15 02:37:55 ssh-prod-01 dbus-daemon[22667]: Time synchronised to time server
+Aug 15 02:38:30 ssh-prod-01 dbus-daemon[20149]: CPU0: Package temperature normal
+Aug 15 02:38:38 ssh-prod-01 systemd[24963]: Received disconnect from 10.10.105.238 port 42266:11: disconnected by user
+Aug 15 02:39:28 ssh-prod-01 kernel[6913]: Started Session 659 of user root.
+Aug 15 02:39:51 ssh-prod-01 chronyd[20688]: Received disconnect from 10.10.105.231 port 58148:11: disconnected by user
+Aug 15 02:40:11 ssh-prod-01 kernel[25551]: Received disconnect from 10.10.105.94 port 57159:11: disconnected by user
+Aug 15 02:40:20 ssh-prod-01 dbus-daemon[20289]: Started Session 690 of user webadmin.
+Aug 15 02:40:49 ssh-prod-01 kernel[17783]: pam_unix(cron:session): session opened for user root
+Aug 15 02:40:51 ssh-prod-01 systemd[29211]: Received disconnect from 10.10.105.167 port 60107:11: disconnected by user
+Aug 15 02:41:29 ssh-prod-01 sudo[18095]: CPU0: Package temperature normal
+Aug 15 02:41:39 ssh-prod-01 CRON[19620]: Started Session 328 of user svc-backup.
+Aug 15 02:42:33 ssh-prod-01 sudo[18080]: CPU0: Package temperature normal
+Aug 15 02:42:35 ssh-prod-01 sshd[26254]: Received disconnect from 10.10.105.148 port 41721:11: disconnected by user
+Aug 15 02:42:47 ssh-prod-01 sudo[24206]: Started Session 485 of user root.
+Aug 15 02:43:22 ssh-prod-01 CRON[10271]: pam_unix(cron:session): session opened for user root
+Aug 15 02:44:14 ssh-prod-01 CRON[7685]: CPU0: Package temperature normal
+Aug 15 02:44:37 ssh-prod-01 systemd[5419]: Started Session 614 of user postgres.
+Aug 15 02:45:10 ssh-prod-01 dbus-daemon[14738]: Time synchronised to time server
+Aug 15 02:45:57 ssh-prod-01 chronyd[19174]: Time synchronised to time server
+Aug 15 02:46:14 ssh-prod-01 dbus-daemon[7168]: Started Session 279 of user devops.
+Aug 15 02:46:36 ssh-prod-01 systemd-logind[26383]: Received disconnect from 10.10.105.81 port 62582:11: disconnected by user
+Aug 15 02:47:05 ssh-prod-01 sudo[3309]: pam_unix(cron:session): session opened for user root
+Aug 15 02:47:53 ssh-prod-01 kernel[1536]: Started Session 85 of user jenkins.
+Aug 15 02:48:09 ssh-prod-01 sudo[24782]: Time synchronised to time server
+Aug 15 02:48:39 ssh-prod-01 chronyd[24233]: Started Session 649 of user devops.
+Aug 15 02:49:26 ssh-prod-01 chronyd[10797]: Time synchronised to time server
+Aug 15 02:49:30 ssh-prod-01 sshd[17356]: Time synchronised to time server
+Aug 15 02:50:00 ssh-prod-01 sudo[11070]: Time synchronised to time server
+Aug 15 02:50:33 ssh-prod-01 systemd-logind[6364]: Received disconnect from 10.10.105.153 port 57849:11: disconnected by user
+Aug 15 02:51:23 ssh-prod-01 systemd-logind[13774]: Received disconnect from 10.10.105.164 port 42428:11: disconnected by user
+Aug 15 02:51:34 ssh-prod-01 sudo[6707]: Time synchronised to time server
+Aug 15 02:51:57 ssh-prod-01 systemd-logind[16594]: Received disconnect from 10.10.105.184 port 56514:11: disconnected by user
+Aug 15 02:52:09 ssh-prod-01 systemd[4801]: Received disconnect from 10.10.105.10 port 58878:11: disconnected by user
+Aug 15 02:52:48 ssh-prod-01 chronyd[24235]: Received disconnect from 10.10.105.173 port 48454:11: disconnected by user
+Aug 15 02:53:16 ssh-prod-01 dbus-daemon[15029]: Started Session 196 of user root.
+Aug 15 02:53:22 ssh-prod-01 CRON[11735]: Received disconnect from 10.10.105.181 port 61971:11: disconnected by user
+Aug 15 02:54:16 ssh-prod-01 CRON[11022]: Started Session 861 of user devops.
+Aug 15 02:55:06 ssh-prod-01 sudo[19811]: pam_unix(cron:session): session opened for user root
+Aug 15 02:55:18 ssh-prod-01 kernel[21485]: pam_unix(cron:session): session opened for user root
+Aug 15 02:55:54 ssh-prod-01 systemd-logind[16357]: pam_unix(cron:session): session opened for user root
+Aug 15 02:55:56 ssh-prod-01 systemd-logind[712]: Started Session 347 of user jenkins.
+Aug 15 02:56:06 ssh-prod-01 dbus-daemon[23847]: Time synchronised to time server
+Aug 15 02:56:52 ssh-prod-01 sshd[18003]: Received disconnect from 10.10.105.44 port 46911:11: disconnected by user
+Aug 15 02:56:56 ssh-prod-01 kernel[784]: pam_unix(cron:session): session opened for user root
+Aug 15 02:56:57 ssh-prod-01 dbus-daemon[17546]: Time synchronised to time server
+Aug 15 02:57:07 ssh-prod-01 sshd[26182]: pam_unix(cron:session): session opened for user root
+Aug 15 02:57:33 ssh-prod-01 sudo[5491]: pam_unix(cron:session): session opened for user root
+Aug 15 02:57:50 ssh-prod-01 CRON[23497]: Received disconnect from 10.10.105.77 port 47510:11: disconnected by user
+Aug 15 02:58:16 ssh-prod-01 kernel[22260]: CPU0: Package temperature normal
+Aug 15 02:58:28 ssh-prod-01 chronyd[10596]: pam_unix(cron:session): session opened for user root
+Aug 15 02:59:00 ssh-prod-01 sshd[29923]: Time synchronised to time server
+Aug 15 02:59:10 ssh-prod-01 systemd[22692]: Received disconnect from 10.10.105.142 port 62629:11: disconnected by user
+Aug 15 02:59:28 ssh-prod-01 sudo[12827]: Time synchronised to time server
+Aug 15 02:59:33 ssh-prod-01 kernel[22180]: Started Session 996 of user webadmin.
+Aug 15 02:59:53 ssh-prod-01 kernel[19155]: CPU0: Package temperature normal
+Aug 15 03:00:47 ssh-prod-01 sudo[8711]: Started Session 939 of user devops.
+Aug 15 03:01:18 ssh-prod-01 sudo[27689]: pam_unix(cron:session): session opened for user root
+Aug 15 03:01:34 ssh-prod-01 kernel[22112]: Received disconnect from 10.10.105.63 port 64821:11: disconnected by user
+Aug 15 03:02:16 ssh-prod-01 chronyd[21649]: Received disconnect from 10.10.105.16 port 64288:11: disconnected by user
+Aug 15 03:02:33 ssh-prod-01 sudo[10378]: Time synchronised to time server
+Aug 15 03:02:53 ssh-prod-01 CRON[15650]: Started Session 568 of user webadmin.
+Aug 15 03:03:20 ssh-prod-01 kernel[8219]: Received disconnect from 10.10.105.120 port 45382:11: disconnected by user
+Aug 15 03:03:43 ssh-prod-01 chronyd[29810]: Received disconnect from 10.10.105.98 port 63150:11: disconnected by user
+Aug 15 03:04:24 ssh-prod-01 CRON[15640]: Received disconnect from 10.10.105.157 port 49187:11: disconnected by user
+Aug 15 03:04:49 ssh-prod-01 kernel[21647]: CPU0: Package temperature normal
+Aug 15 03:05:09 ssh-prod-01 sudo[29343]: Started Session 103 of user svc-backup.
+Aug 15 03:05:15 ssh-prod-01 systemd[12275]: pam_unix(cron:session): session opened for user root
+Aug 15 03:05:30 ssh-prod-01 systemd[6580]: Started Session 284 of user webadmin.
+Aug 15 03:05:51 ssh-prod-01 sudo[16614]: Received disconnect from 10.10.105.150 port 55585:11: disconnected by user
+Aug 15 03:06:02 ssh-prod-01 sudo[19418]: CPU0: Package temperature normal
+Aug 15 03:06:56 ssh-prod-01 sudo[3846]: Started Session 843 of user devops.
+Aug 15 03:07:33 ssh-prod-01 systemd[13999]: Started Session 644 of user devops.
+Aug 15 03:07:36 ssh-prod-01 CRON[5761]: Received disconnect from 10.10.105.78 port 48016:11: disconnected by user
+Aug 15 03:08:00 ssh-prod-01 dbus-daemon[21233]: Time synchronised to time server
+Aug 15 03:08:01 ssh-prod-01 sudo[1015]: Time synchronised to time server
+Aug 15 03:08:44 ssh-prod-01 sudo[1456]: Time synchronised to time server
+Aug 15 03:09:38 ssh-prod-01 CRON[23386]: CPU0: Package temperature normal
+Aug 15 03:10:15 ssh-prod-01 kernel[4715]: CPU0: Package temperature normal
+Aug 15 03:11:00 ssh-prod-01 chronyd[6065]: pam_unix(cron:session): session opened for user root
+Aug 15 03:11:09 ssh-prod-01 systemd[17190]: Time synchronised to time server
+Aug 15 03:11:55 ssh-prod-01 systemd-logind[20586]: Time synchronised to time server
+Aug 15 03:12:32 ssh-prod-01 dbus-daemon[3042]: Started Session 475 of user devops.
+Aug 15 03:12:48 ssh-prod-01 systemd[19803]: CPU0: Package temperature normal
+Aug 15 03:13:29 ssh-prod-01 sshd[29072]: pam_unix(cron:session): session opened for user root
+Aug 15 03:14:22 ssh-prod-01 sshd[26806]: Started Session 5 of user svc-backup.
+Aug 15 03:14:26 ssh-prod-01 CRON[26270]: Started Session 124 of user jenkins.
+Aug 15 03:14:51 ssh-prod-01 systemd-logind[6456]: Started Session 5 of user svc-backup.
+Aug 15 03:15:40 ssh-prod-01 kernel[20546]: CPU0: Package temperature normal
+Aug 15 03:16:23 ssh-prod-01 systemd[4498]: Started Session 308 of user postgres.
+Aug 15 03:16:42 ssh-prod-01 systemd[15635]: Received disconnect from 10.10.105.160 port 50416:11: disconnected by user
+Aug 15 03:17:31 ssh-prod-01 sudo[12599]: Time synchronised to time server
+Aug 15 03:17:41 ssh-prod-01 CRON[8583]: Started Session 117 of user postgres.
+Aug 15 03:18:12 ssh-prod-01 systemd-logind[28435]: Received disconnect from 10.10.105.38 port 54741:11: disconnected by user
+Aug 15 03:18:50 ssh-prod-01 CRON[4826]: Started Session 839 of user jenkins.
+Aug 15 03:19:35 ssh-prod-01 systemd-logind[2663]: Started Session 609 of user svc-backup.
+Aug 15 03:19:50 ssh-prod-01 dbus-daemon[2869]: Received disconnect from 10.10.105.131 port 60485:11: disconnected by user
+Aug 15 03:20:04 ssh-prod-01 sshd[21304]: CPU0: Package temperature normal
+Aug 15 03:20:42 ssh-prod-01 kernel[27225]: pam_unix(cron:session): session opened for user root
+Aug 15 03:21:27 ssh-prod-01 sudo[6127]: Started Session 112 of user webadmin.
+Aug 15 03:21:29 ssh-prod-01 systemd[27354]: Time synchronised to time server
+Aug 15 03:21:36 ssh-prod-01 dbus-daemon[8576]: Started Session 571 of user jenkins.
+Aug 15 03:22:28 ssh-prod-01 chronyd[16853]: Started Session 227 of user jenkins.
+Aug 15 03:22:31 ssh-prod-01 kernel[13174]: CPU0: Package temperature normal
+Aug 15 03:23:12 ssh-prod-01 systemd-logind[22759]: pam_unix(cron:session): session opened for user root
+Aug 15 03:23:38 ssh-prod-01 systemd[1539]: CPU0: Package temperature normal
+Aug 15 03:24:13 ssh-prod-01 sshd[4652]: Received disconnect from 10.10.105.132 port 62473:11: disconnected by user
+Aug 15 03:24:30 ssh-prod-01 dbus-daemon[1311]: CPU0: Package temperature normal
+Aug 15 03:25:08 ssh-prod-01 chronyd[9546]: Time synchronised to time server
+Aug 15 03:25:48 ssh-prod-01 systemd-logind[20152]: Started Session 58 of user jenkins.
+Aug 15 03:26:27 ssh-prod-01 dbus-daemon[1854]: Received disconnect from 10.10.105.227 port 53667:11: disconnected by user
+Aug 15 03:27:07 ssh-prod-01 kernel[3668]: Started Session 577 of user devops.
+Aug 15 03:28:00 ssh-prod-01 CRON[24546]: CPU0: Package temperature normal
+Aug 15 03:28:15 ssh-prod-01 systemd-logind[7573]: Started Session 924 of user root.
+Aug 15 03:28:26 ssh-prod-01 dbus-daemon[25005]: Started Session 632 of user devops.
+Aug 15 03:28:54 ssh-prod-01 systemd-logind[11581]: Started Session 679 of user jenkins.
+Aug 15 03:29:12 ssh-prod-01 systemd[18263]: pam_unix(cron:session): session opened for user root
+Aug 15 03:29:47 ssh-prod-01 sshd[19440]: Started Session 345 of user postgres.
+Aug 15 03:30:33 ssh-prod-01 sshd[29002]: Time synchronised to time server
+Aug 15 03:30:58 ssh-prod-01 sshd[10671]: Received disconnect from 10.10.105.213 port 42557:11: disconnected by user
+Aug 15 03:31:26 ssh-prod-01 chronyd[798]: pam_unix(cron:session): session opened for user root
+Aug 15 03:31:43 ssh-prod-01 CRON[2361]: CPU0: Package temperature normal
+Aug 15 03:31:47 ssh-prod-01 dbus-daemon[18918]: CPU0: Package temperature normal
+Aug 15 03:32:18 ssh-prod-01 chronyd[4573]: pam_unix(cron:session): session opened for user root
+Aug 15 03:32:36 ssh-prod-01 kernel[2356]: Time synchronised to time server
+Aug 15 03:32:45 ssh-prod-01 sshd[10534]: pam_unix(cron:session): session opened for user root
+Aug 15 03:33:39 ssh-prod-01 chronyd[24774]: CPU0: Package temperature normal
+Aug 15 03:33:42 ssh-prod-01 dbus-daemon[10219]: Received disconnect from 10.10.105.31 port 63164:11: disconnected by user
+Aug 15 03:34:15 ssh-prod-01 kernel[26977]: pam_unix(cron:session): session opened for user root
+Aug 15 03:34:38 ssh-prod-01 CRON[22425]: Received disconnect from 10.10.105.144 port 50399:11: disconnected by user
+Aug 15 03:34:54 ssh-prod-01 chronyd[28861]: Time synchronised to time server
+Aug 15 03:35:48 ssh-prod-01 kernel[7211]: CPU0: Package temperature normal
+Aug 15 03:36:22 ssh-prod-01 chronyd[16096]: CPU0: Package temperature normal
+Aug 15 03:36:36 ssh-prod-01 dbus-daemon[19605]: Received disconnect from 10.10.105.169 port 62960:11: disconnected by user
+Aug 15 03:37:20 ssh-prod-01 sshd[24608]: CPU0: Package temperature normal
+Aug 15 03:37:35 ssh-prod-01 systemd-logind[594]: Received disconnect from 10.10.105.35 port 41948:11: disconnected by user
+Aug 15 03:38:02 ssh-prod-01 sshd[20100]: Time synchronised to time server
+Aug 15 03:38:29 ssh-prod-01 sshd[7929]: Started Session 15 of user webadmin.
+Aug 15 03:39:07 ssh-prod-01 chronyd[19053]: pam_unix(cron:session): session opened for user root
+Aug 15 03:39:22 ssh-prod-01 sshd[29353]: Received disconnect from 10.10.105.107 port 60055:11: disconnected by user
+Aug 15 03:39:43 ssh-prod-01 chronyd[28154]: Started Session 121 of user devops.
+Aug 15 03:39:51 ssh-prod-01 sudo[15555]: Time synchronised to time server
+Aug 15 03:40:42 ssh-prod-01 systemd[10376]: CPU0: Package temperature normal
+Aug 15 03:40:56 ssh-prod-01 systemd[10257]: pam_unix(cron:session): session opened for user root
+Aug 15 03:41:41 ssh-prod-01 systemd[24642]: Started Session 167 of user svc-backup.
+Aug 15 03:42:26 ssh-prod-01 sudo[25379]: Time synchronised to time server
+Aug 15 03:42:47 ssh-prod-01 CRON[24253]: CPU0: Package temperature normal
+Aug 15 03:42:59 ssh-prod-01 sshd[28323]: CPU0: Package temperature normal
+Aug 15 03:43:08 ssh-prod-01 systemd[8196]: CPU0: Package temperature normal
+Aug 15 03:43:39 ssh-prod-01 chronyd[19798]: CPU0: Package temperature normal
+Aug 15 03:44:08 ssh-prod-01 systemd-logind[16642]: CPU0: Package temperature normal
+Aug 15 03:44:48 ssh-prod-01 systemd[11948]: Received disconnect from 10.10.105.48 port 61129:11: disconnected by user
+Aug 15 03:45:06 ssh-prod-01 systemd[1629]: Received disconnect from 10.10.105.149 port 63423:11: disconnected by user
+Aug 15 03:45:42 ssh-prod-01 kernel[10545]: CPU0: Package temperature normal
+Aug 15 03:46:16 ssh-prod-01 systemd[5540]: Time synchronised to time server
+Aug 15 03:46:35 ssh-prod-01 chronyd[13087]: CPU0: Package temperature normal
+Aug 15 03:47:29 ssh-prod-01 kernel[2284]: CPU0: Package temperature normal
+Aug 15 03:48:19 ssh-prod-01 sshd[16038]: Started Session 578 of user devops.
+Aug 15 03:49:07 ssh-prod-01 CRON[21973]: CPU0: Package temperature normal
+Aug 15 03:49:27 ssh-prod-01 kernel[10840]: Started Session 702 of user webadmin.
+Aug 15 03:50:12 ssh-prod-01 chronyd[9168]: CPU0: Package temperature normal
+Aug 15 03:51:02 ssh-prod-01 kernel[19822]: Started Session 802 of user devops.
+Aug 15 03:51:09 ssh-prod-01 sshd[27106]: CPU0: Package temperature normal
+Aug 15 03:51:56 ssh-prod-01 CRON[15640]: CPU0: Package temperature normal
+Aug 15 03:52:06 ssh-prod-01 chronyd[19506]: Received disconnect from 10.10.105.215 port 61914:11: disconnected by user
+Aug 15 03:52:54 ssh-prod-01 sudo[1766]: Time synchronised to time server
+Aug 15 03:53:02 ssh-prod-01 dbus-daemon[16568]: Started Session 91 of user root.
+Aug 15 03:53:49 ssh-prod-01 CRON[16619]: Started Session 803 of user postgres.
+Aug 15 03:54:35 ssh-prod-01 sshd[17620]: Started Session 423 of user svc-backup.
+Aug 15 03:55:24 ssh-prod-01 sshd[6607]: pam_unix(cron:session): session opened for user root
+Aug 15 03:55:39 ssh-prod-01 dbus-daemon[28471]: Received disconnect from 10.10.105.247 port 46695:11: disconnected by user
+Aug 15 03:56:03 ssh-prod-01 systemd-logind[18008]: CPU0: Package temperature normal
+Aug 15 03:56:54 ssh-prod-01 kernel[22555]: Received disconnect from 10.10.105.191 port 42234:11: disconnected by user
+Aug 15 03:57:42 ssh-prod-01 sudo[24311]: pam_unix(cron:session): session opened for user root
+Aug 15 03:58:26 ssh-prod-01 systemd-logind[28789]: Started Session 738 of user svc-backup.
+Aug 15 03:58:52 ssh-prod-01 kernel[9085]: CPU0: Package temperature normal
+Aug 15 03:59:20 ssh-prod-01 CRON[25946]: Time synchronised to time server
+Aug 15 03:59:43 ssh-prod-01 sudo[18872]: pam_unix(cron:session): session opened for user root
+Aug 15 04:00:10 ssh-prod-01 sudo[23770]: pam_unix(cron:session): session opened for user root
+Aug 15 04:00:19 ssh-prod-01 sshd[21610]: Started Session 914 of user webadmin.
+Aug 15 04:00:55 ssh-prod-01 sshd[21512]: Time synchronised to time server
+Aug 15 04:01:46 ssh-prod-01 systemd-logind[26620]: Started Session 709 of user devops.
+Aug 15 04:02:34 ssh-prod-01 sshd[19095]: CPU0: Package temperature normal
+Aug 15 04:03:24 ssh-prod-01 dbus-daemon[18219]: Received disconnect from 10.10.105.225 port 55440:11: disconnected by user
+Aug 15 04:04:05 ssh-prod-01 dbus-daemon[819]: Started Session 163 of user postgres.
+Aug 15 04:04:51 ssh-prod-01 chronyd[5747]: Started Session 796 of user root.
+Aug 15 04:04:56 ssh-prod-01 CRON[22370]: pam_unix(cron:session): session opened for user root
+Aug 15 04:05:25 ssh-prod-01 systemd-logind[18540]: Started Session 227 of user svc-backup.
+Aug 15 04:06:09 ssh-prod-01 dbus-daemon[19804]: Started Session 613 of user webadmin.
+Aug 15 04:06:58 ssh-prod-01 systemd[17224]: Started Session 633 of user root.
+Aug 15 04:07:08 ssh-prod-01 kernel[13021]: pam_unix(cron:session): session opened for user root
+Aug 15 04:07:25 ssh-prod-01 dbus-daemon[27027]: CPU0: Package temperature normal
+Aug 15 04:07:38 ssh-prod-01 chronyd[12706]: pam_unix(cron:session): session opened for user root
+Aug 15 04:08:26 ssh-prod-01 systemd[646]: Received disconnect from 10.10.105.187 port 58866:11: disconnected by user
+Aug 15 04:09:20 ssh-prod-01 sudo[23519]: Received disconnect from 10.10.105.138 port 42549:11: disconnected by user
+Aug 15 04:10:12 ssh-prod-01 CRON[27072]: Received disconnect from 10.10.105.212 port 50323:11: disconnected by user
+Aug 15 04:10:35 ssh-prod-01 kernel[29727]: Time synchronised to time server
+Aug 15 04:10:53 ssh-prod-01 chronyd[9710]: Received disconnect from 10.10.105.138 port 46728:11: disconnected by user
+Aug 15 04:11:18 ssh-prod-01 chronyd[17789]: pam_unix(cron:session): session opened for user root
+Aug 15 04:11:47 ssh-prod-01 sudo[29890]: Received disconnect from 10.10.105.240 port 42179:11: disconnected by user
+Aug 15 04:11:52 ssh-prod-01 sudo[13854]: pam_unix(cron:session): session opened for user root
+Aug 15 04:12:20 ssh-prod-01 chronyd[15445]: Started Session 950 of user svc-backup.
+Aug 15 04:12:30 ssh-prod-01 systemd-logind[20956]: Started Session 371 of user devops.
+Aug 15 04:13:01 ssh-prod-01 systemd[26894]: Time synchronised to time server
+Aug 15 04:13:16 ssh-prod-01 systemd-logind[27009]: Received disconnect from 10.10.105.53 port 56109:11: disconnected by user
+Aug 15 04:13:51 ssh-prod-01 kernel[2223]: CPU0: Package temperature normal
+Aug 15 04:14:32 ssh-prod-01 CRON[3006]: pam_unix(cron:session): session opened for user root
+Aug 15 04:15:10 ssh-prod-01 chronyd[27225]: pam_unix(cron:session): session opened for user root
+Aug 15 04:15:28 ssh-prod-01 sshd[22570]: Received disconnect from 10.10.105.132 port 46672:11: disconnected by user
+Aug 15 04:15:36 ssh-prod-01 kernel[26060]: Started Session 608 of user postgres.
+Aug 15 04:16:18 ssh-prod-01 sudo[23677]: Started Session 162 of user webadmin.
+Aug 15 04:16:27 ssh-prod-01 systemd-logind[6803]: pam_unix(cron:session): session opened for user root
+Aug 15 04:17:14 ssh-prod-01 CRON[6110]: Time synchronised to time server
+Aug 15 04:17:36 ssh-prod-01 systemd[25144]: Received disconnect from 10.10.105.95 port 41081:11: disconnected by user
+Aug 15 04:18:23 ssh-prod-01 systemd-logind[29988]: Started Session 633 of user svc-backup.
+Aug 15 04:18:28 ssh-prod-01 dbus-daemon[29949]: pam_unix(cron:session): session opened for user root
+Aug 15 04:18:46 ssh-prod-01 systemd-logind[18480]: Received disconnect from 10.10.105.4 port 48056:11: disconnected by user
+Aug 15 04:19:37 ssh-prod-01 kernel[7979]: pam_unix(cron:session): session opened for user root
+Aug 15 04:19:49 ssh-prod-01 sshd[25303]: pam_unix(cron:session): session opened for user root
+Aug 15 04:20:43 ssh-prod-01 systemd[28086]: pam_unix(cron:session): session opened for user root
+Aug 15 04:21:06 ssh-prod-01 dbus-daemon[28648]: Time synchronised to time server
+Aug 15 04:21:54 ssh-prod-01 chronyd[10144]: Time synchronised to time server
+Aug 15 04:22:27 ssh-prod-01 sshd[10219]: pam_unix(cron:session): session opened for user root
+Aug 15 04:22:42 ssh-prod-01 chronyd[29215]: Time synchronised to time server
+Aug 15 04:23:34 ssh-prod-01 systemd[1709]: Started Session 357 of user jenkins.
+Aug 15 04:24:05 ssh-prod-01 dbus-daemon[16076]: Started Session 619 of user devops.
+Aug 15 04:24:52 ssh-prod-01 systemd-logind[17963]: Started Session 232 of user root.
+Aug 15 04:25:17 ssh-prod-01 kernel[12879]: CPU0: Package temperature normal
+Aug 15 04:25:46 ssh-prod-01 chronyd[24547]: pam_unix(cron:session): session opened for user root
+Aug 15 04:26:00 ssh-prod-01 systemd[12044]: Received disconnect from 10.10.105.30 port 41165:11: disconnected by user
+Aug 15 04:26:14 ssh-prod-01 dbus-daemon[303]: Time synchronised to time server

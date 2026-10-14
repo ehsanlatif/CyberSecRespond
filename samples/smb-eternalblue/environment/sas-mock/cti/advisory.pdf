@@ -1,0 +1,80 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
+endobj
+4 0 obj
+<< /Length 2556 >>
+stream
+BT
+/F1 10 Tf
+12 TL
+54 740 Td
+(THREAT INTELLIGENCE ADVISORY ? Smb Eternalblue campaign) Tj T*
+(=======================================================) Tj T*
+() Tj T*
+(Distribution: TLP:AMBER   Analyst handoff   Confidence: HIGH   \(IOCs are defanged\)) Tj T*
+(Affected host: smb-prod-01   Suspected origin IP: 198.51.100.218) Tj T*
+() Tj T*
+(1. EXECUTIVE SUMMARY) Tj T*
+(An external actor executed a multi-stage post-compromise sequence. Endpoint alerting covered) Tj T*
+(only part of it; several persistence and anti-forensic actions were silent. Map every on-disk) Tj T*
+(finding to the ATT&CK techniques below and flag which are NOT in the SAS alert feed.) Tj T*
+() Tj T*
+(2. ATT&CK TECHNIQUE MAPPING \(MITRE ATT&CK Enterprise\)) Tj T*
+(   T1210      Exploitation of Remote Services            [lateral-movement]  step 1: SMBv1) Tj T*
+(exploitation \(CVE-2017-0144\)) Tj T*
+(   T1059.001  PowerShell                                 [execution]  step 2: PowerShell) Tj T*
+(execution) Tj T*
+(   T1003.001  LSASS Memory                               [credential-access]  step 3: LSASS) Tj T*
+(credential dump) Tj T*
+(   T1486      Data Encrypted for Impact                  [impact]  step 4: ransomware) Tj T*
+(encryption) Tj T*
+(   T1546.003  Windows Management Instrumentation Event Subscription [privilege-escalation] ) Tj T*
+(step 5: WMI event subscription) Tj T*
+(   T1574.001  DLL                                        [stealth]  step 6: DLL search-order) Tj T*
+(hijack) Tj T*
+(   T1070.001  Clear Windows Event Logs                   [defense-evasion]  step 7: System) Tj T*
+(event log clear) Tj T*
+() Tj T*
+(3. RELEVANT VULNERABILITIES \(source: NVD, US-Gov public domain\)) Tj T*
+(   CVE-2017-0144  CVSS 8.8 \(HIGH\) v3.1  CWE=-) Tj T*
+(      The SMBv1 server in Microsoft Windows Vista SP2; Windows Server 2008 SP2 and R2 SP1;) Tj T*
+(Windows 7 SP1; Windows 8.1; Windows Server 2012 Gold and R2; Windows RT 8.1; and Windows 10) Tj T*
+(Gold, 1511, and 1607; and Windows Server 2016 allows remote att) Tj T*
+(      ref: http://packetstormsecurity.com/files/154690/DOUBLEPULSAR-Payload-Execution-Neutraliz) Tj T*
+(ation.html) Tj T*
+() Tj T*
+(4. INDICATORS OF COMPROMISE \(defanged\)) Tj T*
+(   ip     198.51.100.218) Tj T*
+(   c2     update-smb[.]example[.]cn) Tj T*
+(   pool   stratum+tcp[:]//xmr[.]smb[.]evil[:]3333) Tj T*
+(   wallet 4A000000000000000000c814c46d6253) Tj T*
+() Tj T*
+(Attribution: MITRE ATT&CK\(R\) \(C\) The MITRE Corporation, CC BY 4.0. CVE/CVSS from the U.S.) Tj T*
+(National Vulnerability Database \(public domain\).) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000247 00000 n 
+0000002855 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2925
+%%EOF

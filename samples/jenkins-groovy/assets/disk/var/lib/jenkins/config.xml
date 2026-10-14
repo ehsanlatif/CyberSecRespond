@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config>
+Jenkins useSecurity=false (security realm disabled; anonymous admin)
+</config>

@@ -1,0 +1,23 @@
+Skipping image OS validation for hb__392045d9f034c9e35057cb0bc29f6dc7: docker inspect returned 1
+Parser warnings: - Extra text detected before JSON object
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Trajectory dumped to jobs/run-all/smb-eternalblue__XTCbQYp/agent/trajectory.json
+Collecting main service artifacts
+The verifier.env contains an API key (often the case for LLM-based verifiers). You will incur costs associated with the API calls.
